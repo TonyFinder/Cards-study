@@ -1,0 +1,12 @@
+@import "../../../utils/mixins";
+
+.container {
+  height: 80vh;
+  @include flexCenter;
+  .image {
+    img{
+      width: 100%;
+      max-width: 800px;
+    }
+  }
+}

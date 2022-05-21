@@ -1,0 +1,10 @@
+
+@mixin flexCenter{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin borderCheck($color) {
+  border: 1px solid $color;
+}
