@@ -1,36 +1,49 @@
-import React, {ChangeEvent, DetailedHTMLProps, SelectHTMLAttributes} from 'react'
-import styles from './Select.module.scss'
+import React, {ChangeEvent, DetailedHTMLProps, SelectHTMLAttributes} from 'react';
+import styled from 'styled-components';
 
 type DefaultSelectPropsType = DetailedHTMLProps<SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>
 
-type SuperSelectPropsType = DefaultSelectPropsType & {
+type SelectPropsType = DefaultSelectPropsType & {
     options?: any[]
     onChangeOption?: (option: any) => void
+    value?: string | number
 }
 
-export const Select: React.FC<SuperSelectPropsType> = (
-    {
-        options,
-        onChange, onChangeOption,
-        ...restProps
-    }
+export const Select: React.FC<SelectPropsType> = ({
+                                                      options, onChangeOption, value
+}
 ) => {
     const mappedOptions: any[] = options ? options.map((opt, i) => (
-        <option key={i}>{opt}</option>
+        <option key={i} >{opt}</option>
     )) : []
 
-    /*map options with key*/
-
     const onChangeCallback = (e: ChangeEvent<HTMLSelectElement>) => {
-        onChange && onChange(e)
-        onChangeOption && onChangeOption(e.currentTarget.value)
-        // onChange, onChangeOption
+        onChangeOption && onChangeOption(e.currentTarget.value === 'None' ? '' : e.currentTarget.value)
     }
 
     return (
-        <select onChange={onChangeCallback} {...restProps} className={styles.main}>
-            <option/>
+        <StyledSelect onChange={onChangeCallback} value={value}>
+            <option hidden disabled></option>
             {mappedOptions}
-        </select>
-    )
+        </StyledSelect>
+    );
 }
+
+const StyledSelect = styled.select`
+  padding: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  border: none;
+  outline:none;
+  border-bottom: 2px solid #aaa;
+  
+  &:hover {
+    border-bottom: 2px solid black;
+  }
+  > option {
+  }
+  > option:nth-child(2) {
+    font-style: italic;
+    color: #aaa;
+  }
+`;

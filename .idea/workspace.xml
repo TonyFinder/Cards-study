@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="107264e3-9770-49d7-9209-8a5b033c4bcc" name="Changes" comment="Changed logic and styles for Button and Checkbox using styled components.">
+    <list default="true" id="107264e3-9770-49d7-9209-8a5b033c4bcc" name="Changes" comment="Radio: changed logic and styles using styled components.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/_ui/common/Test/Test.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/_ui/common/Test/Test.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/_ui/common/Test/Test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/_ui/common/Test/Test.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/_ui/common/_superComponents/Checkbox/Checkbox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/_ui/common/_superComponents/Checkbox/Checkbox.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/_ui/common/_superComponents/Radio/Radio.module.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/_ui/common/_superComponents/Radio/Radio.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/_ui/common/_superComponents/Radio/Radio.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/_ui/common/_superComponents/Select/Select.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/_ui/common/_superComponents/Select/Select.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/_ui/common/_superComponents/Select/Select.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/reportWebVitals.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/rest/reportWebVitals.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -96,7 +97,7 @@
       <workItem from="1652934985432" duration="85000" />
       <workItem from="1652935080950" duration="20000" />
       <workItem from="1652935164416" duration="12053000" />
-      <workItem from="1653023268763" duration="85627000" />
+      <workItem from="1653023268763" duration="93771000" />
     </task>
     <task id="LOCAL-00001" summary="ReadMe file has been made.">
       <created>1652874600532</created>
@@ -140,7 +141,14 @@
       <option name="project" value="LOCAL" />
       <updated>1653301211218</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Radio: changed logic and styles using styled components.">
+      <created>1653309145115</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1653309145115</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -187,6 +195,7 @@
     <MESSAGE value="ReadMe file has been made." />
     <MESSAGE value="The project structure has been made. Added redux, reducers for each page and routers as well. Common components have been added, but they have to be refactored." />
     <MESSAGE value="Changed logic and styles for Button and Checkbox using styled components." />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed logic and styles for Button and Checkbox using styled components." />
+    <MESSAGE value="Radio: changed logic and styles using styled components." />
+    <option name="LAST_COMMIT_MESSAGE" value="Radio: changed logic and styles using styled components." />
   </component>
 </project>

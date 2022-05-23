@@ -11,21 +11,11 @@
     position: relative;
     @include flexCenter;
     flex-direction: column;
-    margin-bottom: 40px;
+    margin: 40px 0;
 
-    &::after {
-      position: absolute;
-      content: '';
-      width: 150px;
-      height: 1px;
-      background: black;
-      bottom: -20%;
-      left: 50%;
-      transform: translate(-50%, 50%);
-    }
     > span {
       padding: 5px;
-      margin-top: 15px;
+      margin-bottom: 15px;
       font-weight: bold;
       text-align: center;
     }

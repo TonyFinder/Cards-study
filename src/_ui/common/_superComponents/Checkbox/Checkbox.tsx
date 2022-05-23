@@ -41,12 +41,12 @@ const StyledCheckbox = styled.div`
     font-family: 'Montserrat', sans-serif;
     
     &:before {
-      content: ''; // квадрат
+      content: '';
       position: absolute;
       left:0; top: -2px;
       width: 17px; height: 17px;
-      border: 2px solid #aaa; // цвет границы чекбокса
-      background: #f8f8f8; // цвет фона чекбокса
+      border: 2px solid #aaa;
+      background: #f8f8f8;
       border-radius: 3px;
       box-shadow: inset 0 1px 3px rgba(0,0,0,.3);
     }
