@@ -1,45 +1,99 @@
-import React, {ChangeEvent, InputHTMLAttributes, DetailedHTMLProps} from 'react'
-import styles from './Radio.module.scss'
+import React, {DetailedHTMLProps, InputHTMLAttributes} from 'react';
+import styled from 'styled-components';
 
-type DefaultRadioPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
+type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
-type SuperRadioPropsType = DefaultRadioPropsType & {
-    options?: any[]
-    onChangeOption?: (option: any) => void
+type RadioPropsType = DefaultInputPropsType & {
+    onClick?: () => void
+    disabled?: boolean
+    color?: string
 }
 
-export const Radio: React.FC<SuperRadioPropsType> = (
-    {
-        // type,
-        name,
-        options, value,
-        onChange, onChangeOption,
-    }
+export const Radio: React.FC<RadioPropsType> = ({
+                                                          onClick, disabled, color, children,
+                                                          ...restProps}
 ) => {
-    const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
-        onChange && onChange(e)
-        onChangeOption && onChangeOption(e.currentTarget.value)
-        // onChange, onChangeOption
-    }
-
-
-    const mappedOptions: any[] = options ? options.map((o, i) => ( // map options with key
-        <label key={name + '-' + i} className={value === o ? styles.labelAfter : styles.labelBefore}>
-            <input
-                type={name}
-                onChange={onChangeCallback}
-                checked={value === o}
-                value={o}
-                className={styles.input}
-                // name, checked, value, onChange
-            />
-            {o}
-        </label>
-    )) : []
 
     return (
-        <div className={styles.main}>
-            {mappedOptions}
-        </div>
-    )
+        <StyledRadio onClick={onClick} style={disabled ? {pointerEvents: "none", cursor: "default"} : {}} color={color}>
+            <input
+                type="radio"
+                disabled={disabled}
+                readOnly
+                {...restProps}
+            />
+            <label>{children}</label>
+        </StyledRadio>
+    );
 }
+
+const StyledRadio = styled.div`
+  margin: 10px;
+  //border: 1px solid black;
+  > input {
+    opacity: 0;
+    display: none;
+  }
+  > input + label {
+    position: relative;
+    padding-left: 25px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    
+    &:before {
+      content: ''; // квадрат
+      position: absolute;
+      left:0; top: -2px;
+      width: 17px; height: 17px;
+      border: 2px solid #aaa; // цвет границы чекбокса
+      background: #f8f8f8; // цвет фона чекбокса
+      border-radius: 50%;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,.3);
+    }
+    &:after {
+      content: '';
+      position: absolute;
+      width: 13px; height: 13px;
+      border-radius: 50%;
+      top: 2px; left: 4px;
+      font-size: 22px;
+      background-color: ${props => props.color ? props.color : '#53a6fb'};
+      transition: all .2s;
+    }
+  }
+  > input:not(:checked) + label {
+      &:after {
+        opacity: 0;
+        transform: scale(0);
+      }
+  }
+  > input:disabled + label {
+      &:before {
+        box-shadow: none;
+        border-color: #bbb;
+        background-color: #ddd;
+      }
+  }
+  > input:checked:not(:disabled) + label {
+    &:before {
+      border: 2px solid ${props => props.color ? props.color : '#53a6fb'};
+    }
+    &:after {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  > input:disabled:checked + label {
+    &:after {
+      background-color: #999;
+    }
+  }
+  > input:disabled + label {
+    color: #aaa;
+  }
+  > input:checked:focus + label, input:not(:checked):focus + label {
+    &:before {
+      border: 1px dotted blue;
+    }
+  }
+`;

@@ -15,7 +15,7 @@ export const Checkbox: React.FC<CheckboxPropsType> = ({
 ) => {
 
     return (
-        <Styled onClick={onClick} style={disabled ? {pointerEvents: "none", cursor: "default"} : {}} color={color}>
+        <StyledCheckbox onClick={onClick} style={disabled ? {pointerEvents: "none", cursor: "default"} : {}} color={color}>
             <input
                 type="checkbox"
                 disabled={disabled}
@@ -23,11 +23,11 @@ export const Checkbox: React.FC<CheckboxPropsType> = ({
                 {...restProps}
             />
             <label>{children}</label>
-        </Styled>
+        </StyledCheckbox>
     );
 }
 
-const Styled = styled.div`
+const StyledCheckbox = styled.div`
   margin: 10px;
   //border: 1px solid black;
   > input {
