@@ -1,0 +1,41 @@
+@import "src/utils/mixins";
+@import "src/utils/variables";
+
+.container {
+  @include flexCenter;
+  justify-content: space-around;
+  flex-direction: column;
+  min-height: 80vh;
+
+  .innerBlock {
+    position: relative;
+    @include flexCenter;
+    flex-direction: column;
+    margin-bottom: 40px;
+
+    &::after {
+      position: absolute;
+      content: '';
+      width: 150px;
+      height: 1px;
+      background: black;
+      bottom: -20%;
+      left: 50%;
+      transform: translate(-50%, 50%);
+    }
+    > span {
+      padding: 5px;
+      margin-top: 15px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    > div {
+      @include flexCenter;
+      flex-wrap: wrap;
+      .checkboxBlock {
+        display: flex;
+      }
+    }
+  }
+}

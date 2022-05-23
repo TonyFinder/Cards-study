@@ -1,6 +1,10 @@
+@import "src/utils/mixins";
+@import "src/utils/variables";
+
 .container {
-  display: flex;
+  @include flexCenter;
   a {
-    margin: 0 10px;
+    margin: 10px 10px;
+    text-decoration: none;
   }
 }

@@ -1,5 +1,7 @@
+import styles from '../auth.module.scss'
+
 export const Login = () => {
-  return <div>
+  return <div className={styles.container}>
       Login
   </div>
 }

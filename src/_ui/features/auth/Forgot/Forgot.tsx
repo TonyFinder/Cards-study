@@ -1,5 +1,7 @@
+import styles from '../auth.module.scss';
+
 export const Forgot = () => {
-  return <div>
+  return <div className={styles.container}>
       Forgot
   </div>
 }

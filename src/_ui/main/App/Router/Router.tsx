@@ -6,7 +6,7 @@ import {SetPass} from '../../../features/auth/SetPass/SetPass';
 import {Profile} from '../../../features/Profile/Profile';
 import {Test} from '../../../common/Test/Test';
 import {Error404} from '../../../common/Error404/Error404';
-import {ROUTE_PATHS} from '../../../../utils/values';
+import {ROUTE_PATHS} from '../../../../utils/_values';
 
 export const Router = () => {
   return <div>

@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom';
 import styles from './Header.module.scss'
-import {ROUTE_PATHS} from '../../../../utils/values';
+import {ROUTE_PATHS} from '../../../../utils/_values';
 
 export const Header = () => {
     return <div className={styles.container}>

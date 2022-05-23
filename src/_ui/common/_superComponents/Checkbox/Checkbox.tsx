@@ -1,50 +1,97 @@
-import React, {DetailedHTMLProps, InputHTMLAttributes} from 'react'
-import styles from './Checkbox.module.scss'
+import React, {DetailedHTMLProps, InputHTMLAttributes} from 'react';
+import styled from 'styled-components';
 
-// тип пропсов обычного инпута
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
-type SuperCheckboxPropsType = DefaultInputPropsType & {
-    onChangeChecked?: (checked: boolean) => void
-    spanClassName?: string
-    checked: boolean
-    onClickChecked: () => void
+type CheckboxPropsType = DefaultInputPropsType & {
+    onClick?: () => void
+    disabled?: boolean
+    color?: string
 }
 
-export const Checkbox: React.FC<SuperCheckboxPropsType> = (
-    {
-        type, // достаём и игнорируем чтоб нельзя было задать другой тип инпута
-        onChange, onChangeChecked,
-        className, spanClassName,
-        checked, onClickChecked,
-        children, // в эту переменную попадёт текст, типизировать не нужно так как он затипизирован в React.FC
-
-        ...restProps// все остальные пропсы попадут в объект restProps
-    }
+export const Checkbox: React.FC<CheckboxPropsType> = ({
+    onClick, disabled, color, children,
+    ...restProps}
 ) => {
-    // const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
-    //     onChange && onChange(e)
-    //     onChangeChecked && onChangeChecked(e.currentTarget.checked)
-    //
-    //     // сделайте так чтоб работал onChange и onChangeChecked
-    // }
-    const onClickCallback = () => {
-        onClickChecked()
-    }
-
-    const finalInputClassName = checked ? `${styles.labelAfter} ${styles.label}` : `${styles.labelBefore} ${styles.label}`
 
     return (
-        <div className={styles.main}>
-            <label className={finalInputClassName}>
-                <input
-                    type={'checkbox'}
-                    onClick={onClickCallback}
-                    className={styles.checkbox}
-                    {...restProps} // отдаём инпуту остальные пропсы если они есть (checked например там внутри)
-                />
-                {children && <span className={styles.spanClassName}>{children}</span>}
-            </label> {/*благодаря label нажатие на спан передастся в инпут*/}
-        </div>
-    )
+        <Styled onClick={onClick} style={disabled ? {pointerEvents: "none", cursor: "default"} : {}} color={color}>
+            <input
+                type="checkbox"
+                disabled={disabled}
+                readOnly
+                {...restProps}
+            />
+            <label>{children}</label>
+        </Styled>
+    );
 }
+
+const Styled = styled.div`
+  margin: 10px;
+  //border: 1px solid black;
+  > input {
+    opacity: 0;
+    display: none;
+  }
+  > input + label {
+    position: relative;
+    padding-left: 25px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    
+    &:before {
+      content: ''; // квадрат
+      position: absolute;
+      left:0; top: -2px;
+      width: 17px; height: 17px;
+      border: 2px solid #aaa; // цвет границы чекбокса
+      background: #f8f8f8; // цвет фона чекбокса
+      border-radius: 3px;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,.3);
+    }
+    &:after {
+      content: '✔';
+      position: absolute;
+      top: -7px; left: 2px;
+      font-size: 22px;
+      color: ${props => props.color ? props.color : '#53a6fb'};
+      transition: all .2s;
+    }
+  }
+  > input:not(:checked) + label {
+      &:after {
+        opacity: 0;
+        transform: scale(0);
+      }
+  }
+  > input:disabled + label {
+      &:before {
+        box-shadow: none;
+        border-color: #bbb;
+        background-color: #ddd;
+      }
+  }
+  > input:checked:not(:disabled) + label {
+    &:before {
+      border: 2px solid ${props => props.color ? props.color : '#53a6fb'};
+    }
+    &:after {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  > input:disabled:checked + label {
+    &:after {
+      color: #999;
+    }
+  }
+  > input:disabled + label {
+    color: #aaa;
+  }
+  > input:checked:focus + label, input:not(:checked):focus + label {
+    &:before {
+      border: 1px dotted blue;
+    }
+  }
+`;
