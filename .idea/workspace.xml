@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="107264e3-9770-49d7-9209-8a5b033c4bcc" name="Changes" comment="Editable Span: changed logic and styles using SCSS.">
-      <change afterPath="$PROJECT_DIR$/src/_ui/main/ScrollToTop/ScrollToTop.tsx" afterDir="false" />
+    <list default="true" id="107264e3-9770-49d7-9209-8a5b033c4bcc" name="Changes" comment="ScrollToTop component was added. It scrolls you to the top of the app when you change a route.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/reportWebVitals.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/rest/reportWebVitals.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,21 +34,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/Incubator/Studying/Friday-project/cards-nya-front/src/_ui/common/_superComponents/EditableSpan",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "nodejs_package_manager_path": "yarn",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "ts.external.directory.path": "D:\\Incubator\\Studying\\Friday-project\\cards-nya-front\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Incubator/Studying/Friday-project/cards-nya-front/src/_ui/common/_superComponents/EditableSpan&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\Incubator\\Studying\\Friday-project\\cards-nya-front\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Incubator\Studying\Friday-project\cards-nya-front\src\_ui\common\_superComponents\EditableSpan" />
@@ -94,7 +94,7 @@
       <workItem from="1652934985432" duration="85000" />
       <workItem from="1652935080950" duration="20000" />
       <workItem from="1652935164416" duration="12053000" />
-      <workItem from="1653023268763" duration="132388000" />
+      <workItem from="1653023268763" duration="134620000" />
     </task>
     <task id="LOCAL-00001" summary="ReadMe file has been made.">
       <created>1652874600532</created>
@@ -166,7 +166,14 @@
       <option name="project" value="LOCAL" />
       <updated>1653398087351</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="ScrollToTop component was added. It scrolls you to the top of the app when you change a route.">
+      <created>1653398569127</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1653398569127</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -217,6 +224,7 @@
     <MESSAGE value="Select: changed some logic and styles using styled components." />
     <MESSAGE value="Input: changed logic and styles using styled components." />
     <MESSAGE value="Editable Span: changed logic and styles using SCSS." />
-    <option name="LAST_COMMIT_MESSAGE" value="Editable Span: changed logic and styles using SCSS." />
+    <MESSAGE value="ScrollToTop component was added. It scrolls you to the top of the app when you change a route." />
+    <option name="LAST_COMMIT_MESSAGE" value="ScrollToTop component was added. It scrolls you to the top of the app when you change a route." />
   </component>
 </project>
