@@ -1,11 +1,10 @@
-import {Input} from '../_superComponents/Input/Input';
-import {EditableSpan} from '../_superComponents/EditableSpan/EditableSpan';
 import styles from './Test.module.scss'
 import {Button} from '../_superComponents/Button/Button';
 import {Checkbox} from '../_superComponents/Checkbox/Checkbox';
 import {useState} from 'react';
 import {Radio} from '../_superComponents/Radio/Radio';
 import {Select} from '../_superComponents/Select/Select';
+import {Input} from '../_superComponents/Input/Input';
 
 export const Test = () => {
     // Checkbox usage
@@ -16,15 +15,24 @@ export const Test = () => {
     const [radioSelect, setRadioSelect] = useState<boolean[]>([false, true, false])
     const onClickRadio = (position: number) => setRadioSelect(radioSelect.map((i, index) => index === position))
 
-
     // Select usage
-    const [value, onChangeOption] = useState('')
+    const [valueSelect, setValueSelect] = useState<any[]>(['', 'Petrov', 'Levin'])
+    const setValueSelectHandler = (position: number, value: string) => setValueSelect(valueSelect.map((pos, i) => i === position ? value : pos))
+
+    // Input usage
+    const [text, setText] = useState<string[]>(['', 'Value is typed', ''])
+    const [error, setError] = useState<boolean[]>([false, false, true])
+    const setTextHandler = (position: number, value: string) => setText(text.map((pos, i) => i === position ? value : pos))
+    const setErrorHandler = (position: number, value: boolean) => setError(error.map((pos, i) => i === position ? value : pos))
 
     return <div className={styles.container}>
 
         {/*Button*/}
         <div className={styles.innerBlock}>
-            <span>Button<br/>Background and text color can be customized in the props.</span>
+            <div className={styles.description}>
+                <h3>Button</h3>
+                <span>The background and text color can be customized in the props. Blue by default.</span>
+            </div>
             <div>
                 <Button>Button default</Button>
                 <Button color={'red'}>Button colored</Button>
@@ -34,8 +42,11 @@ export const Test = () => {
 
         {/*Checkbox*/}
         <div className={styles.innerBlock}>
-            <span>Checkbox<br/>Checkbox color can be customized in the props.</span>
-            <div className={styles.checkboxBlock}>
+            <div className={styles.description}>
+                <h3>Checkbox</h3>
+                <span>The checkbox color can be customized in the props. Blue by default.</span>
+            </div>
+            <div>
                 <Checkbox
                     checked={checkboxValue[0]}
                     onClick={() => onClickCheckbox(0)}
@@ -50,7 +61,7 @@ export const Test = () => {
                     onClick={() => onClickCheckbox(2)}
                 >Completed customized</Checkbox>
             </div>
-            <div className={styles.checkboxBlock}>
+            <div>
                 <Checkbox
                     checked={checkboxValue[3]}
                     onClick={() => onClickCheckbox(3)}
@@ -66,10 +77,13 @@ export const Test = () => {
 
         {/*Radio*/}
         <div className={styles.innerBlock}>
-            <span>Radio<br/>Radio color can be customized in the props.</span>
-            <div className={styles.checkboxBlock}>
+            <div className={styles.description}>
+                <h3>Radio</h3>
+                <span>The radio color can be customized in the props. Blue by default.</span>
+            </div>
+            <div>
                 <Radio
-                    color='green'
+                    color="green"
                     checked={radioSelect[0]}
                     onClick={() => onClickRadio(0)}
                 >Yes</Radio>
@@ -78,12 +92,12 @@ export const Test = () => {
                     onClick={() => onClickRadio(1)}
                 >Maybe</Radio>
                 <Radio
-                    color='red'
+                    color="red"
                     checked={radioSelect[2]}
                     onClick={() => onClickRadio(2)}
                 >No</Radio>
             </div>
-            <div className={styles.checkboxBlock}>
+            <div>
                 <Radio disabled>Disabled not selected</Radio>
                 <Radio checked disabled>Disabled selected</Radio>
             </div>
@@ -91,25 +105,73 @@ export const Test = () => {
 
         {/*Select*/}
         <div className={styles.innerBlock}>
-            <span>Select</span>
-            <Select
-                options={['None', 'Ivanov', 'Petrov', 'Sidorov', 'Levin']}
-                value={value}
-                onChangeOption={onChangeOption}
-            />
+            <div className={styles.description}>
+                <h3>Select</h3>
+                <span>The button border can be customized to any color in the props. Blue by default.</span>
+                <span>The color is applied when nothing is selected.</span>
+            </div>
+            <div>
+                <Select
+                    options={['None', 'Ivanov', 'Petrov', 'Sidorov', 'Levin']}
+                    value={valueSelect[0]}
+                    onChangeOption={(value: string)=>setValueSelectHandler(0, value)}
+                />
+                <Select
+                    options={['None', 'Ivanov', 'Petrov', 'Sidorov', 'Levin']}
+                    value={valueSelect[1]}
+                    onChangeOption={(value: string)=>setValueSelectHandler(1, value)}
+                />
+                <Select
+                    options={['None', 'Ivanov', 'Petrov', 'Sidorov', 'Levin']}
+                    value={valueSelect[2]}
+                    onChangeOption={(value: string)=>setValueSelectHandler(2, value)}
+                    disabled
+                />
+            </div>
         </div>
 
         {/*Input*/}
         <div className={styles.innerBlock}>
-            <span>Input</span>
-            <Input/>
+            <div className={styles.description}>
+                <h3>Input</h3>
+                <span>The button border can be customized to any color in the props. Blue by default.</span>
+                <span>The color is applied in case there is no value.</span>
+            </div>
+            <div>
+                <Input
+                    value={text[0]}
+                    placeholder={'Placeholder text'}
+                    onChangeText={(value: string)=>setTextHandler(0, value)}
+                    onChangeError={(value: boolean)=>setErrorHandler(0, value)}
+                    onEnter={() => alert('Data is accepted')}
+                    error={error[0]}
+                />
+                <Input
+                    value={text[1]}
+                    placeholder={'Text here'}
+                    onChangeText={(value: string)=>setTextHandler(1, value)}
+                    onChangeError={(value: boolean)=>setErrorHandler(1, value)}
+                    onEnter={() => alert('Data is accepted')}
+                    error={error[1]}
+                />
+                <Input
+                    value={text[2]}
+                    placeholder={'Key "Enter" without text'}
+                    onChangeText={(value: string)=>setTextHandler(2, value)}
+                    onChangeError={(value: boolean)=>setErrorHandler(2, value)}
+                    onEnter={() => alert('Data is accepted')}
+                    error={error[2]}
+                />
+            </div>
         </div>
 
         {/*Editable Span*/}
         <div className={styles.innerBlock}>
-            <span>EditableSpan</span>
-            <div className={styles.checkboxBlock}>
-                <EditableSpan/>
+            <div className={styles.description}>
+                <h3>EditableSpan</h3>
+            </div>
+            <div>
+                {/*<EditableSpan/>*/}
             </div>
         </div>
 

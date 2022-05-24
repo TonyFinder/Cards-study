@@ -7,14 +7,18 @@ type SelectPropsType = DefaultSelectPropsType & {
     options?: any[]
     onChangeOption?: (option: any) => void
     value?: string | number
+    color?: string
+    disabled?: boolean
 }
 
-export const Select: React.FC<SelectPropsType> = ({
-                                                      options, onChangeOption, value
-}
+export const Select: React.FC<SelectPropsType> = (
+    {
+        options, onChangeOption, value, color,
+        disabled
+    }
 ) => {
     const mappedOptions: any[] = options ? options.map((opt, i) => (
-        <option key={i} >{opt}</option>
+        <option key={i}>{opt}</option>
     )) : []
 
     const onChangeCallback = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -22,7 +26,7 @@ export const Select: React.FC<SelectPropsType> = ({
     }
 
     return (
-        <StyledSelect onChange={onChangeCallback} value={value}>
+        <StyledSelect onChange={onChangeCallback} value={value} color={color} disabled={disabled}>
             <option hidden disabled></option>
             {mappedOptions}
         </StyledSelect>
@@ -31,19 +35,19 @@ export const Select: React.FC<SelectPropsType> = ({
 
 const StyledSelect = styled.select`
   padding: 10px;
+  margin: 10px;
   font-family: 'Montserrat', sans-serif;
   font-size: 16px;
   border: none;
-  outline:none;
-  border-bottom: 2px solid #aaa;
-  
-  &:hover {
-    border-bottom: 2px solid black;
-  }
+  outline: none;
+  border-bottom: 2px solid ${props => props.value === '' && !props.disabled
+          ? props.color ? props.color : '#53a6fb'
+          : props.disabled ? '#bebebe' : 'black'};
+
   > option {
-  }
-  > option:nth-child(2) {
-    font-style: italic;
-    color: #aaa;
+    &:nth-child(2) {
+      font-style: italic;
+      color: #aaa;
+    }
   }
 `;

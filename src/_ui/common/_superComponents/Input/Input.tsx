@@ -1,57 +1,83 @@
-import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes} from 'react'
-import styles from './Input.module.scss'
+import styled from 'styled-components';
+import React, {ChangeEvent, KeyboardEvent, DetailedHTMLProps, InputHTMLAttributes} from 'react';
 
-// тип пропсов обычного инпута
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
-// здесь мы говорим что у нашего инпута будут такие же пропсы как у обычного инпута
-// (чтоб не писать value: string, onChange: ...; они уже все описаны в DefaultInputPropsType)
-type SuperInputTextPropsType = DefaultInputPropsType & { // и + ещё пропсы которых нет в стандартном инпуте
+type InputPropsType = DefaultInputPropsType & {
     onChangeText?: (value: string) => void
+    onChangeError?: (value: boolean) => void
     onEnter?: () => void
-    error?: string
-    spanClassName?: string
+    error?: boolean
+    value?: string
 }
 
-export const Input: React.FC<SuperInputTextPropsType> = (
+export const Input: React.FC<InputPropsType> = (
     {
-        type, // достаём и игнорируем чтоб нельзя было задать другой тип инпута
-        onChange, onChangeText,
-        onKeyPress, onEnter,
-        error,
-        className, spanClassName,
-
-        ...restProps// все остальные пропсы попадут в объект restProps
+        error, onChange, onChangeText, onChangeError,
+        onEnter, onKeyDown, color, value,
+        ...restProps
     }
 ) => {
-    const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
-        onChange // если есть пропс onChange
-        && onChange(e) // то передать ему е (поскольку onChange не обязателен)
-
+    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         onChangeText && onChangeText(e.currentTarget.value)
+        onChangeError && onChangeError(false)
     }
-    /*const onKeyPressCallback = (e: KeyboardEvent<HTMLInputElement>) => {
-        onKeyPress && onKeyPress(e);
+    const onKeyDownCheck = (e: KeyboardEvent<HTMLInputElement>) => {
+        onKeyDown && onKeyDown(e)
+        if (e.code === 'Enter') {
+            (value)
+                ? onEnter && onEnter()
+                : onChangeError && onChangeError(true)
+        }
+    }
 
-        onEnter // если есть пропс onEnter
-        && e.key === 'Enter' // и если нажата кнопка Enter
-        && onEnter() // то вызвать его
-    }*/
-
-    const finalSpanClassName = `${styles.error} ${spanClassName ? spanClassName : ''}`
-    const finalInputClassName = error ? styles.errorInput : styles.superInput // need to fix with (?:) and s.superInput
 
     return (
-        <>
+        <StyledInput color={color} error={error} value={value}>
             <input
                 type={'text'}
-                onChange={onChangeCallback}
-                // onKeyPress={onKeyPressCallback}
-                className={finalInputClassName}
-
-                {...restProps} // отдаём инпуту остальные пропсы если они есть (value например там внутри)
+                onChange={onChangeHandler}
+                onKeyDown={onKeyDownCheck}
+                style={error ? {borderBottom: '2px solid red'} : {}}
+                value={value}
+                {...restProps}
             />
-            {error && <span className={finalSpanClassName}>{error}</span>}
-        </>
+        </StyledInput>
     )
 }
+
+const StyledInput = styled.div<InputPropsType>`
+  position: relative;
+  margin: 10px;
+
+  > input {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    padding: 10px;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid ${props => props.value
+            ? '#bebebe' : props.color ? props.color : '#53a6fb'};
+    border-radius: 8px 8px 0 0;
+    background-color: ${props => props.error ? '#fdd9d9' : '#efefef'};
+  }
+
+  > input:disabled {
+    border-bottom: 2px solid #878787;
+    opacity: 0.6;
+  }
+
+  > input:focus {
+    border-bottom: 2px solid #878787;
+  }
+
+  &:before {
+    position: absolute;
+    content: 'Text is required';
+    display: ${props => props.error ? '' : 'none'};
+    color: red;
+    font-size: 13px;
+    bottom: -17px;
+  }
+
+`

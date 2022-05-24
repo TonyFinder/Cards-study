@@ -29,7 +29,6 @@ export const Checkbox: React.FC<CheckboxPropsType> = ({
 
 const StyledCheckbox = styled.div`
   margin: 10px;
-  //border: 1px solid black;
   > input {
     opacity: 0;
     display: none;
