@@ -6,6 +6,7 @@ import reportWebVitals from './rest/reportWebVitals';
 import {HashRouter} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import {store} from './_bll/main/store';
+import {ScrollToTop} from './_ui/main/ScrollToTop/ScrollToTop';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -14,6 +15,7 @@ root.render(
     <React.StrictMode>
         <Provider store={store}>
             <HashRouter>
+                <ScrollToTop/>
                 <App/>
             </HashRouter>
         </Provider>
