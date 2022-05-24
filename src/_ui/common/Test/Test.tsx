@@ -5,6 +5,7 @@ import {useState} from 'react';
 import {Radio} from '../_superComponents/Radio/Radio';
 import {Select} from '../_superComponents/Select/Select';
 import {Input} from '../_superComponents/Input/Input';
+import {EditableSpan} from '../_superComponents/EditableSpan/EditableSpan';
 
 export const Test = () => {
     // Checkbox usage
@@ -24,6 +25,9 @@ export const Test = () => {
     const [error, setError] = useState<boolean[]>([false, false, true])
     const setTextHandler = (position: number, value: string) => setText(text.map((pos, i) => i === position ? value : pos))
     const setErrorHandler = (position: number, value: boolean) => setError(error.map((pos, i) => i === position ? value : pos))
+
+    // Editable Span
+    const [valueEditSpan, setValueEditSpan] = useState<string>('')
 
     return <div className={styles.container}>
 
@@ -107,7 +111,7 @@ export const Test = () => {
         <div className={styles.innerBlock}>
             <div className={styles.description}>
                 <h3>Select</h3>
-                <span>The button border can be customized to any color in the props. Blue by default.</span>
+                <span>The bottom border can be customized to any color in the props. Blue by default.</span>
                 <span>The color is applied when nothing is selected.</span>
             </div>
             <div>
@@ -134,7 +138,7 @@ export const Test = () => {
         <div className={styles.innerBlock}>
             <div className={styles.description}>
                 <h3>Input</h3>
-                <span>The button border can be customized to any color in the props. Blue by default.</span>
+                <span>The bottom border can be customized to any color in the props. Blue by default.</span>
                 <span>The color is applied in case there is no value.</span>
             </div>
             <div>
@@ -171,7 +175,11 @@ export const Test = () => {
                 <h3>EditableSpan</h3>
             </div>
             <div>
-                {/*<EditableSpan/>*/}
+                <EditableSpan
+                    value={valueEditSpan}
+                    onChangeText={setValueEditSpan}
+                    spanProps={{children: valueEditSpan ? undefined : 'double click on me to edit the text'}}
+                />
             </div>
         </div>
 

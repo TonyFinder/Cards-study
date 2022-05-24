@@ -1,0 +1,22 @@
+@import "src/utils/mixins";
+@import "src/utils/variables";
+
+.mainSpan{
+  @include flexCenter;
+  margin: 10px;
+  height: 42px;
+  .spanEdit {
+    position: relative;
+    padding: 10px 10px 10px 30px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    &:before {
+      position: absolute;
+      content: '\270E';
+      font-size: 22px;
+      left: -8px; top: 50%;
+      color: #53a6fb;
+      transform: translate(50%, -50%);
+    }
+  }
+}

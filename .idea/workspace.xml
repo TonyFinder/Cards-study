@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="107264e3-9770-49d7-9209-8a5b033c4bcc" name="Changes" comment="Select: changed some logic and styles using styled components.">
+    <list default="true" id="107264e3-9770-49d7-9209-8a5b033c4bcc" name="Changes" comment="Editable Span: changed logic and styles using SCSS.">
+      <change afterPath="$PROJECT_DIR$/src/_ui/common/_superComponents/EditableSpan/EditableSpan.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/_ui/common/_superComponents/EditableSpan/EditableSpan.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/_ui/common/Test/Test.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/_ui/common/Test/Test.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/_ui/common/Test/Test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/_ui/common/Test/Test.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/_ui/common/_superComponents/Checkbox/Checkbox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/_ui/common/_superComponents/Checkbox/Checkbox.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/_ui/common/_superComponents/EditableSpan/EditableSpan.module.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/_ui/common/_superComponents/EditableSpan/EditableSpan.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/_ui/common/_superComponents/Input/Input.module.scss" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/_ui/common/_superComponents/Input/Input.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/_ui/common/_superComponents/Input/Input.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/_ui/common/_superComponents/Radio/Radio.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/_ui/common/_superComponents/Radio/Radio.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/_ui/common/_superComponents/Select/Select.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/_ui/common/_superComponents/Select/Select.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/reportWebVitals.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/rest/reportWebVitals.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -47,7 +42,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/Incubator/Studying/Friday-project/cards-nya-front/src/_ui/common/_superComponents/ButtonStyled",
+    "last_opened_file_path": "D:/Incubator/Studying/Friday-project/cards-nya-front/src/_ui/common/_superComponents/EditableSpan",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_package_manager_path": "yarn",
@@ -58,11 +53,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Incubator\Studying\Friday-project\cards-nya-front\src\_ui\common\_superComponents\EditableSpan" />
       <recent name="D:\Incubator\Studying\Friday-project\cards-nya-front\src\_ui\common\_superComponents\ButtonStyled" />
       <recent name="D:\Incubator\Studying\Friday-project\cards-nya-front\src\_ui\common\_superComponents" />
       <recent name="D:\Incubator\Studying\Friday-project\cards-nya-front\src\_ui\common\Test" />
       <recent name="D:\Incubator\Studying\Friday-project\cards-nya-front\src\_ui\features\auth" />
-      <recent name="D:\Incubator\Studying\Friday-project\cards-nya-front\src\_ui\features\Profile" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Incubator\Studying\Friday-project\cards-nya-front\src\_bll\features" />
@@ -101,7 +96,7 @@
       <workItem from="1652934985432" duration="85000" />
       <workItem from="1652935080950" duration="20000" />
       <workItem from="1652935164416" duration="12053000" />
-      <workItem from="1653023268763" duration="124332000" />
+      <workItem from="1653023268763" duration="132055000" />
     </task>
     <task id="LOCAL-00001" summary="ReadMe file has been made.">
       <created>1652874600532</created>
@@ -159,7 +154,14 @@
       <option name="project" value="LOCAL" />
       <updated>1653317263664</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Input: changed logic and styles using styled components.">
+      <created>1653388598765</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1653388598765</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -208,6 +210,8 @@
     <MESSAGE value="Changed logic and styles for Button and Checkbox using styled components." />
     <MESSAGE value="Radio: changed logic and styles using styled components." />
     <MESSAGE value="Select: changed some logic and styles using styled components." />
-    <option name="LAST_COMMIT_MESSAGE" value="Select: changed some logic and styles using styled components." />
+    <MESSAGE value="Input: changed logic and styles using styled components." />
+    <MESSAGE value="Editable Span: changed logic and styles using SCSS." />
+    <option name="LAST_COMMIT_MESSAGE" value="Editable Span: changed logic and styles using SCSS." />
   </component>
 </project>

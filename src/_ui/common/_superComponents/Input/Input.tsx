@@ -24,13 +24,15 @@ export const Input: React.FC<InputPropsType> = (
     }
     const onKeyDownCheck = (e: KeyboardEvent<HTMLInputElement>) => {
         onKeyDown && onKeyDown(e)
-        if (e.code === 'Enter') {
+        if (e.code === 'Enter' || e.code === 'NumpadEnter') {
             (value)
                 ? onEnter && onEnter()
                 : onChangeError && onChangeError(true)
         }
     }
-
+    const onBlurHandler = () => {
+        if (!value) onChangeError && onChangeError(true)
+    }
 
     return (
         <StyledInput color={color} error={error} value={value}>
@@ -38,6 +40,7 @@ export const Input: React.FC<InputPropsType> = (
                 type={'text'}
                 onChange={onChangeHandler}
                 onKeyDown={onKeyDownCheck}
+                onBlur={onBlurHandler}
                 style={error ? {borderBottom: '2px solid red'} : {}}
                 value={value}
                 {...restProps}
