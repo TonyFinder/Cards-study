@@ -1,3 +1,12 @@
+import {Navigate} from 'react-router-dom';
+import {Login} from '../_ui/features/auth/_Login/Login';
+import {Register} from '../_ui/features/auth/_Register/Register';
+import {Forgot} from '../_ui/features/auth/Forgot/Forgot';
+import {SetPass} from '../_ui/features/auth/SetPass/SetPass';
+import {Profile} from '../_ui/features/Profile/Profile';
+import {Test} from '../_ui/common/Test/Test';
+import {Error404} from '../_ui/common/Error404/Error404';
+
 export const ROUTE_PATHS = {
     MAIN: '/',
     LOGIN: '/login',
@@ -7,6 +16,19 @@ export const ROUTE_PATHS = {
     PROFILE: '/profile',
     TEST: '/test',
     ERROR_404: '/error404'
+}
+
+export const dataRoutes = {
+    routes: [
+        {id: 0, title: 'Main', path: ROUTE_PATHS.MAIN, element: <Navigate to={ROUTE_PATHS.LOGIN}/>},
+        {id: 1, title: 'Login', path: ROUTE_PATHS.LOGIN, element: <Login/>},
+        {id: 2, title: 'Register', path: ROUTE_PATHS.REGISTER, element: <Register/>},
+        {id: 3, title: 'ForgotPass', path: ROUTE_PATHS.FORGOT, element: <Forgot/>},
+        {id: 4, title: 'SetPass', path: ROUTE_PATHS.SET_PASS, element: <SetPass/>},
+        {id: 5, title: 'Profile', path: ROUTE_PATHS.PROFILE, element: <Profile/>},
+        {id: 6, title: 'Test', path: ROUTE_PATHS.TEST, element: <Test/>},
+        {id: 7, title: 'Error404', path: ROUTE_PATHS.ERROR_404, element: <Error404/>},
+    ]
 }
 
 export const dataTestPage = {
