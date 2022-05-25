@@ -88,9 +88,4 @@ const StyledCheckbox = styled.div`
   > input:disabled + label {
     color: #aaa;
   }
-  > input:checked:focus + label, input:not(:checked):focus + label {
-    &:before {
-      border: 1px dotted blue;
-    }
-  }
 `;
