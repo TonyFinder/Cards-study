@@ -1,0 +1,24 @@
+@import "src/utils/mixins";
+@import "src/utils/variables";
+
+.innerBlock {
+  position: relative;
+  @include flexCenter;
+  flex-direction: column;
+  margin: 20px 0;
+
+  .description {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+
+    > h3 {
+      margin: auto;
+    }
+  }
+
+  > div {
+    @include flexCenter;
+    flex-wrap: wrap;
+  }
+}

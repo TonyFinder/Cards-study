@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="107264e3-9770-49d7-9209-8a5b033c4bcc" name="Changes" comment="Deployed to GH Pages. Package.json was changed.">
+    <list default="true" id="107264e3-9770-49d7-9209-8a5b033c4bcc" name="Changes" comment="Checkbox: some changes have been made in css.">
+      <change afterPath="$PROJECT_DIR$/src/_ui/common/Test/ButtonIntro/ButtonIntro.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/_ui/common/Test/CheckboxIntro/CheckboxIntro.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/_ui/common/Test/EditableSpanIntro/EditableSpanIntro.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/_ui/common/Test/InputIntro/InputIntro.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/_ui/common/Test/RadioIntro/RadioIntro.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/_ui/common/Test/SelectIntro/SelectIntro.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/_ui/common/Test/TestBlocks.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/_ui/common/_superComponents/Checkbox/Checkbox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/_ui/common/_superComponents/Checkbox/Checkbox.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/_ui/common/Test/Test.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/_ui/common/Test/Test.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/_ui/common/Test/Test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/_ui/common/Test/Test.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/_values.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/_values.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,28 +41,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Incubator/Studying/Friday-project/cards-nya-front/src/_ui/common/_superComponents/EditableSpan&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;D:\\Incubator\\Studying\\Friday-project\\cards-nya-front\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "D:/Incubator/Studying/Friday-project/cards-nya-front/src/_ui/common/Test",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "yarn",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "ts.external.directory.path": "D:\\Incubator\\Studying\\Friday-project\\cards-nya-front\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Incubator\Studying\Friday-project\cards-nya-front\src\_ui\common\_superComponents\EditableSpan" />
-      <recent name="D:\Incubator\Studying\Friday-project\cards-nya-front\src\_ui\common\_superComponents\ButtonStyled" />
-      <recent name="D:\Incubator\Studying\Friday-project\cards-nya-front\src\_ui\common\_superComponents" />
       <recent name="D:\Incubator\Studying\Friday-project\cards-nya-front\src\_ui\common\Test" />
-      <recent name="D:\Incubator\Studying\Friday-project\cards-nya-front\src\_ui\features\auth" />
+      <recent name="D:\Incubator\Studying\Friday-project\cards-nya-front\src\_ui\common\Test\SelectIntro" />
+      <recent name="D:\Incubator\Studying\Friday-project\cards-nya-front\src\_ui\common\Test\RadioIntro" />
+      <recent name="D:\Incubator\Studying\Friday-project\cards-nya-front\src\_ui\common\Test\InputIntro" />
+      <recent name="D:\Incubator\Studying\Friday-project\cards-nya-front\src\_ui\common\Test\EditableSpanIntro" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Incubator\Studying\Friday-project\cards-nya-front\src\_bll\features" />
@@ -63,7 +72,17 @@
       <recent name="D:\Incubator\Studying\Friday-project\cards-nya-front\src\_ui\main" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="npm.start">
+    <configuration name="deploy" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="deploy" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -77,6 +96,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="npm.start" />
+        <item itemvalue="npm.deploy" />
       </list>
     </recent_temporary>
   </component>
@@ -94,7 +114,7 @@
       <workItem from="1652935164416" duration="12053000" />
       <workItem from="1653023268763" duration="134620000" />
       <workItem from="1653400780480" duration="108000" />
-      <workItem from="1653450815216" duration="1958000" />
+      <workItem from="1653450815216" duration="10187000" />
     </task>
     <task id="LOCAL-00001" summary="ReadMe file has been made.">
       <created>1652874600532</created>
@@ -180,7 +200,14 @@
       <option name="project" value="LOCAL" />
       <updated>1653400871363</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Checkbox: some changes have been made in css.">
+      <created>1653460200986</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1653460200986</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -233,6 +260,7 @@
     <MESSAGE value="Editable Span: changed logic and styles using SCSS." />
     <MESSAGE value="ScrollToTop component was added. It scrolls you to the top of the app when you change a route." />
     <MESSAGE value="Deployed to GH Pages. Package.json was changed." />
-    <option name="LAST_COMMIT_MESSAGE" value="Deployed to GH Pages. Package.json was changed." />
+    <MESSAGE value="Checkbox: some changes have been made in css." />
+    <option name="LAST_COMMIT_MESSAGE" value="Checkbox: some changes have been made in css." />
   </component>
 </project>
