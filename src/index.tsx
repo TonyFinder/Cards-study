@@ -7,9 +7,6 @@ import {HashRouter} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import {store} from './_bll/main/store';
 import {ScrollToTop} from './_ui/main/ScrollToTop/ScrollToTop';
-//2
-//3
-//4
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
