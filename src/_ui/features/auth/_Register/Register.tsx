@@ -1,5 +1,6 @@
 import axios from "axios";
 import { ChangeEvent, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "../auth.module.scss";
 
 export const instance = axios.create({
@@ -8,11 +9,11 @@ export const instance = axios.create({
 });
 
 export const Register = () => {
-  // useEffect(() => {
-  //   instance.post("auth/register", { email, password });
-  // }, []);
+  const navigate = useNavigate();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [error, setError] = useState<string>("");
+  {!error && navigate('/login') }
   return (
     <div className={styles.container}>
       Register
@@ -29,7 +30,16 @@ export const Register = () => {
             setPassword(e.currentTarget.value);
           }}
         />
-        <button onClick={()=>{instance.post("auth/register", { email, password })}}>Register</button>
+        <button
+          onClick={() => {
+            instance.post("auth/register", { email, password })
+            .then((response)=>{
+              setError(response.data.error)
+            });
+          }}
+        >
+          Register
+        </button>
       </div>
     </div>
   );
