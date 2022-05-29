@@ -2,7 +2,6 @@ import { Dispatch } from "redux";
 import { instance } from "../../../../_ui/features/auth/_Register/Register";
 
 let initialState = {
-  // data: {} as ShippingFields | {},
   error: "",
   isRegistered: false,
 };

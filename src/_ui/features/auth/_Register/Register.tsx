@@ -12,7 +12,7 @@ import {
   AppStateRootType,
   useCustomSelector,
 } from "../../../../_bll/main/store";
-import styles from "../auth.module.scss";
+import styles from "./Register.module.scss";
 
 export const instance = axios.create({
   baseURL: process.env.REACT_APP_BACK_URL || "http://localhost:7542/2.0/",
@@ -36,30 +36,28 @@ export const Register = () => {
     navigate("/login");
   }
   return (
-    <div className={styles.container}>
+    <div className={styles.formContainer}>
       Register
-      <div>
-        <input
-          value={email}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => {
-            setEmail(e.currentTarget.value);
-          }}
-        />
-        <div>{error}</div>
-        <input
-          value={password}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => {
-            setPassword(e.currentTarget.value);
-          }}
-        />
-        <button
-          onClick={() => {
-            dispatch(requestRegistration({ email, password }));
-          }}
-        >
-          Register
-        </button>
-      </div>
+      <input
+        value={email}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => {
+          setEmail(e.currentTarget.value);
+        }}
+      />
+      <input
+        value={password}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => {
+          setPassword(e.currentTarget.value);
+        }}
+      />
+      <button
+        onClick={() => {
+          dispatch(requestRegistration({ email, password }));
+        }}
+      >
+        Register
+      </button>
+      <div className={styles.error}>{error}</div>
     </div>
   );
 };
