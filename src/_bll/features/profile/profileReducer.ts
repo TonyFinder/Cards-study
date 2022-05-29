@@ -1,6 +1,6 @@
-import {Dispatch} from "redux";
 import {loginApi} from "../../../api";
-import {setIsLogin} from "../auth/_login/loginReducer";
+import {setError, setIsLogin} from "../auth/_login/loginReducer";
+import {AppThunk} from "../../main/store";
 
 let initialState: InitialStateTypeProfile = {
     _id: '',
@@ -38,15 +38,17 @@ const setDataUsers = (data: InitialStateTypeProfile) => {
 }
 
 // thunks
-export const setDataUser = (email: string, password: string, rememberMe: boolean) => (dispatch: Dispatch) => {
+export const setDataUser = (email: string, password: string, rememberMe: boolean): AppThunk => (dispatch) => {
     loginApi.login(email, password, rememberMe).then(res => {
         dispatch(setDataUsers(res.data))
         dispatch(setIsLogin(true))
+    }).catch(err => {
+        console.log("error", {...err})
+        dispatch(setError(err.response.data.error))
     })
 }
 
 // types
-
 export type ProfileActionTypes = setDataUsersType
 export type InitialStateTypeProfile = {
     _id: string

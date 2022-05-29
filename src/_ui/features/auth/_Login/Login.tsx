@@ -3,15 +3,15 @@ import {Input} from "../../../common/_superComponents/Input/Input";
 import {Button} from "../../../common/_superComponents/Button/Button";
 import {Checkbox} from "../../../common/_superComponents/Checkbox/Checkbox";
 import {useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
 import {Navigate} from 'react-router-dom';
-import {AppStateRootType} from "../../../../_bll/main/store";
+import {useAppDispatch, useCustomSelector} from "../../../../_bll/main/store";
 import {setDataUser} from "../../../../_bll/features/profile/profileReducer";
+import {loginInitialStateType} from "../../../../_bll/features/auth/_login/loginReducer";
 
 export const Login = () => {
 
-    const isLoggedIn = useSelector<AppStateRootType>(state => state.login.isLoggedIn)
-    const dispatch = useDispatch()
+    const {isLoggedIn, error} = useCustomSelector<loginInitialStateType>(state => state.login)
+    const dispatch = useAppDispatch()
     const [email, setEmail] = useState('nya-admin@nya.nya');
     const [password, setPassword] = useState('1qazxcvBG');
 
@@ -24,7 +24,6 @@ export const Login = () => {
     }
 
     const onClickLogin = () => {
-        // @ts-ignore
         dispatch(setDataUser(email, password, false))
     }
 
@@ -39,6 +38,7 @@ export const Login = () => {
                 <h1>It-incubator</h1>
                 <h3>Sign in</h3>
             </div>
+            <div className={styles.error}>{error && error}</div>
             <div className={styles.body}>
                 <label>Email</label>
                 <Input onChangeText={onChangeEmailHandler} value={email} placeholder="Email"/>
