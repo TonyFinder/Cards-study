@@ -3,4 +3,5 @@
 
 .container {
   @include flexCenter;
+  flex-direction: column;
 }

@@ -20,6 +20,7 @@ export const Input: React.FC<InputPropsType> = (
 ) => {
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         onChangeText && onChangeText(e.currentTarget.value)
+        onChange && onChange(e)
         onChangeError && onChangeError(false)
     }
     const onKeyDownCheck = (e: KeyboardEvent<HTMLInputElement>) => {
