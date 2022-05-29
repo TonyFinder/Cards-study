@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ThunkDispatch } from "redux-thunk";
@@ -12,6 +12,8 @@ import {
   AppStateRootType,
   useCustomSelector,
 } from "../../../../_bll/main/store";
+import { Button } from "../../../common/_superComponents/Button/Button";
+import { Input } from "../../../common/_superComponents/Input/Input";
 import styles from "./Register.module.scss";
 
 export const instance = axios.create({
@@ -37,27 +39,19 @@ export const Register = () => {
   }
   return (
     <div className={styles.formContainer}>
-      Register
-      <input
-        value={email}
-        onChange={(e: ChangeEvent<HTMLInputElement>) => {
-          setEmail(e.currentTarget.value);
-        }}
-      />
-      <input
-        value={password}
-        onChange={(e: ChangeEvent<HTMLInputElement>) => {
-          setPassword(e.currentTarget.value);
-        }}
-      />
-      <button
-        onClick={() => {
-          dispatch(requestRegistration({ email, password }));
-        }}
-      >
-        Register
-      </button>
-      <div className={styles.error}>{error}</div>
+      <div className={styles.form}>
+        Sign Up
+        <Input value={email} onChangeText={setEmail} />
+        <Input type={'password'} value={password} onChangeText={setPassword} />
+        <Button
+          onClick={() => {
+            dispatch(requestRegistration({ email, password }));
+          }}
+        >
+          Register
+        </Button>
+        <div className={styles.error}>{error}</div>
+      </div>
     </div>
   );
 };
