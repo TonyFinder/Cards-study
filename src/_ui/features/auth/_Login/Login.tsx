@@ -12,9 +12,11 @@ export const Login = () => {
 
     const {isLoggedIn, error} = useCustomSelector<loginInitialStateType>(state => state.login)
     const dispatch = useAppDispatch()
+
     const [email, setEmail] = useState('nya-admin@nya.nya');
     const [password, setPassword] = useState('1qazxcvBG');
     const [checkbox, setCheckbox] = useState(false);
+    const [typeInput, setTypeInput] = useState("password");
 
 
     const onChangeEmailHandler = (value: string) => {
@@ -33,6 +35,11 @@ export const Login = () => {
         dispatch(setDataUser(email, password, checkbox))
     }
 
+    const onClickShowPasswordHandler = () => {
+        setTypeInput(typeInput === "password" ? "text" : "password")
+    }
+
+
     if (isLoggedIn) {
         return <Navigate to='/profile'/>
     }
@@ -49,8 +56,10 @@ export const Login = () => {
                 </div>
                 <div>
                     <label>Password</label>
-                    <Input onChangeText={onChangePasswordHandler} value={password} type='password'
+                    <Input onChangeText={onChangePasswordHandler} value={password}
+                           type={typeInput}
                            placeholder='Password'/>
+                    <span onClick={onClickShowPasswordHandler}>👀</span>
                 </div>
                 <span>Forgot password</span>
                 <Checkbox onClick={onChangeCheckboxHandler} checked={checkbox}>Remember me </Checkbox>
