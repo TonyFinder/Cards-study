@@ -9,12 +9,13 @@ type InputPropsType = DefaultInputPropsType & {
     onEnter?: () => void
     error?: boolean
     value?: string
+    sign?: string
 }
 
 export const Input: React.FC<InputPropsType> = (
     {
         error, onChange, onChangeText, onChangeError,
-        onEnter, onKeyDown, color, value,
+        onEnter, onKeyDown, color, value, sign,
         ...restProps
     }
 ) => {
@@ -36,7 +37,7 @@ export const Input: React.FC<InputPropsType> = (
     }
 
     return (
-        <StyledInput color={color} error={error} value={value}>
+        <StyledInput color={color} error={error} value={value} sign={sign}>
             <input
                 type={'text'}
                 onChange={onChangeHandler}
@@ -52,7 +53,7 @@ export const Input: React.FC<InputPropsType> = (
 
 const StyledInput = styled.div<InputPropsType>`
   position: relative;
-  margin: 10px;
+  margin: 30px 10px;
 
   > input {
     font-family: 'Montserrat', sans-serif;
@@ -81,7 +82,15 @@ const StyledInput = styled.div<InputPropsType>`
     display: ${props => props.error ? '' : 'none'};
     color: red;
     font-size: 13px;
-    bottom: -17px;
+    bottom: -17px; right: 0;
+  }
+  &:after {
+    position: absolute;
+    content: '${props => props.sign}';
+    display: ${props => props.sign ? '' : 'none'};
+    color: #878787;
+    font-size: 13px;
+    top: -15px; left: 5px;
   }
 
 `

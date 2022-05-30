@@ -3,6 +3,7 @@
 
 .container {
   @include flexCenter;
+  background: linear-gradient($backColorSecond, $backColorFirst);
   a {
     margin: 10px 10px;
     text-decoration: none;

@@ -84,9 +84,9 @@ export const dataTestPage = {
         comments: ['The bottom border can be customized to any color in the props. Blue by default.',
             'The color is applied in case there is no value.'],
         rowFirst: [
-            {id: 0, color: '', placeholder: 'Placeholder text', disable: false},
-            {id: 1, color: '', placeholder: 'Text here', disable: false},
-            {id: 2, color: '', placeholder: 'Key "Enter" without text', disable: false},
+            {id: 0, color: '', placeholder: 'Placeholder text', sign: '', disable: false},
+            {id: 1, color: '', placeholder: 'Text here', sign: 'Title', disable: false},
+            {id: 2, color: '', placeholder: 'Key "Enter" without text', sign: '', disable: false},
         ],
     },
 }

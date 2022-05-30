@@ -33,7 +33,7 @@ export const Button = styled.button`
   }
   
   &:hover:before {
-    left: ${props => props.disabled ? "none" : "200px"};
+    left: ${props => props.disabled ? "none" : "350px"};
     transition: ${props => props.disabled ? "none" : "0.5s ease-in-out"};
   }
   &:active {
