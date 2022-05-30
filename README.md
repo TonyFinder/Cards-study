@@ -21,10 +21,10 @@ There are question cards that users can choose and answer.
 
 This project was made in collaboration with:
 
-- [Anton Rozdobudko](https://github.com/TonyFinder)
-- [Second collaborator](https://github.com/TonyFinder)
-- [Third collaborator](https://github.com/TonyFinder)
+- [Anton](https://github.com/TonyFinder/?target=_blank)
+- [Oleg](https://github.com/Oleg655/?target=_blank)
+- [Vadim](https://github.com/Red13REd/?target=_blank)
 
 ## Deployment
-The project has been deployed [here](https://TonyFinder.github.io/cards-nya-front).
+The project has been deployed [here](https://TonyFinder.github.io/cards-nya-front/?target=_blank).
 
