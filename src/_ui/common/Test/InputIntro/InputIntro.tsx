@@ -24,6 +24,7 @@ export const InputIntro = () => {
                         <Input key={item.id}
                                color={item.color}
                                value={text[item.id]}
+                               sign={item.sign}
                                placeholder={item.placeholder}
                                onChangeText={(value: string) => setTextHandler(item.id, value)}
                                onChangeError={(value: boolean) => setErrorHandler(item.id, value)}
