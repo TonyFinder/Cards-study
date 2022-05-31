@@ -1,111 +1,122 @@
 @import "../../../../utils/mixins";
 @import "../../../../utils/variables";
 
-.container {
+
+.block {
   @include flexCenter;
+  background-image: linear-gradient(90deg, #e4b6f6, #8dd8ef);
+  height: 100vh;
+  position: relative;
   flex-direction: column;
-  justify-content: space-around;
-  width: 413px;
-  height: 600px;
-  background: #F9F9FE;
-  border-radius: 8px;
-  margin-top: 100px;
+  justify-content: flex-start;
 
-  font-style: normal;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 24px;
-
-  .header {
-    text-align: center;
-    display: flex;
+  .container {
+    @include flexCenter;
     flex-direction: column;
+    justify-content: space-around;
+    width: 413px;
+    height: 600px;
+    background: #F9F9FE;
+    border-radius: 8px;
+    margin-top: 100px;
 
-    .error {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 24px;
+
+    .header {
       text-align: center;
-      height: 30px;
-      color: red;
-      font-size: 20px;
-      font-weight: bold;
-      margin-top: 20px;
-    }
-
-    h1 {
-      font-style: normal;
-      font-weight: 600;
-      font-size: 26px;
-      line-height: 39px;
-
-
-      color: #2D2E46;
-    }
-
-    h3 {
-      font-style: normal;
-      font-weight: 600;
-      font-size: 22px;
-      line-height: 33px;
-    }
-
-    div {
-      text-align: left;
-      width: 350px;
       display: flex;
       flex-direction: column;
-      align-items: stretch;
-      position: relative;
 
-      label {
-        color: #646464;
-        opacity: 0.8;
+      .error {
+        text-align: center;
+        height: 30px;
+        color: red;
+        font-size: 20px;
+        font-weight: bold;
+        margin-top: 20px;
       }
 
-      input {
+      h1 {
         font-style: normal;
-        font-weight: 500;
-        font-size: 20px;
-        line-height: 24px;
+        font-weight: 600;
+        font-size: 26px;
+        line-height: 39px;
+
+
+        color: #2D2E46;
+      }
+
+      h3 {
+        font-style: normal;
+        font-weight: 600;
+        font-size: 22px;
+        line-height: 33px;
+      }
+
+      div {
+        text-align: left;
+        width: 350px;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        position: relative;
+        margin: 0;
+
+        label {
+          color: #646464;
+          opacity: 0.8;
+        }
+
+        input {
+          font-style: normal;
+          font-weight: 500;
+          font-size: 20px;
+          line-height: 24px;
+        }
+
+        span {
+          position: absolute;
+          right: 0;
+          bottom: 12px;
+          cursor: pointer;
+        }
       }
 
       span {
-        position: absolute;
-        right: 0;
-        top: 42px;
-        cursor: pointer;
+        text-align: right;
       }
-    }
-
-    span {
-      text-align: right;
-    }
-
-  }
-
-  .body {
-    display: flex;
-    flex-direction: column;
-
-
-  }
-
-  .footer {
-    height: 150px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: stretch;
-    width: 260px;
-
-    span {
-      color: #969796;
-      text-align: center;
 
     }
 
-    a {
-      font-size: 18px;
-      text-decoration: none;
-      text-align: center;
+    .body {
+      display: flex;
+      flex-direction: column;
+
+
+    }
+
+    .footer {
+      height: 150px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: stretch;
+      width: 260px;
+
+      span {
+        color: #969796;
+        text-align: center;
+
+      }
+
+      a {
+        font-size: 18px;
+        text-decoration: none;
+        text-align: center;
+      }
     }
   }
 }

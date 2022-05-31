@@ -45,29 +45,31 @@ export const Login = () => {
     }
 
     return (
-        <div className={styles.container}>
-            <div className={styles.header}>
-                <h1>It-incubator</h1>
-                <h3>Sign in</h3>
-                <div className={styles.error}>{error && error}</div>
-                <div>
-                    <label>Email</label>
-                    <Input onChangeText={onChangeEmailHandler} value={email} placeholder='Email'/>
+        <div className={styles.block}>
+            <div className={styles.container}>
+                <div className={styles.header}>
+                    <h1>It-incubator</h1>
+                    <h3>Sign in</h3>
+                    <div className={styles.error}>{error && error}</div>
+                    <div>
+                        <label>Email</label>
+                        <Input onChangeText={onChangeEmailHandler} value={email} placeholder='Email'/>
+                    </div>
+                    <div>
+                        <label>Password</label>
+                        <Input onChangeText={onChangePasswordHandler} value={password}
+                               type={typeInput}
+                               placeholder='Password'/>
+                        <span onClick={onClickShowPasswordHandler}>👀</span>
+                    </div>
+                    <span>Forgot password</span>
+                    <Checkbox onClick={onChangeCheckboxHandler} checked={checkbox}>Remember me </Checkbox>
                 </div>
-                <div>
-                    <label>Password</label>
-                    <Input onChangeText={onChangePasswordHandler} value={password}
-                           type={typeInput}
-                           placeholder='Password'/>
-                    <span onClick={onClickShowPasswordHandler}>👀</span>
+                <div className={styles.footer}>
+                    <Button onClick={onClickLogin}>Login</Button>
+                    <span>Don’t have an account?</span>
+                    <Link to='/register'>Sign Up</Link>
                 </div>
-                <span>Forgot password</span>
-                <Checkbox onClick={onChangeCheckboxHandler} checked={checkbox}>Remember me </Checkbox>
-            </div>
-            <div className={styles.footer}>
-                <Button onClick={onClickLogin}>Login</Button>
-                <span>Don’t have an account?</span>
-                <Link to='/register'>Sign Up</Link>
             </div>
         </div>
     )
