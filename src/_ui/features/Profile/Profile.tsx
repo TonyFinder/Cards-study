@@ -9,6 +9,8 @@ import styled from 'styled-components';
 
 export const Profile = () => {
     const {name, email, avatar} = useCustomSelector<AuthDataType>(state => state.profile)
+    // Подключить после слияния
+    // const isLoggedIn = useCustomSelector<boolean>(state => state.login.isLoggedIn)
     let dispatch = useAppDispatch()
 
     const [nickNameValue, setNickNameValue] = useState<string>(name)
@@ -19,6 +21,9 @@ export const Profile = () => {
     const changeProfileData = () => {
         dispatch(changeProfileDataTC(nickNameValue, 'http://amintl.com.pk/wp-content/uploads/2019/11/avatar3.png'))
     }
+
+    // Подключить после слияния
+    // {!isLoggedIn && <Navigate to={ROUTE_PATHS.LOGIN}/>}
 
     return <StyledPage color="green" className={styles.container}>
         <div className={styles.block}>

@@ -3,7 +3,7 @@ import {authAPI, AuthDataType, ProfileChangeResponseType} from '../../../_dal/ap
 import {AxiosError} from 'axios';
 import {AppActionTypes, setAppErrorValueAC} from '../../main/appReducer';
 
-let initialState: AuthDataType = {
+/*let initialState: AuthDataType = {
     _id: '1ab',
     email: 'anton@gmail.com',
     name: 'Anton',
@@ -13,6 +13,19 @@ let initialState: AuthDataType = {
     isAdmin: false,
     verified: true,
     rememberMe: true,
+
+    error: '',
+}*/
+let initialState: AuthDataType = {
+    _id: '',
+    email: '',
+    name: '',
+    avatar: '',
+    publicCardPacksCount: 0,
+
+    isAdmin: false,
+    verified: false,
+    rememberMe: false,
 
     error: '',
 }
