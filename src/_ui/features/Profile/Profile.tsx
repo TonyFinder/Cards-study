@@ -4,13 +4,14 @@ import {Button} from '../../common/_superComponents/Button/Button';
 import {useAppDispatch, useCustomSelector} from '../../../_bll/main/store';
 import {useState} from 'react';
 import {changeProfileDataTC} from '../../../_bll/features/profile/profileReducer';
-import {AuthDataType} from '../../../_dal/api-profile';
 import styled from 'styled-components';
+import {AuthDataType} from '../../../_dal/api-profile';
+import {ROUTE_PATHS} from '../../../utils/_values';
+import {Navigate} from 'react-router-dom';
 
 export const Profile = () => {
     const {name, email, avatar} = useCustomSelector<AuthDataType>(state => state.profile)
-    // Подключить после слияния
-    // const isLoggedIn = useCustomSelector<boolean>(state => state.login.isLoggedIn)
+    const isLoggedIn = useCustomSelector<boolean>(state => state.login.isLoggedIn)
     let dispatch = useAppDispatch()
 
     const [nickNameValue, setNickNameValue] = useState<string>(name)
@@ -22,8 +23,7 @@ export const Profile = () => {
         dispatch(changeProfileDataTC(nickNameValue, 'http://amintl.com.pk/wp-content/uploads/2019/11/avatar3.png'))
     }
 
-    // Подключить после слияния
-    // {!isLoggedIn && <Navigate to={ROUTE_PATHS.LOGIN}/>}
+    if (!isLoggedIn) return <Navigate to={ROUTE_PATHS.LOGIN}/>
 
     return <StyledPage color="green" className={styles.container}>
         <div className={styles.block}>
@@ -53,3 +53,4 @@ export const Profile = () => {
 const StyledPage = styled.div`
   
 `
+

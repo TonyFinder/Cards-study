@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="107264e3-9770-49d7-9209-8a5b033c4bcc" name="Changes" comment="Test page was refactored.">
+    <list default="true" id="107264e3-9770-49d7-9209-8a5b033c4bcc" name="Changes" comment=".idea to gitignore">
+      <change afterPath="$PROJECT_DIR$/src/_dal/api-login.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/_ui/features/auth/_Login/authVadim.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/_ui/main/App/Router/Router.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/_bll/features/auth/_login/loginReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/_bll/features/auth/_login/loginReducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/_bll/features/profile/profileReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/_bll/features/profile/profileReducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/_bll/main/store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/_bll/main/store.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/_dal/api-profile.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/_dal/api-profile.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/_ui/features/Profile/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/_ui/features/Profile/Profile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/_ui/features/auth/_Login/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/_ui/features/auth/_Login/Login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/_ui/features/auth/auth.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/_ui/features/auth/auth.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/_ui/main/App/App.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/_ui/main/App/App.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/_ui/main/App/Header/Header.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/_ui/main/App/Header/Header.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/_ui/main/App/Router/Router.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/_ui/main/App/Router/Router.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,11 +72,11 @@
       <recent name="D:\Incubator\Studying\Friday-project\cards-nya-front\src\_ui\common\Test\EditableSpanIntro" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Incubator\Studying\Friday-project\cards-nya-front\src\_dal" />
       <recent name="D:\Incubator\Studying\Friday-project\cards-nya-front\src\_bll\features" />
       <recent name="D:\Incubator\Studying\Friday-project\cards-nya-front\src\_bll\features\auth" />
       <recent name="D:\Incubator\Studying\Friday-project\cards-nya-front\src\_bll\main" />
       <recent name="D:\Incubator\Studying\Friday-project\cards-nya-front\src\_ui\main\App" />
-      <recent name="D:\Incubator\Studying\Friday-project\cards-nya-front\src\_ui\main" />
     </key>
   </component>
   <component name="RunManager" selected="npm.start">
