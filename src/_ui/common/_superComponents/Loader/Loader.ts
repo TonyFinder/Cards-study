@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Loader = styled.div`
   color: ${props => props.color};
-  margin: auto;
+  margin: 25.8px 0;
   font-size: 10px;
   width: 1em;
   height: 1em;

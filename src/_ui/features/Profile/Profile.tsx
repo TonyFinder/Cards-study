@@ -8,10 +8,12 @@ import {AuthDataType} from '../../../_dal/api-profile';
 import {ROUTE_PATHS} from '../../../utils/_values';
 import {Navigate} from 'react-router-dom';
 import { Loader } from '../../common/_superComponents/Loader/Loader';
+import {LoadingStatusType} from '../../../utils/enums';
 
 export const Profile = () => {
     const {name, email, avatar} = useCustomSelector<AuthDataType>(state => state.profile)
     const isLoggedIn = useCustomSelector<boolean>(state => state.login.isLoggedIn)
+    const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
     let dispatch = useAppDispatch()
 
     const [nickNameValue, setNickNameValue] = useState<string>(name)
@@ -44,8 +46,10 @@ export const Profile = () => {
                     disabled/>
             </div>
             <div className={styles.button}>
-                <Button color='#fd974f' disabled={saveButtonDisable} onClick={changeProfileData}>Save</Button>
-                <Loader color='#fd974f'/>
+                {!loading
+                    ?<Button color='#fd974f' disabled={saveButtonDisable} onClick={changeProfileData}>Save</Button>
+                    :<Loader color='#fd974f'/>
+                }
             </div>
         </div>
     </div>

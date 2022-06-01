@@ -31,6 +31,8 @@ export type AuthDataType = {
     error?: string;
 }
 export type ProfileChangeResponseType = {
-    updatedUser: AuthDataType
-    error?: string
+    data: {
+        updatedUser: AuthDataType
+        error?: string
+    }
 }
