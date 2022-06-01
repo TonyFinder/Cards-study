@@ -18,6 +18,11 @@ export const ROUTE_PATHS = {
     ERROR_404: '/error404'
 }
 
+export enum LoaderStatusType {
+    disabled,
+    active,
+}
+
 export const dataRoutes = {
     routes: [
         {id: 0, title: 'Main', path: ROUTE_PATHS.MAIN, element: <Navigate to={ROUTE_PATHS.LOGIN}/>},
