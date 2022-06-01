@@ -8,9 +8,6 @@ const instance = axios.create({
 
 // api
 export const authAPI = {
-    checkCookie() {
-        return instance.post<AuthDataType>('auth/me')
-    },
     changeNameAvatar(name: string, avatar: string) {
         return instance.put<any, ProfileChangeResponseType, {name: string, avatar: string}>('auth/me', {name, avatar})
     },
@@ -25,8 +22,8 @@ export type AuthDataType = {
     avatar?: string;
     publicCardPacksCount: number;
 
-    created?: Date;
-    updated?: Date;
+    created?: string;
+    updated?: string;
     isAdmin: boolean;
     verified: boolean;
     rememberMe: boolean;

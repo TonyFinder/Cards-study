@@ -1,8 +1,8 @@
 import {applyMiddleware, combineReducers, legacy_createStore as createStore} from 'redux';
 import thunk, {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
-import {loginReducer} from '../features/auth/_login/loginReducer';
-import {registerReducer} from '../features/auth/_register/registerReducer';
+import {LoginActionTypes, loginReducer} from '../features/auth/_login/loginReducer';
+import {RegisterActionTypes, registerReducer} from '../features/auth/_register/registerReducer';
 import {forgotReducer} from '../features/auth/forgot/forgotReducer';
 import {setPassReducer} from '../features/auth/setPass/setPassReducer';
 import {ProfileActionTypes, profileReducer} from '../features/profile/profileReducer';
@@ -25,10 +25,10 @@ export const useAppDispatch = () => useDispatch<ThunkDispatch<AppStateRootType, 
 // types
 export type AppStateRootType = ReturnType<typeof rootReducer>
 export type RootActionTypes =
-    // | LoginActionTypes
-    // | RegisterActionTypes
-    // | ForgotActionTypes
-    // | SetPassActionTypes
+    | LoginActionTypes
+    | RegisterActionTypes
+// | ForgotActionTypes
+// | SetPassActionTypes
     | ProfileActionTypes
 
 // https://redux.js.org/usage/usage-with-typescript

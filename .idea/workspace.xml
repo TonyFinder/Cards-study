@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="107264e3-9770-49d7-9209-8a5b033c4bcc" name="Changes" comment="Test page was refactored.">
+    <list default="true" id="107264e3-9770-49d7-9209-8a5b033c4bcc" name="Changes" comment=".idea to gitignore">
+      <change afterPath="$PROJECT_DIR$/src/_dal/api-login.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/_ui/features/auth/_Login/authVadim.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/_ui/main/App/Router/Router.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/_ui/main/App/Header/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/_ui/main/App/Header/Header.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/_ui/main/App/Router/Router.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/_bll/features/auth/_login/loginReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/_bll/features/auth/_login/loginReducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/_bll/features/profile/profileReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/_bll/features/profile/profileReducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/_bll/main/store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/_bll/main/store.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/_dal/api-profile.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/_dal/api-profile.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/_ui/features/Profile/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/_ui/features/Profile/Profile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/_ui/features/auth/_Login/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/_ui/features/auth/_Login/Login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/_ui/features/auth/auth.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/_ui/features/auth/auth.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/_ui/main/App/App.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/_ui/main/App/App.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/_ui/main/App/Header/Header.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/_ui/main/App/Header/Header.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/_ui/main/App/Router/Router.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/_ui/main/App/Router/Router.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/_values.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/_values.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +30,9 @@
         <option value="TypeScript JSX File" />
       </list>
     </option>
+  </component>
+  <component name="Git.Merge.Settings">
+    <option name="BRANCH" value="vadim" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -35,21 +48,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/Incubator/Studying/Friday-project/cards-nya-front/src/_ui/common/Test",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "nodejs_package_manager_path": "yarn",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "ts.external.directory.path": "D:\\Incubator\\Studying\\Friday-project\\cards-nya-front\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Incubator/Studying/Friday-project/cards-nya-front/src/_ui/common/Test&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\Incubator\\Studying\\Friday-project\\cards-nya-front\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Incubator\Studying\Friday-project\cards-nya-front\src\_ui\common\Test" />
@@ -59,11 +72,11 @@
       <recent name="D:\Incubator\Studying\Friday-project\cards-nya-front\src\_ui\common\Test\EditableSpanIntro" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Incubator\Studying\Friday-project\cards-nya-front\src\_dal" />
       <recent name="D:\Incubator\Studying\Friday-project\cards-nya-front\src\_bll\features" />
       <recent name="D:\Incubator\Studying\Friday-project\cards-nya-front\src\_bll\features\auth" />
       <recent name="D:\Incubator\Studying\Friday-project\cards-nya-front\src\_bll\main" />
       <recent name="D:\Incubator\Studying\Friday-project\cards-nya-front\src\_ui\main\App" />
-      <recent name="D:\Incubator\Studying\Friday-project\cards-nya-front\src\_ui\main" />
     </key>
   </component>
   <component name="RunManager" selected="npm.start">
@@ -231,17 +244,17 @@
             <list>
               <RecentGroup>
                 <option name="FILTER_VALUES">
+                  <option value="master" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
                   <option value="origin/master" />
                 </option>
               </RecentGroup>
               <RecentGroup>
                 <option name="FILTER_VALUES">
                   <option value="HEAD" />
-                </option>
-              </RecentGroup>
-              <RecentGroup>
-                <option name="FILTER_VALUES">
-                  <option value="master" />
                 </option>
               </RecentGroup>
             </list>
