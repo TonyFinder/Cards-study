@@ -45,7 +45,7 @@ export const Register = () => {
   return (
     <div className={styles.formContainer}>
       <div className={styles.form}>
-        Sign Up
+        <h2>Sign Up</h2>
         <div className={styles.inputContainer}>
           <Input
             sign="Email"
