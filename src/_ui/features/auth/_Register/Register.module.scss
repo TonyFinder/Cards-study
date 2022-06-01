@@ -2,10 +2,27 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background-image: linear-gradient(90deg, #e4b6f6, #8dd8ef);
+  min-height: 100vh;
   .form {
+    padding-top: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    min-width: 50vh;
+    min-height: 70vh;
+    background: #f9f9fe;
+    border-radius: 0.5rem;
+
+    .inputContainer {
+      width: 95%;
+      display: flex;
+      flex-direction: column;
+      input {
+        width: 100%;
+      }
+    }
   }
   .error {
     color: red;

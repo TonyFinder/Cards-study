@@ -46,28 +46,24 @@ export const Register = () => {
     <div className={styles.formContainer}>
       <div className={styles.form}>
         Sign Up
-        <div>
-          <label>Email</label>
+        <div className={styles.inputContainer}>
           <Input
+            sign="Email"
             value={email}
             onChangeText={setEmail}
             error={emailError}
             onChangeError={setEmailError}
           />
-        </div>
-        <div>
-          <label>Password</label>
           <Input
+            sign="Password"
             type={"password"}
             value={password}
             onChangeText={setPassword}
             error={errorPssword}
             onChangeError={setErrorPssword}
           />
-        </div>
-        <div>
-          <label>Confirm password</label>
           <Input
+            sign="Confirm password"
             type={"password"}
             value={repeatPassword}
             onChangeText={setRepeatPassword}
@@ -75,6 +71,7 @@ export const Register = () => {
             onChangeError={setErrorRepeatPssword}
           />
         </div>
+       
         <Button
           onClick={() => {
             dispatch(requestRegistration({ email, password }));
@@ -82,6 +79,8 @@ export const Register = () => {
         >
           Register
         </Button>
+       
+        
         <div className={styles.error}>{error}</div>
       </div>
     </div>
