@@ -32,7 +32,7 @@ export const profileReducer = (state: AuthDataType = initialState, action: Profi
     }
 }
 
-// actions
+// actions to check
 export const setProfileDataAC = (data: AuthDataType) => ({type: 'PROFILE/SET-PROFILE-DATA', data} as const)
 export const changeProfileDataAC = (data: ProfileChangeResponseType) => ({type: 'PROFILE/CHANGE-PROFILE-DATA', data} as const)
 
