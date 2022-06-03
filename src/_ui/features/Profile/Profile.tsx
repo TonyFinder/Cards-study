@@ -4,7 +4,7 @@ import {Button} from '../../common/_superComponents/Button/Button';
 import {useAppDispatch, useCustomSelector} from '../../../_bll/main/store';
 import {useState} from 'react';
 import {changeProfileDataTC} from '../../../_bll/features/profile/profileReducer';
-import {AuthDataType} from '../../../_dal/api-profile';
+import {AuthDataType} from '../../../_dal/api-anton';
 import {ROUTE_PATHS} from '../../../utils/_values';
 import {Navigate} from 'react-router-dom';
 import { Loader } from '../../common/_superComponents/Loader/Loader';

@@ -1,8 +1,8 @@
 import {AppThunk} from '../../main/store';
-import {authAPI, AuthDataType} from '../../../_dal/api-profile';
+import {authAPI, AuthDataType} from '../../../_dal/api-anton';
 import {AxiosError} from 'axios';
-import {AppActionTypes, changeAppLoadingStatusAC, setAppErrorValueAC} from '../../main/appReducer';
-import {loginApi} from '../../../_dal/api-login';
+import {AppActionTypes, changeAppLoadingStatus, setAppErrorValue} from '../../main/appReducer';
+import {loginApi} from '../../../_dal/api-vadim';
 import {setError, setIsLogin} from '../auth/_login/loginReducer';
 import {LoadingStatusType} from '../../../utils/enums';
 
@@ -34,13 +34,13 @@ export const profileReducer = (state: AuthDataType = initialState, action: Profi
 }
 
 // actions to check
-export const setProfileDataAC = (data: AuthDataType) => ({type: 'PROFILE/SET-PROFILE-DATA', data} as const)
-export const changeProfileDataAC = (data: AuthDataType) => ({type: 'PROFILE/CHANGE-PROFILE-DATA', data} as const)
+export const setProfileData = (data: AuthDataType) => ({type: 'PROFILE/SET-PROFILE-DATA', data} as const)
+export const changeProfileData = (data: AuthDataType) => ({type: 'PROFILE/CHANGE-PROFILE-DATA', data} as const)
 
 // thunks
 export const setDataUser = (email: string, password: string, rememberMe: boolean): AppThunk => (dispatch) => {
     loginApi.login(email, password, rememberMe).then(res => {
-        dispatch(setProfileDataAC(res.data))
+        dispatch(setProfileData(res.data))
         dispatch(setIsLogin(true))
     }).catch(err => {
         console.log("error", {...err})
@@ -48,17 +48,17 @@ export const setDataUser = (email: string, password: string, rememberMe: boolean
     })
 }
 export const changeProfileDataTC = (name: string, avatar: string): AppThunk => dispatch => {
-    dispatch(changeAppLoadingStatusAC(LoadingStatusType.active))
+    dispatch(changeAppLoadingStatus(LoadingStatusType.active))
     authAPI.changeNameAvatar(name, avatar)
         .then(res => {
-            dispatch(changeProfileDataAC(res.data.updatedUser))
+            dispatch(changeProfileData(res.data.updatedUser))
         })
-        .catch((err: AxiosError) => dispatch(setAppErrorValueAC(err.message)))
-        .finally(() => dispatch(changeAppLoadingStatusAC(LoadingStatusType.disabled)))
+        .catch((err: AxiosError) => dispatch(setAppErrorValue(err.message)))
+        .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 
 // types
 export type ProfileActionTypes =
     | AppActionTypes
-    | ReturnType<typeof setProfileDataAC>
-    | ReturnType<typeof changeProfileDataAC>
+    | ReturnType<typeof setProfileData>
+    | ReturnType<typeof changeProfileData>
