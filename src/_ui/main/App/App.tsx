@@ -12,7 +12,7 @@ export const App = () => {
 
     useEffect(()=> {
         dispatch(initializeAppTC())
-    }, [dispatch])
+    }, [])
 
     if (!isInitialized) {
         return <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 500}}>

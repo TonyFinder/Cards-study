@@ -38,7 +38,7 @@ export const setProfileData = (data: AuthDataType) => ({type: 'PROFILE/SET-PROFI
 export const changeProfileData = (data: AuthDataType) => ({type: 'PROFILE/CHANGE-PROFILE-DATA', data} as const)
 
 // thunks
-export const setDataUser = (email: string, password: string, rememberMe: boolean): AppThunk => (dispatch) => {
+export const setDataUserTC = (email: string, password: string, rememberMe: boolean): AppThunk => (dispatch) => {
     loginApi.login(email, password, rememberMe).then(res => {
         dispatch(setProfileData(res.data))
         dispatch(setIsLogin(true))
@@ -46,6 +46,17 @@ export const setDataUser = (email: string, password: string, rememberMe: boolean
         console.log("error", {...err})
         dispatch(setError(err.response.data.error))
     })
+}
+export const logoutTC = (): AppThunk => (dispatch) => {
+    dispatch(changeAppLoadingStatus(LoadingStatusType.active))
+    authAPI.logout()
+        .then(res => {
+            if (res.data.info) {
+                dispatch(setIsLogin(false))
+            }
+        })
+        .catch((err: AxiosError) => dispatch(setAppErrorValue(err.message)))
+        .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 export const changeProfileDataTC = (name: string, avatar: string): AppThunk => dispatch => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))

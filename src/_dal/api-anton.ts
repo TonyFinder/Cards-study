@@ -13,6 +13,9 @@ export const authAPI = {
     },
     me() {
         return instance.post<any, MeResponseType, {}>('auth/me')
+    },
+    logout() {
+        return instance.delete<any, MeLogoutResponse, {}>('auth/me')
     }
 }
 
@@ -42,4 +45,10 @@ export type ProfileChangeResponseType = {
 type MeResponseType = {
     data: AuthDataType
     error?: string
+}
+type MeLogoutResponse = {
+    data: {
+        info: string
+    }
+    error: string
 }
