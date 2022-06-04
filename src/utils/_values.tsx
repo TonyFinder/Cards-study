@@ -6,6 +6,7 @@ import {SetPass} from '../_ui/features/auth/SetPass/SetPass';
 import {Profile} from '../_ui/features/Profile/Profile';
 import {Test} from '../_ui/common/Test/Test';
 import {Error404} from '../_ui/common/Error404/Error404';
+import {Packs} from "../_ui/features/cards/packs/Packs";
 
 export const ROUTE_PATHS = {
     MAIN: '/',
@@ -14,6 +15,7 @@ export const ROUTE_PATHS = {
     FORGOT: '/forgot',
     SET_PASS: '/setPass',
     PROFILE: '/profile',
+    PACKS: '/packs',
     TEST: '/test',
     ERROR_404: '/error404'
 }
@@ -25,6 +27,7 @@ export const dataRoutes = {
         {id: 2, title: 'Register', path: ROUTE_PATHS.REGISTER, element: <Register/>},
         {id: 3, title: 'ForgotPass', path: ROUTE_PATHS.FORGOT, element: <Forgot/>},
         {id: 4, title: 'SetPass', path: ROUTE_PATHS.SET_PASS, element: <SetPass/>},
+        {id: 4, title: 'Packs', path: ROUTE_PATHS.PACKS, element: <Packs/>},
         {id: 5, title: 'Profile', path: ROUTE_PATHS.PROFILE, element: <Profile/>},
         {id: 6, title: 'Test', path: ROUTE_PATHS.TEST, element: <Test/>},
         {id: 7, title: 'Error404', path: ROUTE_PATHS.ERROR_404, element: <Error404/>},
