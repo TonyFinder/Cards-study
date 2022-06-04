@@ -5,7 +5,7 @@ import {
   ForgotActionTypes,
   requestPassword,
 } from "../../../../_bll/features/auth/forgot/forgotReducer";
-import { AppStateRootType } from "../../../../_bll/main/store";
+import { AppStateRootType, useCustomSelector } from "../../../../_bll/main/store";
 import { Button } from "../../../common/_superComponents/Button/Button";
 import { Input } from "../../../common/_superComponents/Input/Input";
 import styles from "./Forgot.module.scss";
@@ -14,6 +14,7 @@ export const Forgot = () => {
   const [email, setEmail] = useState<string | undefined>();
   const dispatch: ThunkDispatch<AppStateRootType, string, ForgotActionTypes> =
     useDispatch();
+    const error = useCustomSelector<string>((state) => state.forgot.error);
   return (
     <div className={styles.formContainer}>
       <div className={styles.form}>
@@ -29,6 +30,7 @@ export const Forgot = () => {
         <Button onClick={() => dispatch(requestPassword(email))}>
           Send instructions
         </Button>
+        <div className={styles.error}>{error}</div>
       </div>
     </div>
   );

@@ -1,17 +1,7 @@
 import { Dispatch } from "redux";
-import {
-  FieldForgotPassword,
-  forgotApi,
-} from "../../../../_dal/api-forgotPassword";
+import { forgotApi } from "../../../../_dal/api-forgotPassword";
 
 let initialState = {
-  //   email: "",
-  //   from: "",
-  //   message: `<div style="background-color: lime; padding: 15px">
-  //     password recovery link:
-  //     <a href='http://localhost:3000/#/setPass/$token$'>
-  //     link</a>
-  //     </div>`,
   error: "",
 };
 
@@ -36,15 +26,16 @@ export const forgotReducer = (
 };
 
 // actions
-//export const sendEmail = (email: string) => ({ type: "SEND-EMAIL", email });
-export const setError = (error: string) => ({ type: "SET-ERROR", error });
+ const setError = (error: string) => ({ type: "SET-ERROR", error });
 
 // thunks
 export const requestPassword = (email: string | undefined) => {
   return async (dispatch: Dispatch<ForgotActionTypes>) => {
     try {
       await forgotApi.forgot(email);
-    } catch (error: any) {}
+    } catch (AxiosError: any) {
+      dispatch(setError(AxiosError.response.data.error));
+    }
   };
 };
 // types

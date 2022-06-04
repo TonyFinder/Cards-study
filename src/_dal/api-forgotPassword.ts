@@ -19,7 +19,7 @@ export const forgotApi = {
       from: "",
       message: `<div style="background-color: lime; padding: 15px">
      password recovery link: 
-     <a href='http://localhost:3000/#/setPass/$token$'>
+     <a href='http://localhost:3000/cards-nya-front#/setPass/$token$'>
       link</a>
       </div>`,
     }),
