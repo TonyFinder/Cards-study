@@ -6,20 +6,15 @@ import { ThunkDispatch } from "redux-thunk";
 import {
   RegisterActionTypes,
   requestRegistration,
-  ShippingFields,
 } from "../../../../_bll/features/auth/_register/registerReducer";
 import {
   AppStateRootType,
   useCustomSelector,
 } from "../../../../_bll/main/store";
+import { ShippingFields } from "../../../../_dal/api-register";
 import { Button } from "../../../common/_superComponents/Button/Button";
 import { Input } from "../../../common/_superComponents/Input/Input";
 import styles from "./Register.module.scss";
-
-export const instance = axios.create({
-  baseURL: process.env.REACT_APP_BACK_URL || "http://localhost:7542/2.0/",
-  withCredentials: true,
-});
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -71,7 +66,7 @@ export const Register = () => {
             onChangeError={setErrorRepeatPssword}
           />
         </div>
-       
+
         <Button
           onClick={() => {
             dispatch(requestRegistration({ email, password }));
@@ -79,8 +74,7 @@ export const Register = () => {
         >
           Register
         </Button>
-       
-        
+
         <div className={styles.error}>{error}</div>
       </div>
     </div>

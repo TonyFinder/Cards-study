@@ -1,10 +1,12 @@
 import { Dispatch } from "redux";
-import { instance } from "../../../../_ui/features/auth/_Register/Register";
+import { registerApi, ShippingFields } from "../../../../_dal/api-register";
 
 let initialState = {
   error: "",
   isRegistered: false,
 };
+
+
 
 export const registerReducer = (
   state = initialState,
@@ -38,7 +40,7 @@ export const setError = (error: string) =>
 export const requestRegistration = (data: ShippingFields) => {
   return async (dispatch: Dispatch<RegisterActionTypes>) => {
     try {
-      await instance.post("auth/register", data);
+      await registerApi.register(data);
       dispatch(register(true));
     } catch (error: any) {
       dispatch(setError(error.response.data.error));
@@ -47,11 +49,8 @@ export const requestRegistration = (data: ShippingFields) => {
 };
 
 // types
+type InitialStateType = typeof initialState;
+
 export type RegisterActionTypes =
   | ReturnType<typeof register>
   | ReturnType<typeof setError>;
-type InitialStateType = typeof initialState;
-export type ShippingFields = {
-  email: string;
-  password: string;
-};
