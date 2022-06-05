@@ -12,6 +12,7 @@ export const App = () => {
 
     useEffect(()=> {
         dispatch(initializeAppTC())
+        // eslint-disable-next-line 
     }, [])
 
     if (!isInitialized) {
