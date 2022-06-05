@@ -6,28 +6,33 @@ import {SetPass} from '../_ui/features/auth/SetPass/SetPass';
 import {Profile} from '../_ui/features/Profile/Profile';
 import {Test} from '../_ui/common/Test/Test';
 import {Error404} from '../_ui/common/Error404/Error404';
+import {Packs} from "../_ui/features/cards/packs/Packs";
 
 export const ROUTE_PATHS = {
     MAIN: '/',
     LOGIN: '/login',
     REGISTER: '/register',
     FORGOT: '/forgot',
-    SET_PASS: '/setPass',
+    SET_PASS: '/setPass/:token',
     PROFILE: '/profile',
+    PACKS: '/packs',
     TEST: '/test',
-    ERROR_404: '/error404'
+    ERROR_404: '/error404',
+    UNKNOWN_URL: '*',
 }
 
 export const dataRoutes = {
     routes: [
-        {id: 0, title: 'Main', path: ROUTE_PATHS.MAIN, element: <Navigate to={ROUTE_PATHS.LOGIN}/>},
-        {id: 1, title: 'Login', path: ROUTE_PATHS.LOGIN, element: <Login/>},
-        {id: 2, title: 'Register', path: ROUTE_PATHS.REGISTER, element: <Register/>},
-        {id: 3, title: 'ForgotPass', path: ROUTE_PATHS.FORGOT, element: <Forgot/>},
-        {id: 4, title: 'SetPass', path: ROUTE_PATHS.SET_PASS, element: <SetPass/>},
-        {id: 5, title: 'Profile', path: ROUTE_PATHS.PROFILE, element: <Profile/>},
-        {id: 6, title: 'Test', path: ROUTE_PATHS.TEST, element: <Test/>},
-        {id: 7, title: 'Error404', path: ROUTE_PATHS.ERROR_404, element: <Error404/>},
+        {id: 0, title: 'Main', visible: true, path: ROUTE_PATHS.MAIN, element: <Navigate to={ROUTE_PATHS.LOGIN}/>},
+        {id: 1, title: 'Login', visible: true, path: ROUTE_PATHS.LOGIN, element: <Login/>},
+        {id: 2, title: 'Register', visible: true, path: ROUTE_PATHS.REGISTER, element: <Register/>},
+        {id: 3, title: 'ForgotPass', visible: true, path: ROUTE_PATHS.FORGOT, element: <Forgot/>},
+        {id: 4, title: 'SetPass', visible: true, path: ROUTE_PATHS.SET_PASS, element: <SetPass/>},
+        {id: 5, title: 'Packs', visible: true, path: ROUTE_PATHS.PACKS, element: <Packs/>},
+        {id: 6, title: 'Profile', visible: true, path: ROUTE_PATHS.PROFILE, element: <Profile/>},
+        {id: 7, title: 'Test', visible: true, path: ROUTE_PATHS.TEST, element: <Test/>},
+        {id: 8, title: 'Error404', visible: true, path: ROUTE_PATHS.ERROR_404, element: <Error404/>},
+        {id: 9, title: 'Unknown url', visible: false, path: ROUTE_PATHS.UNKNOWN_URL, element: <Navigate to={ROUTE_PATHS.ERROR_404}/>},
     ]
 }
 

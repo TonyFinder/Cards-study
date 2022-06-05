@@ -1,16 +1,12 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
-import { ThunkDispatch } from "redux-thunk";
-import {
-  setNewPassword,
-  SetPassActionTypes,
-} from "../../../../_bll/features/auth/setPass/setPassReducer";
-import { AppStateRootType } from "../../../../_bll/main/store";
-import { FieldSetPassword } from "../../../../_dal/api-setPassword";
-import { Button } from "../../../common/_superComponents/Button/Button";
-import { Input } from "../../../common/_superComponents/Input/Input";
-import styles from "./SetPass.module.scss";
+import {useState} from 'react';
+import {useDispatch} from 'react-redux';
+import {ThunkDispatch} from 'redux-thunk';
+import {setNewPassword, SetPassActionTypes,} from '../../../../_bll/features/auth/setPass/setPassReducer';
+import {AppStateRootType} from '../../../../_bll/main/store';
+import {FieldSetPassword} from '../../../../_dal/api-setPassword';
+import {Button} from '../../../common/_superComponents/Button/Button';
+import {Input} from '../../../common/_superComponents/Input/Input';
+import styles from './SetPass.module.scss';
 
 export const SetPass = () => {
   const [password, setPassword] = useState<string | undefined>();

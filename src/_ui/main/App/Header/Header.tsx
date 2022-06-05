@@ -4,7 +4,6 @@ import {dataRoutes} from '../../../../utils/_values';
 
 export const Header = () => {
     return <div className={styles.container}>
-        {dataRoutes.routes.map(item =>
-            <Link key={item.id} to={item.path}>{item.title}</Link>)}
+        {dataRoutes.routes.map(item => item.visible && <Link key={item.id} to={item.path}>{item.title}</Link>)}
     </div>
 }

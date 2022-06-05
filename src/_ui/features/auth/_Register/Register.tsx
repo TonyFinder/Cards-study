@@ -1,20 +1,13 @@
-import axios from "axios";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { ThunkDispatch } from "redux-thunk";
-import {
-  RegisterActionTypes,
-  requestRegistration,
-} from "../../../../_bll/features/auth/_register/registerReducer";
-import {
-  AppStateRootType,
-  useCustomSelector,
-} from "../../../../_bll/main/store";
-import { ShippingFields } from "../../../../_dal/api-register";
-import { Button } from "../../../common/_superComponents/Button/Button";
-import { Input } from "../../../common/_superComponents/Input/Input";
-import styles from "./Register.module.scss";
+import {useState} from 'react';
+import {useDispatch} from 'react-redux';
+import {useNavigate} from 'react-router-dom';
+import {ThunkDispatch} from 'redux-thunk';
+import {RegisterActionTypes, requestRegistration,} from '../../../../_bll/features/auth/_register/registerReducer';
+import {AppStateRootType, useCustomSelector,} from '../../../../_bll/main/store';
+import {ShippingFields} from '../../../../_dal/api-register';
+import {Button} from '../../../common/_superComponents/Button/Button';
+import {Input} from '../../../common/_superComponents/Input/Input';
+import styles from './Register.module.scss';
 
 export const Register = () => {
   const navigate = useNavigate();
