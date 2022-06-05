@@ -1,18 +1,30 @@
-import {useState} from 'react';
-import {useDispatch} from 'react-redux';
-import {ThunkDispatch} from 'redux-thunk';
-import {setNewPassword, SetPassActionTypes,} from '../../../../_bll/features/auth/setPass/setPassReducer';
-import {AppStateRootType} from '../../../../_bll/main/store';
-import {FieldSetPassword} from '../../../../_dal/api-setPassword';
-import {Button} from '../../../common/_superComponents/Button/Button';
-import {Input} from '../../../common/_superComponents/Input/Input';
-import styles from './SetPass.module.scss';
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { ThunkDispatch } from "redux-thunk";
+import {
+  setNewPassword,
+  SetPassActionTypes,
+} from "../../../../_bll/features/auth/setPass/setPassReducer";
+import { AppStateRootType, useCustomSelector } from "../../../../_bll/main/store";
+import { FieldSetPassword } from "../../../../_dal/api-setPassword";
+import { Button } from "../../../common/_superComponents/Button/Button";
+import { Input } from "../../../common/_superComponents/Input/Input";
+import styles from "./SetPass.module.scss";
 
 export const SetPass = () => {
-  const [password, setPassword] = useState<string | undefined>();
-  const dispatch: ThunkDispatch<AppStateRootType, FieldSetPassword, SetPassActionTypes> =
-    useDispatch();
-  const token = ''
+  const [password, setPassword] = useState<string>("");
+  const dispatch: ThunkDispatch<
+    AppStateRootType,
+    FieldSetPassword,
+    SetPassActionTypes
+  > = useDispatch();
+  const token = useParams<"token">();
+  const resetPasswordToken = token.token;
+  const error = useCustomSelector<string>((state) => state.setPass.error);
+  const info = useCustomSelector<string>((state) => state.setPass.info);
+  const navigate = useNavigate()
+  
   return (
     <div className={styles.formContainer}>
       <div className={styles.form}>
@@ -27,11 +39,13 @@ export const SetPass = () => {
 
         <Button
           onClick={() => {
-            dispatch(setNewPassword({ password, token }));
+            dispatch(setNewPassword({ password, resetPasswordToken }));
+            if(info !== '') return navigate('/login')
           }}
         >
           Create new password
         </Button>
+        <div className={styles.error}>{error}</div>
       </div>
     </div>
   );

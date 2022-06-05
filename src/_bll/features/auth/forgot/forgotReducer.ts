@@ -10,11 +10,6 @@ export const forgotReducer = (
   action: ForgotActionTypes
 ): InitialStateType => {
   switch (action.type) {
-    // case "SEND-EMAIL":
-    //   return {
-    //     ...state,
-    //     email: action.email,
-    //   };
     case "SET-ERROR":
       return {
         ...state,
@@ -26,7 +21,7 @@ export const forgotReducer = (
 };
 
 // actions
- const setError = (error: string) => ({ type: "SET-ERROR", error });
+const setError = (error: string) => ({ type: "SET-ERROR", error });
 
 // thunks
 export const requestPassword = (email: string | undefined) => {
