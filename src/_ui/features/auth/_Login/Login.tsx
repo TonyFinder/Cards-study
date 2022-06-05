@@ -10,6 +10,8 @@ import {loginInitialStateType} from "../../../../_bll/features/auth/_login/login
 import {useFormik} from "formik";
 import {ROUTE_PATHS} from "../../../../utils/_values";
 
+
+
 export const Login = () => {
 
     const {isLoggedIn, error} = useCustomSelector<loginInitialStateType>(state => state.login)
@@ -66,20 +68,24 @@ export const Login = () => {
                         sign="Email"
                         type='text'
                         placeholder='Email'
+                        error={!!formik.errors.email}
                         {...formik.getFieldProps('email')}
                     />
-                    {formik.touched.email && formik.errors.email ?
-                        <div style={{"color": "red"}}>{formik.errors.email}</div> : null}
+                    <div>
+                        {formik.touched.email && formik.errors.email ? formik.errors.email : null}
+                    </div>
 
                     <Input
                         id='Password'
                         sign="Password"
                         type={typeInput}
                         placeholder='Password'
+                        error={!!formik.errors.password}
                         {...formik.getFieldProps('password')}
                     />
-                    {formik.touched.password && formik.errors.password ?
-                        <div style={{"color": "red"}}>{formik.errors.password}</div> : null}
+                    <div>
+                        {formik.touched.password && formik.errors.password ? formik.errors.password : null}
+                    </div>
 
                     <span onClick={onClickShowPasswordHandler}>👀</span>
                     <Link to={ROUTE_PATHS.FORGOT}>Forgot Password</Link>
