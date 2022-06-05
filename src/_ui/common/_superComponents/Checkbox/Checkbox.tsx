@@ -28,13 +28,17 @@ export const Checkbox: React.FC<CheckboxPropsType> = ({
 }
 
 const StyledCheckbox = styled.div`
+  position: relative;
   margin: 10px;
   > input {
+    position: absolute;
+    top: 0; left: 0;
     opacity: 0;
-    display: none;
+    width: 21px; height: 21px;
+    margin: 0;
+    z-index: 3;
   }
   > input + label {
-    position: relative;
     padding-left: 25px;
     cursor: pointer;
     font-family: 'Montserrat', sans-serif;
@@ -42,7 +46,7 @@ const StyledCheckbox = styled.div`
     &:before {
       content: '';
       position: absolute;
-      left:0; top: -2px;
+      left:0; top: 0;
       width: 17px; height: 17px;
       border: 2px solid #aaa;
       background: #f8f8f8;
@@ -52,7 +56,7 @@ const StyledCheckbox = styled.div`
     &:after {
       content: '✔';
       position: absolute;
-      top: -7px; left: 2px;
+      top: -5px; left: 2px;
       font-size: 22px;
       color: ${props => props.color ? props.color : '#53a6fb'};
       transition: all .2s;

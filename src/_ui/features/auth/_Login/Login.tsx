@@ -5,7 +5,7 @@ import {Checkbox} from "../../../common/_superComponents/Checkbox/Checkbox";
 import {useState} from "react";
 import {Link, Navigate} from 'react-router-dom';
 import {useAppDispatch, useCustomSelector} from "../../../../_bll/main/store";
-import {setDataUser} from "../../../../_bll/features/profile/profileReducer";
+import {setDataUserTC} from "../../../../_bll/features/profile/profileReducer";
 import {loginInitialStateType} from "../../../../_bll/features/auth/_login/loginReducer";
 
 export const Login = () => {
@@ -32,7 +32,7 @@ export const Login = () => {
     }
 
     const onClickLogin = () => {
-        dispatch(setDataUser(email, password, checkbox))
+        dispatch(setDataUserTC(email, password, checkbox))
     }
 
     const onClickShowPasswordHandler = () => {

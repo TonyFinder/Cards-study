@@ -11,6 +11,12 @@ export const authAPI = {
     changeNameAvatar(name: string, avatar: string) {
         return instance.put<any, ProfileChangeResponseType, {name: string, avatar: string}>('auth/me', {name, avatar})
     },
+    me() {
+        return instance.post<any, MeResponseType, {}>('auth/me')
+    },
+    logout() {
+        return instance.delete<any, MeLogoutResponse, {}>('auth/me')
+    }
 }
 
 
@@ -31,6 +37,18 @@ export type AuthDataType = {
     error?: string;
 }
 export type ProfileChangeResponseType = {
-    updatedUser: AuthDataType
+    data: {
+        updatedUser: AuthDataType
+        error?: string
+    }
+}
+type MeResponseType = {
+    data: AuthDataType
     error?: string
+}
+type MeLogoutResponse = {
+    data: {
+        info: string
+    }
+    error: string
 }

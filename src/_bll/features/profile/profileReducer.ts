@@ -1,9 +1,10 @@
 import {AppThunk} from '../../main/store';
-import {authAPI, AuthDataType, ProfileChangeResponseType} from '../../../_dal/api-profile';
+import {authAPI, AuthDataType} from '../../../_dal/api-anton';
 import {AxiosError} from 'axios';
-import {AppActionTypes, setAppErrorValueAC} from '../../main/appReducer';
-import {loginApi} from '../../../_dal/api-login';
+import {AppActionTypes, changeAppLoadingStatus, setAppErrorValue} from '../../main/appReducer';
+import {loginApi} from '../../../_dal/api-vadim';
 import {setError, setIsLogin} from '../auth/_login/loginReducer';
+import {LoadingStatusType} from '../../../utils/enums';
 
 let initialState: AuthDataType = {
     _id: '',
@@ -26,34 +27,49 @@ export const profileReducer = (state: AuthDataType = initialState, action: Profi
         case 'PROFILE/SET-PROFILE-DATA':
             return {...state, ...action.data}
         case 'PROFILE/CHANGE-PROFILE-DATA':
-            return {...state, ...action.data.updatedUser, error: action.data.error}
+            return {...state, ...action.data}
         default:
             return state
     }
 }
 
-// actions
-export const setProfileDataAC = (data: AuthDataType) => ({type: 'PROFILE/SET-PROFILE-DATA', data} as const)
-export const changeProfileDataAC = (data: ProfileChangeResponseType) => ({type: 'PROFILE/CHANGE-PROFILE-DATA', data} as const)
+// actions to check
+export const setProfileData = (data: AuthDataType) => ({type: 'PROFILE/SET-PROFILE-DATA', data} as const)
+export const changeProfileData = (data: AuthDataType) => ({type: 'PROFILE/CHANGE-PROFILE-DATA', data} as const)
 
 // thunks
-export const setDataUser = (email: string, password: string, rememberMe: boolean): AppThunk => (dispatch) => {
+export const setDataUserTC = (email: string, password: string, rememberMe: boolean): AppThunk => (dispatch) => {
     loginApi.login(email, password, rememberMe).then(res => {
-        dispatch(setProfileDataAC(res.data))
+        dispatch(setProfileData(res.data))
         dispatch(setIsLogin(true))
     }).catch(err => {
         console.log("error", {...err})
         dispatch(setError(err.response.data.error))
     })
 }
+export const logoutTC = (): AppThunk => (dispatch) => {
+    dispatch(changeAppLoadingStatus(LoadingStatusType.active))
+    authAPI.logout()
+        .then(res => {
+            if (res.data.info) {
+                dispatch(setIsLogin(false))
+            }
+        })
+        .catch((err: AxiosError) => dispatch(setAppErrorValue(err.message)))
+        .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
+}
 export const changeProfileDataTC = (name: string, avatar: string): AppThunk => dispatch => {
+    dispatch(changeAppLoadingStatus(LoadingStatusType.active))
     authAPI.changeNameAvatar(name, avatar)
-        .then(res => dispatch(changeProfileDataAC(res)))
-        .catch((err: AxiosError) => dispatch(setAppErrorValueAC(err.message)))
+        .then(res => {
+            dispatch(changeProfileData(res.data.updatedUser))
+        })
+        .catch((err: AxiosError) => dispatch(setAppErrorValue(err.message)))
+        .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 
 // types
 export type ProfileActionTypes =
     | AppActionTypes
-    | ReturnType<typeof setProfileDataAC>
-    | ReturnType<typeof changeProfileDataAC>
+    | ReturnType<typeof setProfileData>
+    | ReturnType<typeof changeProfileData>
