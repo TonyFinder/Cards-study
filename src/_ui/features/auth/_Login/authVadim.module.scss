@@ -13,62 +13,53 @@
   .container {
     @include flexCenter;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-evenly;
     width: 413px;
     height: 600px;
     background: #F9F9FE;
     border-radius: 8px;
     margin-top: 100px;
+    position: relative;
 
     font-style: normal;
     font-weight: 600;
     font-size: 14px;
     line-height: 24px;
 
-    .header {
+
+    .error {
       text-align: center;
+      height: 30px;
+      color: red;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    h1 {
+      font-style: normal;
+      font-weight: 600;
+      font-size: 26px;
+      line-height: 39px;
+
+      color: #2D2E46;
+    }
+
+    h3 {
+      font-style: normal;
+      font-weight: 600;
+      font-size: 22px;
+      line-height: 33px;
+      margin: 0;
+    }
+
+    form {
       display: flex;
       flex-direction: column;
-
-      .error {
-        text-align: center;
-        height: 30px;
-        color: red;
-        font-size: 20px;
-        font-weight: bold;
-        margin-top: 20px;
-      }
-
-      h1 {
-        font-style: normal;
-        font-weight: 600;
-        font-size: 26px;
-        line-height: 39px;
-
-
-        color: #2D2E46;
-      }
-
-      h3 {
-        font-style: normal;
-        font-weight: 600;
-        font-size: 22px;
-        line-height: 33px;
-      }
+      align-items: stretch;
+      position: relative;
 
       div {
-        text-align: left;
-        width: 350px;
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        position: relative;
-        margin: 0;
-
-        label {
-          color: #646464;
-          opacity: 0.8;
-        }
+        margin-top: 0;
 
         input {
           font-style: normal;
@@ -76,47 +67,35 @@
           font-size: 20px;
           line-height: 24px;
         }
-
-        span {
-          position: absolute;
-          right: 0;
-          bottom: 12px;
-          cursor: pointer;
-        }
       }
 
-      span {
+      :nth-child(3) {
+        position: absolute;
+        right: 15px;
+        bottom: 154px;
+        cursor: pointer;
+      }
+
+      :nth-child(4) {
         text-align: right;
+        cursor: pointer;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 17px;
       }
 
     }
 
-    .body {
-      display: flex;
-      flex-direction: column;
-
-
+    span {
+      color: #969796;
+      text-align: center;
     }
 
-    .footer {
-      height: 150px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      align-items: stretch;
-      width: 260px;
-
-      span {
-        color: #969796;
-        text-align: center;
-
-      }
-
-      a {
-        font-size: 18px;
-        text-decoration: none;
-        text-align: center;
-      }
+    a {
+      font-size: 18px;
+      text-decoration: none;
+      text-align: center;
     }
   }
 }
