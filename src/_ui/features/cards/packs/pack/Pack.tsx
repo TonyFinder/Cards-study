@@ -1,19 +1,17 @@
 import React from 'react';
 import {PackType} from "../../../../../_dal/api-vadim";
+import {Button} from '../../../../common/_superComponents/Button/Button';
 import styles from './pack.module.scss';
 
-type PackPropsType = {
-    data: PackType
-}
 
-export const Pack: React.FC<PackPropsType> = (props) => {
+export const Pack: React.FC<PackType> = (props) => {
 
     const {
         name,
         cardsCount,
         updated,
         user_name,
-    } = props.data;
+    } = props;
 
     return (
         <div className={styles.row}>
@@ -21,7 +19,7 @@ export const Pack: React.FC<PackPropsType> = (props) => {
                 {name}
             </span>
             <span>
-                {cardsCount}
+                {cardsCount === 999 ? 'Cards' : cardsCount}
             </span>
             <span>
                 {updated.slice(0, 10)}
@@ -29,9 +27,9 @@ export const Pack: React.FC<PackPropsType> = (props) => {
             <span>
                 {user_name}
             </span>
-            <span>
-                actions
-            </span>
+            <Button color={"red"}>Delete</Button>
+            <Button>Edit</Button>
+            <Button>Learn</Button>
         </div>
     );
 };

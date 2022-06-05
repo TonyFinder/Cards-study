@@ -1,5 +1,78 @@
-.container {
+.block {
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100%;
+  height: 100vh;
+  background-image: linear-gradient(90deg, #e4b6f6, #8dd8ef);
+
+  .container {
+    display: flex;
+    align-items: center;
+    width: 1008px;
+    height: 636px;
+    background-color: #FEFEFF;
+
+    .settings {
+      display: flex;
+      flex-direction: column;
+      width: 243px;
+      height: 636px;
+      background: #ECECF9;
+    }
+
+    .packs {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      width: 673px;
+      height: 450px;
+      word-break: break-word;
+      margin-left: 50px;
+
+
+      .input {
+        border: 2px solid #2D2E46;
+
+        div {
+          display: flex;
+          justify-content: space-around;
+
+          div {
+            margin: 10px;
+            width: 60%;
+
+            input {
+              width: 100%;
+            }
+          }
+        }
+      }
+
+      .table {
+        background-color: #8dd8ef;
+        border: 2px solid #2D2E46;
+        margin: 10px 0;
+
+        div:nth-child(even) {
+          background: #FFFFFF;
+        }
+
+        div:nth-child(odd) {
+          background: #ECECF9;
+        }
+
+        div:nth-child(1) {
+          background: #e3e0f8;
+        }
+      }
+
+      .page {
+        text-align: center;
+        border: 2px solid #2D2E46;
+      }
+
+
+    }
+  }
 }

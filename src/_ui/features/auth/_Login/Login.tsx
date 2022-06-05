@@ -11,7 +11,6 @@ import {useFormik} from "formik";
 import {ROUTE_PATHS} from "../../../../utils/_values";
 
 
-
 export const Login = () => {
 
     const {isLoggedIn, error} = useCustomSelector<loginInitialStateType>(state => state.login)
