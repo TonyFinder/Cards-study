@@ -7,6 +7,7 @@ import {forgotReducer} from '../features/auth/forgot/forgotReducer';
 import {setPassReducer} from '../features/auth/setPass/setPassReducer';
 import {ProfileActionTypes, profileReducer} from '../features/profile/profileReducer';
 import {appReducer} from './appReducer';
+import {ActionPacksType, packsReducer} from "../features/cards/packsReducer";
 
 let rootReducer = combineReducers({
     app: appReducer,
@@ -14,7 +15,8 @@ let rootReducer = combineReducers({
     register: registerReducer,
     forgot: forgotReducer,
     setPass: setPassReducer,
-    profile: profileReducer
+    profile: profileReducer,
+    pack: packsReducer,
 })
 
 export let store = createStore(rootReducer, applyMiddleware(thunk))
@@ -30,6 +32,7 @@ export type RootActionTypes =
 // | ForgotActionTypes
 // | SetPassActionTypes
     | ProfileActionTypes
+    | ActionPacksType
 
 // https://redux.js.org/usage/usage-with-typescript
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppStateRootType, unknown, RootActionTypes>
