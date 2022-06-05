@@ -13,11 +13,12 @@ export const ROUTE_PATHS = {
     LOGIN: '/login',
     REGISTER: '/register',
     FORGOT: '/forgot',
-    SET_PASS: '/setPass',
+    SET_PASS: '/setPass/:token',
     PROFILE: '/profile',
     PACKS: '/packs',
     TEST: '/test',
-    ERROR_404: '/error404'
+    ERROR_404: '/error404',
+    UNKNOWN_URL: '*',
 }
 
 export const dataRoutes = {
@@ -27,10 +28,11 @@ export const dataRoutes = {
         {id: 2, title: 'Register', path: ROUTE_PATHS.REGISTER, element: <Register/>},
         {id: 3, title: 'ForgotPass', path: ROUTE_PATHS.FORGOT, element: <Forgot/>},
         {id: 4, title: 'SetPass', path: ROUTE_PATHS.SET_PASS, element: <SetPass/>},
-        {id: 4, title: 'Packs', path: ROUTE_PATHS.PACKS, element: <Packs/>},
-        {id: 5, title: 'Profile', path: ROUTE_PATHS.PROFILE, element: <Profile/>},
-        {id: 6, title: 'Test', path: ROUTE_PATHS.TEST, element: <Test/>},
-        {id: 7, title: 'Error404', path: ROUTE_PATHS.ERROR_404, element: <Error404/>},
+        {id: 5, title: 'Packs', path: ROUTE_PATHS.PACKS, element: <Packs/>},
+        {id: 6, title: 'Profile', path: ROUTE_PATHS.PROFILE, element: <Profile/>},
+        {id: 7, title: 'Test', path: ROUTE_PATHS.TEST, element: <Test/>},
+        {id: 8, title: 'Error404', path: ROUTE_PATHS.ERROR_404, element: <Error404/>},
+        {id: 9, title: 'Unknown url', path: ROUTE_PATHS.UNKNOWN_URL, element: <Navigate to={ROUTE_PATHS.ERROR_404}/>},
     ]
 }
 
