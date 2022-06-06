@@ -25,7 +25,7 @@ const initialState: CardsType = {
 
 export const cardsReducer = (state: CardsType = initialState, action: ActionCardsType): CardsType => {
     switch (action.type) {
-        case 'PACKS/SET-PACKS-DATA':
+        case 'CARDS/SET-CARDS-DATA':
             return {...state, ...action.data}
         default:
             return state
@@ -33,7 +33,7 @@ export const cardsReducer = (state: CardsType = initialState, action: ActionCard
 };
 
 // actions
-export const setCards = (data: CardsType) => ({type: 'PACKS/SET-PACKS-DATA', data} as const)
+export const setCards = (data: CardsType) => ({type: 'CARDS/SET-CARDS-DATA', data} as const)
 
 // thunks
 export const setCardsTC = (params: CardParamsType): AppThunk => (dispatch) => {
