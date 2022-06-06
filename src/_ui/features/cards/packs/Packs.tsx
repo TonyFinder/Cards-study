@@ -6,6 +6,7 @@ import {Pack} from "./pack/Pack";
 import styles from "./packs.module.scss";
 import {Button} from '../../../common/_superComponents/Button/Button';
 import {Input} from "../../../common/_superComponents/Input/Input";
+import {PacksType} from "../../../../_dal/api-vadim";
 
 const headerTable = {
     name: "Name",
@@ -15,12 +16,13 @@ const headerTable = {
     _id: "_id",
     user_id: "user_id",
     created: "Actions",
+    header: true
 }
 
 
 export const Packs = () => {
 
-    const packs = useCustomSelector(state => state.packs);
+    const packs = useCustomSelector<PacksType>(state => state.packs);
     const isLogin = useCustomSelector(state => state.login.isLoggedIn);
 
     const dispatch = useAppDispatch();
@@ -62,7 +64,7 @@ export const Packs = () => {
                         </div>
                     </div>
                     <div className={styles.table}>
-                        <Pack header={true} {...headerTable}/>
+                        <Pack {...headerTable}/>
                         {packs.cardPacks.map(p => <Pack {...p}/>)}
                     </div>
                     <div className={styles.page}>
