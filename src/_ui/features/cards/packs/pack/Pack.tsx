@@ -2,14 +2,14 @@ import React from 'react';
 import {Button} from '../../../../common/_superComponents/Button/Button';
 import styles from './pack.module.scss';
 
-type PackPropsType = {
+export type PackPropsType = {
     _id: string
-    user_id: string
-    user_name: string,
-    name: string
-    cardsCount: number | string
-    created: string
-    updated: string
+    user_id?: string
+    user_name?: string,
+    name?: string
+    cardsCount?: number | string
+    created?: string
+    updated?: string
     header?: boolean
 }
 
@@ -32,7 +32,7 @@ export const Pack: React.FC<PackPropsType> = (props) => {
                 {cardsCount}
             </span>
             <span>
-                {updated.slice(0, 10)}
+                {updated?.slice(0, 10)}
             </span>
             <span>
                 {user_name}
