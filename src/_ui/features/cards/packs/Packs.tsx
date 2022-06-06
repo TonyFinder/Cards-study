@@ -20,7 +20,7 @@ const headerTable = {
 
 export const Packs = () => {
 
-    const packs = useCustomSelector(state => state.pack);
+    const packs = useCustomSelector(state => state.packs);
     const isLogin = useCustomSelector(state => state.login.isLoggedIn);
 
     const dispatch = useAppDispatch();
