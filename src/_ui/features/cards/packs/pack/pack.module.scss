@@ -10,19 +10,14 @@
     text-align: center;
   }
 
-  button {
-    margin: 5px;
-    padding: 5px;
-    font-size: 12px;
+  div {
+    background: none !important;
+    width: 192px;
+
+    button {
+      margin: 5px;
+      padding: 5px;
+      font-size: 12px;
+    }
   }
-
-  .buttonDelete {
-    position: relative;
-    background-color: transparent;
-    padding: 10px 15px;
-    margin: 10px;
-    overflow: hidden;
-
-  }
-
 }

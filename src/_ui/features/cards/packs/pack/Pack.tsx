@@ -1,10 +1,20 @@
 import React from 'react';
-import {PackType} from "../../../../../_dal/api-vadim";
 import {Button} from '../../../../common/_superComponents/Button/Button';
 import styles from './pack.module.scss';
 
+type PackPropsType = {
+    _id: string
+    user_id: string
+    user_name: string,
+    name: string
+    cardsCount: number | string
+    created: string
+    updated: string
+    header?: boolean
+}
 
-export const Pack: React.FC<PackType> = (props) => {
+
+export const Pack: React.FC<PackPropsType> = (props) => {
 
     const {
         name,
@@ -19,7 +29,7 @@ export const Pack: React.FC<PackType> = (props) => {
                 {name}
             </span>
             <span>
-                {cardsCount === 999 ? 'Cards' : cardsCount}
+                {cardsCount}
             </span>
             <span>
                 {updated.slice(0, 10)}
@@ -27,9 +37,11 @@ export const Pack: React.FC<PackType> = (props) => {
             <span>
                 {user_name}
             </span>
-            <Button color={"red"}>Delete</Button>
-            <Button>Edit</Button>
-            <Button>Learn</Button>
+            {props.header ? <div style={{'textAlign': 'center'}}>Actions</div> : <div>
+                <Button color={'red'}>Delete</Button>
+                <Button>Edit</Button>
+                <Button>Learn</Button>
+            </div>}
         </div>
     );
 };

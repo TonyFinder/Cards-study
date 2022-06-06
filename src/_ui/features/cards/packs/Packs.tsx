@@ -9,7 +9,7 @@ import {Input} from "../../../common/_superComponents/Input/Input";
 
 const headerTable = {
     name: "Name",
-    cardsCount: 999,
+    cardsCount: "Cards",
     updated: "Last updated",
     user_name: "Created by",
     _id: "_id",
@@ -62,7 +62,7 @@ export const Packs = () => {
                         </div>
                     </div>
                     <div className={styles.table}>
-                        <Pack {...headerTable}/>
+                        <Pack header={true} {...headerTable}/>
                         {packs.cardPacks.map(p => <Pack {...p}/>)}
                     </div>
                     <div className={styles.page}>
