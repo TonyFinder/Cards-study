@@ -7,6 +7,7 @@ import {Profile} from '../_ui/features/Profile/Profile';
 import {Test} from '../_ui/common/Test/Test';
 import {Error404} from '../_ui/common/Error404/Error404';
 import {Packs} from "../_ui/features/cards/packs/Packs";
+import {Cards} from "../_ui/features/cards/cards/Cards";
 
 export const ROUTE_PATHS = {
     MAIN: '/',
@@ -16,6 +17,8 @@ export const ROUTE_PATHS = {
     SET_PASS: '/setPass/:token',
     PROFILE: '/profile',
     PACKS: '/packs',
+    CARDS: '/cards',
+    CARDSTOKEN: '/cards/:packId/:packName',
     TEST: '/test',
     ERROR_404: '/error404',
     UNKNOWN_URL: '*',
@@ -29,6 +32,8 @@ export const dataRoutes = {
         {id: 3, title: 'ForgotPass', visible: true, path: ROUTE_PATHS.FORGOT, element: <Forgot/>},
         {id: 4, title: 'SetPass', visible: true, path: ROUTE_PATHS.SET_PASS, element: <SetPass/>},
         {id: 5, title: 'Packs', visible: true, path: ROUTE_PATHS.PACKS, element: <Packs/>},
+        {id: 5, title: 'Cards', visible: false, path: ROUTE_PATHS.CARDS, element: <Cards/>},
+        {id: 5, title: 'CardsToken', visible: false, path: ROUTE_PATHS.CARDSTOKEN, element: <Cards/>},
         {id: 6, title: 'Profile', visible: true, path: ROUTE_PATHS.PROFILE, element: <Profile/>},
         {id: 7, title: 'Test', visible: true, path: ROUTE_PATHS.TEST, element: <Test/>},
         {id: 8, title: 'Error404', visible: true, path: ROUTE_PATHS.ERROR_404, element: <Error404/>},

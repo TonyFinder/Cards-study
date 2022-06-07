@@ -1,7 +1,7 @@
-import {CardPacksType, PackParamsType, packsApi} from "../../../_dal/api-vadim";
+import {PacksType, PackParamsType, packsApi} from "../../../_dal/api-vadim";
 import {AppThunk} from "../../main/store";
 
-const initialState: CardPacksType = {
+const initialState: PacksType = {
     cardPacks: [
         {
             _id: "",
@@ -20,7 +20,7 @@ const initialState: CardPacksType = {
     pageCount: 1,
 }
 
-export const packsReducer = (state: CardPacksType = initialState, action: ActionPacksType): CardPacksType => {
+export const packsReducer = (state: PacksType = initialState, action: ActionPacksType): PacksType => {
     switch (action.type) {
         case 'PACKS/SET-PACKS-DATA':
             return {...state, ...action.data}
@@ -30,7 +30,7 @@ export const packsReducer = (state: CardPacksType = initialState, action: Action
 };
 
 // actions
-export const setPacks = (data: CardPacksType) => ({type: 'PACKS/SET-PACKS-DATA', data} as const)
+export const setPacks = (data: PacksType) => ({type: 'PACKS/SET-PACKS-DATA', data} as const)
 
 // thunks
 export const setPacksTC = (params: PackParamsType): AppThunk => (dispatch) => {

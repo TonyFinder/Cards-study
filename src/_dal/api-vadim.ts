@@ -22,17 +22,15 @@ export const loginApi = {
 
 export const packsApi = {
     getPacks(params: PackParamsType) {
-        return instance.get<any, { data: CardPacksType }, { params: PackParamsType }>('cards/pack', {
+        return instance.get<any, { data: PacksType }, { params: PackParamsType }>('cards/pack', {
             params: {...params}
         })
     },
 
-    createPack(name: string, deckCover: string, cardPrivate: boolean) {
-        return instance.post<any, any, { name: string, deckCover: string, cardPrivate: boolean }>('cards/pack',
+    createPack(data: CreatePackType) {
+        return instance.post<any, any, CreatePackType>('cards/pack',
             {
-                name,
-                deckCover,
-                cardPrivate,
+                ...data
             })
     },
 
@@ -43,12 +41,35 @@ export const packsApi = {
 
     updatedPack(data: PackType) {
         return instance.put<any, any, { data: PackType }>('cards/pack', {data})
-    }
+    },
 }
 
-// types
 
-export type CardPacksType = {
+export const cardsApi = {
+    getCards(params: CardParamsType) {
+        return instance.get<any, { data: CardsType }, { params: CardParamsType }>('cards/card',
+            {
+                params: {...params}
+            })
+    },
+
+    createCard(data: CreateCardType) {
+        return instance.post<any, any, CreateCardType>('cards/card',
+            {...data})
+    },
+
+    deleteCard(cardId: string) {
+        return instance.delete<any, any, { cardId: string }>('cards/card', {params: {cardId}})
+    },
+
+    updatedCard(data: CardType) {
+        return instance.put<any, any, { data: CardType }>('cards/card', {data})
+    },
+}
+
+
+// types
+export type PacksType = {
     cardPacks: PackType[]
     cardPacksTotalCount: number
     maxCardsCount: number
@@ -57,23 +78,74 @@ export type CardPacksType = {
     pageCount: number
 }
 
-
 export type PackType = {
     _id: string
-    user_id: string
-    user_name: string,
-    name: string
-    cardsCount: number
-    created: string
-    updated: string
+    user_id?: string
+    user_name?: string,
+    name?: string
+    cardsCount?: number
+    created?: string
+    updated?: string
 }
 
 export type PackParamsType = {
-    packName: string,
-    min: number,
-    max: number,
-    sortPacks: string,
-    page: number,
-    pageCount: number,
-    userId: string,
+    packName?: string,
+    min?: number,
+    max?: number,
+    sortPacks?: string,
+    page?: number,
+    pageCount?: number,
+    userId?: string,
+}
+
+export type CreatePackType = {
+    name?: string
+    deckCover?: string
+    cardPrivate?: boolean
+}
+
+export type CardsType = {
+    cards: CardType[]
+    cardsTotalCount: number
+    maxGrade: number
+    minGrade: number
+    page: number
+    pageCount: number
+    packUserId: string
+}
+
+
+export type CardType = {
+    _id: string
+    answer?: string
+    question?: string
+    cardsPack_id?: string
+    grade?: number
+    shots?: number
+    user_id?: string
+    created?: string
+    updated?: string
+}
+
+export type CardParamsType = {
+    cardAnswer?: string
+    cardQuestion?: string
+    cardsPack_id?: string
+    min?: number
+    max?: number
+    sortCards?: string
+    page?: number
+    pageCount?: number
+}
+
+export type CreateCardType = {
+    cardsPack_id: string
+    question?: string
+    answer?: string
+    grade?: number
+    shots?: number
+    answerImg?: string
+    questionImg?: string
+    questionVideo?: string
+    answerVideo?: string
 }
