@@ -1,5 +1,6 @@
 import React from 'react';
 import {PackType} from "../../../../../_dal/api-vadim";
+import { SearchCards } from '../../searchPack/SearchPack';
 import styles from './pack.module.scss';
 
 type PackPropsType = {
@@ -17,6 +18,7 @@ export const Pack: React.FC<PackPropsType> = (props) => {
 
     return (
         <div className={styles.row}>
+            <SearchCards/>
             <span>
                 {name}
             </span>
