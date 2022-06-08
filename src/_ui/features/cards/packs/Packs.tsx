@@ -1,11 +1,10 @@
 import React, {useEffect} from 'react';
-import {initialStatePacksType, setPacksTC} from "../../../../_bll/features/cards/packsReducer";
+import {initialStatePacksType,setPacksTC} from "../../../../_bll/features/cards/packsReducer";
 import {useAppDispatch, useCustomSelector} from "../../../../_bll/main/store";
 import {Navigate} from "react-router-dom";
 import {Pack} from "./pack/Pack";
 import styles from "./packs.module.scss";
-import {Button} from '../../../common/_superComponents/Button/Button';
-import {Input} from "../../../common/_superComponents/Input/Input";
+import {InputComponent} from "./components/InputComponent/InputComponent";
 
 const headerTable = {
     name: "Name",
@@ -49,13 +48,7 @@ export const Packs = () => {
                     {/*<MultiRangeSlider/>*/}
                 </div>
                 <div className={styles.packs}>
-                    <div className={styles.input}>
-                        <h2>Packs list </h2>
-                        <div>
-                            <Input type="text"/>
-                            <Button>Add new pack</Button>
-                        </div>
-                    </div>
+                    <InputComponent/>
                     <div className={styles.table}>
                         <Pack {...headerTable}/>
                         {cardPacks.map(p => <Pack {...p}/>)}

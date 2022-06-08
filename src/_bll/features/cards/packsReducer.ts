@@ -41,6 +41,8 @@ export const packsReducer = (state: initialStatePacksType = initialState, action
             return {...state, ...action.data}
         case "PACKS/SET-MIN-MAX-CARDS-COUNT-DATA":
             return {...state, packParams: {...state.packParams, min: action.data[0], max: action.data[1]}}
+        case "PACKS/SET-PACK-NAME":
+            return {...state, packParams: {...state.packParams, packName: action.name}}
         default:
             return state
     }
@@ -48,16 +50,19 @@ export const packsReducer = (state: initialStatePacksType = initialState, action
 
 // actions
 export const setPacks = (data: PacksType) => ({type: 'PACKS/SET-PACKS-DATA', data} as const)
+export const setPackName = (name: string) => ({type: "PACKS/SET-PACK-NAME", name} as const)
+
 export const setMinMaxCardsCount = (data: number[]) => ({
     type: 'PACKS/SET-MIN-MAX-CARDS-COUNT-DATA',
     data
 } as const)
-const setPacksFromInput = (data: string) => ({type: "SET-PACKS-FROM-INPUT",data} as const)
+const setPacksFromInput = (data: string) => ({type: "SET-PACKS-FROM-INPUT", data} as const)
 
 // thunks
 export const setPacksTC = (params: PackParamsType): AppThunk => (dispatch, getState) => {
-    const {min, max} = getState().packs.packParams
-    packsApi.getPacks({...params, min, max}).then(res => {
+    const {min, max, packName} = getState().packs.packParams // в каких случаях использовать?
+
+    packsApi.getPacks({...params}).then(res => {
         dispatch(setPacks(res.data))
     })
 }
@@ -74,5 +79,6 @@ export const setPacksTC = (params: PackParamsType): AppThunk => (dispatch, getSt
 //type
 export  type ActionPacksType =
     | ReturnType<typeof setPacks>
+    | ReturnType<typeof setPackName>
     | ReturnType<typeof setMinMaxCardsCount>
     | ReturnType<typeof setPacksFromInput>
