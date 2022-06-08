@@ -1,4 +1,3 @@
-import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import {useState} from "react";
 import {useDispatch} from "react-redux";
@@ -19,8 +18,8 @@ export default () => {
         <>
             <h2>{number[0]}</h2>
             <h2>{number[1]}</h2>
-            <Slider onChange={(e) => Array.isArray(e) && setNumber(e)} range allowCross={false}
-                max={110}    defaultValue={[0, 110]} onAfterChange={(e) => Array.isArray(e) && onChangeHandlerMultiSlider(e)}/>
+            {/*<Slider onChange={(e) => Array.isArray(e) && setNumber(e)} range allowCross={false}
+                max={110}    defaultValue={[0, 110]} onAfterChange={(e) => Array.isArray(e) && onChangeHandlerMultiSlider(e)}/>*/}
         </>
     );
 }

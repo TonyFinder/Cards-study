@@ -6,7 +6,6 @@ import {Pack} from "./pack/Pack";
 import styles from "./packs.module.scss";
 import {Button} from '../../../common/_superComponents/Button/Button';
 import {Input} from "../../../common/_superComponents/Input/Input";
-import MultiRangeSlider from "./components/multiRangeSlider/MultiRangeSlider";
 
 const headerTable = {
     name: "Name",
@@ -47,7 +46,7 @@ export const Packs = () => {
                 <div className={styles.settings}>
                     Show packs cards <br/>
                     MY ALL <br/>
-                    <MultiRangeSlider/>
+                    {/*<MultiRangeSlider/>*/}
                 </div>
                 <div className={styles.packs}>
                     <div className={styles.input}>
