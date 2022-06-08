@@ -18,7 +18,7 @@ export const Pack: React.FC<PackPropsType> = (props) => {
 
     return (
         <div className={styles.row}>
-            <SearchCards/>
+           
             <span>
                 {name}
             </span>
