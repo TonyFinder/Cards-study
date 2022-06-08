@@ -31,6 +31,7 @@ export const packsReducer = (state: PacksType = initialState, action: ActionPack
 
 // actions
 export const setPacks = (data: PacksType) => ({type: 'PACKS/SET-PACKS-DATA', data} as const)
+const setPacksFromInput = (data: string) => ({type: "SET-PACKS-FROM-INPUT",data} as const)
 
 // thunks
 export const setPacksTC = (params: PackParamsType): AppThunk => (dispatch) => {
@@ -38,7 +39,17 @@ export const setPacksTC = (params: PackParamsType): AppThunk => (dispatch) => {
         dispatch(setPacks(res.data))
     })
 }
+//Олега
+/*export const setPacksTC =
+    (params: PackParamsType): AppThunk =>
+        (dispatch, getState) => {
+            let packame = getState().pack.cardPacks[0].name;
+            packsApi.getPacks(params).then((res) => {
+                dispatch(setPacks(res.data));
+            });
+        };*/
 
 //type
-export  type ActionPacksType =
-    | ReturnType<typeof setPacks>
+export type ActionPacksType =
+  | ReturnType<typeof setPacks>
+  | ReturnType<typeof setPacksFromInput>;
