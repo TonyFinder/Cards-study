@@ -1,11 +1,10 @@
 import React, {useEffect} from 'react';
 import {useParams} from "react-router-dom";
 import {useAppDispatch, useCustomSelector} from "../../../../_bll/main/store";
-import {Input} from "../../../common/_superComponents/Input/Input";
 import {Card} from "./card/Card";
-import {setCardsTC} from "../../../../_bll/features/cards/cardsReducer";
+import {initialStateCardsType, setCardsTC} from "../../../../_bll/features/cards/cardsReducer";
 import styles from './cards.module.scss';
-import {CardsType} from "../../../../_dal/api-vadim";
+import {InputComponentForCards} from "../../../../_bll/features/cards/components/InputComponentForCards";
 
 const headerTable = {
     _id: '_id',
@@ -19,14 +18,20 @@ const headerTable = {
 
 export const Cards = () => {
 
-    const {cards} = useCustomSelector<CardsType>(state => state.cards);
+    const {cards, cardParams} = useCustomSelector<initialStateCardsType>(state => state.cards);
+
+    let {cardAnswer, cardQuestion} = cardParams
 
     let {packId, packName} = useParams()
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(setCardsTC({cardsPack_id: packId, pageCount: 7, sortCards: '0updated', page: 1}))
-    }, []);
+        dispatch(setCardsTC({
+            page: 1,
+            pageCount: 7, cardsPack_id: packId, cardAnswer, cardQuestion,
+
+        }))
+    }, [packId, dispatch, cardParams]);
 
 
     return (
@@ -34,10 +39,7 @@ export const Cards = () => {
             <div className={styles.container}>
                 <div className={styles.input}>
                     <h2>{packName} </h2>
-                    <div>
-                        <Input type='text'/>
-                        <Input type='text'/>
-                    </div>
+                    <InputComponentForCards/>
                 </div>
                 <div className={styles.table}>
                     <Card {...headerTable}/>

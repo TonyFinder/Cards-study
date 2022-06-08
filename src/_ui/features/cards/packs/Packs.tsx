@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {initialStatePacksType,setPacksTC} from "../../../../_bll/features/cards/packsReducer";
+import {initialStatePacksType, setPacksTC} from "../../../../_bll/features/cards/packsReducer";
 import {useAppDispatch, useCustomSelector} from "../../../../_bll/main/store";
 import {Navigate} from "react-router-dom";
 import {Pack} from "./pack/Pack";

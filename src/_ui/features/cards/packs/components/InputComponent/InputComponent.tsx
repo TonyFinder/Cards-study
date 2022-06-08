@@ -23,7 +23,6 @@ export const InputComponent = () => {
         <div className={styles.input}>
             <h2>Packs list</h2>
             <Input onChange={(e) => setSearchTerm(e.currentTarget.value)}/>
-            <h3>{debouncedSearchTerm}</h3>
         </div>
     )
 }

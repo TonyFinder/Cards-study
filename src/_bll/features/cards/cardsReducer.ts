@@ -1,7 +1,12 @@
 import {CardParamsType, cardsApi, CardsType} from "../../../_dal/api-vadim";
 import {AppThunk} from "../../main/store";
 
-const initialState: CardsType = {
+export type initialStateCardsType = CardsType & {
+    cardParams: CardParamsType
+}
+
+
+const initialState: initialStateCardsType = {
     cards: [
         {
             answer: "no answer",
@@ -20,13 +25,30 @@ const initialState: CardsType = {
     minGrade: 2.0100984354076568,
     page: 1,
     pageCount: 4,
-    packUserId: "5eecf82a3ed8f700042f1186",
+    packUserId: "",
+
+    cardParams: {
+        cardAnswer: "",
+        cardQuestion: "",
+        cardsPack_id: "",
+        min: 0,
+        max: 0,
+        sortCards: "0grade",
+        page: 1,
+        pageCount: 7
+    }
 }
 
-export const cardsReducer = (state: CardsType = initialState, action: ActionCardsType): CardsType => {
+
+export const cardsReducer = (state: initialStateCardsType = initialState, action: ActionCardsType): initialStateCardsType => {
     switch (action.type) {
         case 'CARDS/SET-CARDS-DATA':
             return {...state, ...action.data}
+        case 'CARDS/SET-CARD-QUESTION-AND-ANSWER':
+            return {
+                ...state,
+                cardParams: {...state.cardParams, cardQuestion: action.data[0], cardAnswer: action.data[1]}
+            }
         default:
             return state
     }
@@ -34,11 +56,15 @@ export const cardsReducer = (state: CardsType = initialState, action: ActionCard
 
 // actions
 export const setCards = (data: CardsType) => ({type: 'CARDS/SET-CARDS-DATA', data} as const)
+export const setCardQuestionAndAnswer = (data: string[]) => ({
+    type: 'CARDS/SET-CARD-QUESTION-AND-ANSWER',
+    data
+} as const)
 
 // thunks
-export const setCardsTC = (params: CardParamsType): AppThunk => (dispatch) => {
-    cardsApi.getCards(params).then(res => {
-        console.log('res', res)
+export const setCardsTC = (params: CardParamsType): AppThunk => (dispatch, getState) => {
+    const {cardParams} = getState().cards
+    cardsApi.getCards({...cardParams, ...params}).then(res => {
         dispatch(setCards(res.data))
     })
 }
@@ -46,3 +72,4 @@ export const setCardsTC = (params: CardParamsType): AppThunk => (dispatch) => {
 //type
 export  type ActionCardsType =
     | ReturnType<typeof setCards>
+    | ReturnType<typeof setCardQuestionAndAnswer>

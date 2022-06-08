@@ -7,7 +7,7 @@ import {ROUTE_PATHS} from "../../../../../utils/_values";
 export type PackPropsType = {
     _id: string
     user_id?: string
-    user_name?: string,
+    user_name?: string
     name?: string
     cardsCount?: number | string
     created?: string
