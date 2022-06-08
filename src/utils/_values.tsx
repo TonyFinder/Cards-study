@@ -99,4 +99,18 @@ export const dataTestPage = {
             {id: 2, color: '', placeholder: 'Key "Enter" without text', sign: '', disable: false},
         ],
     },
+    slider: {
+        header: 'Slider',
+        comments: ['The color can be set in scss variables.'],
+        rowFirst: [
+            {id: 0, min: 3, max: 20},
+        ],
+    },
+    loader: {
+        header: 'Loader',
+        comments: ['The color can be customized in props.'],
+        rowFirst: [
+            {id: 0},
+        ],
+    },
 }
