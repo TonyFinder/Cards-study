@@ -113,4 +113,13 @@ export const dataTestPage = {
             {id: 0},
         ],
     },
+    sortButton: {
+        header: 'Sort Button',
+        comments: ['The color and sort value can be customized in props.', 'Sort value for props: "0" - disable, "1" - up, "2" - down'],
+        rowFirst: [
+            {id: 0, title: 'Sort up', value: '1', color: '#fd974f'},
+            {id: 1, title: 'Sort down', value: '2', color: '#fd974f'},
+            {id: 2, title: 'Not selected', value: '0', color: '#fd974f'},
+        ],
+    },
 }
