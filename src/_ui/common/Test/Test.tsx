@@ -7,9 +7,13 @@ import {InputIntro} from './InputIntro/InputIntro';
 import {EditableSpanIntro} from './EditableSpanIntro/EditableSpanIntro';
 import {SliderIntro} from './SliderIntro/SliderIntro';
 import {LoaderIntro} from './LoaderIntro/LoaderIntro';
+import {SortButtonIntro} from './SortButtonIntro/SortButtonIntro';
+import {DoubleButtonIntro} from './DoubleButtonIntro/DoubleButtonIntro';
 
 export const Test = () => {
     return <div className={styles.container}>
+        <DoubleButtonIntro/>
+        <SortButtonIntro/>
         <SliderIntro/>
         <LoaderIntro/>
         <ButtonIntro/>
