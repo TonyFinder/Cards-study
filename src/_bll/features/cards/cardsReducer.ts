@@ -49,6 +49,8 @@ export const cardsReducer = (state: initialStateCardsType = initialState, action
                 ...state,
                 cardParams: {...state.cardParams, cardQuestion: action.data[0], cardAnswer: action.data[1]}
             }
+        case "CARDS/SET-CURRENT-PAGE-CARDS":
+            return {...state, cardParams: {...state.cardParams, page: action.data}}
         default:
             return state
     }
@@ -59,6 +61,10 @@ export const setCards = (data: CardsType) => ({type: 'CARDS/SET-CARDS-DATA', dat
 export const setCardQuestionAndAnswer = (data: string[]) => ({
     type: 'CARDS/SET-CARD-QUESTION-AND-ANSWER',
     data
+} as const)
+export const setCurrentPageCards = (data: number) => ({
+    type: 'CARDS/SET-CURRENT-PAGE-CARDS',
+    data,
 } as const)
 
 // thunks
@@ -73,3 +79,4 @@ export const setCardsTC = (params: CardParamsType): AppThunk => (dispatch, getSt
 export  type ActionCardsType =
     | ReturnType<typeof setCards>
     | ReturnType<typeof setCardQuestionAndAnswer>
+    | ReturnType<typeof setCurrentPageCards>

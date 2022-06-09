@@ -27,7 +27,7 @@ const initialState: initialStatePacksType = {
     packParams: {
         packName: "",
         min: 0,
-        max: 100,
+        max: 120,
         sortPacks: "0updated",
         page: 1,
         pageCount: 8,
@@ -39,11 +39,11 @@ export const packsReducer = (state: initialStatePacksType = initialState, action
     switch (action.type) {
         case 'PACKS/SET-PACKS-DATA':
             return {...state, ...action.data}
-        case "PACKS/SET-MIN-MAX-CARDS-COUNT-DATA":
+        case 'PACKS/SET-MIN-MAX-CARDS-COUNT-DATA':
             return {...state, packParams: {...state.packParams, min: action.data[0], max: action.data[1]}}
-        case "PACKS/SET-PACK-NAME":
+        case 'PACKS/SET-PACK-NAME':
             return {...state, packParams: {...state.packParams, packName: action.name}}
-        case "PACKS/SET-ARROW-BUTTON-PAGE":
+        case 'PACKS/SET-CURRENT-PAGE':
             return {...state, packParams: {...state.packParams, page: action.data}}
         default:
             return state
@@ -59,8 +59,8 @@ export const setMinMaxCardsCount = (data: number[]) => ({
     data
 } as const)
 
-export const setArrowButtonPage = (data: number) => ({
-    type: 'PACKS/SET-ARROW-BUTTON-PAGE',
+export const setCurrentPage = (data: number) => ({
+    type: 'PACKS/SET-CURRENT-PAGE',
     data,
 } as const)
 
@@ -89,4 +89,4 @@ export  type ActionPacksType =
     | ReturnType<typeof setPacks>
     | ReturnType<typeof setPackName>
     | ReturnType<typeof setMinMaxCardsCount>
-    | ReturnType<typeof setArrowButtonPage>
+    | ReturnType<typeof setCurrentPage>

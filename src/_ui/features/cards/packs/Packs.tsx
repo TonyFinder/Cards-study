@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {initialStatePacksType, setArrowButtonPage, setPacksTC} from "../../../../_bll/features/cards/packsReducer";
+import {initialStatePacksType, setCurrentPage, setPacksTC} from "../../../../_bll/features/cards/packsReducer";
 import {useAppDispatch, useCustomSelector} from "../../../../_bll/main/store";
 import {Navigate} from "react-router-dom";
 import {Pack} from "./pack/Pack";
@@ -38,10 +38,10 @@ export const Packs = () => {
         if (isLogin) {
             dispatch(setPacksTC())
         }
-    }, [isLogin, dispatch, packParams, page]);
+    }, [isLogin, dispatch, packParams]);
 
     const onPageChangeHandler = (page: number | string) => {
-        dispatch(setArrowButtonPage(+page))
+        dispatch(setCurrentPage(+page))
     }
 
     if (!isLogin) {

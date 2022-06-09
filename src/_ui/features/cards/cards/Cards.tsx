@@ -2,9 +2,10 @@ import React, {useEffect} from 'react';
 import {useParams} from "react-router-dom";
 import {useAppDispatch, useCustomSelector} from "../../../../_bll/main/store";
 import {Card} from "./card/Card";
-import {initialStateCardsType, setCardsTC} from "../../../../_bll/features/cards/cardsReducer";
+import {initialStateCardsType, setCardsTC, setCurrentPageCards} from "../../../../_bll/features/cards/cardsReducer";
 import styles from './cards.module.scss';
 import {InputComponentForCards} from "../../../../_bll/features/cards/components/InputComponentForCards";
+import {Pagination} from "../packs/components/pagination/Pagination";
 
 const headerTable = {
     _id: '_id',
@@ -18,21 +19,26 @@ const headerTable = {
 
 export const Cards = () => {
 
-    const {cards, cardParams} = useCustomSelector<initialStateCardsType>(state => state.cards);
+    const {
+        cards,
+        cardParams,
+        page,
+        pageCount,
+        cardsTotalCount
+    } = useCustomSelector<initialStateCardsType>(state => state.cards);
 
-    let {cardAnswer, cardQuestion} = cardParams
 
     let {packId, packName} = useParams()
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(setCardsTC({
-            page: 1,
-            pageCount: 7, cardsPack_id: packId, cardAnswer, cardQuestion,
-
-        }))
+        dispatch(setCardsTC({cardsPack_id: packId,}))
     }, [packId, dispatch, cardParams]);
 
+
+    const onPageChangeHandler = (page: number | string) => {
+        dispatch(setCurrentPageCards(+page))
+    }
 
     return (
         <div className={styles.block}>
@@ -46,7 +52,14 @@ export const Cards = () => {
                     {cards.map(p => <Card {...p}/>)}
                 </div>
                 <div className={styles.page}>
-                    Pagination <br/>
+                    <Pagination
+                        siblingCount={1}
+                        pageSize={pageCount}
+                        className=""
+                        totalCount={cardsTotalCount}
+                        currentPage={page}
+                        onPageChange={onPageChangeHandler}
+                    />
                 </div>
             </div>
 

@@ -3,7 +3,7 @@ import {useDispatch} from "react-redux";
 import useDebounce from "./castomHookUseDebounce";
 import {Input} from "../../../../../common/_superComponents/Input/Input";
 import styles from "./inputComponent.module.scss"
-import {setArrowButtonPage, setPackName} from "../../../../../../_bll/features/cards/packsReducer";
+import {setCurrentPage, setPackName} from "../../../../../../_bll/features/cards/packsReducer";
 
 
 export const InputComponent = () => {
@@ -16,7 +16,7 @@ export const InputComponent = () => {
 
     useEffect(() => {
         dispatch(setPackName(debouncedSearchTerm))
-        dispatch(setArrowButtonPage(1))
+        dispatch(setCurrentPage(1))
     }, [debouncedSearchTerm, dispatch])
 
 
