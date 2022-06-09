@@ -5,6 +5,7 @@ import {Navigate} from "react-router-dom";
 import {Pack} from "./pack/Pack";
 import styles from "./packs.module.scss";
 import {InputComponent} from "./components/InputComponent/InputComponent";
+import {Button} from '../../../common/_superComponents/Button/Button';
 
 const headerTable = {
     name: "Name",
@@ -48,7 +49,10 @@ export const Packs = () => {
                     {/*<MultiRangeSlider/>*/}
                 </div>
                 <div className={styles.packs}>
-                    <InputComponent/>
+                    <div className={styles.header}>
+                        <InputComponent/>
+                        <Button>Add new pack</Button>
+                    </div>
                     <div className={styles.table}>
                         <Pack {...headerTable}/>
                         {cardPacks.map(p => <Pack {...p}/>)}
