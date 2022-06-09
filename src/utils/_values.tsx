@@ -122,4 +122,11 @@ export const dataTestPage = {
             {id: 2, title: 'Not selected', value: '0', color: '#fd974f'},
         ],
     },
+    doubleButton: {
+        header: 'Double Button',
+        comments: ['The colors have to be customized in props. Active or disable params have to be passed in props as well.'],
+        rowFirst: [
+            {id: 0, activeColor: '#fd974f', disableColor: '#fef2e4', active: [true, false]},
+        ],
+    },
 }
