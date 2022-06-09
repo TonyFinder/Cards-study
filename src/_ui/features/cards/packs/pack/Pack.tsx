@@ -28,9 +28,9 @@ export const Pack: React.FC<PackPropsType> = (props) => {
 
     return (
         <div key={props._id} className={styles.row}>
-            {props.header ?
-                <span>{name}</span> :
-                <Link to={`${ROUTE_PATHS.CARDS}/${props._id}/${name}`}>{name}</Link>}
+            {props.header
+                ? <span>{name}</span>
+                : <Link to={`${ROUTE_PATHS.CARDS}/${props._id}/${name}`}>{name}</Link>}
             <span>
                 {cardsCount}
             </span>
@@ -40,11 +40,13 @@ export const Pack: React.FC<PackPropsType> = (props) => {
             <span>
                 {user_name}
             </span>
-            {props.header ? <div style={{'textAlign': 'center'}}>Actions</div> : <div>
-                <Button color={'red'}>Delete</Button>
-                <Button>Edit</Button>
-                <Button>Learn</Button>
-            </div>}
+            {props.header
+                ? <div style={{'textAlign': 'center'}}>Actions</div>
+                : <div>
+                    <Button color={'red'}>Delete</Button>
+                    <Button>Edit</Button>
+                    <Button>Learn</Button>
+                </div>}
         </div>
     );
 };
