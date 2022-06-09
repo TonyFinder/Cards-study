@@ -41,7 +41,6 @@ export const Packs = () => {
     }, [isLogin, dispatch, packParams, page]);
 
     const onPageChangeHandler = (page: number | string) => {
-
         dispatch(setArrowButtonPage(+page))
     }
 
@@ -66,14 +65,14 @@ export const Packs = () => {
                         <Pack {...headerTable}/>
                         {cardPacks.map(p => <Pack {...p}/>)}
                     </div>
-                         <Pagination
-                            siblingCount={1}
-                            className=""
-                            currentPage={page}
-                            totalCount={cardPacksTotalCount}
-                            pageSize={pageCount}
-                            onPageChange={onPageChangeHandler}
-                        />
+                    <Pagination
+                        siblingCount={1}
+                        className=""
+                        currentPage={page}
+                        totalCount={cardPacksTotalCount}
+                        pageSize={pageCount}
+                        onPageChange={onPageChangeHandler}
+                    />
                 </div>
             </div>
 
