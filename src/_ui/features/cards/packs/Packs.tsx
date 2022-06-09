@@ -1,11 +1,12 @@
 import React, {useEffect} from 'react';
-import {initialStatePacksType, setPacksTC} from "../../../../_bll/features/cards/packsReducer";
+import {initialStatePacksType, setArrowButtonPage, setPacksTC} from "../../../../_bll/features/cards/packsReducer";
 import {useAppDispatch, useCustomSelector} from "../../../../_bll/main/store";
 import {Navigate} from "react-router-dom";
 import {Pack} from "./pack/Pack";
 import styles from "./packs.module.scss";
-import {InputComponent} from "./components/InputComponent/InputComponent";
+import {InputComponent} from "./components/inputComponent/InputComponent";
 import {Button} from '../../../common/_superComponents/Button/Button';
+import {Pagination} from "./components/pagination/Pagination";
 
 const headerTable = {
     name: "Name",
@@ -21,7 +22,13 @@ const headerTable = {
 
 export const Packs = () => {
 
-    const {packParams, cardPacks} = useCustomSelector<initialStatePacksType>(state => state.packs);
+    const {
+        packParams,
+        cardPacks,
+        cardPacksTotalCount,
+        page,
+        pageCount
+    } = useCustomSelector<initialStatePacksType>(state => state.packs);
     const isLogin = useCustomSelector(state => state.login.isLoggedIn);
 
 
@@ -29,12 +36,14 @@ export const Packs = () => {
 
     useEffect(() => {
         if (isLogin) {
-            dispatch(setPacksTC({
-                ...packParams
-            }))
+            dispatch(setPacksTC())
         }
-    }, [isLogin, dispatch, packParams]);
+    }, [isLogin, dispatch, packParams, page]);
 
+    const onPageChangeHandler = (page: number | string) => {
+
+        dispatch(setArrowButtonPage(+page))
+    }
 
     if (!isLogin) {
         return <Navigate to='/login'/>
@@ -57,9 +66,14 @@ export const Packs = () => {
                         <Pack {...headerTable}/>
                         {cardPacks.map(p => <Pack {...p}/>)}
                     </div>
-                    <div className={styles.page}>
-                        Pagination <br/>
-                    </div>
+                         <Pagination
+                            siblingCount={1}
+                            className=""
+                            currentPage={page}
+                            totalCount={cardPacksTotalCount}
+                            pageSize={pageCount}
+                            onPageChange={onPageChangeHandler}
+                        />
                 </div>
             </div>
 

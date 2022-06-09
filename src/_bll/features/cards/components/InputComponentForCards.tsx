@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch} from "react-redux";
-import useDebounce from "../../../../_ui/features/cards/packs/components/InputComponent/castomHookUseDebounce";
+import useDebounce from "../../../../_ui/features/cards/packs/components/inputComponent/castomHookUseDebounce";
 import {Input} from "../../../../_ui/common/_superComponents/Input/Input";
 import {setCardQuestionAndAnswer} from "../cardsReducer";
 
