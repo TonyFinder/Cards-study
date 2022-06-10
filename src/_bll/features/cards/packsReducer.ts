@@ -45,6 +45,8 @@ export const packsReducer = (state: initialStatePacksType = initialState, action
             return {...state, packParams: {...state.packParams, packName: action.name}}
         case 'PACKS/SET-CURRENT-PAGE':
             return {...state, packParams: {...state.packParams, page: action.data}}
+        case 'PACKS/UPDATE-PARAMS':
+            return {...state, packParams: {...state.packParams, ...action.params}}
         default:
             return state
     }
@@ -63,7 +65,8 @@ export const setCurrentPage = (data: number) => ({
     type: 'PACKS/SET-CURRENT-PAGE',
     data,
 } as const)
-
+// Антон, универсальный data update
+export const updateParams = (params: UpdateParamsActionType) => ({type: "PACKS/UPDATE-PARAMS", params} as const)
 
 /*const setPacksFromInput = (data: string) => ({type: "SET-PACKS-FROM-INPUT", data} as const)*/
 
@@ -74,15 +77,6 @@ export const setPacksTC = (): AppThunk => (dispatch, getState) => {
         dispatch(setPacks(res.data))
     })
 }
-//Олега
-/*export const setPacksTC =
-    (params: PackParamsType): AppThunk =>
-        (dispatch, getState) => {
-            let packame = getState().pack.cardPacks[0].name;
-            packsApi.getPacks(params).then((res) => {
-                dispatch(setPacks(res.data));
-            });
-        };*/
 
 //type
 export  type ActionPacksType =
@@ -90,3 +84,11 @@ export  type ActionPacksType =
     | ReturnType<typeof setPackName>
     | ReturnType<typeof setMinMaxCardsCount>
     | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof updateParams>
+type UpdateParamsActionType = {
+    packName?: string,
+    min?: number,
+    max?: number,
+    sortPacks?: string,
+    page?: number,
+}

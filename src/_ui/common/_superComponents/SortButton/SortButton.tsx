@@ -2,15 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 
 type SortButtonType = {
-    title: string
+    title: string | number
     value?: string
     color?: string
+    onClick?: () => void
 }
 
-export const SortButton = ({title, color, value}: SortButtonType) => {
+export const SortButton = ({title, color, value, onClick}: SortButtonType) => {
 
     return (
+        <div style={{display: 'flex'}} onClick={onClick}>
             <StyledSort id={value} color={color}>{title}</StyledSort>
+        </div>
     )
 }
 
@@ -22,7 +25,7 @@ const StyledSort = styled.div`
   &:before {
     content: '';
     position: absolute;
-    display: ${props => (props.id === '1' || props.id === '0') && 'none'};
+    display: ${props => (props.id === '1' || props.id === '2') && 'none'};
     top: 50%; right: 3px;
     transform: translate(0, -50%);
     border: 8px solid ${props => props.color ? props.color : '#53a6fb'};
@@ -35,7 +38,7 @@ const StyledSort = styled.div`
   &:after {
     content: '';
     position: absolute;
-    display: ${props => (props.id === '2' || props.id === '0') && 'none'};
+    display: ${props => (props.id === '0' || props.id === '2') && 'none'};
     top: 50%; right: 3px;
     transform: translate(0, -50%);
     border: 8px solid ${props => props.color ? props.color : '#53a6fb'};
@@ -44,5 +47,8 @@ const StyledSort = styled.div`
     border-right-color: transparent;
     border-left-color: transparent;
     border-top-width: 0;
+  }
+  &:hover {
+    cursor: pointer;
   }
 `

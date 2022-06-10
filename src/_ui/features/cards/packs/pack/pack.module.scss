@@ -1,29 +1,49 @@
 .row {
   display: flex;
-  width: 669px;
-  height: 48px;
   align-items: center;
   justify-content: space-around;
-
-  a {
-    width: 100px;
-    text-align: center;
-    cursor: pointer;
-  }
-
-  span {
-    width: 100px;
+  height: 50px;
+  >div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
   }
-
-  div {
-    background: none !important;
-    width: 192px;
-
-    button {
-      margin: 5px;
-      padding: 5px;
-      font-size: 12px;
+  .name {
+    width: 25%;
+    a {
+      text-decoration: none;
+      color: black;
+    }
+    a:visited {
+      color: black;
+    }
+    a:hover {
+      color: #53a6fb;
+    }
+  }
+  .cards {
+    width: 12%;
+  }
+  .updated {
+    width: 15%;
+  }
+  .createdBy {
+    width: 20%;
+  }
+  .actions {
+    width: 100%-25%-12%-15%-20%;
+    >div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      button {
+        margin: 0 2px;
+        padding: 1px;
+        border-radius: 10%;
+        font-size: 12px;
+      }
     }
   }
 }
