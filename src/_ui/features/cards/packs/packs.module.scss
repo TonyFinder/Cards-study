@@ -7,7 +7,7 @@
   align-items: center;
   width: 100%;
   min-height: 100vh;
-  background-image: linear-gradient(90deg, #e4b6f6, #8dd8ef);
+  background: linear-gradient($backColorFirst, $backColorSecond);
   justify-content: center;
 
   .container {
@@ -15,16 +15,19 @@
     align-items: center;
     width: 1008px;
     //height: 636px;
-    background-color: #FEFEFF;
+    background-color: $blockColor;
 
     .settings {
       @include flexCenter;
       justify-content: flex-start;
       flex-direction: column;
-      padding-top: 25px;
+      padding-top: 25px; margin-left: 10px;
       width: 243px;
       height: 636px;
-      background: #ECECF9;
+      background-color: $tableFirstColor;
+      >span {
+       font-weight: bold;
+      }
     }
 
     .packs {
@@ -58,23 +61,21 @@
           top: 50%; left: 50%;
         }
         >div:nth-child(even) {
-          background: #FFFFFF;
+          background: $backColorFirst;
         }
 
         >div:nth-child(odd) {
-          background: #ECECF9;
+          background: $tableFirstColor;
         }
 
         >div:nth-child(1) {
-          background: #e3e0f8;
+          background: $tableHeaderColor;
         }
       }
 
       .page {
-        text-align: center;
-        border: 2px solid #2D2E46;
+        @include flexCenter;
       }
-
 
     }
   }

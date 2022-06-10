@@ -73,13 +73,13 @@ export const Packs = () => {
         <div className={styles.block}>
             <div className={styles.container}>
                 <div className={styles.settings}>
-                    Show packs cards <br/><br/>
+                    <span>Show packs cards</span> <br/><br/>
                     <DoubleButton active={[!!packParams.user_id, !packParams.user_id]}
                                   activeColor={COLORS.MAIN_DARK} disableColor={COLORS.MAIN_LIGHT}
                                   onClick={onClickMyAllChanger}
                                   disabled={disabled}/>
                     <br/><br/>
-                    Number of cards
+                    <span>Number of cards</span>
                     <Slider min={Number(packParams.min)}
                             max={Number(packParams.max)}
                             minDefault={0}
@@ -99,15 +99,16 @@ export const Packs = () => {
                             : cardPacks.map(p => <Pack key={p._id} sort={[direction, column]} {...p}/>)
                         }
                     </div>
-                    <Pagination
-                        siblingCount={1}
-                        className=""
-                        currentPage={page}
-                        totalCount={cardPacksTotalCount}
-                        pageSize={pageCount}
-                        onPageChange={onPageChangeHandler}
-
-                    />
+                    <div className={styles.page}>
+                        <Pagination
+                            siblingCount={1}
+                            className=""
+                            currentPage={page}
+                            totalCount={cardPacksTotalCount}
+                            pageSize={pageCount}
+                            onPageChange={onPageChangeHandler}
+                        />
+                    </div>
                 </div>
             </div>
 
