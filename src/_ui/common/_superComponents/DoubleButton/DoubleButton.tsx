@@ -15,7 +15,7 @@ export const DoubleButton = ({active, activeColor, disableColor}: DoubleButtonTy
     })
 
     return <div>
-        <button style={style(0)} className={styles.button}>Active</button>
-        <button style={style(1)} className={styles.button}>Disable</button>
+        <button style={style(0)} className={styles.button}>My</button>
+        <button style={style(1)} className={styles.button}>All</button>
     </div>
 }

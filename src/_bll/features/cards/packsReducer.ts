@@ -43,6 +43,8 @@ export const packsReducer = (state: initialStatePacksType = initialState, action
             return {...state, packParams: {...state.packParams, min: action.data[0], max: action.data[1]}}
         case "PACKS/SET-PACK-NAME":
             return {...state, packParams: {...state.packParams, packName: action.name}}
+        case 'PACKS/UPDATE-PARAMS':
+            return {...state, packParams: {...state.packParams, ...action.params}}
         default:
             return state
     }
@@ -57,6 +59,8 @@ export const setMinMaxCardsCount = (data: number[]) => ({
     data
 } as const)
 const setPacksFromInput = (data: string) => ({type: "SET-PACKS-FROM-INPUT", data} as const)
+// Антон, универсальный data update
+export const updateParams = (params: UpdateParamsActionType) => ({type: "PACKS/UPDATE-PARAMS", params} as const)
 
 // thunks
 export const setPacksTC = (params: PackParamsType): AppThunk => (dispatch, getState) => {
@@ -82,3 +86,11 @@ export  type ActionPacksType =
     | ReturnType<typeof setPackName>
     | ReturnType<typeof setMinMaxCardsCount>
     | ReturnType<typeof setPacksFromInput>
+    | ReturnType<typeof updateParams>
+type UpdateParamsActionType = {
+    packName?: string,
+    min?: number,
+    max?: number,
+    sortPacks?: string,
+    page?: number,
+}

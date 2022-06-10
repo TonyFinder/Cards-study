@@ -5,6 +5,8 @@ import {Navigate} from "react-router-dom";
 import {Pack} from "./pack/Pack";
 import styles from "./packs.module.scss";
 import {InputComponent} from "./components/InputComponent/InputComponent";
+import {Slider} from '../../../common/_superComponents/Slider/Slider';
+import {DoubleButton} from '../../../common/_superComponents/DoubleButton/DoubleButton';
 
 const headerTable = {
     name: "Name",
@@ -23,6 +25,10 @@ export const Packs = () => {
     const {packParams, cardPacks} = useCustomSelector<initialStatePacksType>(state => state.packs);
     const isLogin = useCustomSelector(state => state.login.isLoggedIn);
 
+    // Detect sorting column
+    const sortPacks = useCustomSelector<string>(state => state.packs.packParams.sortPacks ? state.packs.packParams.sortPacks : '')
+    const direction = sortPacks.slice(0,1)
+    const column = sortPacks.slice(1)
 
     const dispatch = useAppDispatch();
 
@@ -43,15 +49,17 @@ export const Packs = () => {
         <div className={styles.block}>
             <div className={styles.container}>
                 <div className={styles.settings}>
-                    Show packs cards <br/>
-                    MY ALL <br/>
-                    {/*<MultiRangeSlider/>*/}
+                    Show packs cards <br/><br/>
+                    <DoubleButton active={[false, true]} activeColor='#fd974f' disableColor='#fef2e4'/>
+                    <br/><br/>
+                    Number of cards
+                    <Slider min={1} max={30}/>
                 </div>
                 <div className={styles.packs}>
                     <InputComponent/>
                     <div className={styles.table}>
-                        <Pack {...headerTable}/>
-                        {cardPacks.map(p => <Pack {...p}/>)}
+                        <Pack sort={[direction, column]} {...headerTable}/>
+                        {cardPacks.map(p => <Pack key={p._id} sort={[direction, column]} {...p}/>)}
                     </div>
                     <div className={styles.page}>
                         Pagination <br/>

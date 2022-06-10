@@ -9,6 +9,11 @@ import {Error404} from '../_ui/common/Error404/Error404';
 import {Packs} from "../_ui/features/cards/packs/Packs";
 import {Cards} from "../_ui/features/cards/cards/Cards";
 
+export const COLORS = {
+    MAIN_LIGHT: '#fef2e4',
+    MAIN_DARK: '#fd974f',
+}
+
 export const ROUTE_PATHS = {
     MAIN: '/',
     LOGIN: '/login',
@@ -118,8 +123,8 @@ export const dataTestPage = {
         comments: ['The color and sort value can be customized in props.', 'Sort value for props: "0" - disable, "1" - up, "2" - down'],
         rowFirst: [
             {id: 0, title: 'Sort up', value: '1', color: '#fd974f'},
-            {id: 1, title: 'Sort down', value: '2', color: '#fd974f'},
-            {id: 2, title: 'Not selected', value: '0', color: '#fd974f'},
+            {id: 1, title: 'Sort down', value: '0', color: '#fd974f'},
+            {id: 2, title: 'Not selected', value: '2', color: '#fd974f'},
         ],
     },
     doubleButton: {
