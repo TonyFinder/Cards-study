@@ -4,11 +4,11 @@ import {useAppDispatch, useCustomSelector} from "../../../../_bll/main/store";
 import {Navigate} from "react-router-dom";
 import {Pack} from "./pack/Pack";
 import styles from "./packs.module.scss";
-import {InputComponent} from "./components/InputComponent/InputComponent";
 import {Slider} from '../../../common/_superComponents/Slider/Slider';
 import {DoubleButton} from '../../../common/_superComponents/DoubleButton/DoubleButton';
 import {Button} from '../../../common/_superComponents/Button/Button';
 import {Pagination} from "./components/pagination/Pagination";
+import {InputComponent} from './components/inputComponent/InputComponent';
 
 const headerTable = {
     name: "Name",
