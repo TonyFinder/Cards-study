@@ -4,8 +4,9 @@ import styles from './pack.module.scss';
 import {Link} from 'react-router-dom';
 import {COLORS, ROUTE_PATHS} from '../../../../../utils/_values';
 import {SortButton} from '../../../../common/_superComponents/SortButton/SortButton';
-import {useAppDispatch} from '../../../../../_bll/main/store';
+import {useAppDispatch, useCustomSelector} from '../../../../../_bll/main/store';
 import {updateParams} from '../../../../../_bll/features/cards/packsReducer';
+import {LoadingStatusType} from '../../../../../utils/enums';
 
 export type PackPropsType = {
     _id: string
@@ -32,10 +33,12 @@ export const Pack: React.FC<PackPropsType> = (props) => {
         sort,
     } = props;
 
+    const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
     const dispatch = useAppDispatch()
 
     const onClickHandler = (e: string) => {
         // определяем, на какой колонке находится фильтр
+        if (loading === LoadingStatusType.active) return
         sort[1] === e
             // определяем как отсортирована колонка
             ? sort[0] === '0'
@@ -89,8 +92,8 @@ export const Pack: React.FC<PackPropsType> = (props) => {
                                   color="#fd974f"/>
                     : <div>
                         <Button color={'red'}>Delete</Button>
-                        <Button>Edit</Button>
-                        <Button>Learn</Button>
+                        <Button color={COLORS.MAIN_DARK}>Edit</Button>
+                        <Button color={COLORS.MAIN_DARK}>Learn</Button>
                     </div>
                 }
             </div>

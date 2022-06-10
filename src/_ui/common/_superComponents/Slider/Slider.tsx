@@ -6,6 +6,7 @@ type SliderPropsType = {
     max: number
     minDefault: number
     maхDefault: number
+    disabled?: boolean
     onMouseUp: ({min, max}: maxMinValueType) => void
 }
 export type maxMinValueType = {
@@ -13,7 +14,7 @@ export type maxMinValueType = {
     max: number
 }
 
-export const Slider = ({ min, max, minDefault, maхDefault, onMouseUp }: SliderPropsType) => {
+export const Slider = ({ min, max, minDefault, maхDefault, disabled, onMouseUp }: SliderPropsType) => {
 
     const [minVal, setMinVal] = useState(min);
     const [maxVal, setMaxVal] = useState(max);
@@ -62,6 +63,7 @@ export const Slider = ({ min, max, minDefault, maхDefault, onMouseUp }: SliderP
                 className={`${styles.thumb} ${styles.thumbLeft}`}
                 style={{zIndex: `${minVal > max - 100 && 5}`}}
                 onMouseUp={() => onMouseUp({min: minVal, max: maxVal})}
+                disabled={disabled}
             />
             <input
                 type="range"
@@ -75,6 +77,7 @@ export const Slider = ({ min, max, minDefault, maхDefault, onMouseUp }: SliderP
                 }}
                 className={`${styles.thumb} ${styles.thumbRight}`}
                 onMouseUp={() => onMouseUp({min: minVal, max: maxVal})}
+                disabled={disabled}
             />
 
             <div className={styles.slider}>

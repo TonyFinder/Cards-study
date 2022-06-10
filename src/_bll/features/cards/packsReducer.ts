@@ -1,10 +1,8 @@
-import {PacksType, PackParamsType, packsApi} from "../../../_dal/api-vadim";
-import {AppThunk} from "../../main/store";
-
-export type initialStatePacksType = PacksType & {
-    packParams: PackParamsType
-}
-
+import {PackParamsType, packsApi, PacksType} from '../../../_dal/api-vadim';
+import {AppThunk} from '../../main/store';
+import {changeAppLoadingStatus, setAppErrorValue} from '../../main/appReducer';
+import {LoadingStatusType} from '../../../utils/enums';
+import {AxiosError} from 'axios';
 
 const initialState: initialStatePacksType = {
     cardPacks: [
@@ -52,16 +50,21 @@ export const updateParams = (params: UpdateParamsActionType) => ({type: "PACKS/U
 
 // thunks
 export const setPacksTC = (): AppThunk => (dispatch, getState) => {
+    dispatch(changeAppLoadingStatus(LoadingStatusType.active))
     const {packParams} = getState().packs
-    packsApi.getPacks(packParams).then(res => {
-        dispatch(setPacks(res.data))
-    })
+    packsApi.getPacks(packParams)
+        .then(res => dispatch(setPacks(res.data)))
+        .catch((err: AxiosError) => dispatch(setAppErrorValue(err.message)))
+        .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 
 //types
 export  type ActionPacksType =
     | ReturnType<typeof setPacks>
     | ReturnType<typeof updateParams>
+export type initialStatePacksType = PacksType & {
+    packParams: PackParamsType
+}
 type UpdateParamsActionType = {
     packName?: string,
     min?: number,

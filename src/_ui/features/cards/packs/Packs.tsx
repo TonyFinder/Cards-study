@@ -1,15 +1,17 @@
 import React, {useEffect} from 'react';
 import {initialStatePacksType, setPacksTC, updateParams} from '../../../../_bll/features/cards/packsReducer';
-import {useAppDispatch, useCustomSelector} from "../../../../_bll/main/store";
-import {Navigate} from "react-router-dom";
-import {Pack} from "./pack/Pack";
-import styles from "./packs.module.scss";
+import {useAppDispatch, useCustomSelector} from '../../../../_bll/main/store';
+import {Navigate} from 'react-router-dom';
+import {Pack} from './pack/Pack';
+import styles from './packs.module.scss';
 import {maxMinValueType, Slider} from '../../../common/_superComponents/Slider/Slider';
 import {DoubleButton} from '../../../common/_superComponents/DoubleButton/DoubleButton';
 import {Button} from '../../../common/_superComponents/Button/Button';
-import {Pagination} from "./components/pagination/Pagination";
+import {Pagination} from './components/pagination/Pagination';
 import {InputComponent} from './components/inputComponent/InputComponent';
 import {COLORS} from '../../../../utils/_values';
+import {LoadingStatusType} from '../../../../utils/enums';
+import {Loader} from '../../../common/_superComponents/Loader/Loader';
 
 const headerTable = {
     name: "Name",
@@ -31,8 +33,11 @@ export const Packs = () => {
         cardPacksTotalCount,
         page,
         pageCount
-    } = useCustomSelector<initialStatePacksType>(state => state.packs);
-    const isLogin = useCustomSelector(state => state.login.isLoggedIn);
+    } = useCustomSelector<initialStatePacksType>(state => state.packs)
+    const isLogin = useCustomSelector<boolean>(state => state.login.isLoggedIn)
+    const userId = useCustomSelector<string>(state => state.login.userId)
+    const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
+    const disabled = loading === LoadingStatusType.active
 
     // Detect sorting column
     const sortPacks = useCustomSelector<string>(state => state.packs.packParams.sortPacks ? state.packs.packParams.sortPacks : '')
@@ -48,6 +53,7 @@ export const Packs = () => {
     }, [isLogin, dispatch, packParams]);
 
     const onPageChangeHandler = (page: number | string) => {
+        if (loading === LoadingStatusType.active) return
         dispatch(updateParams({page: +page}))
     }
     const onMouseUpSliderHandler = ({min, max}: maxMinValueType) => {
@@ -55,11 +61,13 @@ export const Packs = () => {
     }
     const onClickMyAllChanger = (value: string) => {
         value === 'my'
-            ? dispatch(updateParams({user_id: '5eecf82a3ed8f700042f1186', page: 1}))
+            ? dispatch(updateParams({user_id: `${userId}`, page: 1}))
             : dispatch(updateParams({user_id: '', page: 1}))
     }
 
-    if (!isLogin) return <Navigate to='/login'/>
+    if (!isLogin) {
+        return <Navigate to='/login'/>
+    }
 
     return (
         <div className={styles.block}>
@@ -68,23 +76,28 @@ export const Packs = () => {
                     Show packs cards <br/><br/>
                     <DoubleButton active={[!!packParams.user_id, !packParams.user_id]}
                                   activeColor={COLORS.MAIN_DARK} disableColor={COLORS.MAIN_LIGHT}
-                                  onClick={onClickMyAllChanger}/>
+                                  onClick={onClickMyAllChanger}
+                                  disabled={disabled}/>
                     <br/><br/>
                     Number of cards
                     <Slider min={Number(packParams.min)}
                             max={Number(packParams.max)}
                             minDefault={0}
                             maхDefault={120}
-                            onMouseUp={onMouseUpSliderHandler}/>
+                            onMouseUp={onMouseUpSliderHandler}
+                            disabled={disabled}/>
                 </div>
                 <div className={styles.packs}>
                     <div className={styles.header}>
-                        <InputComponent/>
-                        <Button>Add new pack</Button>
+                        <InputComponent disabled={disabled}/>
+                        <Button color={COLORS.MAIN_DARK} disabled={disabled}>Add new pack</Button>
                     </div>
                     <div className={styles.table}>
                         <Pack sort={[direction, column]} {...headerTable}/>
-                        {cardPacks.map(p => <Pack key={p._id} sort={[direction, column]} {...p}/>)}
+                        {loading === LoadingStatusType.active
+                            ? <Loader color={COLORS.MAIN_DARK} className={styles.loader}/>
+                            : cardPacks.map(p => <Pack key={p._id} sort={[direction, column]} {...p}/>)
+                        }
                     </div>
                     <Pagination
                         siblingCount={1}
@@ -93,6 +106,7 @@ export const Packs = () => {
                         totalCount={cardPacksTotalCount}
                         pageSize={pageCount}
                         onPageChange={onPageChangeHandler}
+
                     />
                 </div>
             </div>

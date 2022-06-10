@@ -1,6 +1,7 @@
 let initialState: loginInitialStateType = {
     isLoggedIn: false,
     error: "",
+    userId: ''
 }
 
 export const loginReducer = (state: loginInitialStateType = initialState, action: LoginActionTypes): loginInitialStateType => {
@@ -9,6 +10,8 @@ export const loginReducer = (state: loginInitialStateType = initialState, action
             return {...state, isLoggedIn: action.value}
         case "SET_ERROR":
             return {...state, error: action.value}
+        case 'LOGIN/SET-USER-ID':
+            return {...state, userId: action.userID}
         default:
             return state
     }
@@ -28,17 +31,19 @@ export const setError = (value: string) => {
         value,
     } as const
 }
-
+export const setUserId = (userID: string) => ({type: 'LOGIN/SET-USER-ID', userID} as const)
 // thunks
 
 
 // types
-export type LoginActionTypes = setIsLoginType | setErrorType
+export type LoginActionTypes = setIsLoginType | setErrorType | SetUserIdType
 
 export type loginInitialStateType = {
     isLoggedIn: boolean
     error: null | string,
+    userId: string
 }
 
 export type setIsLoginType = ReturnType<typeof setIsLogin>
 export type setErrorType = ReturnType<typeof setError>
+export type SetUserIdType = ReturnType<typeof setUserId>

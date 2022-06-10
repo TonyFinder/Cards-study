@@ -76,6 +76,7 @@ export type PacksType = {
     minCardsCount: number
     page: number
     pageCount: number
+    error?: string
 }
 
 export type PackType = {
