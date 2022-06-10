@@ -12,7 +12,9 @@ export const DoubleButtonIntro = () => {
             </div>
             <div>
                 {dataTestPage.doubleButton.rowFirst.map(item =>
-                    <DoubleButton key={item.id} activeColor={item.activeColor} disableColor={item.disableColor} active={item.active}/>)}
+                    <DoubleButton key={item.id}
+                                  activeColor={item.activeColor} disableColor={item.disableColor}
+                                  active={item.active} onClick={()=>''}/>)}
             </div>
         </div>
     );

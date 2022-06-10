@@ -95,7 +95,7 @@ export type PackParamsType = {
     sortPacks?: string,
     page?: number,
     pageCount?: number,
-    userId?: string,
+    user_id?: string,
 }
 
 export type CreatePackType = {

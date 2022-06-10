@@ -1,10 +1,5 @@
 import React, {useEffect} from 'react';
-import {
-    initialStatePacksType,
-    setCurrentPage,
-    setPacksTC,
-    updateParams
-} from '../../../../_bll/features/cards/packsReducer';
+import {initialStatePacksType, setPacksTC, updateParams} from '../../../../_bll/features/cards/packsReducer';
 import {useAppDispatch, useCustomSelector} from "../../../../_bll/main/store";
 import {Navigate} from "react-router-dom";
 import {Pack} from "./pack/Pack";
@@ -53,22 +48,27 @@ export const Packs = () => {
     }, [isLogin, dispatch, packParams]);
 
     const onPageChangeHandler = (page: number | string) => {
-        dispatch(setCurrentPage(+page))
+        dispatch(updateParams({page: +page}))
     }
     const onMouseUpSliderHandler = ({min, max}: maxMinValueType) => {
         dispatch(updateParams({min, max, page: 1}))
     }
-
-    if (!isLogin) {
-        return <Navigate to='/login'/>
+    const onClickMyAllChanger = (value: string) => {
+        value === 'my'
+            ? dispatch(updateParams({user_id: '5eecf82a3ed8f700042f1186', page: 1}))
+            : dispatch(updateParams({user_id: '', page: 1}))
     }
+
+    if (!isLogin) return <Navigate to='/login'/>
 
     return (
         <div className={styles.block}>
             <div className={styles.container}>
                 <div className={styles.settings}>
                     Show packs cards <br/><br/>
-                    <DoubleButton active={[false, true]} activeColor={COLORS.MAIN_DARK} disableColor={COLORS.MAIN_LIGHT}/>
+                    <DoubleButton active={[!!packParams.user_id, !packParams.user_id]}
+                                  activeColor={COLORS.MAIN_DARK} disableColor={COLORS.MAIN_LIGHT}
+                                  onClick={onClickMyAllChanger}/>
                     <br/><br/>
                     Number of cards
                     <Slider min={Number(packParams.min)}

@@ -39,9 +39,9 @@ export const Pack: React.FC<PackPropsType> = (props) => {
         sort[1] === e
             // определяем как отсортирована колонка
             ? sort[0] === '0'
-                ? dispatch(updateParams({sortPacks: `1${sort[1]}`}))
-                : dispatch(updateParams({sortPacks: '0updated'}))
-            : dispatch(updateParams({sortPacks: `0${e}`}))
+                ? dispatch(updateParams({sortPacks: `1${sort[1]}`, page: 1}))
+                : dispatch(updateParams({sortPacks: '0updated', page: 1}))
+            : dispatch(updateParams({sortPacks: `0${e}`, page: 1}))
     }
 
     return (

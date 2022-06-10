@@ -5,9 +5,10 @@ type DoubleButtonType = {
     active: boolean[]
     activeColor: string
     disableColor: string
+    onClick: (value: string) => void
 }
 
-export const DoubleButton = ({active, activeColor, disableColor}: DoubleButtonType) => {
+export const DoubleButton = ({active, activeColor, disableColor, onClick}: DoubleButtonType) => {
     const style = (order: number) => ({
         borderRadius: order === 0 ? '8px 0 0 8px' : '0 8px 8px 0',
         backgroundColor: active[order] ? activeColor : disableColor,
@@ -15,7 +16,7 @@ export const DoubleButton = ({active, activeColor, disableColor}: DoubleButtonTy
     })
 
     return <div>
-        <button style={style(0)} className={styles.button}>My</button>
-        <button style={style(1)} className={styles.button}>All</button>
+        <button style={style(0)} className={styles.button} onClick={() => onClick('my')}>My</button>
+        <button style={style(1)} className={styles.button} onClick={() => onClick('all')}>All</button>
     </div>
 }
