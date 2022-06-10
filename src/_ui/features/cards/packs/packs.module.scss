@@ -1,3 +1,6 @@
+@import "src/utils/mixins";
+@import "src/utils/variables";
+
 .block {
   display: flex;
   flex-direction: column;
@@ -15,8 +18,10 @@
     background-color: #FEFEFF;
 
     .settings {
-      display: flex;
+      @include flexCenter;
+      justify-content: flex-start;
       flex-direction: column;
+      padding-top: 25px;
       width: 243px;
       height: 636px;
       background: #ECECF9;
@@ -31,7 +36,6 @@
       word-break: break-word;
       margin-left: 50px;
 
-// Вадим добавил .header и button
       .header {
         display: flex;
         justify-content: space-between;

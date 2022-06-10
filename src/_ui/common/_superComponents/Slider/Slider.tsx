@@ -1,12 +1,19 @@
-import React, {ChangeEvent, useCallback, useEffect, useRef, useState} from 'react';
+import React, {ChangeEvent, useRef, useState} from 'react';
 import styles from './Slider.module.scss'
 
 type SliderPropsType = {
-    min: number;
-    max: number;
+    min: number
+    max: number
+    minDefault: number
+    maхDefault: number
+    onMouseUp: ({min, max}: maxMinValueType) => void
+}
+export type maxMinValueType = {
+    min: number
+    max: number
 }
 
-export const Slider = ({ min, max }: SliderPropsType) => {
+export const Slider = ({ min, max, minDefault, maхDefault, onMouseUp }: SliderPropsType) => {
 
     const [minVal, setMinVal] = useState(min);
     const [maxVal, setMaxVal] = useState(max);
@@ -14,12 +21,13 @@ export const Slider = ({ min, max }: SliderPropsType) => {
     const maxValRef = useRef(max);
     const range = useRef<HTMLDivElement>(null);
 
+    // Need to change some logic or just delete it
     // Convert to percentage
-    const getPercent = useCallback((value: number) =>
+    /*const getPercent = useCallback((value: number) =>
         Math.round(((value - min) / (max - min)) * 100), [min, max])
-
+*/
     // Set width of the range to decrease from the left side
-    useEffect(() => {
+    /*useEffect(() => {
         const minPercent = getPercent(minVal);
         const maxPercent = getPercent(maxValRef.current);
 
@@ -27,24 +35,24 @@ export const Slider = ({ min, max }: SliderPropsType) => {
             range.current.style.left = `${minPercent}%`;
             range.current.style.width = `${maxPercent - minPercent}%`;
         }
-    }, [minVal, getPercent]);
+    }, [minVal, getPercent]);*/
 
     // Set width of the range to decrease from the right side
-    useEffect(() => {
+    /*useEffect(() => {
         const minPercent = getPercent(minValRef.current);
         const maxPercent = getPercent(maxVal);
 
         if (range.current) {
             range.current.style.width = `${maxPercent - minPercent}%`;
         }
-    }, [maxVal, getPercent]);
+    }, [maxVal, getPercent]);*/
 
     return (
         <div className={styles.container}>
             <input
                 type="range"
-                min={min}
-                max={max}
+                min={minDefault}
+                max={maхDefault}
                 value={minVal}
                 onChange={(event: ChangeEvent<HTMLInputElement>) => {
                     const value = Math.min(Number(event.target.value), maxVal);
@@ -53,11 +61,12 @@ export const Slider = ({ min, max }: SliderPropsType) => {
                 }}
                 className={`${styles.thumb} ${styles.thumbLeft}`}
                 style={{zIndex: `${minVal > max - 100 && 5}`}}
+                onMouseUp={() => onMouseUp({min: minVal, max: maxVal})}
             />
             <input
                 type="range"
-                min={min}
-                max={max}
+                min={minDefault}
+                max={maхDefault}
                 value={maxVal}
                 onChange={(event: ChangeEvent<HTMLInputElement>) => {
                     const value = Math.max(Number(event.target.value), minVal);
@@ -65,6 +74,7 @@ export const Slider = ({ min, max }: SliderPropsType) => {
                     maxValRef.current = value;
                 }}
                 className={`${styles.thumb} ${styles.thumbRight}`}
+                onMouseUp={() => onMouseUp({min: minVal, max: maxVal})}
             />
 
             <div className={styles.slider}>

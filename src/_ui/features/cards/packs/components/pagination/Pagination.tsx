@@ -55,13 +55,13 @@ export const Pagination: React.FC<PaginationPropsType> = (props) => {
             >
                 <div className="arrow left"/>
             </li>
-            {Array.isArray(paginationRange) && paginationRange.map(pageNumber => {
+            {Array.isArray(paginationRange) && paginationRange.map((pageNumber, index) => {
                 if (pageNumber === DOTS) {
-                    return <li className="pagination-item dots">&#8230;</li>;
+                    return <li key={index} className="pagination-item dots">&#8230;</li>;
                 }
 
                 return (
-                    <li
+                    <li key={index}
                         className={classnames('pagination-item', {
                             selected: pageNumber === currentPage
                         })}
