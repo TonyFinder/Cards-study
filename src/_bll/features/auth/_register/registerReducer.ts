@@ -30,10 +30,8 @@ export const registerReducer = (
 };
 
 // actions
-export const register = (isRegistered: boolean) =>
-  ({ type: "REGISTER", isRegistered } as const);
-export const setError = (error: string) =>
-  ({ type: "SET-ERROR", error } as const);
+export const register = (isRegistered: boolean) => ({type: "REGISTER", isRegistered} as const)
+export const setError = (error: string) => ({type: "SET-ERROR", error} as const)
 
 // thunks
 

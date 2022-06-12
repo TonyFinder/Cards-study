@@ -32,13 +32,13 @@ export const Profile = () => {
 
     return <div className={styles.container}>
         <div className={styles.block}>
-            <Button className={styles.logout} onClick={logoutHandler}
-                    disabled={loading === LoadingStatusType.active}>Logout</Button>
 
             <h2 className={styles.headerSecond}>Personal Information</h2>
 
             <div className={styles.image}>
                 <img src={avatar} alt={'avatar'}/>
+                <Button className={styles.logout} onClick={logoutHandler}
+                        disabled={loading === LoadingStatusType.active}>Logout</Button>
             </div>
 
             <div className={styles.inputContainer}>

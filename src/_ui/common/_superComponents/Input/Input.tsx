@@ -9,13 +9,14 @@ type InputPropsType = DefaultInputPropsType & {
     onChangeError?: (value: boolean) => void
     onEnter?: () => void
     error?: boolean
+    emailError?: boolean
     value?: string
     sign?: string
 }
 
 export const Input: React.FC<InputPropsType> = (
     {
-        error, onChange, onChangeText, onChangeError,
+        error, emailError, onChange, onChangeText, onChangeError,
         onEnter, onKeyDown, color, value, sign,
         ...restProps
     }
@@ -35,11 +36,10 @@ export const Input: React.FC<InputPropsType> = (
     }
     const onBlurHandler = () => {
         if (!value) onChangeError && onChangeError(true)
-        // Проверка логики на Email
     }
 
     return (
-        <StyledInput color={color} error={error} value={value} sign={sign}>
+        <StyledInput color={color} error={error} value={value} sign={sign} emailError={emailError}>
             <input
                 type={'text'}
                 onChange={onChangeHandler}
@@ -66,7 +66,7 @@ const StyledInput = styled.div<InputPropsType>`
     border-bottom: 2px solid ${props => props.value
             ? '#bebebe' : props.color ? props.color : '#53a6fb'};
     border-radius: 8px 8px 0 0;
-    background-color: ${props => props.error ? '#fdd9d9' : COLORS.MAIN_LIGHT};
+    background-color: ${props => props.error || props.emailError ? '#fdd9d9' : COLORS.MAIN_LIGHT};
   }
 
   > input:disabled {
@@ -80,8 +80,8 @@ const StyledInput = styled.div<InputPropsType>`
 
   &:before {
     position: absolute;
-    content: 'Text is required';
-    display: ${props => props.error ? '' : 'none'};
+    content: '${props => props.emailError ? 'Email is typed wrong' : 'Text is required'}';
+    display: ${props => props.error || props.emailError ? '' : 'none'};
     color: red;
     font-size: 13px;
     bottom: -17px; right: 0;

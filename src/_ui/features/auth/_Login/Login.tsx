@@ -1,113 +1,101 @@
-import styles from './authVadim.module.scss'
-import {Input} from "../../../common/_superComponents/Input/Input";
-import {Button} from "../../../common/_superComponents/Button/Button";
-import {Checkbox} from "../../../common/_superComponents/Checkbox/Checkbox";
-import {useState} from "react";
+import styles from '../../Template.module.scss'
+import {Input} from '../../../common/_superComponents/Input/Input';
+import {Button} from '../../../common/_superComponents/Button/Button';
+import {Checkbox} from '../../../common/_superComponents/Checkbox/Checkbox';
+import React, {useState} from 'react';
 import {Link, Navigate} from 'react-router-dom';
-import {useAppDispatch, useCustomSelector} from "../../../../_bll/main/store";
-import {setDataUserTC} from "../../../../_bll/features/profile/profileReducer";
-import {loginInitialStateType} from "../../../../_bll/features/auth/_login/loginReducer";
-import {useFormik} from "formik";
-import {ROUTE_PATHS} from "../../../../utils/_values";
+import {useAppDispatch, useCustomSelector} from '../../../../_bll/main/store';
+import {setDataUserTC} from '../../../../_bll/features/profile/profileReducer';
+import {loginInitialStateType, setError} from '../../../../_bll/features/auth/_login/loginReducer';
+import {COLORS, ROUTE_PATHS} from '../../../../utils/_values';
+import {LoadingStatusType} from '../../../../utils/enums';
+import {Loader} from '../../../common/_superComponents/Loader/Loader';
+import {AuthDataType} from '../../../../_dal/api-anton';
 
 
 export const Login = () => {
 
+    const {email, password} = useCustomSelector<AuthDataType>(state => state.profile)
     const {isLoggedIn, error} = useCustomSelector<loginInitialStateType>(state => state.login)
-    const dispatch = useAppDispatch()
+    const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
+    let dispatch = useAppDispatch()
 
-    const [typeInput, setTypeInput] = useState("password");
+    const [emailValue, setEmailValue] = useState<string>(email)
+    const [passwordValue, setPasswordValue] = useState<string>(password ? password : '')
+    const [rememberMe, setRememberMe] = useState<boolean>(false)
+    const [typeInput, setTypeInput] = useState("password")
 
-    const onClickShowPasswordHandler = () => {
-        setTypeInput(typeInput === "password" ? "text" : "password")
+    // Validation check
+    const [errorEmail, setErrorEmail] = useState<boolean>(false)
+    const [errorEmailValid, setErrorEmailValid] = useState<boolean>(false)
+    const [errorPassword, setErrorPassword] = useState<boolean>(false)
+
+    const saveButtonDisable = !emailValue || !passwordValue || errorEmail || errorPassword
+
+    const onClickShowPasswordHandler = () => setTypeInput(typeInput === "password" ? "text" : "password")
+    const onClickLoginHandler = () => {
+        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(emailValue)
+            ? setErrorEmailValid(true)
+            : dispatch(setDataUserTC(emailValue, passwordValue, rememberMe))
     }
-
-    const formik = useFormik({
-        initialValues: {
-            email: 'nya-admin@nya.nya',
-            password: '1qazxcvBG',
-            rememberMe: true,
-        },
-        validate: (values) => {
-            const errors: FormikErrorType = {};
-            if (!values.email) {
-                errors.email = 'Email is required';
-            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-                errors.email = 'Invalid email address';
-            }
-            if (!values.password) {
-                errors.password = 'Password is required'
-            } else if (values.password.length < 2) {
-                errors.password = 'Invalid password';
-            }
-            return errors;
-        },
-
-        onSubmit: values => {
-            dispatch(setDataUserTC(values.email, values.password, values.rememberMe))
-            formik.resetForm()
-        },
-    })
-
-
-    if (isLoggedIn) {
-        return <Navigate to={ROUTE_PATHS.PROFILE}/>
+    const onChangeTextEmailHandler = (value: string) => {
+        setEmailValue(value)
+        setErrorEmailValid(false)
+        error && dispatch(setError(''))
     }
+    const onChangeTextPasswordHandler = (value: string) => {
+        setPasswordValue(value)
+        error && dispatch(setError(''))
+    }
+    const onClickRememberHandler = () => setRememberMe(!rememberMe)
 
-    return (
+    if (isLoggedIn) return <Navigate to={ROUTE_PATHS.PROFILE}/>
+
+    return <div className={styles.container}>
         <div className={styles.block}>
-            <div className={styles.container}>
-                <h1>It-incubator</h1>
-                <h3>Sign in</h3>
-                <div className={styles.error}>{error && error}</div>
-                <form onSubmit={formik.handleSubmit}>
+            <div className={styles.error}>{error}</div>
+            <h1 className={styles.headerMain}>Smart Cards</h1>
+            <h2 className={styles.headerSecond}>Sign in</h2>
 
+            <div className={styles.inputContainer}>
+                <Input
+                    value={emailValue}
+                    sign='Email'
+                    onChangeText={onChangeTextEmailHandler}
+                    error={errorEmail}
+                    emailError={errorEmailValid}
+                    onChangeError={setErrorEmail}/>
+                <div className={styles.inputPass}>
                     <Input
-                        id='Email'
-                        sign="Email"
-                        type='text'
-                        placeholder='Email'
-                        error={!!formik.errors.email}
-                        {...formik.getFieldProps('email')}
-                    />
-                    <div>
-                        {formik.touched.email && formik.errors.email ? formik.errors.email : null}
-                    </div>
-
-                    <Input
-                        id='Password'
-                        sign="Password"
+                        value={passwordValue}
                         type={typeInput}
-                        placeholder='Password'
-                        error={!!formik.errors.password}
-                        {...formik.getFieldProps('password')}
-                    />
-                    <div>
-                        {formik.touched.password && formik.errors.password ? formik.errors.password : null}
-                    </div>
-
-                    <span onClick={onClickShowPasswordHandler}>👀</span>
+                        sign="Password"
+                        onChangeText={onChangeTextPasswordHandler}
+                        error={errorPassword}
+                        onChangeError={setErrorPassword}/>
+                    <span className={styles.hidePass} onClick={onClickShowPasswordHandler}>👀</span>
                     <Link to={ROUTE_PATHS.FORGOT}>Forgot Password</Link>
+                </div>
+                <div className={styles.checkbox}>
+                    <Checkbox color={COLORS.MAIN_DARK}
+                              checked={rememberMe}
+                              onClick={onClickRememberHandler}>Remember me</Checkbox>
+                </div>
+            </div>
 
-                    <Checkbox
-                        {...formik.getFieldProps('rememberMe')}
-                        checked={formik.getFieldProps('rememberMe').checked}
-                    >Remember me
-                    </Checkbox>
+            <div className={styles.button}>
+                {loading === LoadingStatusType.disabled
+                    ?<Button color={COLORS.MAIN_DARK}
+                             disabled={saveButtonDisable}
+                             onClick={onClickLoginHandler}>Login</Button>
+                    :<Loader color={COLORS.MAIN_DARK}/>
+                }
+            </div>
 
-                    <Button type={'submit'}>Login</Button>
-                </form>
-
+            <div className={styles.bottomText}>
                 <span>Don’t have an account?</span>
                 <Link to={ROUTE_PATHS.REGISTER}>Sign Up</Link>
             </div>
         </div>
-    )
-}
-
-//types
-type FormikErrorType = {
-    email?: string
-    password?: string
-    rememberMe?: boolean
+    </div>
 }

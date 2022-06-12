@@ -8,7 +8,8 @@ import {LoadingStatusType} from '../../../utils/enums';
 
 let initialState: AuthDataType = {
     _id: '',
-    email: '',
+    email: 'nya-admin@nya.nya',
+    password: '1qazxcvBG',
     name: '',
     avatar: '',
     publicCardPacksCount: 0,
@@ -39,13 +40,14 @@ export const changeProfileData = (data: AuthDataType) => ({type: 'PROFILE/CHANGE
 
 // thunks
 export const setDataUserTC = (email: string, password: string, rememberMe: boolean): AppThunk => (dispatch) => {
-    loginApi.login(email, password, rememberMe).then(res => {
-        dispatch(setProfileData(res.data))
-        dispatch(setIsLogin(true))
-    }).catch(err => {
-        console.log("error", {...err})
-        dispatch(setError(err.response.data.error))
-    })
+    loginApi.login(email, password, rememberMe)
+        .then(res => {
+            dispatch(setProfileData(res.data))
+            dispatch(setIsLogin(true))
+        })
+        .catch(err => {
+            dispatch(setError(err.response.data.error))
+        })
 }
 export const logoutTC = (): AppThunk => (dispatch) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))

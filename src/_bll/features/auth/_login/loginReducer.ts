@@ -19,21 +19,11 @@ export const loginReducer = (state: loginInitialStateType = initialState, action
 
 
 // actions
-export const setIsLogin = (value: boolean) => {
-    return {
-        type: 'SET_IS_LOGIN',
-        value,
-    } as const
-}
-export const setError = (value: string) => {
-    return {
-        type: 'SET_ERROR',
-        value,
-    } as const
-}
+export const setIsLogin = (value: boolean) => ({type: 'SET_IS_LOGIN', value} as const)
+export const setError = (value: string) => ({type: 'SET_ERROR', value} as const)
 export const setUserId = (userID: string) => ({type: 'LOGIN/SET-USER-ID', userID} as const)
-// thunks
 
+// thunks
 
 // types
 export type LoginActionTypes = setIsLoginType | setErrorType | SetUserIdType
