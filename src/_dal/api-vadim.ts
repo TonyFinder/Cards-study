@@ -23,15 +23,12 @@ export const loginApi = {
 export const packsApi = {
     getPacks(params: PackParamsType) {
         return instance.get<any, { data: PacksType }, { params: PackParamsType }>('cards/pack', {
-            params: {...params}
+            params: params
         })
     },
 
     createPack(data: CreatePackType) {
-        return instance.post<any, any, CreatePackType>('cards/pack',
-            {
-                ...data
-            })
+        return instance.post<any, any, CreatePackType>('cards/pack', data)
     },
 
     deletePack(packId: string) {
@@ -40,7 +37,7 @@ export const packsApi = {
     },
 
     updatedPack(data: PackType) {
-        return instance.put<any, any, { data: PackType }>('cards/pack', {data})
+        return instance.put<any, any, PackType>('cards/pack', data)
     },
 }
 
@@ -49,13 +46,12 @@ export const cardsApi = {
     getCards(params: CardParamsType) {
         return instance.get<any, { data: CardsType }, { params: CardParamsType }>('cards/card',
             {
-                params: {...params}
+                params: params
             })
     },
 
     createCard(data: CreateCardType) {
-        return instance.post<any, any, CreateCardType>('cards/card',
-            {...data})
+        return instance.post<any, any, CreateCardType>('cards/card', data)
     },
 
     deleteCard(cardId: string) {
@@ -63,7 +59,7 @@ export const cardsApi = {
     },
 
     updatedCard(data: CardType) {
-        return instance.put<any, any, { data: CardType }>('cards/card', {data})
+        return instance.put<any, any, CardType>('cards/card', data)
     },
 }
 
