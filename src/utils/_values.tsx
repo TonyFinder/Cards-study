@@ -8,10 +8,13 @@ import {Test} from '../_ui/common/Test/Test';
 import {Error404} from '../_ui/common/Error404/Error404';
 import {Packs} from "../_ui/features/cards/packs/Packs";
 import {Cards} from "../_ui/features/cards/cards/Cards";
+import { Template } from '../_ui/features/Template';
 
 export const COLORS = {
-    MAIN_LIGHT: '#fef2e4',
     MAIN_DARK: '#fd974f',
+    MAIN_LIGHT: '#fef2e4',
+    DEFAULT: '#53a6fb',
+    TRANSPARENT: 'rgba(255,255,255,0.7)'
 }
 
 export const ROUTE_PATHS = {
@@ -27,6 +30,7 @@ export const ROUTE_PATHS = {
     TEST: '/test',
     ERROR_404: '/error404',
     UNKNOWN_URL: '*',
+    TEMPLATE: '/template'
 }
 
 export const dataRoutes = {
@@ -43,6 +47,7 @@ export const dataRoutes = {
         {id: 7, title: 'Test', visible: true, path: ROUTE_PATHS.TEST, element: <Test/>},
         {id: 8, title: 'Error404', visible: true, path: ROUTE_PATHS.ERROR_404, element: <Error404/>},
         {id: 9, title: 'Unknown url', visible: false, path: ROUTE_PATHS.UNKNOWN_URL, element: <Navigate to={ROUTE_PATHS.ERROR_404}/>},
+        {id: 10, title: 'Template', visible: true, path: ROUTE_PATHS.TEMPLATE, element: <Template/>},
     ]
 }
 

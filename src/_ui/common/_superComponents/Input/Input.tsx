@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import React, {ChangeEvent, KeyboardEvent, DetailedHTMLProps, InputHTMLAttributes} from 'react';
+import {COLORS} from '../../../../utils/_values';
 
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
@@ -34,6 +35,7 @@ export const Input: React.FC<InputPropsType> = (
     }
     const onBlurHandler = () => {
         if (!value) onChangeError && onChangeError(true)
+        // Проверка логики на Email
     }
 
     return (
@@ -64,7 +66,7 @@ const StyledInput = styled.div<InputPropsType>`
     border-bottom: 2px solid ${props => props.value
             ? '#bebebe' : props.color ? props.color : '#53a6fb'};
     border-radius: 8px 8px 0 0;
-    background-color: ${props => props.error ? '#fdd9d9' : '#efefef'};
+    background-color: ${props => props.error ? '#fdd9d9' : COLORS.MAIN_LIGHT};
   }
 
   > input:disabled {
