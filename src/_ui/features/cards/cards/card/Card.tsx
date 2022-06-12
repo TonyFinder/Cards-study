@@ -21,14 +21,17 @@ export const Card: React.FC<CardPropsType> = (props) => {
         answer,
         question,
         grade,
-        updated
+        updated,
+        header
     } = props
 
     return (
         <div className={styles.row}>
             <span>{question}</span>
             <span>{answer}</span>
-            <span>{updated}</span>
+            <span>{header
+                ? updated
+                : new Date(String(updated)).toLocaleString()}</span>
             <span className={styles.grade}>{grade}</span>
         </div>
     );

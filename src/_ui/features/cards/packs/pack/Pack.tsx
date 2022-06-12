@@ -73,7 +73,7 @@ export const Pack: React.FC<PackPropsType> = (props) => {
                                   value={sort[1] === 'updated' ? sort[0] : '2'}
                                   color={COLORS.MAIN_DARK}
                                   onClick={() => onClickHandler('updated')}/>
-                    : updated?.slice(0, 10)
+                    : new Date(String(updated)).toLocaleString()
                 }
             </div>
             <div className={styles.createdBy}>
