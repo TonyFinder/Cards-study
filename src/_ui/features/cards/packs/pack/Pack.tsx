@@ -37,7 +37,7 @@ export const Pack: React.FC<PackPropsType> = (props) => {
     } = props;
 
     const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
-    const userId = useCustomSelector<string>(state => state.login.userId)
+    const userId = useCustomSelector<string>(state => state.profile._id)
     const dispatch = useAppDispatch()
     const disabled = loading === LoadingStatusType.active
 

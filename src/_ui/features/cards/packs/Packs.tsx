@@ -35,7 +35,7 @@ export const Packs = () => {
         pageCount
     } = useCustomSelector<initialStatePacksType>(state => state.packs)
     const isLogin = useCustomSelector<boolean>(state => state.login.isLoggedIn)
-    const userId = useCustomSelector<string>(state => state.login.userId)
+    const userId = useCustomSelector<string>(state => state.profile._id)
     const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
     const disabled = loading === LoadingStatusType.active
 
