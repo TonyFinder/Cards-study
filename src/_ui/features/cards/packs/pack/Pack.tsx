@@ -7,6 +7,8 @@ import {SortButton} from '../../../../common/_superComponents/SortButton/SortBut
 import {useAppDispatch, useCustomSelector} from '../../../../../_bll/main/store';
 import {updateParams} from '../../../../../_bll/features/cards/packsReducer';
 import {LoadingStatusType} from '../../../../../utils/enums';
+import ModalDeleteContainer from "../../../modal/deletePack/ModalDeleteContainer";
+import ModalUpdateContainer from "../../../modal/updatePack/ModalUpdateContainer";
 
 export type PackPropsType = {
     _id: string
@@ -31,10 +33,13 @@ export const Pack: React.FC<PackPropsType> = (props) => {
         created,
         header,
         sort,
+        user_id,
     } = props;
 
     const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
+    const userId = useCustomSelector<string>(state => state.login.userId)
     const dispatch = useAppDispatch()
+    const disabled = loading === LoadingStatusType.active
 
     const onClickHandler = (e: string) => {
         // определяем, на какой колонке находится фильтр
@@ -86,17 +91,23 @@ export const Pack: React.FC<PackPropsType> = (props) => {
                 }
             </div>
             <div className={styles.actions}>
+
                 {header
                     ? <SortButton title={created ? created : ''}
                                   value="2"
                                   color="#fd974f"/>
                     : <div>
-                        <Button color={'red'}>Delete</Button>
-                        <Button color={COLORS.MAIN_DARK}>Edit</Button>
+                        {user_id === userId
+                            ? <ModalDeleteContainer disabled={disabled} packId={_id} packName={name ? name : ''}/>
+                            : null}
+                        {user_id === userId
+                            ? <ModalUpdateContainer disabled={disabled} packId={_id} packName={name ? name : ''}/>
+                            : null}
                         <Button color={COLORS.MAIN_DARK}>Learn</Button>
                     </div>
                 }
             </div>
+
         </div>
     );
 };

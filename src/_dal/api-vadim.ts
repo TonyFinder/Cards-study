@@ -22,29 +22,29 @@ export const loginApi = {
 
 export const packsApi = {
     getPacks(params: PackParamsType) {
-        return instance.get<any, { data: PacksType }, { params: PackParamsType }>('cards/pack', {
+        return instance.get<any, { data: PacksType }, PackParamsType>('cards/pack', {
             params: params
         })
     },
 
     createPack(data: CreatePackType) {
-        return instance.post<any, any, CreatePackType>('cards/pack', data)
+        return instance.post<any, any, { cardsPack: CreatePackType }>('cards/pack', {cardsPack: data})
     },
 
-    deletePack(packId: string) {
-        return instance.delete<any, any, { packId: string }>('cards/pack', {params: {packId}})
+    deletePack(id: string) {
+        return instance.delete<any, any, string>('cards/pack', {params: {id}},)
 
     },
 
-    updatedPack(data: PackType) {
-        return instance.put<any, any, PackType>('cards/pack', data)
+    updatePack(data: UpdatePackType) {
+        return instance.put<any, any, { cardsPack: UpdatePackType }>('cards/pack', {cardsPack: data})
     },
 }
 
 
 export const cardsApi = {
     getCards(params: CardParamsType) {
-        return instance.get<any, { data: CardsType }, { params: CardParamsType }>('cards/card',
+        return instance.get<any, { data: CardsType }, CardParamsType>('cards/card',
             {
                 params: params
             })
@@ -55,7 +55,7 @@ export const cardsApi = {
     },
 
     deleteCard(cardId: string) {
-        return instance.delete<any, any, { cardId: string }>('cards/card', {params: {cardId}})
+        return instance.delete<any, any, string>('cards/card', {params: {cardId}})
     },
 
     updatedCard(data: CardType) {
@@ -99,6 +99,12 @@ export type CreatePackType = {
     name?: string
     deckCover?: string
     cardPrivate?: boolean
+}
+
+export type UpdatePackType = {
+    deckCover?: string
+    name?: string
+    _id: string
 }
 
 export type CardsType = {

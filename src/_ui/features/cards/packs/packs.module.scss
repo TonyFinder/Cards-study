@@ -21,12 +21,14 @@
       @include flexCenter;
       justify-content: flex-start;
       flex-direction: column;
-      padding-top: 25px; margin-left: 10px;
+      padding-top: 25px;
+      margin-left: 10px;
       width: 243px;
       height: 636px;
       background-color: $tableFirstColor;
-      >span {
-       font-weight: bold;
+
+      > span {
+        font-weight: bold;
       }
     }
 
@@ -53,22 +55,25 @@
       .table {
         position: relative;
         margin: 10px 0;
-        filter: drop-shadow(0px 4px 14px rgba(45, 46, 70, 0.15));
+        box-shadow: 0 4px 14px rgba(45, 46, 70, 0.15);
         min-width: 673px;
         min-height: 430px;
+
         .loader {
           position: absolute;
-          top: 50%; left: 50%;
+          top: 50%;
+          left: 50%;
         }
-        >div:nth-child(even) {
+
+        > div:nth-child(even) {
           background: $backColorFirst;
         }
 
-        >div:nth-child(odd) {
+        > div:nth-child(odd) {
           background: $tableFirstColor;
         }
 
-        >div:nth-child(1) {
+        > div:nth-child(1) {
           background: $tableHeaderColor;
         }
       }

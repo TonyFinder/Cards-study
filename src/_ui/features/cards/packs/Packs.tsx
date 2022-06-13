@@ -6,12 +6,12 @@ import {Pack} from './pack/Pack';
 import styles from './packs.module.scss';
 import {maxMinValueType, Slider} from '../../../common/_superComponents/Slider/Slider';
 import {DoubleButton} from '../../../common/_superComponents/DoubleButton/DoubleButton';
-import {Button} from '../../../common/_superComponents/Button/Button';
 import {Pagination} from './components/pagination/Pagination';
 import {InputComponent} from './components/inputComponent/InputComponent';
 import {COLORS} from '../../../../utils/_values';
 import {LoadingStatusType} from '../../../../utils/enums';
 import {Loader} from '../../../common/_superComponents/Loader/Loader';
+import ModalCreatePackContainer from "../../modal/createPack/ModalCreatePackContainer";
 
 const headerTable = {
     name: "Name",
@@ -41,7 +41,7 @@ export const Packs = () => {
 
     // Detect sorting column
     const sortPacks = useCustomSelector<string>(state => state.packs.packParams.sortPacks ? state.packs.packParams.sortPacks : '')
-    const direction = sortPacks.slice(0,1)
+    const direction = sortPacks.slice(0, 1)
     const column = sortPacks.slice(1)
 
     const dispatch = useAppDispatch();
@@ -65,9 +65,11 @@ export const Packs = () => {
             : dispatch(updateParams({user_id: '', page: 1}))
     }
 
+
     if (!isLogin) {
         return <Navigate to='/login'/>
     }
+
 
     return (
         <div className={styles.block}>
@@ -90,13 +92,14 @@ export const Packs = () => {
                 <div className={styles.packs}>
                     <div className={styles.header}>
                         <InputComponent disabled={disabled}/>
-                        <Button color={COLORS.MAIN_DARK} disabled={disabled}>Add new pack</Button>
+                        <ModalCreatePackContainer disabled={disabled}/>
                     </div>
                     <div className={styles.table}>
                         <Pack sort={[direction, column]} {...headerTable}/>
                         {loading === LoadingStatusType.active
                             ? <Loader color={COLORS.MAIN_DARK} className={styles.loader}/>
-                            : cardPacks.map(p => <Pack key={p._id} sort={[direction, column]} {...p}/>)
+                            : cardPacks.map(p => <Pack key={p._id}
+                                                       sort={[direction, column]} {...p}/>)
                         }
                     </div>
                     <div className={styles.page}>
