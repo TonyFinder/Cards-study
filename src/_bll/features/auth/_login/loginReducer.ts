@@ -1,10 +1,10 @@
-let initialState: loginInitialStateType = {
+let initialState: LoginInitialStateType = {
     isLoggedIn: false,
     error: "",
     userId: ''
 }
 
-export const loginReducer = (state: loginInitialStateType = initialState, action: LoginActionTypes): loginInitialStateType => {
+export const loginReducer = (state: LoginInitialStateType = initialState, action: LoginActionTypes): LoginInitialStateType => {
     switch (action.type) {
         case 'SET_IS_LOGIN':
             return {...state, isLoggedIn: action.value}
@@ -28,7 +28,7 @@ export const setUserId = (userID: string) => ({type: 'LOGIN/SET-USER-ID', userID
 // types
 export type LoginActionTypes = setIsLoginType | setErrorType | SetUserIdType
 
-export type loginInitialStateType = {
+export type LoginInitialStateType = {
     isLoggedIn: boolean
     error: null | string,
     userId: string

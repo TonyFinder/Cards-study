@@ -11,7 +11,7 @@ let initialState = {
 export const registerReducer = (
   state = initialState,
   action: RegisterActionTypes
-): InitialStateType => {
+): RegisterInitialStateType => {
   switch (action.type) {
     case "REGISTER":
       return {
@@ -47,7 +47,7 @@ export const requestRegistration = (data: ShippingFields) => {
 };
 
 // types
-type InitialStateType = typeof initialState;
+export type RegisterInitialStateType = typeof initialState;
 
 export type RegisterActionTypes =
   | ReturnType<typeof register>

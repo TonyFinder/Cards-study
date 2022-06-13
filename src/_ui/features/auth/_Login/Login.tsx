@@ -6,7 +6,7 @@ import React, {useState} from 'react';
 import {Link, Navigate} from 'react-router-dom';
 import {useAppDispatch, useCustomSelector} from '../../../../_bll/main/store';
 import {setDataUserTC} from '../../../../_bll/features/profile/profileReducer';
-import {loginInitialStateType, setError} from '../../../../_bll/features/auth/_login/loginReducer';
+import {LoginInitialStateType, setError} from '../../../../_bll/features/auth/_login/loginReducer';
 import {COLORS, ROUTE_PATHS} from '../../../../utils/_values';
 import {LoadingStatusType} from '../../../../utils/enums';
 import {Loader} from '../../../common/_superComponents/Loader/Loader';
@@ -15,10 +15,10 @@ import {AuthDataType} from '../../../../_dal/api-anton';
 
 export const Login = () => {
 
-    const {email, password} = useCustomSelector<AuthDataType>(state => state.profile)
-    const {isLoggedIn, error} = useCustomSelector<loginInitialStateType>(state => state.login)
-    const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
     let dispatch = useAppDispatch()
+    const {email, password} = useCustomSelector<AuthDataType>(state => state.profile)
+    const {isLoggedIn, error} = useCustomSelector<LoginInitialStateType>(state => state.login)
+    const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
 
     const [emailValue, setEmailValue] = useState<string>(email)
     const [passwordValue, setPasswordValue] = useState<string>(password ? password : '')
@@ -29,14 +29,15 @@ export const Login = () => {
     const [errorEmail, setErrorEmail] = useState<boolean>(false)
     const [errorEmailValid, setErrorEmailValid] = useState<boolean>(false)
     const [errorPassword, setErrorPassword] = useState<boolean>(false)
+    const [errorPasswordValid, setErrorPasswordValid] = useState<boolean>(false)
 
-    const saveButtonDisable = !emailValue || !passwordValue || errorEmail || errorPassword
+    const saveButtonDisable = !emailValue || !passwordValue || errorEmail || errorPassword || errorEmailValid || errorPasswordValid
 
     const onClickShowPasswordHandler = () => setTypeInput(typeInput === "password" ? "text" : "password")
     const onClickLoginHandler = () => {
-        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(emailValue)
-            ? setErrorEmailValid(true)
-            : dispatch(setDataUserTC(emailValue, passwordValue, rememberMe))
+        /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(emailValue) && passwordValue.length > 7 && dispatch(setDataUserTC(emailValue, passwordValue, rememberMe))
+        !(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(emailValue)) && setErrorEmailValid(true)
+        passwordValue.length < 8 && setErrorPasswordValid(true)
     }
     const onChangeTextEmailHandler = (value: string) => {
         setEmailValue(value)
@@ -45,6 +46,7 @@ export const Login = () => {
     }
     const onChangeTextPasswordHandler = (value: string) => {
         setPasswordValue(value)
+        setErrorPasswordValid(false)
         error && dispatch(setError(''))
     }
     const onClickRememberHandler = () => setRememberMe(!rememberMe)
@@ -55,7 +57,7 @@ export const Login = () => {
         <div className={styles.block}>
             <div className={styles.error}>{error}</div>
             <h1 className={styles.headerMain}>Smart Cards</h1>
-            <h2 className={styles.headerSecond}>Sign in</h2>
+            <h2 className={styles.headerSecond}>Sign In</h2>
 
             <div className={styles.inputContainer}>
                 <Input
@@ -72,6 +74,7 @@ export const Login = () => {
                         sign="Password"
                         onChangeText={onChangeTextPasswordHandler}
                         error={errorPassword}
+                        passwordError={errorPasswordValid}
                         onChangeError={setErrorPassword}/>
                     <span className={styles.hidePass} onClick={onClickShowPasswordHandler}>👀</span>
                     <Link to={ROUTE_PATHS.FORGOT}>Forgot Password</Link>

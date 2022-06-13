@@ -10,13 +10,15 @@ type InputPropsType = DefaultInputPropsType & {
     onEnter?: () => void
     error?: boolean
     emailError?: boolean
+    passwordError?: boolean
+    comparePassword?: boolean
     value?: string
     sign?: string
 }
 
 export const Input: React.FC<InputPropsType> = (
     {
-        error, emailError, onChange, onChangeText, onChangeError,
+        error, emailError, passwordError, comparePassword, onChange, onChangeText, onChangeError,
         onEnter, onKeyDown, color, value, sign,
         ...restProps
     }
@@ -39,7 +41,9 @@ export const Input: React.FC<InputPropsType> = (
     }
 
     return (
-        <StyledInput color={color} error={error} value={value} sign={sign} emailError={emailError}>
+        <StyledInput color={color} error={error}
+                     value={value} sign={sign}
+                     emailError={emailError} passwordError={passwordError} comparePassword={comparePassword} >
             <input
                 type={'text'}
                 onChange={onChangeHandler}
@@ -66,7 +70,7 @@ const StyledInput = styled.div<InputPropsType>`
     border-bottom: 2px solid ${props => props.value
             ? '#bebebe' : props.color ? props.color : '#53a6fb'};
     border-radius: 8px 8px 0 0;
-    background-color: ${props => props.error || props.emailError ? '#fdd9d9' : COLORS.MAIN_LIGHT};
+    background-color: ${props => props.error || props.emailError || props.passwordError || props.comparePassword ? '#fdd9d9' : COLORS.MAIN_LIGHT};
   }
 
   > input:disabled {
@@ -80,8 +84,15 @@ const StyledInput = styled.div<InputPropsType>`
 
   &:before {
     position: absolute;
-    content: '${props => props.emailError ? 'Email is typed wrong' : 'Text is required'}';
-    display: ${props => props.error || props.emailError ? '' : 'none'};
+    content: '${props =>
+            props.emailError
+                    ? 'Email is typed wrong'
+                    : props.passwordError
+                            ? 'Must be at least 8 characters'
+                            : props.comparePassword
+                                    ? 'Password and confirm password are different'
+                                    : 'Text is required'}';
+    display: ${props => props.error || props.emailError || props.passwordError || props.comparePassword ? '' : 'none'};
     color: red;
     font-size: 13px;
     bottom: -17px; right: 0;

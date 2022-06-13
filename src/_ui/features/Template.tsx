@@ -42,7 +42,7 @@ export const Template = () => {
     return <div className={styles.container}>
         <div className={styles.block}>
             {/*Error*/}
-            {error && <div className={styles.error}>{error}</div>}
+            <div className={styles.error}>{error}</div>
 
             {/*Заголовок первого уровня, названия игры*/}
             <h1 className={styles.headerMain}>Smart Cards</h1>
