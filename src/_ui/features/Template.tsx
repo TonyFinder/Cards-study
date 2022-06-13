@@ -93,7 +93,20 @@ export const Template = () => {
                 </div>
             </div>
 
+            {/*Блок для описания действия. Forgot и Create password*/}
+            <div className={styles.description}>
+                <span>Enter your email address and <br/> we will send you further instructions</span>
+            </div>
+
             {/*Блок для одной Button. Дизейбл для примера только на изменение Nickname*/}
+            <div className={styles.buttonBig}>
+                {loading === LoadingStatusType.disabled
+                    ?<Button color={COLORS.MAIN_DARK} disabled={saveButtonDisable} onClick={()=>''}>Save</Button>
+                    :<Loader color={COLORS.MAIN_DARK}/>
+                }
+            </div>
+
+            {/*Блок для одной большой Button.*/}
             <div className={styles.button}>
                 {loading === LoadingStatusType.disabled
                     ?<Button color={COLORS.MAIN_DARK} disabled={saveButtonDisable} onClick={()=>''}>Save</Button>

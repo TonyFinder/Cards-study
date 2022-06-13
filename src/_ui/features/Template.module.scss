@@ -94,6 +94,13 @@
       }
     }
 
+    .description {
+      padding: 10px; margin-bottom: 40px;
+      text-align: center;
+      width: 95%;
+      color: $textDescription;
+    }
+
     .button {
       @include flexCenter;
       width: 100%;
@@ -104,6 +111,15 @@
       }
 
     }
+    .buttonBig {
+      @include flexCenter;
+      width: 100%;
+      min-height: 65px;
+
+      button {
+        width: 70%;
+      }
+    }
     .bottomText {
       display: flex;
       flex-direction: column;
@@ -111,6 +127,7 @@
       margin-top: 20px;
       >span {
         font-size: 14px;
+        color: $textDescription;
       }
       a {
         margin: 10px 0;

@@ -6,9 +6,9 @@ let initialState = {
 };
 
 export const forgotReducer = (
-  state: InitialStateType = initialState,
+  state: ForgotInitialStateType = initialState,
   action: ForgotActionTypes
-): InitialStateType => {
+): ForgotInitialStateType => {
   switch (action.type) {
     case "SET-ERROR":
       return {
@@ -21,7 +21,7 @@ export const forgotReducer = (
 };
 
 // actions
-const setError = (error: string) => ({ type: "SET-ERROR", error });
+export const setError = (error: string) => ({ type: "SET-ERROR", error } as const);
 
 // thunks
 export const requestPassword = (email: string | undefined) => {
@@ -35,4 +35,4 @@ export const requestPassword = (email: string | undefined) => {
 };
 // types
 export type ForgotActionTypes = ReturnType<typeof setError>;
-type InitialStateType = typeof initialState;
+export type ForgotInitialStateType = typeof initialState;
