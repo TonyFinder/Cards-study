@@ -70,7 +70,7 @@ export const Forgot = () => {
 
       <div className={styles.bottomText}>
         <span>Did you remember your password?</span>
-        <Link to={ROUTE_PATHS.REGISTER}>Try logging in</Link>
+        <Link to={ROUTE_PATHS.LOGIN}>Try logging in</Link>
       </div>
     </div>
   </div>
