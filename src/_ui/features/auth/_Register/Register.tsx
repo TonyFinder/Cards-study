@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {RegisterInitialStateType, requestRegistration, setError} from '../../../../_bll/features/auth/_register/registerReducer';
+import {RegisterInitialStateType, requestRegistrationTC, setError} from '../../../../_bll/features/auth/_register/registerReducer';
 import {useAppDispatch, useCustomSelector,} from '../../../../_bll/main/store';
 import {Button} from '../../../common/_superComponents/Button/Button';
 import {Input} from '../../../common/_superComponents/Input/Input';
@@ -29,7 +29,7 @@ export const Register = () => {
   const [errorRepeatPasswordValid, setErrorRepeatPasswordValid] = useState<boolean>(false)
   const [errorComparePasswords, setErrorComparePasswords] = useState<boolean>(false)
 
-  const saveButtonDisable = !emailValue || !passwordValue || !repeatPasswordValue || errorEmail || errorPassword || errorRepeatPassword
+  const saveButtonDisable = !emailValue || !passwordValue || !repeatPasswordValue || errorEmail || errorPassword || errorRepeatPassword || !!error
 
   const onClickShowPasswordHandler = (value: number) => {
     setTypeInput(typeInput.map((m, i) => i === value
@@ -39,7 +39,7 @@ export const Register = () => {
         : m))
   }
   const onClickRegisterHandler = () => {
-    /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(emailValue) && passwordValue.length > 7 && repeatPasswordValue.length > 7 && passwordValue === repeatPasswordValue && dispatch(requestRegistration({ email: emailValue, password: passwordValue }))
+    /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(emailValue) && passwordValue.length > 7 && repeatPasswordValue.length > 7 && passwordValue === repeatPasswordValue && dispatch(requestRegistrationTC({ email: emailValue, password: passwordValue }))
     !(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(emailValue)) && setErrorEmailValid(true)
     passwordValue.length < 8 && setErrorPasswordValid(true)
     repeatPasswordValue.length < 8 && setErrorRepeatPasswordValid(true)

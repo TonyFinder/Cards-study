@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Navigate, useParams} from 'react-router-dom';
-import {setNewPassword, SetPasswordInitialStateType} from '../../../../_bll/features/auth/setPass/setPassReducer';
+import {setNewPasswordTC, SetPasswordInitialStateType} from '../../../../_bll/features/auth/setPass/setPassReducer';
 import {useAppDispatch, useCustomSelector} from '../../../../_bll/main/store';
 import {Button} from '../../../common/_superComponents/Button/Button';
 import {Input} from '../../../common/_superComponents/Input/Input';
@@ -24,11 +24,11 @@ export const SetPass = () => {
   const [errorPassword, setErrorPassword] = useState<boolean>(false)
   const [errorPasswordValid, setErrorPasswordValid] = useState<boolean>(false)
 
-  const saveButtonDisable = !passwordValue || errorPassword || errorPasswordValid
+  const saveButtonDisable = !passwordValue || errorPassword || errorPasswordValid || !!error
 
   const onClickCreateHandler = () => {
     passwordValue.length > 7
-        ? dispatch(setNewPassword({ password: passwordValue, resetPasswordToken }))
+        ? dispatch(setNewPasswordTC({ password: passwordValue, resetPasswordToken }))
         : setErrorPasswordValid(true)
   }
   const onChangeTextPasswordHandler = (value: string) => {
@@ -51,6 +51,7 @@ export const SetPass = () => {
           <Input
               value={passwordValue}
               type={typeInput}
+              color={COLORS.MAIN_DARK}
               sign="Password"
               onChangeText={onChangeTextPasswordHandler}
               error={errorPassword}

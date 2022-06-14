@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {ForgotInitialStateType, requestPassword, setError,} from '../../../../_bll/features/auth/forgot/forgotReducer';
+import {ForgotInitialStateType, requestPasswordTC, setError,} from '../../../../_bll/features/auth/forgot/forgotReducer';
 import {useAppDispatch, useCustomSelector} from '../../../../_bll/main/store';
 import {Button} from '../../../common/_superComponents/Button/Button';
 import {Input} from '../../../common/_superComponents/Input/Input';
@@ -23,11 +23,11 @@ export const Forgot = () => {
   const [errorEmail, setErrorEmail] = useState<boolean>(false)
   const [errorEmailValid, setErrorEmailValid] = useState<boolean>(false)
 
-  const saveButtonDisable = !emailValue || errorEmail || errorEmailValid
+  const saveButtonDisable = !emailValue || errorEmail || errorEmailValid || !!error
 
   const onClickForgotHandler = () => {
     /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(emailValue)
-        ? dispatch(requestPassword(emailValue))
+        ? dispatch(requestPasswordTC(emailValue))
         : setErrorEmailValid(true)
   }
   const onChangeTextEmailHandler = (value: string) => {

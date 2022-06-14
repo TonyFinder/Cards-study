@@ -11,6 +11,7 @@ import {COLORS, ROUTE_PATHS} from '../../../../utils/_values';
 import {LoadingStatusType} from '../../../../utils/enums';
 import {Loader} from '../../../common/_superComponents/Loader/Loader';
 import {AuthDataType} from '../../../../_dal/api-anton';
+import {register} from '../../../../_bll/features/auth/_register/registerReducer';
 
 
 export const Login = () => {
@@ -18,6 +19,7 @@ export const Login = () => {
     let dispatch = useAppDispatch()
     const {email, password} = useCustomSelector<AuthDataType>(state => state.profile)
     const {isLoggedIn, error} = useCustomSelector<LoginInitialStateType>(state => state.login)
+    const isRegistered = useCustomSelector<boolean>(state => state.register.isRegistered)
     const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
 
     const [emailValue, setEmailValue] = useState<string>(email)
@@ -31,7 +33,7 @@ export const Login = () => {
     const [errorPassword, setErrorPassword] = useState<boolean>(false)
     const [errorPasswordValid, setErrorPasswordValid] = useState<boolean>(false)
 
-    const saveButtonDisable = !emailValue || !passwordValue || errorEmail || errorPassword || errorEmailValid || errorPasswordValid
+    const saveButtonDisable = !emailValue || !passwordValue || errorEmail || errorPassword || errorEmailValid || errorPasswordValid || !!error
 
     const onClickShowPasswordHandler = () => setTypeInput(typeInput === "password" ? "text" : "password")
     const onClickLoginHandler = () => {
@@ -50,6 +52,9 @@ export const Login = () => {
         error && dispatch(setError(''))
     }
     const onClickRememberHandler = () => setRememberMe(!rememberMe)
+    const onClickRegisterLinkHandler = () => {
+        isRegistered && dispatch(register(false))
+    }
 
     if (isLoggedIn) return <Navigate to={ROUTE_PATHS.PROFILE}/>
 
@@ -97,7 +102,7 @@ export const Login = () => {
 
             <div className={styles.bottomText}>
                 <span>Don’t have an account?</span>
-                <Link to={ROUTE_PATHS.REGISTER}>Sign Up</Link>
+                <Link to={ROUTE_PATHS.REGISTER} onClick={onClickRegisterLinkHandler}>Sign Up</Link>
             </div>
         </div>
     </div>
