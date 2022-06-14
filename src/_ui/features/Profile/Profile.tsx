@@ -1,11 +1,11 @@
-import styles from './Profile.module.scss'
+import styles from '../Template.module.scss'
 import {Input} from '../../common/_superComponents/Input/Input';
 import {Button} from '../../common/_superComponents/Button/Button';
 import {useAppDispatch, useCustomSelector} from '../../../_bll/main/store';
-import {useState} from 'react';
+import React, {useState} from 'react';
 import {changeProfileDataTC, logoutTC} from '../../../_bll/features/profile/profileReducer';
 import {AuthDataType} from '../../../_dal/api-anton';
-import {ROUTE_PATHS} from '../../../utils/_values';
+import {COLORS, ROUTE_PATHS} from '../../../utils/_values';
 import {Navigate} from 'react-router-dom';
 import {Loader} from '../../common/_superComponents/Loader/Loader';
 import {LoadingStatusType} from '../../../utils/enums';
@@ -32,12 +32,15 @@ export const Profile = () => {
 
     return <div className={styles.container}>
         <div className={styles.block}>
-            <Button className={styles.logout}onClick={logoutHandler}
-                    disabled={loading === LoadingStatusType.active}>Logout</Button>
-            <h2>Personal Information</h2>
+
+            <h2 className={styles.headerSecond}>Personal Information</h2>
+
             <div className={styles.image}>
                 <img src={avatar} alt={'avatar'}/>
+                <Button className={styles.logout} onClick={logoutHandler}
+                        disabled={loading === LoadingStatusType.active}>Logout</Button>
             </div>
+
             <div className={styles.inputContainer}>
                 <Input
                     value={nickNameValue}
@@ -50,10 +53,11 @@ export const Profile = () => {
                     sign='Email'
                     disabled/>
             </div>
+
             <div className={styles.button}>
                 {loading === LoadingStatusType.disabled
-                    ?<Button color='#fd974f' disabled={saveButtonDisable} onClick={changeProfileData}>Save</Button>
-                    :<Loader color='#fd974f'/>
+                    ?<Button color={COLORS.MAIN_DARK} disabled={saveButtonDisable} onClick={changeProfileData}>Save</Button>
+                    :<Loader color={COLORS.MAIN_DARK}/>
                 }
             </div>
         </div>

@@ -1,5 +1,7 @@
-import { Dispatch } from "redux";
-import { registerApi, ShippingFields } from "../../../../_dal/api-register";
+import {registerApi, ShippingFields} from '../../../../_dal/api-register';
+import {changeAppLoadingStatus} from '../../../main/appReducer';
+import {LoadingStatusType} from '../../../../utils/enums';
+import {AppThunk} from '../../../main/store';
 
 let initialState = {
   error: "",
@@ -8,49 +10,30 @@ let initialState = {
 
 
 
-export const registerReducer = (
-  state = initialState,
-  action: RegisterActionTypes
-): InitialStateType => {
+export const registerReducer = (state = initialState, action: RegisterActionTypes): RegisterInitialStateType => {
   switch (action.type) {
     case "REGISTER":
-      return {
-        ...state,
-        isRegistered: action.isRegistered,
-      };
+      return {...state, isRegistered: action.isRegistered}
     case "SET-ERROR":
-      return {
-        ...state,
-        error: action.error,
-      };
-
+      return {...state, error: action.error}
     default:
-      return state;
+      return state
   }
-};
+}
 
 // actions
-export const register = (isRegistered: boolean) =>
-  ({ type: "REGISTER", isRegistered } as const);
-export const setError = (error: string) =>
-  ({ type: "SET-ERROR", error } as const);
+export const register = (isRegistered: boolean) => ({type: "REGISTER", isRegistered} as const)
+export const setError = (error: string) => ({type: "SET-ERROR", error} as const)
 
 // thunks
-
-export const requestRegistration = (data: ShippingFields) => {
-  return async (dispatch: Dispatch<RegisterActionTypes>) => {
-    try {
-      await registerApi.register(data);
-      dispatch(register(true));
-    } catch (error: any) {
-      dispatch(setError(error.response.data.error));
-    }
-  };
-};
+export const requestRegistrationTC = (data: ShippingFields): AppThunk => (dispatch) => {
+  dispatch(changeAppLoadingStatus(LoadingStatusType.active))
+  registerApi.register(data)
+      .then(() => dispatch(register(true)))
+      .catch(err => dispatch(setError(err.response.data.error)))
+      .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
+}
 
 // types
-type InitialStateType = typeof initialState;
-
-export type RegisterActionTypes =
-  | ReturnType<typeof register>
-  | ReturnType<typeof setError>;
+export type RegisterInitialStateType = typeof initialState;
+export type RegisterActionTypes = ReturnType<typeof register> | ReturnType<typeof setError>

@@ -1,52 +1,78 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-import { ThunkDispatch } from "redux-thunk";
-import {
-  setNewPassword,
-  SetPassActionTypes,
-} from "../../../../_bll/features/auth/setPass/setPassReducer";
-import { AppStateRootType, useCustomSelector } from "../../../../_bll/main/store";
-import { FieldSetPassword } from "../../../../_dal/api-setPassword";
-import { Button } from "../../../common/_superComponents/Button/Button";
-import { Input } from "../../../common/_superComponents/Input/Input";
-import styles from "./SetPass.module.scss";
+import React, {useState} from 'react';
+import {Navigate, useParams} from 'react-router-dom';
+import {setNewPasswordTC, SetPasswordInitialStateType} from '../../../../_bll/features/auth/setPass/setPassReducer';
+import {useAppDispatch, useCustomSelector} from '../../../../_bll/main/store';
+import {Button} from '../../../common/_superComponents/Button/Button';
+import {Input} from '../../../common/_superComponents/Input/Input';
+import styles from '../../Template.module.scss'
+import {setError} from '../../../../_bll/features/auth/forgot/forgotReducer';
+import {LoadingStatusType} from '../../../../utils/enums';
+import {COLORS, ROUTE_PATHS} from '../../../../utils/_values';
+import {Loader} from '../../../common/_superComponents/Loader/Loader';
 
 export const SetPass = () => {
-  const [password, setPassword] = useState<string>("");
-  const dispatch: ThunkDispatch<
-    AppStateRootType,
-    FieldSetPassword,
-    SetPassActionTypes
-  > = useDispatch();
+  let dispatch = useAppDispatch()
   const token = useParams<"token">();
   const resetPasswordToken = token.token;
-  const error = useCustomSelector<string>((state) => state.setPass.error);
-  const info = useCustomSelector<string>((state) => state.setPass.info);
-  const navigate = useNavigate()
-  
-  return (
-    <div className={styles.formContainer}>
-      <div className={styles.form}>
-        <h2>Create new password</h2>
-        <div className={styles.inputContainer}>
-          <Input onChangeText={setPassword} sign="Password" />
-        </div>
-        <div className={styles.text}>
-          <span>Create new password and we will send you </span>
-          <span>further instructions to email </span>
-        </div>
+  const {error, info} = useCustomSelector<SetPasswordInitialStateType>(state => state.setPass)
+  const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
 
-        <Button
-          onClick={() => {
-            dispatch(setNewPassword({ password, resetPasswordToken }));
-            if(info !== '') return navigate('/login')
-          }}
-        >
-          Create new password
-        </Button>
-        <div className={styles.error}>{error}</div>
+  const [passwordValue, setPasswordValue] = useState<string>('')
+  const [typeInput, setTypeInput] = useState("password")
+
+  // Validation check
+  const [errorPassword, setErrorPassword] = useState<boolean>(false)
+  const [errorPasswordValid, setErrorPasswordValid] = useState<boolean>(false)
+
+  const saveButtonDisable = !passwordValue || errorPassword || errorPasswordValid || !!error
+
+  const onClickCreateHandler = () => {
+    passwordValue.length > 7
+        ? dispatch(setNewPasswordTC({ password: passwordValue, resetPasswordToken }))
+        : setErrorPasswordValid(true)
+  }
+  const onChangeTextPasswordHandler = (value: string) => {
+    setPasswordValue(value)
+    setErrorPasswordValid(false)
+    error && dispatch(setError(''))
+  }
+  const onClickShowPasswordHandler = () => setTypeInput(typeInput === "password" ? "text" : "password")
+
+  if (info) return <Navigate to={ROUTE_PATHS.LOGIN}/>
+
+  return <div className={styles.container}>
+    <div className={styles.block}>
+      <div className={styles.error}>{error}</div>
+      <h1 className={styles.headerMain}>Smart Cards</h1>
+      <h2 className={styles.headerSecond}>Create a new password</h2>
+
+      <div className={styles.inputContainer}>
+        <div className={styles.inputPass}>
+          <Input
+              value={passwordValue}
+              type={typeInput}
+              color={COLORS.MAIN_DARK}
+              sign="Password"
+              onChangeText={onChangeTextPasswordHandler}
+              error={errorPassword}
+              passwordError={errorPasswordValid}
+              onChangeError={setErrorPassword}/>
+          <span className={styles.hidePass} onClick={onClickShowPasswordHandler}>👀</span>
+        </div>
+      </div>
+
+      <div className={styles.description}>
+        <span>Create a new password and we will send you <br/> further instructions by email</span>
+      </div>
+
+      <div className={styles.buttonBig}>
+        {loading === LoadingStatusType.disabled
+            ?<Button color={COLORS.MAIN_DARK}
+                     disabled={saveButtonDisable}
+                     onClick={onClickCreateHandler}>Create a new password</Button>
+            :<Loader color={COLORS.MAIN_DARK}/>
+        }
       </div>
     </div>
-  );
-};
+  </div>
+}

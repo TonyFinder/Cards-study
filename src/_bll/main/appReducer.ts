@@ -1,7 +1,7 @@
 import {LoadingStatusType} from '../../utils/enums';
 import {AppThunk} from './store';
 import {authAPI} from '../../_dal/api-anton';
-import {setIsLogin, setUserId} from '../features/auth/_login/loginReducer';
+import {setIsLogin} from '../features/auth/_login/loginReducer';
 import {AxiosError} from 'axios';
 import {setProfileData} from '../features/profile/profileReducer';
 
@@ -38,7 +38,6 @@ export const initializeAppTC = (): AppThunk => dispatch => {
                 dispatch(setIsLogin(false))
             } else {
                 dispatch(setIsLogin(true))
-                dispatch(setUserId(res.data._id))
                 dispatch(setProfileData(res.data))
             }
         })

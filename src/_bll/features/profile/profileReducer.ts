@@ -8,7 +8,8 @@ import {LoadingStatusType} from '../../../utils/enums';
 
 let initialState: AuthDataType = {
     _id: '',
-    email: '',
+    email: 'nya-admin@nya.nya',
+    password: '1qazxcvBG',
     name: '',
     avatar: '',
     publicCardPacksCount: 0,
@@ -39,31 +40,26 @@ export const changeProfileData = (data: AuthDataType) => ({type: 'PROFILE/CHANGE
 
 // thunks
 export const setDataUserTC = (email: string, password: string, rememberMe: boolean): AppThunk => (dispatch) => {
-    loginApi.login(email, password, rememberMe).then(res => {
-        dispatch(setProfileData(res.data))
-        dispatch(setIsLogin(true))
-    }).catch(err => {
-        console.log("error", {...err})
-        dispatch(setError(err.response.data.error))
-    })
+    dispatch(changeAppLoadingStatus(LoadingStatusType.active))
+    loginApi.login(email, password, rememberMe)
+        .then(res => {
+            dispatch(setProfileData(res.data))
+            dispatch(setIsLogin(true))
+        })
+        .catch(err => dispatch(setError(err.response.data.error)))
+        .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 export const logoutTC = (): AppThunk => (dispatch) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
     authAPI.logout()
-        .then(res => {
-            if (res.data.info) {
-                dispatch(setIsLogin(false))
-            }
-        })
+        .then(res => res.data.info && dispatch(setIsLogin(false)))
         .catch((err: AxiosError) => dispatch(setAppErrorValue(err.message)))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 export const changeProfileDataTC = (name: string, avatar: string): AppThunk => dispatch => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
     authAPI.changeNameAvatar(name, avatar)
-        .then(res => {
-            dispatch(changeProfileData(res.data.updatedUser))
-        })
+        .then(res => dispatch(changeProfileData(res.data.updatedUser)))
         .catch((err: AxiosError) => dispatch(setAppErrorValue(err.message)))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }

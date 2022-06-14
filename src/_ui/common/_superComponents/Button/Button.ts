@@ -1,18 +1,19 @@
 import styled from 'styled-components';
+import {COLORS} from '../../../../utils/_values';
 
 export const Button = styled.button`
   position: relative;
   background-color: transparent;
   padding: 10px 15px; margin: 10px;
   overflow: hidden;
-  border: 2px solid ${props => props.color ? props.color : "#53a6fb"};
+  border: 2px solid ${props => props.color ? props.color : COLORS.DEFAULT};
   border-radius: 8px;
   font-family: 'Montserrat', sans-serif;
   text-decoration: none;
   text-transform: uppercase;
   font-weight: 500;
   font-size: 14px;
-  color: ${props => props.color ? props.color : "#53a6fb"};
+  color: ${props => props.color ? props.color : COLORS.DEFAULT};
   transition: .2s ease-in-out;
   opacity: ${props => props.disabled ? "0.5" : "1"};
   
@@ -28,7 +29,7 @@ export const Button = styled.button`
   }
 
   &:hover {
-    background: ${props => props.disabled ? "none" : props.color ? props.color : "#53a6fb"};
+    background: ${props => props.disabled ? "none" : props.color ? props.color : COLORS.DEFAULT};
     color: ${props => props.disabled ? "none" : "#fff"};
   }
   

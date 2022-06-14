@@ -1,5 +1,6 @@
 import React, {DetailedHTMLProps, InputHTMLAttributes} from 'react';
 import styled from 'styled-components';
+import {COLORS} from '../../../../utils/_values';
 
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
@@ -29,7 +30,9 @@ export const Checkbox: React.FC<CheckboxPropsType> = ({
 
 const StyledCheckbox = styled.div`
   position: relative;
-  margin: 10px;
+  margin: 0 10px 30px 10px;
+  font-size: 14px;
+  font-weight: 500;
   > input {
     position: absolute;
     top: 0; left: 0;
@@ -49,7 +52,7 @@ const StyledCheckbox = styled.div`
       left:0; top: 0;
       width: 17px; height: 17px;
       border: 2px solid #aaa;
-      background: #f8f8f8;
+      background: transparent;
       border-radius: 3px;
       box-shadow: inset 0 1px 3px rgba(0,0,0,.3);
     }
@@ -58,7 +61,7 @@ const StyledCheckbox = styled.div`
       position: absolute;
       top: -5px; left: 2px;
       font-size: 22px;
-      color: ${props => props.color ? props.color : '#53a6fb'};
+      color: ${props => props.color ? props.color : COLORS.DEFAULT};
       transition: all .2s;
     }
   }

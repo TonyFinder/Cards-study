@@ -3,8 +3,8 @@ import thunk, {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 import {LoginActionTypes, loginReducer} from '../features/auth/_login/loginReducer';
 import {RegisterActionTypes, registerReducer} from '../features/auth/_register/registerReducer';
-import {forgotReducer} from '../features/auth/forgot/forgotReducer';
-import {setPassReducer} from '../features/auth/setPass/setPassReducer';
+import {ForgotActionTypes, forgotReducer} from '../features/auth/forgot/forgotReducer';
+import {SetPassActionTypes, setPassReducer} from '../features/auth/setPass/setPassReducer';
 import {ProfileActionTypes, profileReducer} from '../features/profile/profileReducer';
 import {appReducer} from './appReducer';
 import {ActionPacksType, packsReducer} from "../features/cards/packsReducer";
@@ -31,8 +31,8 @@ export type AppStateRootType = ReturnType<typeof rootReducer>
 export type RootActionTypes =
     | LoginActionTypes
     | RegisterActionTypes
-// | ForgotActionTypes
-// | SetPassActionTypes
+    | ForgotActionTypes
+    | SetPassActionTypes
     | ProfileActionTypes
     | ActionPacksType
     | ActionCardsType

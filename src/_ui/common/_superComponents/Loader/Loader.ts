@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import {COLORS} from '../../../../utils/_values';
 
 export const Loader = styled.div`
-  color: ${props => props.color};
+  color: ${props => props.color ? props.color : COLORS.DEFAULT};
   margin: 25.8px 0;
   font-size: 10px;
   width: 1em;
