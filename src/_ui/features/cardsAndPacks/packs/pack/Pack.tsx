@@ -93,7 +93,7 @@ export const Pack: React.FC<PackPropsType> = (props) => {
             <div className={styles.actions}>
 
                 {header
-                    ? <SortButton title={created ? created : ''}
+                    ? <SortButton title={created}
                                   value="2"
                                   color="#fd974f"/>
                     : <div>

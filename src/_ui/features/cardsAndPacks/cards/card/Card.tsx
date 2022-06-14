@@ -15,7 +15,7 @@ type CardPropsType = {
     grade: number | string
     user_id?: string
     created?: string
-    updated?: string
+    updated: string
     header: boolean
 
     disabled: boolean
@@ -75,7 +75,7 @@ export const Card: React.FC<CardPropsType> = (props) => {
             </div>
             <div className={styles.updated}>{
                 header
-                    ? <SortButton title={updated ? updated : ''}
+                    ? <SortButton title={updated}
                                   value={sort[1] === 'updated' ? sort[0] : '2'}
                                   color={COLORS.MAIN_DARK}
                                   onClick={() => onClickHandler('updated')}/>
