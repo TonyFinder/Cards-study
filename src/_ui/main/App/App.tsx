@@ -5,6 +5,7 @@ import {Router} from './Router/Router';
 import {useAppDispatch, useCustomSelector} from '../../../_bll/main/store';
 import {initializeAppTC} from '../../../_bll/main/appReducer';
 import { Loader } from '../../common/_superComponents/Loader/Loader';
+import {COLORS} from '../../../utils/_values';
 
 export const App = () => {
     const dispatch = useAppDispatch()
@@ -12,17 +13,19 @@ export const App = () => {
 
     useEffect(()=> {
         dispatch(initializeAppTC())
-        // eslint-disable-next-line 
-    }, [])
-
-    if (!isInitialized) {
-        return <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 500}}>
-            <Loader color='#fd974f'/>
-        </div>
-    }
+    }, [dispatch])
 
     return <div className={styles.App}>
-        <Header/>
-        <Router/>
+        {isInitialized
+            ? <>
+                <Header/>
+                <Router/>
+            </>
+            : <div className={styles.loader}>
+                <div>
+                    <Loader color={COLORS.MAIN_DARK}/>
+                </div>
+            </div>
+        }
     </div>
 }

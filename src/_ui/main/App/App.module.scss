@@ -1,7 +1,15 @@
-@import "../../../utils/mixins";
+@import "src/utils/mixins";
+@import "src/utils/variables";
 
 .App {
-  //min-height: 100vh;
+  min-height: 100vh;
+  background: linear-gradient($backColorFirst, $backColorSecond);
+  .loader {
+    @include flexCenter;
+    >div {
+      margin-top: 40px;
+    }
+  }
 }
 
 * {
