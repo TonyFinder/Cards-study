@@ -16,7 +16,7 @@ type CardPropsType = {
     user_id?: string
     created?: string
     updated?: string
-    header?: boolean
+    header: boolean
 
     disabled: boolean
     userIdProfile: string
@@ -91,21 +91,28 @@ export const Card: React.FC<CardPropsType> = (props) => {
                     : grade
             }
             </div>
-            <div className={userIdProfile === user_id ? styles.actions : ''}>
-                {userIdProfile === user_id && <>
-                    <ModalDeleteCardContainer
-                        cardID={_id}
-                        packName={answer}
-                        disabled={disabled}
-                    />
-                    <ModalUpdateCardContainer
-                        cardId={_id}
-                        cardAnswer={answer}
-                        cardQuestion={question}
-                        disabled={disabled}
-                    />
-                </>
-                }</div>
+            {
+                userIdProfile === user_id
+                    ? <div className={styles.actions}>
+                        {header
+                            ? "Actions"
+                            : <>
+                                <ModalDeleteCardContainer
+                                    cardID={_id}
+                                    packName={answer}
+                                    disabled={disabled}
+                                />
+                                <ModalUpdateCardContainer
+                                    cardId={_id}
+                                    cardAnswer={answer}
+                                    cardQuestion={question}
+                                    disabled={disabled}
+                                />
+                            </>
+                        }
+                    </div>
+                    : null
+            }
         </div>
     );
 };

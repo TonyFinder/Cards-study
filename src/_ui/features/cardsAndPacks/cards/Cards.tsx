@@ -15,10 +15,10 @@ import {COLORS} from "../../../../utils/_values";
 
 const headerTable = {
     _id: '_id',
-    answer: 'answer',
-    question: 'question',
-    grade: 'grade',
-    updated: 'updated',
+    answer: 'Answer',
+    question: 'Question',
+    grade: 'Grade',
+    updated: 'Updated',
     header: true
 }
 
@@ -47,7 +47,7 @@ export const Cards = () => {
 
     useEffect(() => {
         dispatch(updateCardParams({cardsPack_id: packId}))
-    }, [])
+    }, [packId])
 
     useEffect(() => {
         dispatch(setCardsTC())
@@ -68,10 +68,14 @@ export const Cards = () => {
                                             userId={userId} packUserId={packUserId}/>
                 </div>
                 <div className={styles.table}>
-                    <Card sort={[direction, column]} disabled={false} userIdProfile={""} {...headerTable}/>
+                    <Card sort={[direction, column]}
+                          disabled={false}
+                          user_id={cards.map(p => p.user_id)[0]}
+                          userIdProfile={userId}
+                          {...headerTable}/>
                     {loading === LoadingStatusType.active
                         ? <Loader color={COLORS.MAIN_DARK} className={styles.loader}/>
-                        : cards.map(p => <Card  key={p._id} sort={[direction, column]} disabled={disabled}
+                        : cards.map(p => <Card header={false} key={p._id} sort={[direction, column]} disabled={disabled}
                                                userIdProfile={userId} {...p}/>)
                     }
                 </div>
