@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-import {Button} from '../../../common/_superComponents/Button/Button';
-import Modal from "../Modal";
-import {useAppDispatch} from "../../../../_bll/main/store";
-import {createPackTC, updateParams} from "../../../../_bll/features/cards/packsReducer";
-import {Input} from "../../../common/_superComponents/Input/Input";
-import {Checkbox} from "../../../common/_superComponents/Checkbox/Checkbox";
-import {COLORS} from "../../../../utils/_values";
-import styles from "../modalStyle.module.scss"
+import {Button} from '../../../../common/_superComponents/Button/Button';
+import Modal from "../../Modal";
+import {useAppDispatch} from "../../../../../_bll/main/store";
+import {createPackTC, updateParams} from "../../../../../_bll/features/cards/packsReducer";
+import {Input} from "../../../../common/_superComponents/Input/Input";
+import {Checkbox} from "../../../../common/_superComponents/Checkbox/Checkbox";
+import {COLORS} from "../../../../../utils/_values";
+import styles from "../../modalStyle.module.scss"
 
 type ModalCreatePackContainerType = {
     disabled: boolean
@@ -21,7 +21,7 @@ const ModalCreatePackContainer: React.FC<ModalCreatePackContainerType> = ({disab
 
     const dispatch = useAppDispatch()
 
-    const onClickDeleteHandler = () => {
+    const onClickCreateHandler = () => {
         dispatch(createPackTC(
             {
                 name: namePack,
@@ -55,7 +55,7 @@ const ModalCreatePackContainer: React.FC<ModalCreatePackContainerType> = ({disab
                         Private
                     </Checkbox>
                     <div className={styles.button}>
-                        <Button onClick={onClickDeleteHandler}>Save</Button>
+                        <Button onClick={onClickCreateHandler}>Save</Button>
                         <Button color='red' onClick={() => setShow(false)}>Close</Button>
                     </div>
                 </div>

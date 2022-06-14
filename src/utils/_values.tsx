@@ -6,8 +6,8 @@ import {SetPass} from '../_ui/features/auth/SetPass/SetPass';
 import {Profile} from '../_ui/features/Profile/Profile';
 import {Test} from '../_ui/common/Test/Test';
 import {Error404} from '../_ui/common/Error404/Error404';
-import {Packs} from "../_ui/features/cards/packs/Packs";
-import {Cards} from "../_ui/features/cards/cards/Cards";
+import {Packs} from "../_ui/features/cardsAndPacks/packs/Packs";
+import {Cards} from "../_ui/features/cardsAndPacks/cards/Cards";
 import { Template } from '../_ui/features/Template';
 import {CheckEmail} from '../_ui/features/auth/CheckEmail/CheckEmail';
 
@@ -27,8 +27,8 @@ export const ROUTE_PATHS = {
     CHECK_EMAIL: '/checkemail',
     PROFILE: '/profile',
     PACKS: '/packs',
-    CARDS: '/cards',
-    CARDSTOKEN: '/cards/:packId/:packName',
+    CARDS: '/cardsAndPacks',
+    CARDSTOKEN: '/cardsAndPacks/:packId/:packName',
     TEST: '/test',
     ERROR_404: '/error404',
     UNKNOWN_URL: '*',

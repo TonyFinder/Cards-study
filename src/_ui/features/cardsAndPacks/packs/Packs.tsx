@@ -8,10 +8,10 @@ import {maxMinValueType, Slider} from '../../../common/_superComponents/Slider/S
 import {DoubleButton} from '../../../common/_superComponents/DoubleButton/DoubleButton';
 import {Pagination} from './components/pagination/Pagination';
 import {InputComponent} from './components/inputComponent/InputComponent';
-import {COLORS} from '../../../../utils/_values';
+import {COLORS, ROUTE_PATHS} from '../../../../utils/_values';
 import {LoadingStatusType} from '../../../../utils/enums';
 import {Loader} from '../../../common/_superComponents/Loader/Loader';
-import ModalCreatePackContainer from "../../modal/createPack/ModalCreatePackContainer";
+import ModalCreatePackContainer from "../../modal/packModal/createPack/ModalCreatePackContainer";
 
 const headerTable = {
     name: "Name",
@@ -52,9 +52,9 @@ export const Packs = () => {
         }
     }, [isLogin, dispatch, packParams]);
 
-    const onPageChangeHandler = (page: number | string) => {
+    const onPageChangeHandler = (page: number) => {
         if (loading === LoadingStatusType.active) return
-        dispatch(updateParams({page: +page}))
+        dispatch(updateParams({page}))
     }
     const onMouseUpSliderHandler = ({min, max}: maxMinValueType) => {
         dispatch(updateParams({min, max, page: 1}))
@@ -67,7 +67,7 @@ export const Packs = () => {
 
 
     if (!isLogin) {
-        return <Navigate to='/login'/>
+        return <Navigate to={ROUTE_PATHS.LOGIN}/>
     }
 
 

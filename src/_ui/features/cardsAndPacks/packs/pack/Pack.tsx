@@ -7,17 +7,17 @@ import {SortButton} from '../../../../common/_superComponents/SortButton/SortBut
 import {useAppDispatch, useCustomSelector} from '../../../../../_bll/main/store';
 import {updateParams} from '../../../../../_bll/features/cards/packsReducer';
 import {LoadingStatusType} from '../../../../../utils/enums';
-import ModalDeleteContainer from "../../../modal/deletePack/ModalDeleteContainer";
-import ModalUpdateContainer from "../../../modal/updatePack/ModalUpdateContainer";
+import ModalDeleteContainer from "../../../modal/packModal/deletePack/ModalDeleteContainer";
+import ModalUpdateContainer from "../../../modal/packModal/updatePack/ModalUpdateContainer";
 
 export type PackPropsType = {
     _id: string
-    user_id?: string
-    user_name?: string
-    name?: string
-    cardsCount?: number | string
-    created?: string
-    updated?: string
+    user_id: string
+    user_name: string
+    name: string
+    cardsCount: number | string
+    created: string
+    updated: string
     header?: boolean
     sort: string[]
 }
@@ -56,7 +56,7 @@ export const Pack: React.FC<PackPropsType> = (props) => {
         <div key={_id} className={styles.row}>
             <div className={styles.name}>
                 {header
-                    ? <SortButton title={name ? name : ''}
+                    ? <SortButton title={name}
                                   value={sort[1] === 'name' ? sort[0] : '2'}
                                   color={COLORS.MAIN_DARK}
                                   onClick={() => onClickHandler('name')}/>
@@ -65,7 +65,7 @@ export const Pack: React.FC<PackPropsType> = (props) => {
             </div>
             <div className={styles.cards}>
                 {header
-                    ? <SortButton title={cardsCount ? cardsCount : ''}
+                    ? <SortButton title={cardsCount}
                                   value={sort[1] === 'cardsCount' ? sort[0] : '2'}
                                   color={COLORS.MAIN_DARK}
                                   onClick={() => onClickHandler('cardsCount')}/>
@@ -74,7 +74,7 @@ export const Pack: React.FC<PackPropsType> = (props) => {
             </div>
             <div className={styles.updated}>
                 {header
-                    ? <SortButton title={updated ? updated : ''}
+                    ? <SortButton title={updated}
                                   value={sort[1] === 'updated' ? sort[0] : '2'}
                                   color={COLORS.MAIN_DARK}
                                   onClick={() => onClickHandler('updated')}/>
@@ -83,7 +83,7 @@ export const Pack: React.FC<PackPropsType> = (props) => {
             </div>
             <div className={styles.createdBy}>
                 {header
-                    ? <SortButton title={user_name ? user_name : ''}
+                    ? <SortButton title={user_name}
                                   value={sort[1] === 'user_name' ? sort[0] : '2'}
                                   color={COLORS.MAIN_DARK}
                                   onClick={() => onClickHandler('user_name')}/>
@@ -98,10 +98,10 @@ export const Pack: React.FC<PackPropsType> = (props) => {
                                   color="#fd974f"/>
                     : <div>
                         {user_id === userId
-                            ? <ModalDeleteContainer disabled={disabled} packId={_id} packName={name ? name : ''}/>
+                            ? <ModalDeleteContainer disabled={disabled} packId={_id} packName={name}/>
                             : null}
                         {user_id === userId
-                            ? <ModalUpdateContainer disabled={disabled} packId={_id} packName={name ? name : ''}/>
+                            ? <ModalUpdateContainer disabled={disabled} packId={_id} packName={name}/>
                             : null}
                         <Button color={COLORS.MAIN_DARK}>Learn</Button>
                     </div>

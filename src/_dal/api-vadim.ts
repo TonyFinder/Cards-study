@@ -51,15 +51,15 @@ export const cardsApi = {
     },
 
     createCard(data: CreateCardType) {
-        return instance.post<any, any, CreateCardType>('cards/card', data)
+        return instance.post<any, any, { card: CreateCardType }>('cards/card', {card: data})
     },
 
-    deleteCard(cardId: string) {
-        return instance.delete<any, any, string>('cards/card', {params: {cardId}})
+    deleteCard(id: string) {
+        return instance.delete<any, any, string>('cards/card', {params: {id}})
     },
 
-    updatedCard(data: CardType) {
-        return instance.put<any, any, CardType>('cards/card', data)
+    updatedCard(data: updateCartType) {
+        return instance.put<any, any, { card: updateCartType }>('cards/card', {card: data})
     },
 }
 
@@ -77,12 +77,12 @@ export type PacksType = {
 
 export type PackType = {
     _id: string
-    user_id?: string
-    user_name?: string,
-    name?: string
-    cardsCount?: number
-    created?: string
-    updated?: string
+    user_id: string
+    user_name: string,
+    name: string
+    cardsCount: number
+    created: string
+    updated: string
 }
 
 export type PackParamsType = {
@@ -120,17 +120,28 @@ export type CardsType = {
 
 export type CardType = {
     _id: string
-    answer?: string
-    question?: string
-    cardsPack_id?: string
-    grade?: number
-    shots?: number
-    user_id?: string
-    created?: string
-    updated?: string
+    answer: string
+    question: string
+    cardsPack_id: string
+    grade: number
+    shots: number
+    user_id: string
+    created: string
+    updated: string
 }
 
 export type CardParamsType = {
+    cardAnswer: string
+    cardQuestion: string
+    cardsPack_id: string
+    min: number
+    max: number
+    sortCards: string
+    page: number
+    pageCount: number
+}
+
+export type UpdateCardParamsType = {
     cardAnswer?: string
     cardQuestion?: string
     cardsPack_id?: string
@@ -151,4 +162,10 @@ export type CreateCardType = {
     questionImg?: string
     questionVideo?: string
     answerVideo?: string
+}
+
+export type updateCartType = {
+    _id: string
+    question?: string
+    answer?: string
 }

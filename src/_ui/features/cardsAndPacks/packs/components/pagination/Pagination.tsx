@@ -4,7 +4,7 @@ import {usePagination, DOTS} from './usePagination';
 import './pagination.scss';
 
 type PaginationPropsType = {
-    onPageChange: (page: number | string) => void
+    onPageChange: (page: number ) => void
     totalCount: number
     siblingCount: number
     currentPage: number
@@ -35,11 +35,11 @@ export const Pagination: React.FC<PaginationPropsType> = (props) => {
     }
 
     const onNext = () => {
-        onPageChange(currentPage + 1);
+        onPageChange(+currentPage + 1);
     };
 
     const onPrevious = () => {
-        onPageChange(currentPage - 1);
+        onPageChange(+currentPage - 1);
     };
 
     let lastPage = Array.isArray(paginationRange) && paginationRange[paginationRange.length - 1];
@@ -65,7 +65,7 @@ export const Pagination: React.FC<PaginationPropsType> = (props) => {
                         className={classnames('pagination-item', {
                             selected: pageNumber === currentPage
                         })}
-                        onClick={() => onPageChange(pageNumber)}
+                        onClick={() => onPageChange(+pageNumber)}
                     >
                         {pageNumber}
                     </li>

@@ -1,5 +1,15 @@
-import {CardParamsType, cardsApi, CardsType} from "../../../_dal/api-vadim";
+import {
+    CardParamsType,
+    cardsApi,
+    CardsType,
+    CreateCardType,
+    UpdateCardParamsType,
+    updateCartType
+} from "../../../_dal/api-vadim";
 import {AppThunk} from "../../main/store";
+import {changeAppLoadingStatus, setAppErrorValue} from "../../main/appReducer";
+import {LoadingStatusType} from "../../../utils/enums";
+import {AxiosError} from "axios";
 
 export type initialStateCardsType = CardsType & {
     cardParams: CardParamsType
@@ -44,13 +54,8 @@ export const cardsReducer = (state: initialStateCardsType = initialState, action
     switch (action.type) {
         case 'CARDS/SET-CARDS-DATA':
             return {...state, ...action.data}
-        case 'CARDS/SET-CARD-QUESTION-AND-ANSWER':
-            return {
-                ...state,
-                cardParams: {...state.cardParams, cardQuestion: action.data[0], cardAnswer: action.data[1]}
-            }
-        case "CARDS/SET-CURRENT-PAGE-CARDS":
-            return {...state, cardParams: {...state.cardParams, page: action.data}}
+        case "CARD/UPDATE-CARD-PARAMS":
+            return {...state, cardParams: {...state.cardParams, ...action.params}}
         default:
             return state
     }
@@ -58,18 +63,44 @@ export const cardsReducer = (state: initialStateCardsType = initialState, action
 
 // actions
 export const setCards = (data: CardsType) => ({type: 'CARDS/SET-CARDS-DATA', data} as const)
-export const setCardQuestionAndAnswer = (data: string[]) => ({type: 'CARDS/SET-CARD-QUESTION-AND-ANSWER', data} as const)
-export const setCurrentPageCards = (data: number) => ({type: 'CARDS/SET-CURRENT-PAGE-CARDS', data} as const)
+export const updateCardParams = (params: UpdateCardParamsType) => ({type: "CARD/UPDATE-CARD-PARAMS", params,} as const)
 
 // thunks
-export const setCardsTC = (params: CardParamsType): AppThunk => (dispatch, getState) => {
+export const setCardsTC = (): AppThunk => (dispatch, getState) => {
+    dispatch(changeAppLoadingStatus(LoadingStatusType.active))
     const {cardParams} = getState().cards
-    cardsApi.getCards({...cardParams, ...params})
+    cardsApi.getCards(cardParams)
         .then(res => dispatch(setCards(res.data)))
+        .catch((err: AxiosError) => dispatch(setAppErrorValue(err.message)))
+        .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
+}
+
+export const createCardTC = (params: CreateCardType): AppThunk => (dispatch) => {
+    dispatch(changeAppLoadingStatus(LoadingStatusType.active))
+    cardsApi.createCard(params)
+        .then(() => dispatch(setCardsTC()))
+        .catch((err: AxiosError) => dispatch(setAppErrorValue(err.message)))
+        .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
+}
+
+export const deleteCardTC = (cardId: string): AppThunk => (dispatch) => {
+    dispatch(changeAppLoadingStatus(LoadingStatusType.active))
+    cardsApi.deleteCard(cardId)
+        .then(() => dispatch(setCardsTC()))
+        .catch((err: AxiosError) => dispatch(setAppErrorValue(err.message)))
+        .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
+}
+
+export const updateCardTC = (data: updateCartType): AppThunk => (dispatch) => {
+    dispatch(changeAppLoadingStatus(LoadingStatusType.active))
+    cardsApi.updatedCard(data)
+        .then(() => dispatch(setCardsTC()))
+        .catch((err: AxiosError) => dispatch(setAppErrorValue(err.message)))
+        .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 
 //type
 export  type ActionCardsType =
     | ReturnType<typeof setCards>
-    | ReturnType<typeof setCardQuestionAndAnswer>
-    | ReturnType<typeof setCurrentPageCards>
+    | ReturnType<typeof updateCardParams>
+

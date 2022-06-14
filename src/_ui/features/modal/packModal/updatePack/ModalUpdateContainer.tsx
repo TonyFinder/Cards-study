@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import {Button} from '../../../common/_superComponents/Button/Button';
-import Modal from "../Modal";
-import {useAppDispatch} from "../../../../_bll/main/store";
-import {updatePackTC, updateParams} from "../../../../_bll/features/cards/packsReducer";
-import styles from "../modalStyle.module.scss"
-import {Input} from '../../../common/_superComponents/Input/Input';
+import {Button} from '../../../../common/_superComponents/Button/Button';
+import Modal from "../../Modal";
+import {useAppDispatch} from "../../../../../_bll/main/store";
+import {updatePackTC, updateParams} from "../../../../../_bll/features/cards/packsReducer";
+import styles from "../../modalStyle.module.scss"
+import {Input} from '../../../../common/_superComponents/Input/Input';
 
 type ModalUpdateContainerType = {
     packId: string
@@ -19,7 +19,7 @@ const ModalUpdateContainer: React.FC<ModalUpdateContainerType> = ({packId, packN
 
     const dispatch = useAppDispatch()
 
-    const onClickDeleteHandler = () => {
+    const onClickUpdateHandler = () => {
         dispatch(updatePackTC({_id: packId, name: name, deckCover: ""}))
         dispatch(updateParams({page: 1}))
         setShow(false)
@@ -42,7 +42,7 @@ const ModalUpdateContainer: React.FC<ModalUpdateContainerType> = ({packId, packN
                     <h2>Change pack "{packName}"</h2>
                     <Input onChange={(e) => setName(e.currentTarget.value)} sign='New pack mame'/>
                     <div className={styles.button}>
-                        <Button onClick={onClickDeleteHandler}>Save</Button>
+                        <Button onClick={onClickUpdateHandler}>Save</Button>
                         <Button color='red' onClick={() => setShow(false)}>Close</Button>
                     </div>
                 </div>

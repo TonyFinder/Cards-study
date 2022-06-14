@@ -1,25 +1,25 @@
 import React, {useState} from 'react';
-import {Button} from '../../../common/_superComponents/Button/Button';
-import Modal from "../Modal";
-import {useAppDispatch} from "../../../../_bll/main/store";
-import {deletePackTC, updateParams} from "../../../../_bll/features/cards/packsReducer";
-import styles from "../modalStyle.module.scss"
+import {Button} from '../../../../common/_superComponents/Button/Button';
+import Modal from "../../Modal";
+import {useAppDispatch} from "../../../../../_bll/main/store";
+import styles from "../../modalStyle.module.scss"
+import {deleteCardTC, updateCardParams} from "../../../../../_bll/features/cards/cardsReducer";
 
 type ModalDeleteContainerType = {
-    packId: string
-    packName: string
+    cardID: string
     disabled: boolean
+    packName: string
 }
 
 
-const ModalDeleteContainer: React.FC<ModalDeleteContainerType> = ({packId, packName, disabled}) => {
+const ModalDeleteCardContainer: React.FC<ModalDeleteContainerType> = ({cardID, packName, disabled}) => {
     const [show, setShow] = useState(false);
 
     const dispatch = useAppDispatch()
 
     const onClickDeleteHandler = () => {
-        dispatch(deletePackTC(packId))
-        dispatch(updateParams({page: 1}))
+        dispatch(deleteCardTC(cardID))
+        dispatch(updateCardParams({page: 1}))
         setShow(false)
     }
 
@@ -32,14 +32,12 @@ const ModalDeleteContainer: React.FC<ModalDeleteContainerType> = ({packId, packN
 
                 width={400}
                 height={300}
-                // modalOnClick={() => setShow(false)}
                 modalClassName={styles.bgColorModal}
                 show={show}
             >
                 <div className={styles.modal}>
-                    <h2>Delete Pack</h2>
-                    <span>Do you really want to remove Pack "{packName}"?</span>
-                    <span>  All cards will be excluded from this course.</span>
+                    <h2>Delete Card</h2>
+                    <span>Do you really want to remove this card? "{packName}"?</span>
                     <div className={styles.button}>
                         <Button color='red' onClick={onClickDeleteHandler}>Delete</Button>
                         <Button onClick={() => setShow(false)}>Close</Button>
@@ -50,4 +48,4 @@ const ModalDeleteContainer: React.FC<ModalDeleteContainerType> = ({packId, packN
     );
 };
 
-export default ModalDeleteContainer;
+export default ModalDeleteCardContainer;
