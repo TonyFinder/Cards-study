@@ -168,4 +168,5 @@ export type updateCartType = {
     _id: string
     question?: string
     answer?: string
+    grade?: number
 }

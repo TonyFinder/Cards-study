@@ -6,6 +6,7 @@ import {updateCardParams} from "../../../../../_bll/features/cards/cardsReducer"
 import {useAppDispatch} from "../../../../../_bll/main/store";
 import {SortButton} from "../../../../common/_superComponents/SortButton/SortButton";
 import {COLORS} from "../../../../../utils/_values";
+import {StarRating} from "../components/starRating/StarRating";
 
 type CardPropsType = {
     _id: string
@@ -88,7 +89,7 @@ export const Card: React.FC<CardPropsType> = (props) => {
                                   value={sort[1] === 'grade' ? sort[0] : '2'}
                                   color={COLORS.MAIN_DARK}
                                   onClick={() => onClickHandler('grade')}/>
-                    : grade
+                    : <StarRating cardID={_id} grade={Math.round(+grade)}/>
             }
             </div>
             {

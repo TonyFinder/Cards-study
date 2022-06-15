@@ -7,7 +7,7 @@ import {
     setCardsTC, updateCardParams,
 } from "../../../../_bll/features/cards/cardsReducer";
 import styles from './cards.module.scss';
-import {InputComponentForCards} from "./components/InputComponentForCards";
+import {InputComponentForCards} from "./components/input/InputComponentForCards";
 import {Pagination} from "../packs/components/pagination/Pagination";
 import {LoadingStatusType} from "../../../../utils/enums";
 import {Loader} from "../../../common/_superComponents/Loader/Loader";

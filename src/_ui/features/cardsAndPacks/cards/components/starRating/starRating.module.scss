@@ -1,0 +1,13 @@
+.rating {
+  color: #000;
+  cursor: pointer;
+}
+
+.notRating {
+  color: #ccc;
+  cursor: pointer;
+  
+  &:hover {
+    color: #000;
+  }
+}

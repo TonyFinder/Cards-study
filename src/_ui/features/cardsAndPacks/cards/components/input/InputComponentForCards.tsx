@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch} from "react-redux";
-import useDebounce from "../../packs/components/inputComponent/castomHookUseDebounce";
-import {Input} from "../../../../common/_superComponents/Input/Input";
-import ModalCreateCardContainer from "../../../modal/cardModal/createCard/ModalCreateCardContainer";
-import {updateCardParams} from "../../../../../_bll/features/cards/cardsReducer";
-import {COLORS} from "../../../../../utils/_values";
+import useDebounce from "../../../packs/components/inputComponent/castomHookUseDebounce";
+import {Input} from "../../../../../common/_superComponents/Input/Input";
+import ModalCreateCardContainer from "../../../../modal/cardModal/createCard/ModalCreateCardContainer";
+import {updateCardParams} from "../../../../../../_bll/features/cards/cardsReducer";
+import {COLORS} from "../../../../../../utils/_values";
 
 type InputComponentForCardsType = {
     packUserId: string
