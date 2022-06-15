@@ -10,6 +10,8 @@ import {Packs} from "../_ui/features/cardsAndPacks/packs/Packs";
 import {Cards} from "../_ui/features/cardsAndPacks/cards/Cards";
 import { Template } from '../_ui/features/Template';
 import {CheckEmail} from '../_ui/features/auth/CheckEmail/CheckEmail';
+import {Answer} from '../_ui/features/cardsAndPacks/learn/Answer/Answer';
+import { Question } from '../_ui/features/cardsAndPacks/learn/Qestion/Question';
 
 export const COLORS = {
     MAIN_DARK: '#fd974f',
@@ -28,11 +30,13 @@ export const ROUTE_PATHS = {
     PROFILE: '/profile',
     PACKS: '/packs',
     CARDS: '/cardsAndPacks',
-    CARDSTOKEN: '/cardsAndPacks/:packId/:packName',
+    CARDS_TOKEN: '/cardsAndPacks/:packId/:packName',
     TEST: '/test',
     ERROR_404: '/error404',
     UNKNOWN_URL: '*',
     TEMPLATE: '/template',
+    QUESTION: '/question',
+    ANSWER: '/answer',
 }
 
 export const dataRoutes = {
@@ -44,13 +48,15 @@ export const dataRoutes = {
         {id: 4, title: 'SetPass', visible: true, path: ROUTE_PATHS.SET_PASS, element: <SetPass/>},
         {id: 5, title: 'Packs', visible: true, path: ROUTE_PATHS.PACKS, element: <Packs/>},
         {id: 5, title: 'Cards', visible: false, path: ROUTE_PATHS.CARDS, element: <Cards/>},
-        {id: 5, title: 'CardsToken', visible: false, path: ROUTE_PATHS.CARDSTOKEN, element: <Cards/>},
+        {id: 5, title: 'CardsToken', visible: false, path: ROUTE_PATHS.CARDS_TOKEN, element: <Cards/>},
         {id: 6, title: 'Profile', visible: true, path: ROUTE_PATHS.PROFILE, element: <Profile/>},
         {id: 7, title: 'Test', visible: true, path: ROUTE_PATHS.TEST, element: <Test/>},
         {id: 8, title: 'Error404', visible: true, path: ROUTE_PATHS.ERROR_404, element: <Error404/>},
         {id: 9, title: 'Unknown url', visible: false, path: ROUTE_PATHS.UNKNOWN_URL, element: <Navigate to={ROUTE_PATHS.ERROR_404}/>},
         {id: 10, title: 'Template', visible: true, path: ROUTE_PATHS.TEMPLATE, element: <Template/>},
         {id: 11, title: 'Check email', visible: true, path: ROUTE_PATHS.CHECK_EMAIL, element: <CheckEmail/>},
+        {id: 12, title: 'Question', visible: true, path: ROUTE_PATHS.QUESTION, element: <Question/>},
+        {id: 13, title: 'Answer', visible: true, path: ROUTE_PATHS.ANSWER, element: <Answer/>},
     ]
 }
 

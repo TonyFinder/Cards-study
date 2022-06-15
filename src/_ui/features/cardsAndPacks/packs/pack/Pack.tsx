@@ -60,7 +60,9 @@ export const Pack: React.FC<PackPropsType> = (props) => {
                                   value={sort[1] === 'name' ? sort[0] : '2'}
                                   color={COLORS.MAIN_DARK}
                                   onClick={() => onClickHandler('name')}/>
-                    : <Link to={`${ROUTE_PATHS.CARDS}/${props._id}/${name}`}>{name}</Link>
+                    : <div className={styles.hiddenLink}>
+                        <Link to={`${ROUTE_PATHS.CARDS}/${props._id}/${name}`}>{name}</Link>
+                </div>
                 }
             </div>
             <div className={styles.cards}>
@@ -78,7 +80,7 @@ export const Pack: React.FC<PackPropsType> = (props) => {
                                   value={sort[1] === 'updated' ? sort[0] : '2'}
                                   color={COLORS.MAIN_DARK}
                                   onClick={() => onClickHandler('updated')}/>
-                    : new Date(String(updated)).toLocaleString()
+                    : `${new Date(String(updated)).getDate()}/${new Date(String(updated)).getMonth()}/${new Date(String(updated)).getFullYear()}`
                 }
             </div>
             <div className={styles.createdBy}>
@@ -87,7 +89,7 @@ export const Pack: React.FC<PackPropsType> = (props) => {
                                   value={sort[1] === 'user_name' ? sort[0] : '2'}
                                   color={COLORS.MAIN_DARK}
                                   onClick={() => onClickHandler('user_name')}/>
-                    : user_name
+                    : <div className={styles.hidden}>{user_name}</div>
                 }
             </div>
             <div className={styles.actions}>

@@ -1,3 +1,4 @@
+@import "src/utils/variables";
 
 @mixin flexCenter{
   display: flex;
@@ -7,4 +8,34 @@
 
 @mixin borderCheck($color) {
   border: 1px solid $color;
+}
+
+@mixin hideTextTable {
+  .hidden {
+    text-align: left;
+    white-space: nowrap; /* Запрещаем перенос строк */
+    overflow: hidden; /* Обрезаем лишнее */
+    text-overflow: ellipsis; /* Добавляем многоточие */
+
+  }
+
+  .hidden:hover {
+    overflow: visible;
+    text-overflow: unset;
+    white-space: unset;
+  }
+}
+@mixin hideTextLink {
+  .hiddenLink {
+    text-align: left;
+    white-space: nowrap; /* Запрещаем перенос строк */
+    overflow: hidden; /* Обрезаем лишнее */
+    text-overflow: ellipsis; /* Добавляем многоточие */
+  }
+
+  .hiddenLink:hover {
+    overflow: visible;
+    text-overflow: unset;
+    white-space: unset;
+  }
 }

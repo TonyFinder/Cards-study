@@ -30,7 +30,7 @@ export const Radio: React.FC<RadioPropsType> = (
 }
 
 const StyledRadio = styled.div`
-  margin: 10px;
+  margin: 15px 0;
   > input {
     opacity: 0;
     display: none;
@@ -38,7 +38,7 @@ const StyledRadio = styled.div`
 
   > input + label {
     position: relative;
-    padding-left: 25px;
+    padding-left: 30px;
     cursor: pointer;
     font-family: 'Montserrat', sans-serif;
 
