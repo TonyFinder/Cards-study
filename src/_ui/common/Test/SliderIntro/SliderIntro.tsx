@@ -25,7 +25,7 @@ export const SliderIntro = () => {
                 <Slider min={Number(value.min)}
                         max={Number(value.max)}
                         minDefault={0}
-                        maхDefault={40}
+                        maxDefault={40}
                         onMouseUp={onMouseUpSliderHandler}/>
             </div>
         </div>

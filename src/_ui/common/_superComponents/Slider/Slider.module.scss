@@ -20,19 +20,20 @@
 
 .slider__track,
 .slider__range {
-  border-radius: 3px;
+  border-radius: 5px;
   height: 5px;
 }
 
 // Доделать цвет неиспользованного диапазона и логику
 .slider__track {
-  background-color: $backColorSecond;
+  background-color: $backColorFirst;
   width: 100%;
   z-index: 1;
 }
 
 .slider__range {
-  background-color: $backColorSecond;
+
+  background-color:$backColorFirst;
   z-index: 2;
 }
 

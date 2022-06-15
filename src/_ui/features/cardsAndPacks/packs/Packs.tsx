@@ -32,7 +32,9 @@ export const Packs = () => {
         cardPacks,
         cardPacksTotalCount,
         page,
-        pageCount
+        pageCount,
+        maxCardsCount,
+        minCardsCount,
     } = useCustomSelector<initialStatePacksType>(state => state.packs)
     const isLogin = useCustomSelector<boolean>(state => state.login.isLoggedIn)
     const userId = useCustomSelector<string>(state => state.profile._id)
@@ -51,6 +53,7 @@ export const Packs = () => {
             dispatch(setPacksTC())
         }
     }, [isLogin, dispatch, packParams]);
+
 
     const onPageChangeHandler = (page: number) => {
         if (loading === LoadingStatusType.active) return
@@ -84,8 +87,8 @@ export const Packs = () => {
                     <span>Number of cards</span>
                     <Slider min={Number(packParams.min)}
                             max={Number(packParams.max)}
-                            minDefault={0}
-                            maхDefault={120}
+                            minDefault={minCardsCount}
+                            maxDefault={maxCardsCount}
                             onMouseUp={onMouseUpSliderHandler}
                             disabled={disabled}/>
                 </div>
