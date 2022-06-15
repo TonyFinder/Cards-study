@@ -40,7 +40,7 @@ const ModalUpdateContainer: React.FC<ModalUpdateContainerType> = ({packId, packN
             >
                 <div className={styles.modal}>
                     <h2>Change pack "{packName}"</h2>
-                    <Input onChange={(e) => setName(e.currentTarget.value)} sign='New pack mame'/>
+                    <Input value={name} onChange={(e) => setName(e.currentTarget.value)} sign='New pack mame'/>
                     <div className={styles.button}>
                         <Button onClick={onClickUpdateHandler}>Save</Button>
                         <Button color='red' onClick={() => setShow(false)}>Close</Button>

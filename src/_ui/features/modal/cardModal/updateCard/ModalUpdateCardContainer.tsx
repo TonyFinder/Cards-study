@@ -41,8 +41,8 @@ const ModalUpdateCardContainer: React.FC<ModalUpdateContainerType> = ({cardId, c
             >
                 <div className={styles.modal}>
                     <h2>Change pack "{cardQuestion}"</h2>
-                    <Input onChange={(e) => setQuestion(e.currentTarget.value)} sign='New question'/>
-                    <Input onChange={(e) => setAnswer(e.currentTarget.value)} sign='New answer'/>
+                    <Input value={question} onChange={(e) => setQuestion(e.currentTarget.value)} sign='New question'/>
+                    <Input value={answer} onChange={(e) => setAnswer(e.currentTarget.value)} sign='New answer'/>
                     <div className={styles.button}>
                         <Button onClick={onClickUpdateHandler}>Save</Button>
                         <Button color='red' onClick={() => setShow(false)}>Close</Button>
