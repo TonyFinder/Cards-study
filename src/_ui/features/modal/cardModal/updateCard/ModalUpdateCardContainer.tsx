@@ -6,6 +6,7 @@ import styles from "../../modalStyle.module.scss"
 import {Input} from '../../../../common/_superComponents/Input/Input';
 import {updateCardTC} from "../../../../../_bll/features/cards/cardsReducer";
 import {COLORS} from "../../../../../utils/_values";
+import {TextArea} from "../../../cardsAndPacks/cards/components/textArea/TextArea";
 
 type ModalUpdateContainerType = {
     cardId: string
@@ -35,14 +36,14 @@ const ModalUpdateCardContainer: React.FC<ModalUpdateContainerType> = ({cardId, c
                 backgroundOnClick={() => setShow(false)}
 
                 width={400}
-                height={300}
+                height={500}
                 modalClassName={styles.bgColorModal}
                 show={show}
             >
                 <div className={styles.modal}>
                     <h2>Change pack "{cardQuestion}"</h2>
                     <Input value={question} onChange={(e) => setQuestion(e.currentTarget.value)} sign='New question'/>
-                    <Input value={answer} onChange={(e) => setAnswer(e.currentTarget.value)} sign='New answer'/>
+                    <TextArea value={answer} onChange={(e) => setAnswer(e.currentTarget.value)} sign='New answer'/>
                     <div className={styles.button}>
                         <Button onClick={onClickUpdateHandler}>Save</Button>
                         <Button color='red' onClick={() => setShow(false)}>Close</Button>

@@ -7,6 +7,7 @@ import {Input} from "../../../../common/_superComponents/Input/Input";
 import {COLORS} from "../../../../../utils/_values";
 import styles from "../../modalStyle.module.scss"
 import {createCardTC} from "../../../../../_bll/features/cards/cardsReducer";
+import {TextArea} from "../../../cardsAndPacks/cards/components/textArea/TextArea";
 
 type ModalCreatePackContainerType = {
     disabled: boolean
@@ -34,15 +35,15 @@ const ModalCreateCardContainer: React.FC<ModalCreatePackContainerType> = ({disab
             <Modal
                 enableBackground={true}
                 backgroundOnClick={() => setShow(false)}
-                width={395}
-                height={250}
+                width={400}
+                height={500}
                 modalClassName={styles.bgColorModal}
                 show={show}
             >
                 <div className={styles.modal}>
                     <h3>Add new Card</h3>
                     <Input sign='question' value={question} onChange={(e) => setQuestion(e.currentTarget.value)}/>
-                    <Input sign='answer' value={answer} onChange={(e) => setAnswer(e.currentTarget.value)}/>
+                    <TextArea sign='answer' value={answer} onChange={(e) => setAnswer(e.currentTarget.value)}/>
                     <div className={styles.button}>
                         <Button onClick={onClickCreateHandler}>Save</Button>
                         <Button color='red' onClick={() => setShow(false)}>Close</Button>

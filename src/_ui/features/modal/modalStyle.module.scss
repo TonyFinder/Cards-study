@@ -4,7 +4,8 @@
   border-radius: 4px;
   background: linear-gradient($backColorFirst, $backColorSecond);
   justify-content: space-evenly;
-
+  min-width: 300px;
+  width: auto;
 }
 
 .modal {
@@ -13,9 +14,9 @@
   align-items: center;
   width: 100% !important;
   height: 100% !important;
-  justify-content: space-between ;
+  justify-content: space-between;
 
-  span{
+  span {
     width: 80% !important;
   }
 
