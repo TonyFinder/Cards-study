@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useAppDispatch, useCustomSelector} from "../../../../_bll/main/store";
 import {Card} from "./card/Card";
 import {
@@ -43,6 +43,8 @@ export const Cards = () => {
     const column = sortCards.slice(1)
 
     let {packId, packName} = useParams()
+    const navigate = useNavigate();
+
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -51,7 +53,7 @@ export const Cards = () => {
 
     useEffect(() => {
         dispatch(setCardsTC())
-    }, [packId, dispatch, cardParams]);
+    }, [dispatch, cardParams]);
 
 
     const onPageChangeHandler = (page: number) => {
@@ -62,7 +64,10 @@ export const Cards = () => {
         <div className={styles.block}>
             <div className={styles.container}>
                 <div className={styles.input}>
-                    <h2>{packName} </h2>
+                    <div className={styles.name}>
+                        <span onClick={() => navigate(-1)}>🠔</span>
+                        <h2>{packName} </h2>
+                    </div>
                     <InputComponentForCards disabled={disabled}
                                             packId={cardParams.cardsPack_id ? cardParams.cardsPack_id : ''}
                                             userId={userId} packUserId={packUserId}/>

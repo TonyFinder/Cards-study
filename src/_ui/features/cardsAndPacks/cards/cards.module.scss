@@ -1,4 +1,6 @@
 @import "src/utils/variables";
+@import "src/utils/mixins";
+
 .block {
   display: flex;
   flex-direction: column;
@@ -21,8 +23,26 @@
       width: 100%;
       margin-bottom: 10px;
 
-      h2 {
-        margin-left: 10px;
+      .name {
+        @include flexCenter();
+        justify-content: flex-start;
+        height: 65px;
+
+        span {
+          font-size: xxx-large;
+          margin-left: 15px;
+          text-decoration: none;
+          cursor: pointer;
+
+          &:hover {
+            color: $backColorSecond;
+          }
+        }
+
+        h2 {
+          margin: 20px 0 20px 10px;
+          display: inline-block;
+        }
       }
 
       div {
