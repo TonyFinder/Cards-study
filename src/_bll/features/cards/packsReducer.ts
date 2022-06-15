@@ -22,10 +22,12 @@ const initialState: initialStatePacksType = {
     page: 1,
     pageCount: 1,
 
+    changeSlider: false,
+
     packParams: {
         packName: "",
         min: 0,
-        max: 110,
+        max: 0,
         sortPacks: "0updated",
         page: 1,
         pageCount: 8,
@@ -39,6 +41,8 @@ export const packsReducer = (state: initialStatePacksType = initialState, action
             return {...state, ...action.data}
         case 'PACKS/UPDATE-PARAMS':
             return {...state, packParams: {...state.packParams, ...action.params}}
+        case "PACKS/ischangeSlider":
+            return {...state, changeSlider: action.ischangeSlider}
         default:
             return state
     }
@@ -47,6 +51,7 @@ export const packsReducer = (state: initialStatePacksType = initialState, action
 // actions
 export const setPacks = (data: PacksType) => ({type: 'PACKS/SET-PACKS-DATA', data} as const)
 export const updateParams = (params: UpdateParamsActionType) => ({type: "PACKS/UPDATE-PARAMS", params} as const)
+export const changeSliderAC = (ischangeSlider: boolean) => ({type: "PACKS/ischangeSlider", ischangeSlider} as const)
 
 // thunks
 export const setPacksTC = (): AppThunk => (dispatch, getState) => {
@@ -83,6 +88,7 @@ export const updatePackTC = (data: UpdatePackType): AppThunk => (dispatch) => {
 export  type ActionPacksType =
     | ReturnType<typeof setPacks>
     | ReturnType<typeof updateParams>
+    | ReturnType<typeof changeSliderAC>
 
 export type initialStatePacksType = PacksType & {
     packParams: PackParamsType

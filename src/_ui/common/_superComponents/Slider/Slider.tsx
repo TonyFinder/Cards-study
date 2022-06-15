@@ -8,47 +8,61 @@ type SliderPropsType = {
     maxDefault: number
     disabled?: boolean
     onMouseUp: ({min, max}: maxMinValueType) => void
+    changeSlider?: boolean
 }
 export type maxMinValueType = {
     min: number
     max: number
 }
 
-export const Slider = ({min, max, minDefault, maxDefault, disabled, onMouseUp}: SliderPropsType) => {
+export const Slider = ({min, max, minDefault, maxDefault, disabled, onMouseUp, changeSlider}: SliderPropsType) => {
 
-    const [minVal, setMinVal] = useState(min);
-    const [maxVal, setMaxVal] = useState(max);
-    const minValRef = useRef(min);
-    const maxValRef = useRef(max);
+    const [minVal, setMinVal] = useState(0);
+    const [maxVal, setMaxVal] = useState(0);
+    const minValRef = useRef(0);
+    const maxValRef = useRef(0);
     const range = useRef<HTMLDivElement>(null);
-    console.log(minDefault)
-    console.log(maxDefault)
+
+    useEffect(() => {
+        setMinVal(minDefault)
+        setMaxVal(maxDefault)
+    }, [minDefault, maxDefault, changeSlider])
+
+
     // Need to change some logic or just delete it
     // Convert to percentage
-    const getPercent = useCallback((value: number) =>
-        Math.round(((value - min) / (max - min)) * 100), [])
+    /* const getPercent = useCallback((value: number) =>
+         Math.ceil(((value - minDefault) / (maxDefault - minDefault)) * 100), [minDefault, maxDefault, changeSlider])
+ */
+
+    const getPercent = (value: number) => {
+        return (
+            Math.round(((value - minDefault)/ (maxDefault - minDefault)) * 100))
+    }
+
+
     // Set width of the range to decrease from the left side
     useEffect(() => {
+
         const minPercent = getPercent(minVal);
         const maxPercent = getPercent(maxValRef.current);
-
         if (range.current) {
             range.current.style.left = `${minPercent}%`;
-            range.current.style.width = `${maxPercent - minPercent}%`;
+            range.current.style.width = `${maxPercent >= 200 ? 100 - minPercent : maxPercent - minPercent}%`;
             range.current.style.backgroundColor = '#fd974f'
         }
-    }, [minVal, getPercent]);
+    }, [minVal, getPercent, maxDefault , changeSlider]);
 
     // Set width of the range to decrease from the right side
     useEffect(() => {
         const minPercent = getPercent(minValRef.current);
         const maxPercent = getPercent(maxVal);
-
         if (range.current) {
-            range.current.style.width = `${maxPercent - minPercent}%`;
-
+            range.current.style.right = `${maxPercent}%`;
+           /* range.current.style.width = `${  maxPercent - (minPercent > 0 ? minPercent - 24  : minPercent)}%`;*/
+            range.current.style.width = `${maxPercent >= 200 ? 100 - minPercent : maxPercent - minPercent}%`;
         }
-    }, [maxVal, getPercent]);
+    }, [maxVal, getPercent, minDefault , changeSlider ]);
 
     return (
         <div className={styles.container}>

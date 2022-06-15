@@ -1,5 +1,10 @@
 import React, {useEffect} from 'react';
-import {initialStatePacksType, setPacksTC, updateParams} from '../../../../_bll/features/cards/packsReducer';
+import {
+     changeSliderAC,
+    initialStatePacksType,
+    setPacksTC,
+    updateParams
+} from '../../../../_bll/features/cards/packsReducer';
 import {useAppDispatch, useCustomSelector} from '../../../../_bll/main/store';
 import {Navigate} from 'react-router-dom';
 import {Pack} from './pack/Pack';
@@ -12,6 +17,7 @@ import {COLORS, ROUTE_PATHS} from '../../../../utils/_values';
 import {LoadingStatusType} from '../../../../utils/enums';
 import {Loader} from '../../../common/_superComponents/Loader/Loader';
 import ModalCreatePackContainer from "../../modal/packModal/createPack/ModalCreatePackContainer";
+import {Button} from '../../../common/_superComponents/Button/Button';
 
 const headerTable = {
     name: "Name",
@@ -35,6 +41,7 @@ export const Packs = () => {
         pageCount,
         maxCardsCount,
         minCardsCount,
+        changeSlider,
     } = useCustomSelector<initialStatePacksType>(state => state.packs)
     const isLogin = useCustomSelector<boolean>(state => state.login.isLoggedIn)
     const userId = useCustomSelector<string>(state => state.profile._id)
@@ -69,6 +76,15 @@ export const Packs = () => {
     }
 
 
+    const onClickResetFiltersHandler = () => {
+        dispatch(changeSliderAC(!changeSlider))
+        dispatch(updateParams({
+            page: 1, min: minCardsCount, max: maxCardsCount,
+            sortPacks: '0updated ',
+            user_id: ''
+        }))
+    }
+
     if (!isLogin) {
         return <Navigate to={ROUTE_PATHS.LOGIN}/>
     }
@@ -90,7 +106,10 @@ export const Packs = () => {
                             minDefault={minCardsCount}
                             maxDefault={maxCardsCount}
                             onMouseUp={onMouseUpSliderHandler}
-                            disabled={disabled}/>
+                            disabled={disabled}
+                            changeSlider={changeSlider}
+                    />
+                    <Button onClick={onClickResetFiltersHandler} color={COLORS.MAIN_DARK}>Reset filters</Button>
                 </div>
                 <div className={styles.packs}>
                     <div className={styles.header}>

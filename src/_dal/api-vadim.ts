@@ -73,6 +73,8 @@ export type PacksType = {
     page: number
     pageCount: number
     error?: string
+
+    changeSlider: boolean
 }
 
 export type PackType = {
