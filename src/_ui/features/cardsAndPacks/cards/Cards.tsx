@@ -44,17 +44,15 @@ export const Cards = () => {
 
     let {packId, packName} = useParams()
     const navigate = useNavigate();
-
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         dispatch(updateCardParams({cardsPack_id: packId}))
-    }, [packId])
+    }, [dispatch, packId])
 
     useEffect(() => {
         dispatch(setCardsTC())
-    }, [dispatch, cardParams]);
-
+    }, [dispatch, cardParams.sortCards, cardParams.page, cardParams.cardAnswer, cardParams.cardQuestion]);
 
     const onPageChangeHandler = (page: number) => {
         dispatch(updateCardParams({page}))

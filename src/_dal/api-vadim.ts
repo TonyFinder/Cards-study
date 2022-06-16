@@ -26,16 +26,12 @@ export const packsApi = {
             params: params
         })
     },
-
     createPack(data: CreatePackType) {
         return instance.post<any, any, { cardsPack: CreatePackType }>('cards/pack', {cardsPack: data})
     },
-
     deletePack(id: string) {
         return instance.delete<any, any, string>('cards/pack', {params: {id}},)
-
     },
-
     updatePack(data: UpdatePackType) {
         return instance.put<any, any, { cardsPack: UpdatePackType }>('cards/pack', {cardsPack: data})
     },
@@ -49,18 +45,18 @@ export const cardsApi = {
                 params: params
             })
     },
-
     createCard(data: CreateCardType) {
         return instance.post<any, any, { card: CreateCardType }>('cards/card', {card: data})
     },
-
     deleteCard(id: string) {
         return instance.delete<any, any, string>('cards/card', {params: {id}})
     },
-
     updatedCard(data: updateCartType) {
         return instance.put<any, any, { card: updateCartType }>('cards/card', {card: data})
     },
+    updateGradeCard(data: UpdateGradeCardRequestType) {
+        return instance.put<any, UpdateGradeResponseType, UpdateGradeCardRequestType>('/cards/grade', data)
+    }
 }
 
 
@@ -171,4 +167,25 @@ export type updateCartType = {
     question?: string
     answer?: string
     grade?: number
+}
+export type UpdateGradeCardRequestType = {
+    grade: number
+    card_id: string
+}
+export type UpdatedGradeCardType = {
+    _id: string
+    cardsPack_id: string
+    card_id: string
+    user_id: string
+    grade: number
+    shots: number
+    created: string
+    more_id: string
+    updated: string
+    __v: number
+}
+export type UpdateGradeResponseType = {
+    data: {
+        updatedGrade: UpdatedGradeCardType
+    }
 }

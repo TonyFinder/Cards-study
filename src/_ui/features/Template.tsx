@@ -9,6 +9,7 @@ import {AuthDataType} from '../../_dal/api-anton';
 import {COLORS, ROUTE_PATHS} from '../../utils/_values';
 import {Checkbox} from '../common/_superComponents/Checkbox/Checkbox';
 import {Link} from 'react-router-dom';
+import {Radio} from '../common/_superComponents/Radio/Radio';
 
 export const Template = () => {
 
@@ -31,6 +32,21 @@ export const Template = () => {
     const onClickShowPasswordHandler = () => {
         setTypeInput(typeInput === "password" ? "text" : "password")
     }
+    // Данные дла Radio
+    const [radioSelect, setRadioSelect] = useState<{id: number, title: string, selected: boolean}[]>([
+        {id: 0, title: 'Yes', selected: false},
+        {id: 1, title: 'No', selected: false},
+        {id: 2, title: 'Maybe', selected: false},
+        {id: 3, title: 'Confused', selected: false},
+        {id: 4, title: 'Knew the answer', selected: false},
+    ])
+    const onClickRadio = (position: number) => {
+        setRadioSelect(radioSelect.map(item =>
+            item.id === position
+                ? {...item, selected: true}
+                : {...item, selected: false}))
+    }
+
     // Задизейбливание кнопок. Зависит: пустое значение, ошибка в Input, изходное имя такое же, как изменённое и тд.
     // Настраивается индивидуально для каждой кнопки
     const saveButtonDisable = !nickNameValue || errorNickName || name === nickNameValue
@@ -63,12 +79,14 @@ export const Template = () => {
                 <Input
                     value={nickNameValue}
                     sign='Nickname'
+                    color={COLORS.MAIN_DARK}
                     onChangeText={setNickNameValue}
                     error={errorNickName}
                     onChangeError={setErrorNickName}/>
                 <Input
                     value={emailValue}
                     sign='Email'
+                    color={COLORS.MAIN_DARK}
                     onChangeText={setEmailValue}
                     error={errorEmail}
                     onChangeError={setErrorEmail}/>
@@ -82,6 +100,7 @@ export const Template = () => {
                         value={passwordValue}
                         type={typeInput}
                         sign="Password"
+                        color={COLORS.MAIN_DARK}
                         onChangeText={setPasswordValue}
                         error={errorPassword}
                         onChangeError={setErrorPassword}/>
@@ -95,8 +114,28 @@ export const Template = () => {
 
             {/*Блок для описания действия. Forgot и Create password*/}
             <div className={styles.description}>
-                <span>Enter your email address and <br/> we will send you further instructions</span>
+                <span>Enter your email address and we will send you further instructions</span>
             </div>
+
+            {/*Блок вопрос/ответ*/}
+            <div className={styles.question_answer}>
+                <p><b>Question: </b>I am question here</p>
+                <p><b>Answer: </b>I am answer here</p>
+            </div>
+
+            {/*Блок с оценкой себя*/}
+            <div className={styles.rateYourself}>
+                <p><b>Rate yourself:</b></p>
+                <div>
+                    {radioSelect.map(item =>
+                        <Radio key={item.id}
+                               color={COLORS.MAIN_DARK}
+                               checked={item.selected}
+                               onClick={() => onClickRadio(item.id)}
+                        >{item.title}</Radio>)}
+                </div>
+            </div>
+
 
             {/*Блок для одной Button. Дизейбл для примера только на изменение Nickname*/}
             <div className={styles.buttonBig}>

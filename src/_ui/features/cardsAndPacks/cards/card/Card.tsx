@@ -63,7 +63,7 @@ export const Card: React.FC<CardPropsType> = (props) => {
                                   value={sort[1] === 'question' ? sort[0] : '2'}
                                   color={COLORS.MAIN_DARK}
                                   onClick={() => onClickHandler('question')}/>
-                    : question
+                    : <div className={styles.hidden}>{question}</div>
             }
             </div>
             <div className={styles.answer}>{
@@ -72,7 +72,7 @@ export const Card: React.FC<CardPropsType> = (props) => {
                                   value={sort[1] === 'answer' ? sort[0] : '2'}
                                   color={COLORS.MAIN_DARK}
                                   onClick={() => onClickHandler('answer')}/>
-                    : answer
+                    : <div className={styles.hidden}>{answer}</div>
             }
             </div>
             <div className={styles.updated}>{
@@ -81,7 +81,7 @@ export const Card: React.FC<CardPropsType> = (props) => {
                                   value={sort[1] === 'updated' ? sort[0] : '2'}
                                   color={COLORS.MAIN_DARK}
                                   onClick={() => onClickHandler('updated')}/>
-                    : new Date(String(updated)).toLocaleString()
+                    : `${new Date(String(updated)).getDate()}/${new Date(String(updated)).getMonth()}/${new Date(String(updated)).getFullYear()}`
             }
             </div>
             <div className={styles.grade}>{

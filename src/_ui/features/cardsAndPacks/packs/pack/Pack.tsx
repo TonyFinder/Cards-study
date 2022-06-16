@@ -7,8 +7,8 @@ import {SortButton} from '../../../../common/_superComponents/SortButton/SortBut
 import {useAppDispatch, useCustomSelector} from '../../../../../_bll/main/store';
 import {updateParams} from '../../../../../_bll/features/cards/packsReducer';
 import {LoadingStatusType} from '../../../../../utils/enums';
-import ModalDeleteContainer from "../../../modal/packModal/deletePack/ModalDeleteContainer";
-import ModalUpdateContainer from "../../../modal/packModal/updatePack/ModalUpdateContainer";
+import ModalDeleteContainer from '../../../modal/packModal/deletePack/ModalDeleteContainer';
+import ModalUpdateContainer from '../../../modal/packModal/updatePack/ModalUpdateContainer';
 
 export type PackPropsType = {
     _id: string
@@ -20,6 +20,7 @@ export type PackPropsType = {
     updated: string
     header?: boolean
     sort: string[]
+    onClick?: (packId: string) => void
 }
 
 export const Pack: React.FC<PackPropsType> = (props) => {
@@ -34,14 +35,15 @@ export const Pack: React.FC<PackPropsType> = (props) => {
         header,
         sort,
         user_id,
+        onClick,
     } = props;
 
+    const dispatch = useAppDispatch()
     const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
     const userId = useCustomSelector<string>(state => state.profile._id)
-    const dispatch = useAppDispatch()
     const disabled = loading === LoadingStatusType.active
 
-    const onClickHandler = (e: string) => {
+    const onClickSortHandler = (e: string) => {
         // определяем, на какой колонке находится фильтр
         if (loading === LoadingStatusType.active) return
         sort[1] === e
@@ -51,6 +53,9 @@ export const Pack: React.FC<PackPropsType> = (props) => {
                 : dispatch(updateParams({sortPacks: '0updated', page: 1}))
             : dispatch(updateParams({sortPacks: `0${e}`, page: 1}))
     }
+    const onClickLearnHandle = () => {
+        onClick && onClick(_id)
+    }
 
     return (
         <div key={_id} className={styles.row}>
@@ -59,8 +64,10 @@ export const Pack: React.FC<PackPropsType> = (props) => {
                     ? <SortButton title={name}
                                   value={sort[1] === 'name' ? sort[0] : '2'}
                                   color={COLORS.MAIN_DARK}
-                                  onClick={() => onClickHandler('name')}/>
-                    : <Link to={`${ROUTE_PATHS.CARDS}/${props._id}/${name}`}>{name}</Link>
+                                  onClick={() => onClickSortHandler('name')}/>
+                    : <div className={styles.hiddenLink}>
+                        <Link to={`${ROUTE_PATHS.CARDS}/${props._id}/${name}`}>{name}</Link>
+                </div>
                 }
             </div>
             <div className={styles.cards}>
@@ -68,7 +75,7 @@ export const Pack: React.FC<PackPropsType> = (props) => {
                     ? <SortButton title={cardsCount}
                                   value={sort[1] === 'cardsCount' ? sort[0] : '2'}
                                   color={COLORS.MAIN_DARK}
-                                  onClick={() => onClickHandler('cardsCount')}/>
+                                  onClick={() => onClickSortHandler('cardsCount')}/>
                     : cardsCount
                 }
             </div>
@@ -77,8 +84,8 @@ export const Pack: React.FC<PackPropsType> = (props) => {
                     ? <SortButton title={updated}
                                   value={sort[1] === 'updated' ? sort[0] : '2'}
                                   color={COLORS.MAIN_DARK}
-                                  onClick={() => onClickHandler('updated')}/>
-                    : new Date(String(updated)).toLocaleString()
+                                  onClick={() => onClickSortHandler('updated')}/>
+                    : `${new Date(String(updated)).getDate()}/${new Date(String(updated)).getMonth()}/${new Date(String(updated)).getFullYear()}`
                 }
             </div>
             <div className={styles.createdBy}>
@@ -86,8 +93,8 @@ export const Pack: React.FC<PackPropsType> = (props) => {
                     ? <SortButton title={user_name}
                                   value={sort[1] === 'user_name' ? sort[0] : '2'}
                                   color={COLORS.MAIN_DARK}
-                                  onClick={() => onClickHandler('user_name')}/>
-                    : user_name
+                                  onClick={() => onClickSortHandler('user_name')}/>
+                    : <div className={styles.hidden}>{user_name}</div>
                 }
             </div>
             <div className={styles.actions}>
@@ -103,7 +110,7 @@ export const Pack: React.FC<PackPropsType> = (props) => {
                         {user_id === userId
                             ? <ModalUpdateContainer disabled={disabled} packId={_id} packName={name}/>
                             : null}
-                        <Button color={COLORS.MAIN_DARK}>Learn</Button>
+                        <Button color={COLORS.MAIN_DARK} onClick={onClickLearnHandle} disabled={cardsCount === 0}>Learn</Button>
                     </div>
                 }
             </div>

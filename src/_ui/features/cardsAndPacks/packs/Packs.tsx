@@ -1,11 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {
-    initialStatePacksType,
-    setPacksTC,
-    updateParams
-} from '../../../../_bll/features/cards/packsReducer';
+import {initialStatePacksType, setPacksTC, updateParams} from '../../../../_bll/features/cards/packsReducer';
 import {useAppDispatch, useCustomSelector} from '../../../../_bll/main/store';
-import {Navigate} from 'react-router-dom';
+import {Navigate, useNavigate} from 'react-router-dom';
 import {Pack} from './pack/Pack';
 import styles from './packs.module.scss';
 import {maxMinValueType, Slider} from '../../../common/_superComponents/Slider/Slider';
@@ -51,14 +47,14 @@ export const Packs = () => {
     const direction = sortPacks.slice(0, 1)
     const column = sortPacks.slice(1)
 
-    const dispatch = useAppDispatch();
+    const dispatch = useAppDispatch()
+    const navigate = useNavigate()
 
     useEffect(() => {
         if (isLogin) {
             dispatch(setPacksTC())
         }
-    }, [isLogin, dispatch, packParams]);
-
+    }, [isLogin, dispatch, packParams.sortPacks, packParams.max, packParams.min, packParams.page, packParams.pageCount, packParams.packName, packParams.user_id]);
 
     const onPageChangeHandler = (page: number) => {
         if (loading === LoadingStatusType.active) return
@@ -85,10 +81,8 @@ export const Packs = () => {
         }))
     }
 
-    if (!isLogin) {
-        return <Navigate to={ROUTE_PATHS.LOGIN}/>
-    }
-
+    const onClickToLearn = (packId: string) => navigate(`${ROUTE_PATHS.QUESTION}/${packId}`)
+    if (!isLogin) return <Navigate to={ROUTE_PATHS.LOGIN}/>
 
     return (
         <div className={styles.block}>
@@ -121,7 +115,7 @@ export const Packs = () => {
                         {loading === LoadingStatusType.active
                             ? <Loader color={COLORS.MAIN_DARK} className={styles.loader}/>
                             : cardPacks.map(p => <Pack key={p._id}
-                                                       sort={[direction, column]} {...p}/>)
+                                                       sort={[direction, column]} {...p} onClick={onClickToLearn}/>)
                         }
                     </div>
                     <div className={styles.page}>
