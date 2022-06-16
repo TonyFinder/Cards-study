@@ -74,10 +74,10 @@ export const Slider = ({min, max, minDefault, maxDefault, disabled, onMouseUp, c
                 onChange={(event: ChangeEvent<HTMLInputElement>) => {
                     const value = Math.min(Number(event.target.value), maxVal);
                     setMinVal(value);
-                  /*  minValRef.current = value;*/
+                    /*  minValRef.current = value;*/
                 }}
                 className={`${styles.thumb} ${styles.thumbLeft}`}
-               /* style={{zIndex: `${minVal > max - 100 && 5}`}}*/
+                /* style={{zIndex: `${minVal > max - 100 && 5}`}}*/
                 onMouseUp={() => onMouseUp({min: minVal, max: maxVal})}
                 disabled={disabled}
             />
@@ -89,7 +89,7 @@ export const Slider = ({min, max, minDefault, maxDefault, disabled, onMouseUp, c
                 onChange={(event: ChangeEvent<HTMLInputElement>) => {
                     const value = Math.max(Number(event.target.value), minVal);
                     setMaxVal(value);
-                   /* maxValRef.current = value;*/
+                    /* maxValRef.current = value;*/
                 }}
                 className={`${styles.thumb} ${styles.thumbRight}`}
                 onMouseUp={() => onMouseUp({min: minVal, max: maxVal})}

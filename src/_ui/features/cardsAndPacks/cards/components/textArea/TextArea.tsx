@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import React, {DetailedHTMLProps, TextareaHTMLAttributes} from 'react';
+import React, {ChangeEvent, DetailedHTMLProps, TextareaHTMLAttributes} from 'react';
 import {COLORS} from '../../../../../../utils/_values';
 
 type DefaultTextAreaPropsType = DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>
 
 type TextAreaPropsType = DefaultTextAreaPropsType & {
-    onChangeText?: (value: string) => void
+    onChangeText?: (value: ChangeEvent<HTMLTextAreaElement> ) => void
     onChangeError?: (value: boolean) => void
     onEnter?: () => void
     error?: boolean
@@ -29,14 +29,14 @@ export const TextArea: React.FC<TextAreaPropsType> = (
     }
 
     return (
-        <StyledTextArea color={color} error={error}
-                        value={value} sign={sign}
+        <StyledTextArea color={color} error={error} sign={sign}
                         emailError={emailError} passwordError={passwordError} comparePassword={comparePassword}>
             <textarea
                 name="" cols={30} rows={10}
                 onBlur={onBlurHandler}
                 style={error ? {borderBottom: '2px solid red'} : {}}
                 value={value}
+                onChange={(e) => onChangeText ? onChangeText( e) : null}
                 {...restProps}
             > </textarea>
         </StyledTextArea>

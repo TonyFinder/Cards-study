@@ -14,7 +14,7 @@ type CardPropsType = {
     question: string
     cardsPack_id?: string
     grade: number | string
-    user_id?: string
+    user_id: string
     created?: string
     updated: string
     header: boolean
@@ -53,6 +53,7 @@ export const Card: React.FC<CardPropsType> = (props) => {
             : dispatch(updateCardParams({sortCards: `0${e}`, page: 1}))
     }
 
+    const owner = userIdProfile === user_id
 
     return (
         <div className={styles.row}>
@@ -89,11 +90,12 @@ export const Card: React.FC<CardPropsType> = (props) => {
                                   value={sort[1] === 'grade' ? sort[0] : '2'}
                                   color={COLORS.MAIN_DARK}
                                   onClick={() => onClickHandler('grade')}/>
-                    : <StarRating cardID={_id} grade={Math.round(+grade)}/>
+                    : <StarRating owner={owner} cardID={_id}
+                                  grade={Math.round(+grade)}/>
             }
             </div>
             {
-                userIdProfile === user_id
+                owner
                     ? <div className={styles.actions}>
                         {header
                             ? "Actions"

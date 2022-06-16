@@ -18,7 +18,8 @@ const ModalCreateCardContainer: React.FC<ModalCreatePackContainerType> = ({disab
     const [show, setShow] = useState(false);
     const [question, setQuestion] = useState('');
     const [answer, setAnswer] = useState('');
-
+    console.log(answer)
+    console.log(question)
     const dispatch = useAppDispatch()
 
     const onClickCreateHandler = () => {
@@ -43,7 +44,7 @@ const ModalCreateCardContainer: React.FC<ModalCreatePackContainerType> = ({disab
                 <div className={styles.modal}>
                     <h3>Add new Card</h3>
                     <Input sign='question' value={question} onChange={(e) => setQuestion(e.currentTarget.value)}/>
-                    <TextArea sign='answer' value={answer} onChange={(e) => setAnswer(e.currentTarget.value)}/>
+                    <TextArea sign='answer' value={answer} onChangeText={(e) => setAnswer(e.currentTarget.value)}/>
                     <div className={styles.button}>
                         <Button onClick={onClickCreateHandler}>Save</Button>
                         <Button color='red' onClick={() => setShow(false)}>Close</Button>
