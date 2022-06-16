@@ -4,17 +4,18 @@ import {
     CardsType,
     CreateCardType,
     UpdateCardParamsType,
-    updateCartType
-} from "../../../_dal/api-vadim";
-import {AppThunk} from "../../main/store";
-import {changeAppLoadingStatus, setAppErrorValue} from "../../main/appReducer";
-import {LoadingStatusType} from "../../../utils/enums";
-import {AxiosError} from "axios";
+    updateCartType,
+    UpdatedGradeCardType,
+    UpdateGradeCardRequestType
+} from '../../../_dal/api-vadim';
+import {AppThunk} from '../../main/store';
+import {changeAppLoadingStatus, setAppErrorValue} from '../../main/appReducer';
+import {LoadingStatusType} from '../../../utils/enums';
+import {AxiosError} from 'axios';
 
 export type initialStateCardsType = CardsType & {
     cardParams: CardParamsType
 }
-
 
 const initialState: initialStateCardsType = {
     cards: [
@@ -46,9 +47,9 @@ const initialState: initialStateCardsType = {
         sortCards: "0grade",
         page: 1,
         pageCount: 7
+
     }
 }
-
 
 export const cardsReducer = (state: initialStateCardsType = initialState, action: ActionCardsType): initialStateCardsType => {
     switch (action.type) {
@@ -56,14 +57,20 @@ export const cardsReducer = (state: initialStateCardsType = initialState, action
             return {...state, ...action.data}
         case "CARD/UPDATE-CARD-PARAMS":
             return {...state, cardParams: {...state.cardParams, ...action.params}}
+        case 'CARD/UPDATE-GRADE-CARD-PARAMS':
+            return {...state,
+                cards: state.cards.map(card => card._id === action.data.card_id
+                    ? {...card, grade: action.data.grade, shots: action.data.shots}
+                    : card)}
         default:
             return state
     }
-};
+}
 
 // actions
 export const setCards = (data: CardsType) => ({type: 'CARDS/SET-CARDS-DATA', data} as const)
-export const updateCardParams = (params: UpdateCardParamsType) => ({type: "CARD/UPDATE-CARD-PARAMS", params,} as const)
+export const updateCardParams = (params: UpdateCardParamsType) => ({type: "CARD/UPDATE-CARD-PARAMS", params} as const)
+export const updateGradeCard = (data: UpdatedGradeCardType) => ({type: "CARD/UPDATE-GRADE-CARD-PARAMS", data} as const)
 
 // thunks
 export const setCardsTC = (): AppThunk => (dispatch, getState) => {
@@ -74,7 +81,6 @@ export const setCardsTC = (): AppThunk => (dispatch, getState) => {
         .catch((err: AxiosError) => dispatch(setAppErrorValue(err.message)))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
-
 export const createCardTC = (params: CreateCardType): AppThunk => (dispatch) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
     cardsApi.createCard(params)
@@ -82,7 +88,6 @@ export const createCardTC = (params: CreateCardType): AppThunk => (dispatch) => 
         .catch((err: AxiosError) => dispatch(setAppErrorValue(err.message)))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
-
 export const deleteCardTC = (cardId: string): AppThunk => (dispatch) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
     cardsApi.deleteCard(cardId)
@@ -90,11 +95,19 @@ export const deleteCardTC = (cardId: string): AppThunk => (dispatch) => {
         .catch((err: AxiosError) => dispatch(setAppErrorValue(err.message)))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
-
 export const updateCardTC = (data: updateCartType): AppThunk => (dispatch) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
     cardsApi.updatedCard(data)
         .then(() => dispatch(setCardsTC()))
+        .catch((err: AxiosError) => dispatch(setAppErrorValue(err.message)))
+        .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
+}
+export const updateGradeCardTC = (data: UpdateGradeCardRequestType): AppThunk => (dispatch) => {
+    dispatch(changeAppLoadingStatus(LoadingStatusType.active))
+    cardsApi.updateGradeCard(data)
+        .then((res) => {
+            dispatch(updateGradeCard(res.data.updatedGrade))
+        })
         .catch((err: AxiosError) => dispatch(setAppErrorValue(err.message)))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
@@ -103,4 +116,6 @@ export const updateCardTC = (data: updateCartType): AppThunk => (dispatch) => {
 export  type ActionCardsType =
     | ReturnType<typeof setCards>
     | ReturnType<typeof updateCardParams>
+    | ReturnType<typeof updateGradeCard>
+
 

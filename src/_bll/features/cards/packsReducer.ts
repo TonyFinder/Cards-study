@@ -93,5 +93,5 @@ type UpdateParamsActionType = {
     max?: number,
     sortPacks?: string,
     page?: number,
-    user_id?: string
+    user_id?: string,
 }

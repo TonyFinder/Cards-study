@@ -36,7 +36,9 @@ export const ROUTE_PATHS = {
     UNKNOWN_URL: '*',
     TEMPLATE: '/template',
     QUESTION: '/question',
+    QUESTION_TOKEN: '/question/:packId',
     ANSWER: '/answer',
+    ANSWER_TOKEN: '/answer/:packId/:cardId',
 }
 
 export const dataRoutes = {
@@ -47,16 +49,18 @@ export const dataRoutes = {
         {id: 3, title: 'ForgotPass', visible: true, path: ROUTE_PATHS.FORGOT, element: <Forgot/>},
         {id: 4, title: 'SetPass', visible: true, path: ROUTE_PATHS.SET_PASS, element: <SetPass/>},
         {id: 5, title: 'Packs', visible: true, path: ROUTE_PATHS.PACKS, element: <Packs/>},
-        {id: 5, title: 'Cards', visible: false, path: ROUTE_PATHS.CARDS, element: <Cards/>},
-        {id: 5, title: 'CardsToken', visible: false, path: ROUTE_PATHS.CARDS_TOKEN, element: <Cards/>},
-        {id: 6, title: 'Profile', visible: true, path: ROUTE_PATHS.PROFILE, element: <Profile/>},
-        {id: 7, title: 'Test', visible: true, path: ROUTE_PATHS.TEST, element: <Test/>},
-        {id: 8, title: 'Error404', visible: true, path: ROUTE_PATHS.ERROR_404, element: <Error404/>},
-        {id: 9, title: 'Unknown url', visible: false, path: ROUTE_PATHS.UNKNOWN_URL, element: <Navigate to={ROUTE_PATHS.ERROR_404}/>},
-        {id: 10, title: 'Template', visible: true, path: ROUTE_PATHS.TEMPLATE, element: <Template/>},
-        {id: 11, title: 'Check email', visible: true, path: ROUTE_PATHS.CHECK_EMAIL, element: <CheckEmail/>},
-        {id: 12, title: 'Question', visible: true, path: ROUTE_PATHS.QUESTION, element: <Question/>},
-        {id: 13, title: 'Answer', visible: true, path: ROUTE_PATHS.ANSWER, element: <Answer/>},
+        {id: 6, title: 'Cards', visible: false, path: ROUTE_PATHS.CARDS, element: <Cards/>},
+        {id: 7, title: 'CardsToken', visible: false, path: ROUTE_PATHS.CARDS_TOKEN, element: <Cards/>},
+        {id: 8, title: 'Profile', visible: true, path: ROUTE_PATHS.PROFILE, element: <Profile/>},
+        {id: 9, title: 'Test', visible: true, path: ROUTE_PATHS.TEST, element: <Test/>},
+        {id: 10, title: 'Error404', visible: true, path: ROUTE_PATHS.ERROR_404, element: <Error404/>},
+        {id: 11, title: 'Unknown url', visible: false, path: ROUTE_PATHS.UNKNOWN_URL, element: <Navigate to={ROUTE_PATHS.ERROR_404}/>},
+        {id: 12, title: 'Template', visible: true, path: ROUTE_PATHS.TEMPLATE, element: <Template/>},
+        {id: 13, title: 'Check email', visible: true, path: ROUTE_PATHS.CHECK_EMAIL, element: <CheckEmail/>},
+        {id: 14, title: 'Question', visible: true, path: ROUTE_PATHS.QUESTION, element: <Question/>},
+        {id: 15, title: 'Question', visible: false, path: ROUTE_PATHS.QUESTION_TOKEN, element: <Question/>},
+        {id: 16, title: 'Answer', visible: true, path: ROUTE_PATHS.ANSWER, element: <Answer/>},
+        {id: 17, title: 'Answer', visible: false, path: ROUTE_PATHS.ANSWER_TOKEN, element: <Answer/>},
     ]
 }
 
