@@ -24,9 +24,7 @@ type CardPropsType = {
     sort: string[]
 }
 
-
 export const Card: React.FC<CardPropsType> = (props) => {
-
     const {
         answer,
         question,
@@ -42,6 +40,8 @@ export const Card: React.FC<CardPropsType> = (props) => {
 
     const dispatch = useAppDispatch()
 
+    const owner = userIdProfile === user_id
+
     const onClickHandler = (e: string) => {
         // определяем, на какой колонке находится фильтр
         if (disabled) return
@@ -52,8 +52,6 @@ export const Card: React.FC<CardPropsType> = (props) => {
                 : dispatch(updateCardParams({sortCards: '0updated', page: 1}))
             : dispatch(updateCardParams({sortCards: `0${e}`, page: 1}))
     }
-
-    const owner = userIdProfile === user_id
 
     return (
         <div className={styles.row}>

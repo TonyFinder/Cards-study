@@ -24,7 +24,6 @@ export type PackPropsType = {
 }
 
 export const Pack: React.FC<PackPropsType> = (props) => {
-
     const {
         _id,
         name,
@@ -37,10 +36,10 @@ export const Pack: React.FC<PackPropsType> = (props) => {
         user_id,
         onClick,
     } = props;
-
     const dispatch = useAppDispatch()
     const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
     const userId = useCustomSelector<string>(state => state.profile._id)
+
     const disabled = loading === LoadingStatusType.active
 
     const onClickSortHandler = (e: string) => {

@@ -13,10 +13,6 @@ import {changeAppLoadingStatus, setAppErrorValue} from '../../main/appReducer';
 import {LoadingStatusType} from '../../../utils/enums';
 import {AxiosError} from 'axios';
 
-export type initialStateCardsType = CardsType & {
-    cardParams: CardParamsType
-}
-
 const initialState: initialStateCardsType = {
     cards: [
         {
@@ -117,5 +113,9 @@ export  type ActionCardsType =
     | ReturnType<typeof setCards>
     | ReturnType<typeof updateCardParams>
     | ReturnType<typeof updateGradeCard>
+
+export type initialStateCardsType = CardsType & {
+    cardParams: CardParamsType
+}
 
 

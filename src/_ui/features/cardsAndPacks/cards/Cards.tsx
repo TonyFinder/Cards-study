@@ -22,9 +22,10 @@ const headerTable = {
     header: true
 }
 
-
 export const Cards = () => {
-
+    let {packId, packName} = useParams()
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
     const {
         cards,
         cardParams,
@@ -35,16 +36,13 @@ export const Cards = () => {
     } = useCustomSelector<initialStateCardsType>(state => state.cards);
     const userId = useCustomSelector<string>(state => state.profile._id)
     const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
+
     const disabled = loading === LoadingStatusType.active
 
     // Detect sorting column
     const sortCards = useCustomSelector<string>(state => state.cards.cardParams.sortCards ? state.cards.cardParams.sortCards : '')
     const direction = sortCards.slice(0, 1)
     const column = sortCards.slice(1)
-
-    let {packId, packName} = useParams()
-    const navigate = useNavigate();
-    const dispatch = useAppDispatch();
 
     useEffect(() => {
         dispatch(updateCardParams({cardsPack_id: packId}))

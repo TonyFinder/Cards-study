@@ -34,7 +34,6 @@ export const Answer = () => {
     }
     const onClickLeaveHandler = () => navigate(ROUTE_PATHS.PACKS)
     const onClickAnswerHandler = () => {
-        debugger
         dispatch(updateGradeCardTC({grade: gradeToUpdate, card_id: cardId ? cardId : ''}))
         navigate(`${ROUTE_PATHS.QUESTION}/${packId}`)
     }

@@ -59,21 +59,18 @@ export const setPacksTC = (): AppThunk => (dispatch, getState) => {
         .catch((err: AxiosError) => dispatch(setAppErrorValue(err.message)))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
-
 export const deletePackTC = (packId: string): AppThunk => (dispatch) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
     packsApi.deletePack(packId)
         .then(() => dispatch(setPacksTC()))
         .catch((err: AxiosError) => dispatch(setAppErrorValue(err.message)))
 }
-
 export const createPackTC = (data: CreatePackType): AppThunk => (dispatch) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
     packsApi.createPack(data)
         .then(() => dispatch(setPacksTC()))
         .catch((err: AxiosError) => dispatch(setAppErrorValue(err.message)))
 }
-
 export const updatePackTC = (data: UpdatePackType): AppThunk => (dispatch) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
     packsApi.updatePack(data)

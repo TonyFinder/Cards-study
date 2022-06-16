@@ -27,7 +27,8 @@ const headerTable = {
 
 
 export const Packs = () => {
-
+    const dispatch = useAppDispatch()
+    const navigate = useNavigate()
     const {
         packParams,
         cardPacks,
@@ -40,15 +41,15 @@ export const Packs = () => {
     const isLogin = useCustomSelector<boolean>(state => state.login.isLoggedIn)
     const userId = useCustomSelector<string>(state => state.profile._id)
     const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
+
     const disabled = loading === LoadingStatusType.active
+    //for update slider if minDefault/maxDefault not change
+    const [isChangeSlider, setIsChangeSlider] = useState(false)
 
     // Detect sorting column
     const sortPacks = useCustomSelector<string>(state => state.packs.packParams.sortPacks ? state.packs.packParams.sortPacks : '')
     const direction = sortPacks.slice(0, 1)
     const column = sortPacks.slice(1)
-
-    const dispatch = useAppDispatch()
-    const navigate = useNavigate()
 
     useEffect(() => {
         if (isLogin) {
@@ -68,10 +69,6 @@ export const Packs = () => {
             ? dispatch(updateParams({user_id: `${userId}`, page: 1}))
             : dispatch(updateParams({user_id: '', page: 1}))
     }
-
-    //for update slider if minDefault/maxDefault not change
-    const [isChangeSlider, setIsChangeSlider] = useState(false)
-
     const onClickResetFiltersHandler = () => {
         setIsChangeSlider(!isChangeSlider)
         dispatch(updateParams({
@@ -80,8 +77,8 @@ export const Packs = () => {
             user_id: ''
         }))
     }
-
     const onClickToLearn = (packId: string) => navigate(`${ROUTE_PATHS.QUESTION}/${packId}`)
+
     if (!isLogin) return <Navigate to={ROUTE_PATHS.LOGIN}/>
 
     return (
