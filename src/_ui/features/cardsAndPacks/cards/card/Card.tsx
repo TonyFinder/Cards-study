@@ -88,8 +88,7 @@ export const Card: React.FC<CardPropsType> = (props) => {
                                   value={sort[1] === 'grade' ? sort[0] : '2'}
                                   color={COLORS.MAIN_DARK}
                                   onClick={() => onClickHandler('grade')}/>
-                    : <StarRating owner={owner} cardID={_id}
-                                  grade={Math.round(+grade)}/>
+                    : <StarRating grade={+grade}/>
             }
             </div>
             {

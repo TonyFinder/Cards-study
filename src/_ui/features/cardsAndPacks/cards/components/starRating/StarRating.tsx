@@ -1,35 +1,42 @@
-import React, {useState} from 'react';
+import React, {useEffect, useRef} from 'react';
 import styles from './starRating.module.scss'
-import {useAppDispatch} from "../../../../../../_bll/main/store";
-import {updateCardTC} from "../../../../../../_bll/features/cards/cardsReducer";
+
 
 type StarRatingType = {
     grade: number
-    cardID: string
-    owner: boolean
 }
 
-export const StarRating: React.FC<StarRatingType> = ({grade, cardID, owner}) => {
-    const [hover, setHover] = useState(0)
-    const dispatch = useAppDispatch()
+export const StarRating: React.FC<StarRatingType> = ({grade}) => {
+    const ref = useRef<HTMLDivElement>(null);
 
-    const onClickRatingHandler = (grade: number) => {
-        if (owner) {
-            dispatch(updateCardTC({_id: cardID, grade}))
-        }
+    const setRatingWidth = (grade: number) => {
+        return grade / 0.5 * 10
     }
 
+    useEffect(() => {
+        const width = setRatingWidth(grade)
+        if (ref.current)
+            ref.current.style.width = `${width}%`
+    }, [grade])
 
     return (
-        <div>
-            {[...Array(5)].map((m, i) => (
-                <span
-                    key={i}
-                    onMouseEnter={() => setHover(i + 1)}
-                    onMouseLeave={() => setHover(grade)}
-                    onClick={() => onClickRatingHandler(i + 1)}
-                    className={i < ( hover || grade) ? styles.rating : styles.notRating}>&#9733;</span>
-            ))}
+        <div className={styles.rating}>
+            <div className={styles.ratingBody}>
+                <div ref={ref} className={styles.ratingActive}>
+                    <div className={styles.ratingItems}>
+                        <input type="radio" className={styles.ratingItem} value='1'
+                               name='rating'/>
+                        <input type="radio" className={styles.ratingItem} value='2' name='rating'/>
+                        <input type="radio" className={styles.ratingItem} value='3' name='rating'/>
+                        <input type="radio" className={styles.ratingItem} value='4' name='rating'/>
+                        <input type="radio" className={styles.ratingItem} value='5' name='rating'/>
+
+                    </div>
+                </div>
+            </div>
+            {/*<div className={styles.ratingValue}>
+                {grade}
+            </div>*/}
         </div>
     );
 };
