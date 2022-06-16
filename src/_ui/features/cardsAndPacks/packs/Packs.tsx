@@ -1,6 +1,5 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
-     changeSliderAC,
     initialStatePacksType,
     setPacksTC,
     updateParams
@@ -41,7 +40,6 @@ export const Packs = () => {
         pageCount,
         maxCardsCount,
         minCardsCount,
-        changeSlider,
     } = useCustomSelector<initialStatePacksType>(state => state.packs)
     const isLogin = useCustomSelector<boolean>(state => state.login.isLoggedIn)
     const userId = useCustomSelector<string>(state => state.profile._id)
@@ -75,9 +73,11 @@ export const Packs = () => {
             : dispatch(updateParams({user_id: '', page: 1}))
     }
 
+    //for update slider if minDefault/maxDefault not change
+    const [changeSlider, setChangeSlider] = useState(false)
 
     const onClickResetFiltersHandler = () => {
-        dispatch(changeSliderAC(!changeSlider))
+        setChangeSlider(!changeSlider)
         dispatch(updateParams({
             page: 1, min: minCardsCount, max: maxCardsCount,
             sortPacks: '0updated ',

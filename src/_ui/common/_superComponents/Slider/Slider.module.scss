@@ -26,14 +26,14 @@
 
 // Доделать цвет неиспользованного диапазона и логику
 .slider__track {
-  background-color: $backColorFirst;
+  background-color: $backColorSecond;
   width: 100%;
   z-index: 1;
 }
 
 .slider__range {
   max-width: 100%;
-  background-color: $backColorFirst;
+  background-color: $backColorSecond;
   z-index: 2;
 }
 
