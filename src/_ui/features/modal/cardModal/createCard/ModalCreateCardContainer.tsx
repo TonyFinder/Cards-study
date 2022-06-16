@@ -18,8 +18,6 @@ const ModalCreateCardContainer: React.FC<ModalCreatePackContainerType> = ({disab
     const [show, setShow] = useState(false);
     const [question, setQuestion] = useState('');
     const [answer, setAnswer] = useState('');
-    console.log(answer)
-    console.log(question)
     const dispatch = useAppDispatch()
 
     const onClickCreateHandler = () => {

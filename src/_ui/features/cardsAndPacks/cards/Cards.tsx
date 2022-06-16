@@ -76,8 +76,11 @@ export const Cards = () => {
                           {...headerTable}/>
                     {loading === LoadingStatusType.active
                         ? <Loader color={COLORS.MAIN_DARK} className={styles.loader}/>
-                        : cards.map(p => <Card header={false} key={p._id} sort={[direction, column]} disabled={disabled}
-                                               userIdProfile={userId} {...p}/>)
+                        : cards.length > 0
+                            ? cards.map(p => <Card header={false} key={p._id} sort={[direction, column]}
+                                                   disabled={disabled}
+                                                   userIdProfile={userId} {...p}/>)
+                            : <span className={styles.emptyPacksText}>There is no data according to your search parameters...</span>
                     }
                 </div>
                 <div className={styles.page}>
