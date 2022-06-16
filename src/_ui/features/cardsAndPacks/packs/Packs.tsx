@@ -124,8 +124,10 @@ export const Packs = () => {
                         <Pack sort={[direction, column]} {...headerTable}/>
                         {loading === LoadingStatusType.active
                             ? <Loader color={COLORS.MAIN_DARK} className={styles.loader}/>
-                            : cardPacks.map(p => <Pack key={p._id}
-                                                       sort={[direction, column]} {...p} onClick={onClickToLearn}/>)
+                            : cardPacks.length > 0
+                                ? cardPacks.map(p => <Pack key={p._id}
+                                                           sort={[direction, column]} {...p} onClick={onClickToLearn}/>)
+                                : <span className={styles.emptyPacksText}>There is no data according to your search parameters...</span>
                         }
                     </div>
                     <div className={styles.page}>
