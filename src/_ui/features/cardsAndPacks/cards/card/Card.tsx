@@ -59,7 +59,7 @@ export const Card: React.FC<CardPropsType> = (props) => {
                 header
                     ? <SortButton title={question}
                                   value={sort[1] === 'question' ? sort[0] : '2'}
-                                  color={COLORS.MAIN_DARK}
+                                  color={COLORS.SORT}
                                   onClick={() => onClickHandler('question')}/>
                     : <div className={styles.hidden}>{question}</div>
             }
@@ -68,7 +68,7 @@ export const Card: React.FC<CardPropsType> = (props) => {
                 header
                     ? <SortButton title={answer}
                                   value={sort[1] === 'answer' ? sort[0] : '2'}
-                                  color={COLORS.MAIN_DARK}
+                                  color={COLORS.SORT}
                                   onClick={() => onClickHandler('answer')}/>
                     : <div className={styles.hidden}>{answer}</div>
             }
@@ -77,7 +77,7 @@ export const Card: React.FC<CardPropsType> = (props) => {
                 header
                     ? <SortButton title={updated}
                                   value={sort[1] === 'updated' ? sort[0] : '2'}
-                                  color={COLORS.MAIN_DARK}
+                                  color={COLORS.SORT}
                                   onClick={() => onClickHandler('updated')}/>
                     : `${new Date(String(updated)).getDate()}/${new Date(String(updated)).getMonth()}/${new Date(String(updated)).getFullYear()}`
             }
@@ -86,7 +86,7 @@ export const Card: React.FC<CardPropsType> = (props) => {
                 header
                     ? <SortButton title={grade}
                                   value={sort[1] === 'grade' ? sort[0] : '2'}
-                                  color={COLORS.MAIN_DARK}
+                                  color={COLORS.SORT}
                                   onClick={() => onClickHandler('grade')}/>
                     : <StarRating owner={owner} cardID={_id}
                                   grade={Math.round(+grade)}/>

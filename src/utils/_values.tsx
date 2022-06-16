@@ -17,7 +17,8 @@ export const COLORS = {
     MAIN_DARK: '#fd974f',
     MAIN_LIGHT: '#fef2e4',
     DEFAULT: '#53a6fb',
-    TRANSPARENT: 'rgba(255,255,255,0.7)'
+    TRANSPARENT: 'rgba(255,255,255,0.7)',
+    SORT: 'white'
 }
 
 export const ROUTE_PATHS = {

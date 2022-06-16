@@ -62,7 +62,7 @@ export const Pack: React.FC<PackPropsType> = (props) => {
                 {header
                     ? <SortButton title={name}
                                   value={sort[1] === 'name' ? sort[0] : '2'}
-                                  color={COLORS.MAIN_DARK}
+                                  color={COLORS.SORT}
                                   onClick={() => onClickSortHandler('name')}/>
                     : <div className={styles.hiddenLink}>
                         <Link to={`${ROUTE_PATHS.CARDS}/${props._id}/${name}`}>{name}</Link>
@@ -73,7 +73,7 @@ export const Pack: React.FC<PackPropsType> = (props) => {
                 {header
                     ? <SortButton title={cardsCount}
                                   value={sort[1] === 'cardsCount' ? sort[0] : '2'}
-                                  color={COLORS.MAIN_DARK}
+                                  color={COLORS.SORT}
                                   onClick={() => onClickSortHandler('cardsCount')}/>
                     : cardsCount
                 }
@@ -82,7 +82,7 @@ export const Pack: React.FC<PackPropsType> = (props) => {
                 {header
                     ? <SortButton title={updated}
                                   value={sort[1] === 'updated' ? sort[0] : '2'}
-                                  color={COLORS.MAIN_DARK}
+                                  color={COLORS.SORT}
                                   onClick={() => onClickSortHandler('updated')}/>
                     : `${new Date(String(updated)).getDate()}/${new Date(String(updated)).getMonth()}/${new Date(String(updated)).getFullYear()}`
                 }
@@ -91,7 +91,7 @@ export const Pack: React.FC<PackPropsType> = (props) => {
                 {header
                     ? <SortButton title={user_name}
                                   value={sort[1] === 'user_name' ? sort[0] : '2'}
-                                  color={COLORS.MAIN_DARK}
+                                  color={COLORS.SORT}
                                   onClick={() => onClickSortHandler('user_name')}/>
                     : <div className={styles.hidden}>{user_name}</div>
                 }

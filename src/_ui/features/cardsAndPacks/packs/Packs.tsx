@@ -13,6 +13,7 @@ import {LoadingStatusType} from '../../../../utils/enums';
 import {Loader} from '../../../common/_superComponents/Loader/Loader';
 import ModalCreatePackContainer from "../../modal/packModal/createPack/ModalCreatePackContainer";
 import {Button} from '../../../common/_superComponents/Button/Button';
+import useDebounce from './components/inputComponent/castomHookUseDebounce';
 
 const headerTable = {
     name: "Name",
@@ -51,6 +52,14 @@ export const Packs = () => {
     const direction = sortPacks.slice(0, 1)
     const column = sortPacks.slice(1)
 
+    // Debounce logic
+    const [searchTerm, setSearchTerm] = useState('');
+    const debouncedSearchTerm = useDebounce(searchTerm, 1000);
+
+    useEffect(() => {
+        dispatch(updateParams({packName: debouncedSearchTerm, page: 1}))
+    }, [debouncedSearchTerm, dispatch])
+
     useEffect(() => {
         if (isLogin) {
             dispatch(setPacksTC())
@@ -73,9 +82,11 @@ export const Packs = () => {
         setIsChangeSlider(!isChangeSlider)
         dispatch(updateParams({
             page: 1, min: minCardsCount, max: maxCardsCount,
-            sortPacks: '0updated ',
-            user_id: ''
+            sortPacks: '0updated',
+            user_id: '',
+            packName: ''
         }))
+        setSearchTerm('')
     }
     const onClickToLearn = (packId: string) => navigate(`${ROUTE_PATHS.QUESTION}/${packId}`)
 
@@ -100,11 +111,13 @@ export const Packs = () => {
                             disabled={disabled}
                             changeSlider={isChangeSlider}
                     />
-                    <Button onClick={onClickResetFiltersHandler} color={COLORS.MAIN_DARK}>Reset filters</Button>
+                    <Button onClick={onClickResetFiltersHandler} color={'red'}>Reset filters</Button>
                 </div>
                 <div className={styles.packs}>
                     <div className={styles.header}>
-                        <InputComponent disabled={disabled}/>
+                        <InputComponent value={searchTerm}
+                                        onChange={setSearchTerm}
+                                        disabled={disabled}/>
                         <ModalCreatePackContainer disabled={disabled}/>
                     </div>
                     <div className={styles.table}>
