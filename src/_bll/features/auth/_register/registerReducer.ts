@@ -4,34 +4,33 @@ import {LoadingStatusType} from '../../../../utils/enums';
 import {AppThunk} from '../../../main/store';
 
 let initialState = {
-  error: "",
-  isRegistered: false,
+    error: "",
+    isRegistered: false,
 };
 
 
-
 export const registerReducer = (state = initialState, action: RegisterActionTypes): RegisterInitialStateType => {
-  switch (action.type) {
-    case "REGISTER":
-      return {...state, isRegistered: action.isRegistered}
-    case "SET-ERROR":
-      return {...state, error: action.error}
-    default:
-      return state
-  }
+    switch (action.type) {
+        case "REGISTER/REGISTER":
+            return {...state, isRegistered: action.isRegistered}
+        case "REGISTER/SET-ERROR":
+            return {...state, error: action.error}
+        default:
+            return state
+    }
 }
 
 // actions
-export const register = (isRegistered: boolean) => ({type: "REGISTER", isRegistered} as const)
-export const setError = (error: string) => ({type: "SET-ERROR", error} as const)
+export const register = (isRegistered: boolean) => ({type: "REGISTER/REGISTER", isRegistered} as const)
+export const setError = (error: string) => ({type: "REGISTER/SET-ERROR", error} as const)
 
 // thunks
 export const requestRegistrationTC = (data: ShippingFields): AppThunk => (dispatch) => {
-  dispatch(changeAppLoadingStatus(LoadingStatusType.active))
-  registerApi.register(data)
-      .then(() => dispatch(register(true)))
-      .catch(err => dispatch(setError(err.response.data.error)))
-      .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
+    dispatch(changeAppLoadingStatus(LoadingStatusType.active))
+    registerApi.register(data)
+        .then(() => dispatch(register(true)))
+        .catch(err => dispatch(setError(err.response.data.error)))
+        .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 
 // types
