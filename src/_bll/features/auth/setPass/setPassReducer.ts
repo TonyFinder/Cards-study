@@ -4,32 +4,32 @@ import {changeAppLoadingStatus} from '../../../main/appReducer';
 import {LoadingStatusType} from '../../../../utils/enums';
 
 let initialState = {
-  info: "",
-  error: "",
+    info: "",
+    error: "",
 };
 
 export const setPassReducer = (state: SetPasswordInitialStateType = initialState, action: SetPassActionTypes): SetPasswordInitialStateType => {
-  switch (action.type) {
-    case 'SET-PASSWORD-SUCCESS':
-      return {...state, info: action.info}
-    case 'SET-ERROR':
-      return {...state, error: action.error}
-    default:
-      return state
-  }
+    switch (action.type) {
+        case 'SET-PASSWORD/SET-PASSWORD-SUCCESS':
+            return {...state, info: action.info}
+        case 'SET-PASSWORD/SET-ERROR':
+            return {...state, error: action.error}
+        default:
+            return state
+    }
 }
 
 // actions
-const setError = (error: string) => ({ type: "SET-ERROR", error } as const);
-const setPasswordSuccess = (info: string) => ({ type: "SET-PASSWORD-SUCCESS", info } as const);
+const setError = (error: string) => ({type: "SET-PASSWORD/SET-ERROR", error} as const);
+const setPasswordSuccess = (info: string) => ({type: "SET-PASSWORD/SET-PASSWORD-SUCCESS", info} as const);
 
 // thunks
 export const setNewPasswordTC = (data: FieldSetPassword): AppThunk => (dispatch) => {
-  dispatch(changeAppLoadingStatus(LoadingStatusType.active))
-  setPasswordApi.setPassword(data)
-      .then(res => dispatch(setPasswordSuccess(res.data.info)))
-      .catch(err => dispatch(setError(err.response.data.error)))
-      .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
+    dispatch(changeAppLoadingStatus(LoadingStatusType.active))
+    setPasswordApi.setPassword(data)
+        .then(res => dispatch(setPasswordSuccess(res.data.info)))
+        .catch(err => dispatch(setError(err.response.data.error)))
+        .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 
 // types
