@@ -74,10 +74,10 @@ export const Packs = () => {
     }
 
     //for update slider if minDefault/maxDefault not change
-    const [changeSlider, setChangeSlider] = useState(false)
+    const [isChangeSlider, setIsChangeSlider] = useState(false)
 
     const onClickResetFiltersHandler = () => {
-        setChangeSlider(!changeSlider)
+        setIsChangeSlider(!isChangeSlider)
         dispatch(updateParams({
             page: 1, min: minCardsCount, max: maxCardsCount,
             sortPacks: '0updated ',
@@ -107,7 +107,7 @@ export const Packs = () => {
                             maxDefault={maxCardsCount}
                             onMouseUp={onMouseUpSliderHandler}
                             disabled={disabled}
-                            changeSlider={changeSlider}
+                            changeSlider={isChangeSlider}
                     />
                     <Button onClick={onClickResetFiltersHandler} color={COLORS.MAIN_DARK}>Reset filters</Button>
                 </div>
