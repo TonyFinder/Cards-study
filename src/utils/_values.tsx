@@ -11,7 +11,7 @@ import {Cards} from "../_ui/features/cardsAndPacks/cards/Cards";
 import { Template } from '../_ui/features/Template';
 import {CheckEmail} from '../_ui/features/auth/CheckEmail/CheckEmail';
 import {Answer} from '../_ui/features/cardsAndPacks/learn/Answer/Answer';
-import { Question } from '../_ui/features/cardsAndPacks/learn/Qestion/Question';
+import {Question} from '../_ui/features/cardsAndPacks/learn/Question/Question';
 
 export const COLORS = {
     MAIN_DARK: '#fd974f',
