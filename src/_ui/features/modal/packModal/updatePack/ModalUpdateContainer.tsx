@@ -25,12 +25,17 @@ const ModalUpdateContainer: React.FC<ModalUpdateContainerType> = ({packId, packN
         setShow(false)
     }
 
+    const onClickCloseModalHandler = () => {
+        setShow(false)
+        setName(packName)
+    }
+
     return (
         <>
             <Button color='red' disabled={disabled} onClick={() => setShow(true)}>Edit</Button>
             <Modal
                 enableBackground={true}
-                backgroundOnClick={() => setShow(false)}
+                backgroundOnClick={onClickCloseModalHandler}
 
                 width={400}
                 height={300}
@@ -40,7 +45,8 @@ const ModalUpdateContainer: React.FC<ModalUpdateContainerType> = ({packId, packN
             >
                 <div className={styles.modal}>
                     <h2>Change pack "{packName}"</h2>
-                    <Input value={name} onChange={(e) => setName(e.currentTarget.value)} sign='New pack mame'/>
+                    <Input value={name} autoFocus onChange={(e) => setName(e.currentTarget.value)}
+                           sign='New pack mame'/>
                     <div className={styles.button}>
                         <Button onClick={onClickUpdateHandler}>Save</Button>
                         <Button color='red' onClick={() => setShow(false)}>Close</Button>

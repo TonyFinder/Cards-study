@@ -47,7 +47,7 @@ const ModalCreatePackContainer: React.FC<ModalCreatePackContainerType> = ({disab
             >
                 <div className={styles.modal}>
                     <h3>Add new Pack</h3>
-                    <Input sign='Name pack' value={namePack} onChange={(e) => setNamePack(e.currentTarget.value)}/>
+                    <Input sign='Name pack' autoFocus value={namePack} onChange={(e) => setNamePack(e.currentTarget.value)}/>
                     <Checkbox
                         className={styles.checkbox}
                         checked={cardPrivate}

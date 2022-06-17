@@ -41,7 +41,7 @@ const ModalCreateCardContainer: React.FC<ModalCreatePackContainerType> = ({disab
             >
                 <div className={styles.modal}>
                     <h3>Add new Card</h3>
-                    <Input sign='question' value={question} onChange={(e) => setQuestion(e.currentTarget.value)}/>
+                    <Input sign='question' autoFocus value={question} onChange={(e) => setQuestion(e.currentTarget.value)}/>
                     <TextArea sign='answer' value={answer} onChangeText={(e) => setAnswer(e.currentTarget.value)}/>
                     <div className={styles.button}>
                         <Button onClick={onClickCreateHandler}>Save</Button>

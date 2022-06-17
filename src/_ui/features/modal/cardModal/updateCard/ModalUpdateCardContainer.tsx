@@ -28,12 +28,18 @@ const ModalUpdateCardContainer: React.FC<ModalUpdateContainerType> = ({cardId, c
         setShow(false)
     }
 
+    const onClickCloseModalHandler = () => {
+        setShow(false)
+        setQuestion(cardQuestion)
+        setAnswer(cardAnswer)
+    }
+
     return (
         <>
             <Button color={COLORS.MAIN_DARK} disabled={disabled} onClick={() => setShow(true)}>Edit</Button>
             <Modal
                 enableBackground={true}
-                backgroundOnClick={() => setShow(false)}
+                backgroundOnClick={onClickCloseModalHandler}
 
                 width={400}
                 height={500}
@@ -42,7 +48,8 @@ const ModalUpdateCardContainer: React.FC<ModalUpdateContainerType> = ({cardId, c
             >
                 <div className={styles.modal}>
                     <h2>Change pack "{cardQuestion}"</h2>
-                    <Input value={question} onChange={(e) => setQuestion(e.currentTarget.value)} sign='New question'/>
+                    <Input value={question} autoFocus onChange={(e) => setQuestion(e.currentTarget.value)}
+                           sign='New question'/>
                     <TextArea value={answer} onChangeText={(e) => setAnswer(e.currentTarget.value)} sign='New answer'/>
                     <div className={styles.button}>
                         <Button onClick={onClickUpdateHandler}>Save</Button>
