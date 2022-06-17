@@ -36,17 +36,17 @@ const ModalUpdateCardContainer: React.FC<ModalUpdateContainerType> = ({cardId, c
                 backgroundOnClick={() => setShow(false)}
 
                 width={400}
-                height={500}
+                height={600}
                 modalClassName={styles.bgColorModal}
                 show={show}
             >
                 <div className={styles.modal}>
                     <h2>Change pack "{cardQuestion}"</h2>
-                    <Input value={question} onChange={(e) => setQuestion(e.currentTarget.value)} sign='New question'/>
-                    <TextArea value={answer} onChangeText={(e) => setAnswer(e.currentTarget.value)} sign='New answer'/>
+                    <Input value={question} color={COLORS.MAIN_DARK} onChange={(e) => setQuestion(e.currentTarget.value)} sign='New question'/>
+                    <TextArea value={answer} color={COLORS.MAIN_DARK} onChangeText={(e) => setAnswer(e.currentTarget.value)} sign='New answer'/>
                     <div className={styles.button}>
-                        <Button onClick={onClickUpdateHandler}>Save</Button>
-                        <Button color='red' onClick={() => setShow(false)}>Close</Button>
+                        <Button color={COLORS.HEADER_BOTTOM} onClick={onClickUpdateHandler}>Save</Button>
+                        <Button color={COLORS.HEADER_BOTTOM} onClick={() => setShow(false)}>Close</Button>
                     </div>
                 </div>
             </Modal>

@@ -4,6 +4,7 @@ import Modal from "../../Modal";
 import {useAppDispatch} from "../../../../../_bll/main/store";
 import styles from "../../modalStyle.module.scss"
 import {deleteCardTC, updateCardParams} from "../../../../../_bll/features/cards/cardsReducer";
+import {COLORS} from '../../../../../utils/_values';
 
 type ModalDeleteContainerType = {
     cardID: string
@@ -36,11 +37,11 @@ const ModalDeleteCardContainer: React.FC<ModalDeleteContainerType> = ({cardID, p
                 show={show}
             >
                 <div className={styles.modal}>
-                    <h2>Delete Card</h2>
-                    <span>Do you really want to remove this card? "{packName}"?</span>
+                    <h2>Delete Card "{packName}"</h2>
+                    <span>Do you really want to remove this card?</span>
                     <div className={styles.button}>
                         <Button color='red' onClick={onClickDeleteHandler}>Delete</Button>
-                        <Button onClick={() => setShow(false)}>Close</Button>
+                        <Button color={COLORS.HEADER_BOTTOM} onClick={() => setShow(false)}>Cancel</Button>
                     </div>
                 </div>
             </Modal>

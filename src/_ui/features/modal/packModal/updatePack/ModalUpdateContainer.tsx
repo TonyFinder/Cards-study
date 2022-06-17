@@ -5,6 +5,7 @@ import {useAppDispatch} from "../../../../../_bll/main/store";
 import {updatePackTC, updateParams} from "../../../../../_bll/features/cards/packsReducer";
 import styles from "../../modalStyle.module.scss"
 import {Input} from '../../../../common/_superComponents/Input/Input';
+import {COLORS} from '../../../../../utils/_values';
 
 type ModalUpdateContainerType = {
     packId: string
@@ -40,10 +41,10 @@ const ModalUpdateContainer: React.FC<ModalUpdateContainerType> = ({packId, packN
             >
                 <div className={styles.modal}>
                     <h2>Change pack "{packName}"</h2>
-                    <Input value={name} onChange={(e) => setName(e.currentTarget.value)} sign='New pack mame'/>
+                    <Input color={COLORS.HEADER_BOTTOM} value={name} onChange={(e) => setName(e.currentTarget.value)} sign='New pack mame'/>
                     <div className={styles.button}>
-                        <Button onClick={onClickUpdateHandler}>Save</Button>
-                        <Button color='red' onClick={() => setShow(false)}>Close</Button>
+                        <Button color={COLORS.HEADER_BOTTOM} onClick={onClickUpdateHandler}>Save</Button>
+                        <Button color={COLORS.HEADER_BOTTOM} onClick={() => setShow(false)}>Close</Button>
                     </div>
                 </div>
             </Modal>

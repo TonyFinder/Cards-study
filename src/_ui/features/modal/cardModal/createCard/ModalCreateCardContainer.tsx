@@ -41,11 +41,11 @@ const ModalCreateCardContainer: React.FC<ModalCreatePackContainerType> = ({disab
             >
                 <div className={styles.modal}>
                     <h3>Add new Card</h3>
-                    <Input sign='question' value={question} onChange={(e) => setQuestion(e.currentTarget.value)}/>
-                    <TextArea sign='answer' value={answer} onChangeText={(e) => setAnswer(e.currentTarget.value)}/>
+                    <Input sign='question' color={COLORS.HEADER_BOTTOM} value={question} onChange={(e) => setQuestion(e.currentTarget.value)}/>
+                    <TextArea sign='answer' color={COLORS.HEADER_BOTTOM} value={answer} onChangeText={(e) => setAnswer(e.currentTarget.value)}/>
                     <div className={styles.button}>
-                        <Button onClick={onClickCreateHandler}>Save</Button>
-                        <Button color='red' onClick={() => setShow(false)}>Close</Button>
+                        <Button color={COLORS.HEADER_BOTTOM} onClick={onClickCreateHandler}>Save</Button>
+                        <Button color={COLORS.HEADER_BOTTOM} onClick={() => setShow(false)}>Close</Button>
                     </div>
                 </div>
             </Modal>

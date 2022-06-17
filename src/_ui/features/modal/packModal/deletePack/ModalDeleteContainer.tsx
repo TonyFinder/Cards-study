@@ -4,6 +4,7 @@ import Modal from "../../Modal";
 import {useAppDispatch} from "../../../../../_bll/main/store";
 import {deletePackTC, updateParams} from "../../../../../_bll/features/cards/packsReducer";
 import styles from "../../modalStyle.module.scss"
+import {COLORS} from '../../../../../utils/_values';
 
 type ModalDeleteContainerType = {
     packId: string
@@ -37,12 +38,12 @@ const ModalDeleteContainer: React.FC<ModalDeleteContainerType> = ({packId, packN
                 show={show}
             >
                 <div className={styles.modal}>
-                    <h2>Delete Pack</h2>
-                    <span>Do you really want to remove Pack "{packName}"?</span>
+                    <h2>Delete Pack "{packName}"</h2>
+                    <span>Do you really want to remove this Pack?</span>
                     <span>  All cards will be excluded from this course.</span>
                     <div className={styles.button}>
                         <Button color='red' onClick={onClickDeleteHandler}>Delete</Button>
-                        <Button onClick={() => setShow(false)}>Close</Button>
+                        <Button color={COLORS.HEADER_BOTTOM} onClick={() => setShow(false)}>Close</Button>
                     </div>
                 </div>
             </Modal>
