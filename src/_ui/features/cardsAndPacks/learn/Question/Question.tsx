@@ -6,7 +6,7 @@ import {COLORS, ROUTE_PATHS} from '../../../../../utils/_values';
 import {Loader} from '../../../../common/_superComponents/Loader/Loader';
 import {useAppDispatch, useCustomSelector} from '../../../../../_bll/main/store';
 import {Navigate, useNavigate, useParams} from 'react-router-dom';
-import {PackType} from '../../../../../_dal/api-vadim';
+import {PackType} from '../../../../../_dal/api-auth';
 import {initialStateCardsType, setCardsTC, updateCardParams} from '../../../../../_bll/features/cards/cardsReducer';
 import {getCard} from '../../../../../utils/functions';
 

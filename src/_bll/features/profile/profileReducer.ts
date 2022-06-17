@@ -2,7 +2,7 @@ import {AppThunk} from '../../main/store';
 import {authAPI, AuthDataType} from '../../../_dal/api-anton';
 import {AxiosError} from 'axios';
 import {AppActionTypes, changeAppLoadingStatus, setAppErrorValue} from '../../main/appReducer';
-import {loginApi} from '../../../_dal/api-vadim';
+import {loginApi} from '../../../_dal/api-auth';
 import {setError, setIsLogin} from '../auth/_login/loginReducer';
 import {LoadingStatusType} from '../../../utils/enums';
 

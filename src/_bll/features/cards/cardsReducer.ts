@@ -7,7 +7,7 @@ import {
     updateCartType,
     UpdatedGradeCardType,
     UpdateGradeCardRequestType
-} from '../../../_dal/api-vadim';
+} from '../../../_dal/api-auth';
 import {AppThunk} from '../../main/store';
 import {changeAppLoadingStatus, setAppErrorValue} from '../../main/appReducer';
 import {LoadingStatusType} from '../../../utils/enums';

@@ -7,7 +7,7 @@ import {Loader} from '../../../../common/_superComponents/Loader/Loader';
 import {useAppDispatch, useCustomSelector} from '../../../../../_bll/main/store';
 import {Radio} from '../../../../common/_superComponents/Radio/Radio';
 import {Navigate, useNavigate, useParams} from 'react-router-dom';
-import {CardType, PackType} from '../../../../../_dal/api-vadim';
+import {CardType, PackType} from '../../../../../_dal/api-auth';
 import {updateGradeCardTC} from '../../../../../_bll/features/cards/cardsReducer';
 
 export const Answer = () => {

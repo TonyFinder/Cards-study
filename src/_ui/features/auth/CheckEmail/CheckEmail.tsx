@@ -17,7 +17,8 @@ export const CheckEmail = () => {
             </div>
 
             <div className={styles.description}>
-                <span>We've sent an email with instructions to <br/> {email ? email : 'exmple@email.com'}</span>
+                <span>We've sent an email with instructions to <br/> <b>{email ? email : 'exmple@email.com'}</b></span><br/><br/><br/>
+                <span>You can close this window and click on the link from our email to continue the password recovery.</span>
             </div>
         </div>
     </div>

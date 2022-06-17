@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     ForgotInitialStateType,
     requestPasswordTC,
@@ -10,20 +10,18 @@ import {Input} from '../../../common/_superComponents/Input/Input';
 import styles from '../../Template.module.scss'
 import {LoginInitialStateType} from '../../../../_bll/features/auth/_login/loginReducer';
 import {LoadingStatusType} from '../../../../utils/enums';
-import {Link, Navigate} from 'react-router-dom';
+import {Link, Navigate, useNavigate} from 'react-router-dom';
 import {COLORS, ROUTE_PATHS} from '../../../../utils/_values';
 import {Loader} from '../../../common/_superComponents/Loader/Loader';
 
 export const Forgot = () => {
-
-    let dispatch = useAppDispatch()
+    const dispatch = useAppDispatch()
+    const navigate = useNavigate()
     const {isLoggedIn} = useCustomSelector<LoginInitialStateType>(state => state.login)
-    const {error} = useCustomSelector<ForgotInitialStateType>(state => state.forgot)
+    const {error, isRedirect} = useCustomSelector<ForgotInitialStateType>(state => state.forgot)
     const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
 
     const [emailValue, setEmailValue] = useState<string>('')
-
-    const [isRedirect, setIsRedirect] = useState(false)
 
     // Validation check
     const [errorEmail, setErrorEmail] = useState<boolean>(false)
@@ -31,15 +29,14 @@ export const Forgot = () => {
 
     const saveButtonDisable = !emailValue || errorEmail || errorEmailValid || !!error
 
+    useEffect(()=>{
+        isRedirect && navigate(`${ROUTE_PATHS.CHECK_EMAIL}/${emailValue}`)
+    }, [emailValue, navigate, isRedirect])
+
     const onClickForgotHandler = () => {
-        /*/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(emailValue)*/
-        if (/^[\w\.=-]+@[\w\.-]+\.[\w]{2,3}$/i.test(emailValue)) {
-            dispatch(requestPasswordTC(emailValue))
-            setIsRedirect(true)
-        } else {
-            setErrorEmailValid(true)
-            setIsRedirect(false)
-        }
+        /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(emailValue)
+            ? dispatch(requestPasswordTC(emailValue))
+            : setErrorEmailValid(true)
     }
     const onChangeTextEmailHandler = (value: string) => {
         setEmailValue(value)
@@ -72,17 +69,11 @@ export const Forgot = () => {
 
             <div className={styles.buttonBig}>
                 {loading === LoadingStatusType.disabled
-                    ? <Link
-                        style={{'textDecoration': 'none'}}
-                        className={styles.buttonBig}
-                        to={isRedirect ? ROUTE_PATHS.CHECK_EMAIL + '/' + emailValue : ''}>
-                        <Button
-                            color={COLORS.MAIN_DARK}
-                            disabled={saveButtonDisable}
-                            onClick={onClickForgotHandler}>
-                            Send instructions
-                        </Button>
-                    </Link>
+                    ? <Button color={COLORS.MAIN_DARK}
+                              disabled={saveButtonDisable}
+                              onClick={onClickForgotHandler}>
+                        Send instructions
+                    </Button>
                     : <Loader color={COLORS.MAIN_DARK}/>
                 }
             </div>

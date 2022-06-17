@@ -5,21 +5,28 @@ export const instance = axios.create({
     withCredentials: true,
 });
 
-export type FieldForgotPassword = {
-  email: string;
-  password: string;
-  message: string;
-};
+const message = `<div style="background-color: #fef2e4; color: #fd974f; padding: 15px">
+     Please click on the following link for the password recovery:
+      <a href='http://localhost:3000/cards-nya-front#/setPass/$token$' 
+      style="color: black; text-decoration: none; font-weight: bold">RECOVERY PASSWORD</a>
+      </div>`
 
 export const forgotApi = {
-  forgot: (email: string|undefined) =>
-    instance.post("auth/forgot", {
-      email,
-      from: "",
-      message: `<div style="background-color: lime; padding: 15px">
-     password recovery link: 
-     <a href='http://localhost:3000/cards-nya-front#/setPass/$token$'>
-      link</a>
-      </div>`,
-    }),
-};
+    forgot(email: string) {
+        return instance.post<any, ForgotPasswordResponseType, ForgotPasswordRequestType>('auth/forgot', {email, from: '', message})
+    }
+}
+
+export type ForgotPasswordRequestType = {
+    email: string
+    from: string
+    message: string
+}
+export type ForgotPasswordResponseType = {
+    data: {
+        answer: boolean
+        html: boolean
+        info: string
+        success: boolean
+    }
+}
