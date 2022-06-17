@@ -33,12 +33,18 @@ const ModalCreatePackContainer: React.FC<ModalCreatePackContainerType> = ({disab
         setShow(false)
     }
 
+    const onClickCloseModalHandler = () => {
+        setShow(false)
+        setNamePack('')
+        setCardPrivate(false)
+    }
+
     return (
         <>
             <Button onClick={() => setShow(true)} color={COLORS.MAIN_DARK} disabled={disabled}>Add new pack</Button>
             <Modal
                 enableBackground={true}
-                backgroundOnClick={() => setShow(false)}
+                backgroundOnClick={onClickCloseModalHandler}
                 width={395}
                 height={250}
                 // modalOnClick={() => setShow(false)}

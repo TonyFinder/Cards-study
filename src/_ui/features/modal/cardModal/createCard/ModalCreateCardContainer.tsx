@@ -28,12 +28,18 @@ const ModalCreateCardContainer: React.FC<ModalCreatePackContainerType> = ({disab
         setShow(false)
     }
 
+    const onClickCloseModalHandler = () => {
+        setShow(false)
+        setQuestion('')
+        setAnswer('')
+    }
+
     return (
         <>
             <Button onClick={() => setShow(true)} color={COLORS.MAIN_DARK} disabled={disabled}>Add new card</Button>
             <Modal
                 enableBackground={true}
-                backgroundOnClick={() => setShow(false)}
+                backgroundOnClick={onClickCloseModalHandler}
                 width={400}
                 height={500}
                 modalClassName={styles.bgColorModal}
@@ -41,7 +47,8 @@ const ModalCreateCardContainer: React.FC<ModalCreatePackContainerType> = ({disab
             >
                 <div className={styles.modal}>
                     <h3>Add new Card</h3>
-                    <Input sign='question' autoFocus value={question} onChange={(e) => setQuestion(e.currentTarget.value)}/>
+                    <Input sign='question' autoFocus value={question}
+                           onChange={(e) => setQuestion(e.currentTarget.value)}/>
                     <TextArea sign='answer' value={answer} onChangeText={(e) => setAnswer(e.currentTarget.value)}/>
                     <div className={styles.button}>
                         <Button onClick={onClickCreateHandler}>Save</Button>
