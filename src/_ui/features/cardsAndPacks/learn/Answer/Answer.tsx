@@ -25,7 +25,7 @@ export const Answer = () => {
         {id: 3, title: 'Very good', selected: false},
         {id: 4, title: 'Excellent', selected: false},
     ])
-    let gradeToUpdate = radioSelect.reduce((acc, el, i) => el.selected ? i : acc, 0) + 1
+    let gradeToUpdate = radioSelect.filter(item => item.selected).length > 0 ? radioSelect.filter(item => item.selected)[0].id + 1 : 0
     const onClickRadio = (position: number) => {
         setRadioSelect(radioSelect.map(item =>
             item.id === position
@@ -34,8 +34,10 @@ export const Answer = () => {
     }
     const onClickLeaveHandler = () => navigate(ROUTE_PATHS.PACKS)
     const onClickAnswerHandler = () => {
-        dispatch(updateGradeCardTC({grade: gradeToUpdate, card_id: cardId ? cardId : ''}))
-        navigate(`${ROUTE_PATHS.QUESTION}/${packId}`)
+        if (gradeToUpdate > 0) {
+            dispatch(updateGradeCardTC({grade: gradeToUpdate, card_id: cardId ? cardId : ''}))
+            navigate(`${ROUTE_PATHS.QUESTION}/${packId}`)
+        } else navigate(`${ROUTE_PATHS.QUESTION}/${packId}`)
     }
 
     if (!pack) return <Navigate to={ROUTE_PATHS.PACKS}/>
