@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {
     ForgotInitialStateType,
     requestPasswordTC,
@@ -10,13 +10,12 @@ import {Input} from '../../../common/_superComponents/Input/Input';
 import styles from '../../Template.module.scss'
 import {LoginInitialStateType} from '../../../../_bll/features/auth/_login/loginReducer';
 import {LoadingStatusType} from '../../../../utils/enums';
-import {Link, Navigate, useNavigate} from 'react-router-dom';
+import {Link, Navigate} from 'react-router-dom';
 import {COLORS, ROUTE_PATHS} from '../../../../utils/_values';
 import {Loader} from '../../../common/_superComponents/Loader/Loader';
 
 export const Forgot = () => {
     const dispatch = useAppDispatch()
-    const navigate = useNavigate()
     const {isLoggedIn} = useCustomSelector<LoginInitialStateType>(state => state.login)
     const {error, isRedirect} = useCustomSelector<ForgotInitialStateType>(state => state.forgot)
     const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
@@ -28,10 +27,6 @@ export const Forgot = () => {
     const [errorEmailValid, setErrorEmailValid] = useState<boolean>(false)
 
     const saveButtonDisable = !emailValue || errorEmail || errorEmailValid || !!error
-
-    useEffect(()=>{
-        isRedirect && navigate(`${ROUTE_PATHS.CHECK_EMAIL}/${emailValue}`)
-    }, [emailValue, navigate, isRedirect])
 
     const onClickForgotHandler = () => {
         /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(emailValue)
@@ -45,6 +40,7 @@ export const Forgot = () => {
     }
 
     if (isLoggedIn) return <Navigate to={ROUTE_PATHS.PROFILE}/>
+    if (isRedirect) return <Navigate to={`${ROUTE_PATHS.CHECK_EMAIL}/${emailValue}`}/>
 
     return <div className={styles.container}>
         <div className={styles.block}>

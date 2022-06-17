@@ -3,7 +3,7 @@ import axios from "axios";
 export const instance = axios.create({
     baseURL: 'https://neko-back.herokuapp.com/2.0/',
     withCredentials: true,
-});
+})
 
 const message = `<div style="background-color: #fef2e4; color: #fd974f; padding: 15px">
      Please click on the following link for the password recovery:
@@ -13,7 +13,8 @@ const message = `<div style="background-color: #fef2e4; color: #fd974f; padding:
 
 export const forgotApi = {
     forgot(email: string) {
-        return instance.post<any, ForgotPasswordResponseType, ForgotPasswordRequestType>('auth/forgot', {email, from: '', message})
+        return instance.post<any, ForgotPasswordResponseType, ForgotPasswordRequestType>('auth/forgot',
+            {email, from: '', message})
     }
 }
 

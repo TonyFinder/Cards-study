@@ -1,4 +1,4 @@
-import {FieldSetPassword, setPasswordApi} from '../../../../_dal/api-setPassword';
+import {setPasswordApi} from '../../../../_dal/api-setPassword';
 import {AppThunk} from '../../../main/store';
 import {changeAppLoadingStatus} from '../../../main/appReducer';
 import {LoadingStatusType} from '../../../../utils/enums';
@@ -20,14 +20,14 @@ export const setPassReducer = (state: SetPasswordInitialStateType = initialState
 }
 
 // actions
-const setError = (error: string) => ({type: "SET-PASSWORD/SET-ERROR", error} as const);
+export const setError = (error: string) => ({type: "SET-PASSWORD/SET-ERROR", error} as const);
 const setPasswordSuccess = (info: string) => ({type: "SET-PASSWORD/SET-PASSWORD-SUCCESS", info} as const);
 
 // thunks
-export const setNewPasswordTC = (data: FieldSetPassword): AppThunk => (dispatch) => {
+export const setNewPasswordTC = (password: string, resetPasswordToken: string): AppThunk => (dispatch) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
-    setPasswordApi.setPassword(data)
-        .then(res => dispatch(setPasswordSuccess(res.data.info)))
+    setPasswordApi.setPassword(password, resetPasswordToken)
+        .then(res => res.data.info && dispatch(setPasswordSuccess(res.data.info)))
         .catch(err => dispatch(setError(err.response.data.error)))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }

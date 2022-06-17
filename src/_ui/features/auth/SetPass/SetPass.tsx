@@ -1,19 +1,21 @@
 import React, {useState} from 'react';
 import {Navigate, useParams} from 'react-router-dom';
-import {setNewPasswordTC, SetPasswordInitialStateType} from '../../../../_bll/features/auth/setPass/setPassReducer';
+import {
+  setError,
+  setNewPasswordTC,
+  SetPasswordInitialStateType
+} from '../../../../_bll/features/auth/setPass/setPassReducer';
 import {useAppDispatch, useCustomSelector} from '../../../../_bll/main/store';
 import {Button} from '../../../common/_superComponents/Button/Button';
 import {Input} from '../../../common/_superComponents/Input/Input';
 import styles from '../../Template.module.scss'
-import {setError} from '../../../../_bll/features/auth/forgot/forgotReducer';
 import {LoadingStatusType} from '../../../../utils/enums';
 import {COLORS, ROUTE_PATHS} from '../../../../utils/_values';
 import {Loader} from '../../../common/_superComponents/Loader/Loader';
 
 export const SetPass = () => {
-  let dispatch = useAppDispatch()
-  const token = useParams<"token">();
-  const resetPasswordToken = token.token;
+  const dispatch = useAppDispatch()
+  const {token} = useParams();
   const {error, info} = useCustomSelector<SetPasswordInitialStateType>(state => state.setPass)
   const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
 
@@ -28,11 +30,12 @@ export const SetPass = () => {
 
   const onClickCreateHandler = () => {
     passwordValue.length > 7
-        ? dispatch(setNewPasswordTC({ password: passwordValue, resetPasswordToken }))
+        ? dispatch(setNewPasswordTC(passwordValue, token ? token : ''))
         : setErrorPasswordValid(true)
   }
   const onChangeTextPasswordHandler = (value: string) => {
     setPasswordValue(value)
+    setErrorPassword(false)
     setErrorPasswordValid(false)
     error && dispatch(setError(''))
   }

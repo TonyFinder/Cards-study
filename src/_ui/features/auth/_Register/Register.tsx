@@ -39,7 +39,7 @@ export const Register = () => {
         : m))
   }
   const onClickRegisterHandler = () => {
-    /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(emailValue) && passwordValue.length > 7 && repeatPasswordValue.length > 7 && passwordValue === repeatPasswordValue && dispatch(requestRegistrationTC({ email: emailValue, password: passwordValue }))
+    /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(emailValue) && passwordValue.length > 7 && repeatPasswordValue.length > 7 && passwordValue === repeatPasswordValue && dispatch(requestRegistrationTC(emailValue, passwordValue))
     !(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(emailValue)) && setErrorEmailValid(true)
     passwordValue.length < 8 && setErrorPasswordValid(true)
     repeatPasswordValue.length < 8 && setErrorRepeatPasswordValid(true)

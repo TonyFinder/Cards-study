@@ -1,4 +1,4 @@
-import {registerApi, ShippingFields} from '../../../../_dal/api-register';
+import {registerApi} from '../../../../_dal/api-register';
 import {changeAppLoadingStatus} from '../../../main/appReducer';
 import {LoadingStatusType} from '../../../../utils/enums';
 import {AppThunk} from '../../../main/store';
@@ -25,10 +25,14 @@ export const register = (isRegistered: boolean) => ({type: "REGISTER/REGISTER", 
 export const setError = (error: string) => ({type: "REGISTER/SET-ERROR", error} as const)
 
 // thunks
-export const requestRegistrationTC = (data: ShippingFields): AppThunk => (dispatch) => {
+export const requestRegistrationTC = (email: string,  password: string): AppThunk => (dispatch) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
-    registerApi.register(data)
-        .then(() => dispatch(register(true)))
+    registerApi.register(email,  password)
+        .then(res => {
+            res.data.error
+                ? dispatch(setError(res.data.error))
+                : dispatch(register(true))
+        })
         .catch(err => dispatch(setError(err.response.data.error)))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
