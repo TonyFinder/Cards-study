@@ -16,6 +16,7 @@ import {Question} from '../_ui/features/cardsAndPacks/learn/Question/Question';
 export const COLORS = {
     MAIN_DARK: '#fd974f',
     MAIN_LIGHT: '#fef2e4',
+    HEADER_BOTTOM: '#fc6e0a',
     DEFAULT: '#53a6fb',
     TRANSPARENT: 'rgba(255,255,255,0.7)',
     SORT: 'white'
@@ -46,25 +47,25 @@ export const ROUTE_PATHS = {
 
 export const dataRoutes = {
     routes: [
-        {id: 0, title: 'Main', visible: true, path: ROUTE_PATHS.MAIN, element: <Navigate to={ROUTE_PATHS.LOGIN}/>},
-        {id: 1, title: 'Login', visible: true, path: ROUTE_PATHS.LOGIN, element: <Login/>},
-        {id: 2, title: 'Register', visible: true, path: ROUTE_PATHS.REGISTER, element: <Register/>},
-        {id: 3, title: 'ForgotPass', visible: true, path: ROUTE_PATHS.FORGOT, element: <Forgot/>},
-        {id: 4, title: 'SetPass', visible: true, path: ROUTE_PATHS.SET_PASS, element: <SetPass/>},
+        {id: 0, title: 'Main', visible: false, path: ROUTE_PATHS.MAIN, element: <Navigate to={ROUTE_PATHS.LOGIN}/>},
+        {id: 1, title: 'Login', visible: false, path: ROUTE_PATHS.LOGIN, element: <Login/>},
+        {id: 2, title: 'Register', visible: false, path: ROUTE_PATHS.REGISTER, element: <Register/>},
+        {id: 3, title: 'ForgotPass', visible: false, path: ROUTE_PATHS.FORGOT, element: <Forgot/>},
+        {id: 4, title: 'SetPass', visible: false, path: ROUTE_PATHS.SET_PASS, element: <SetPass/>},
         {id: 4, title: 'SetPassToken', visible: false, path: ROUTE_PATHS.SET_PASS_TOKEN, element: <SetPass/>},
         {id: 5, title: 'Packs', visible: true, path: ROUTE_PATHS.PACKS, element: <Packs/>},
         {id: 6, title: 'Cards', visible: false, path: ROUTE_PATHS.CARDS, element: <Cards/>},
         {id: 7, title: 'CardsToken', visible: false, path: ROUTE_PATHS.CARDS_TOKEN, element: <Cards/>},
         {id: 8, title: 'Profile', visible: true, path: ROUTE_PATHS.PROFILE, element: <Profile/>},
-        {id: 9, title: 'Test', visible: true, path: ROUTE_PATHS.TEST, element: <Test/>},
-        {id: 10, title: 'Error404', visible: true, path: ROUTE_PATHS.ERROR_404, element: <Error404/>},
+        {id: 9, title: 'Test', visible: false, path: ROUTE_PATHS.TEST, element: <Test/>},
+        {id: 10, title: 'Error404', visible: false, path: ROUTE_PATHS.ERROR_404, element: <Error404/>},
         {id: 11, title: 'Unknown url', visible: false, path: ROUTE_PATHS.UNKNOWN_URL, element: <Navigate to={ROUTE_PATHS.ERROR_404}/>},
-        {id: 12, title: 'Template', visible: true, path: ROUTE_PATHS.TEMPLATE, element: <Template/>},
-        {id: 13, title: 'CheckEmail', visible: true, path: ROUTE_PATHS.CHECK_EMAIL, element: <CheckEmail/>},
+        {id: 12, title: 'Template', visible: false, path: ROUTE_PATHS.TEMPLATE, element: <Template/>},
+        {id: 13, title: 'CheckEmail', visible: false, path: ROUTE_PATHS.CHECK_EMAIL, element: <CheckEmail/>},
         {id: 13, title: 'CheckEmailToken', visible: false, path: ROUTE_PATHS.CHECK_EMAIL_TOKEN, element: <CheckEmail/>},
-        {id: 14, title: 'Question', visible: true, path: ROUTE_PATHS.QUESTION, element: <Question/>},
+        {id: 14, title: 'Question', visible: false, path: ROUTE_PATHS.QUESTION, element: <Question/>},
         {id: 15, title: 'Question', visible: false, path: ROUTE_PATHS.QUESTION_TOKEN, element: <Question/>},
-        {id: 16, title: 'Answer', visible: true, path: ROUTE_PATHS.ANSWER, element: <Answer/>},
+        {id: 16, title: 'Answer', visible: false, path: ROUTE_PATHS.ANSWER, element: <Answer/>},
         {id: 17, title: 'Answer', visible: false, path: ROUTE_PATHS.ANSWER_TOKEN, element: <Answer/>},
     ]
 }
