@@ -26,6 +26,7 @@
       width: 243px;
       height: 636px;
       background-color: $tableFirstColor;
+      font-family: 'Montserrat', sans-serif;
 
       > span {
         font-weight: bold;
@@ -45,6 +46,7 @@
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
+        font-family: 'Montserrat', sans-serif;
 
         button {
           margin: 0 10px 29px 10px;
