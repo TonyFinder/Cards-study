@@ -1,29 +1,23 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import styles from '../../../Template.module.scss';
 import {Button} from '../../../../common/_superComponents/Button/Button';
 import {LoadingStatusType} from '../../../../../utils/enums';
 import {COLORS, ROUTE_PATHS} from '../../../../../utils/_values';
 import {Loader} from '../../../../common/_superComponents/Loader/Loader';
-import {useAppDispatch, useCustomSelector} from '../../../../../_bll/main/store';
+import {useCustomSelector} from '../../../../../_bll/main/store';
 import {Navigate, useNavigate, useParams} from 'react-router-dom';
 import {PackType} from '../../../../../_dal/api-PacksAndCards';
-import {initialStateCardsType, setCardsTC, updateCardParams} from '../../../../../_bll/features/cards/cardsReducer';
+import {initialStateCardsType} from '../../../../../_bll/features/cards/cardsReducer';
 import {getCard} from '../../../../../utils/functions';
 
 export const Question = () => {
     const {cards} = useCustomSelector<initialStateCardsType>(state => state.cards);
-    const dispatch = useAppDispatch()
     const navigate = useNavigate()
     let {packId} = useParams()
     const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
     const pack = useCustomSelector<PackType>(state => state.packs.cardPacks.filter(i => i._id === packId)[0])
 
     let chosenCard = getCard(cards)
-
-    useEffect(() => {
-        dispatch(updateCardParams({cardsPack_id: packId}))
-        dispatch(setCardsTC())
-    }, [dispatch, packId])
 
     const onClickLeaveHandler = () => navigate(ROUTE_PATHS.PACKS)
     const onCLickAnswerHandle = () => {
