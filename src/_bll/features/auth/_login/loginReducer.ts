@@ -14,7 +14,6 @@ export const loginReducer = (state: LoginInitialStateType = initialState, action
     }
 }
 
-
 // actions
 export const setIsLogin = (value: boolean) => ({type: 'LOGIN/SET_IS_LOGIN', value} as const)
 export const setError = (value: string) => ({type: 'LOGIN/SET_ERROR', value} as const)
