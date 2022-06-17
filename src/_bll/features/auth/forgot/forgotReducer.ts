@@ -1,7 +1,7 @@
-import {forgotApi} from '../../../../_dal/api-forgotPassword';
 import {AppThunk} from '../../../main/store';
 import {changeAppLoadingStatus} from '../../../main/appReducer';
 import {LoadingStatusType} from '../../../../utils/enums';
+import {registerApi} from '../../../../_dal/api-auth';
 
 let initialState = {
     error: "",
@@ -26,7 +26,7 @@ export const redirectToCheckEmail = () => ({type: "FORGOT/REDIRECT-TO-CHECK-EMAI
 // thunks
 export const requestPasswordTC = (email: string): AppThunk => (dispatch) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
-    forgotApi.forgot(email)
+    registerApi.forgot(email)
         .then(() => dispatch(redirectToCheckEmail()))
         .catch(err => dispatch(setError(err.response.data.error)))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))

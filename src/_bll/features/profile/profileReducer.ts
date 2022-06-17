@@ -1,8 +1,7 @@
 import {AppThunk} from '../../main/store';
-import {authAPI, AuthDataType} from '../../../_dal/api-anton';
+import {authAPI, AuthDataType} from '../../../_dal/api-auth';
 import {AxiosError} from 'axios';
 import {AppActionTypes, changeAppLoadingStatus, setAppErrorValue} from '../../main/appReducer';
-import {loginApi} from '../../../_dal/api-auth';
 import {setError, setIsLogin} from '../auth/_login/loginReducer';
 import {LoadingStatusType} from '../../../utils/enums';
 
@@ -41,7 +40,7 @@ export const changeProfileData = (data: AuthDataType) => ({type: 'PROFILE/CHANGE
 // thunks
 export const setDataUserTC = (email: string, password: string, rememberMe: boolean): AppThunk => (dispatch) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
-    loginApi.login(email, password, rememberMe)
+    authAPI.login(email, password, rememberMe)
         .then(res => {
             dispatch(setProfileData(res.data))
             dispatch(setIsLogin(true))

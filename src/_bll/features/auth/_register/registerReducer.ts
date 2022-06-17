@@ -1,7 +1,7 @@
-import {registerApi} from '../../../../_dal/api-register';
 import {changeAppLoadingStatus} from '../../../main/appReducer';
 import {LoadingStatusType} from '../../../../utils/enums';
 import {AppThunk} from '../../../main/store';
+import { registerApi } from '../../../../_dal/api-auth';
 
 let initialState = {
     error: "",

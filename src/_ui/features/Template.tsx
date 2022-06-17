@@ -5,7 +5,7 @@ import {LoadingStatusType} from '../../utils/enums';
 import {Input} from '../common/_superComponents/Input/Input';
 import {Loader} from '../common/_superComponents/Loader/Loader';
 import {useCustomSelector} from '../../_bll/main/store';
-import {AuthDataType} from '../../_dal/api-anton';
+import {AuthDataType} from '../../_dal/api-auth';
 import {COLORS, ROUTE_PATHS} from '../../utils/_values';
 import {Checkbox} from '../common/_superComponents/Checkbox/Checkbox';
 import {Link} from 'react-router-dom';

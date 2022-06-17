@@ -1,6 +1,6 @@
 import {LoadingStatusType} from '../../utils/enums';
 import {AppThunk} from './store';
-import {authAPI} from '../../_dal/api-anton';
+import {authAPI} from '../../_dal/api-auth';
 import {setIsLogin} from '../features/auth/_login/loginReducer';
 import {AxiosError} from 'axios';
 import {setProfileData} from '../features/profile/profileReducer';

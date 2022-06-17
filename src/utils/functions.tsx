@@ -1,4 +1,4 @@
-import {CardType} from '../_dal/api-auth';
+import {CardType} from '../_dal/api-PacksAndCards';
 
 export const getCard = (cards: CardType[]) => {
     const sum = cards.reduce((acc, card) => acc + (6 - card.grade) * (6 - card.grade), 0);

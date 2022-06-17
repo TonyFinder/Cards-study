@@ -1,7 +1,7 @@
-import {setPasswordApi} from '../../../../_dal/api-setPassword';
 import {AppThunk} from '../../../main/store';
 import {changeAppLoadingStatus} from '../../../main/appReducer';
 import {LoadingStatusType} from '../../../../utils/enums';
+import {registerApi} from '../../../../_dal/api-auth';
 
 let initialState = {
     info: "",
@@ -26,7 +26,7 @@ const setPasswordSuccess = (info: string) => ({type: "SET-PASSWORD/SET-PASSWORD-
 // thunks
 export const setNewPasswordTC = (password: string, resetPasswordToken: string): AppThunk => (dispatch) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
-    setPasswordApi.setPassword(password, resetPasswordToken)
+    registerApi.setPassword(password, resetPasswordToken)
         .then(res => res.data.info && dispatch(setPasswordSuccess(res.data.info)))
         .catch(err => dispatch(setError(err.response.data.error)))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))

@@ -1,191 +1,131 @@
-import axios from "axios";
-import {AuthDataType} from "./api-anton";
+import axios from 'axios';
 
-
-export const instance = axios.create({
+const instance = axios.create({
     baseURL: 'http://localhost:7542/2.0/',
     // baseURL: 'https://neko-back.herokuapp.com/2.0/',
     withCredentials: true,
 })
 
+export const instanceNeko = axios.create({
+    baseURL: 'https://neko-back.herokuapp.com/2.0/',
+    withCredentials: true,
+})
 
-export const loginApi = {
+const message = `<div style="background-color: #fef2e4; color: #fd974f; padding: 15px">
+     Please click on the following link for the password recovery:
+      <a href='http://localhost:3000/cards-nya-front#/setPass/$token$' 
+      style="color: black; text-decoration: none; font-weight: bold">RECOVERY PASSWORD</a>
+      </div>`
+
+// api
+export const authAPI = {
+    me() {
+        return instance.post<any, MeResponseType, {}>('auth/me')
+    },
     login(email: string, password: string, rememberMe: boolean) {
-        return instance.post<any, { data: AuthDataType }, { email: string, password: string, rememberMe: boolean }>('auth/login', {
-            email,
-            password,
-            rememberMe
-        })
+        return instance.post<any, { data: AuthDataType }, { email: string, password: string, rememberMe: boolean }>('auth/login',
+            {email, password, rememberMe})
     },
+    logout() {
+        return instance.delete<any, MeLogoutResponse, {}>('auth/me')
+    },
+    changeNameAvatar(name: string, avatar: string) {
+        return instance.put<any, ProfileChangeResponseType, {name: string, avatar: string}>('auth/me', {name, avatar})
+    }
 }
 
-
-export const packsApi = {
-    getPacks(params: PackParamsType) {
-        return instance.get<any, { data: PacksType }, PackParamsType>('cards/pack', {
-            params: params
-        })
+export const registerApi = {
+    register(email: string,  password: string) {
+        return instance.post<any, RegisterResponseType, RegisterRequestType>("auth/register", {email, password})
     },
-    createPack(data: CreatePackType) {
-        return instance.post<any, any, { cardsPack: CreatePackType }>('cards/pack', {cardsPack: data})
+    forgot(email: string) {
+        return instanceNeko.post<any, ForgotPasswordResponseType, ForgotPasswordRequestType>('auth/forgot',
+            {email, from: '', message})
     },
-    deletePack(id: string) {
-        return instance.delete<any, any, string>('cards/pack', {params: {id}},)
-    },
-    updatePack(data: UpdatePackType) {
-        return instance.put<any, any, { cardsPack: UpdatePackType }>('cards/pack', {cardsPack: data})
-    },
-}
-
-
-export const cardsApi = {
-    getCards(params: CardParamsType) {
-        return instance.get<any, { data: CardsType }, CardParamsType>('cards/card',
-            {
-                params: params
-            })
-    },
-    createCard(data: CreateCardType) {
-        return instance.post<any, any, { card: CreateCardType }>('cards/card', {card: data})
-    },
-    deleteCard(id: string) {
-        return instance.delete<any, any, string>('cards/card', {params: {id}})
-    },
-    updatedCard(data: updateCartType) {
-        return instance.put<any, any, { card: updateCartType }>('cards/card', {card: data})
-    },
-    updateGradeCard(data: UpdateGradeCardRequestType) {
-        return instance.put<any, UpdateGradeResponseType, UpdateGradeCardRequestType>('/cards/grade', data)
+    setPassword(password: string, resetPasswordToken: string) {
+        return instance.post<any, SetPasswordResponseType, SetPasswordRequestType>("/auth/set-new-password",
+            {password, resetPasswordToken})
     }
 }
 
 
 // types
-export type PacksType = {
-    cardPacks: PackType[]
-    cardPacksTotalCount: number
-    maxCardsCount: number
-    minCardsCount: number
-    page: number
-    pageCount: number
-    error?: string
+export type AuthDataType = {
+    _id: string;
+    email: string;
+    password?: string
+    name: string;
+    avatar?: string;
+    publicCardPacksCount: number;
 
-    changeSlider: boolean
-}
+    created?: string;
+    updated?: string;
+    isAdmin: boolean;
+    verified: boolean;
+    rememberMe: boolean;
 
-export type PackType = {
-    _id: string
-    user_id: string
-    user_name: string,
-    name: string
-    cardsCount: number
-    created: string
-    updated: string
+    error?: string;
 }
-
-export type PackParamsType = {
-    packName?: string,
-    min?: number,
-    max?: number,
-    sortPacks?: string,
-    page?: number,
-    pageCount?: number,
-    user_id?: string,
-}
-
-export type CreatePackType = {
-    name?: string
-    deckCover?: string
-    cardPrivate?: boolean
-}
-
-export type UpdatePackType = {
-    deckCover?: string
-    name?: string
-    _id: string
-}
-
-export type CardsType = {
-    cards: CardType[]
-    cardsTotalCount: number
-    maxGrade: number
-    minGrade: number
-    page: number
-    pageCount: number
-    packUserId: string
-}
-
-
-export type CardType = {
-    _id: string
-    answer: string
-    question: string
-    cardsPack_id: string
-    grade: number
-    shots: number
-    user_id: string
-    created: string
-    updated: string
-}
-
-export type CardParamsType = {
-    cardAnswer: string
-    cardQuestion: string
-    cardsPack_id: string
-    min: number
-    max: number
-    sortCards: string
-    page: number
-    pageCount: number
-}
-
-export type UpdateCardParamsType = {
-    cardAnswer?: string
-    cardQuestion?: string
-    cardsPack_id?: string
-    min?: number
-    max?: number
-    sortCards?: string
-    page?: number
-    pageCount?: number
-}
-
-export type CreateCardType = {
-    cardsPack_id: string
-    question?: string
-    answer?: string
-    grade?: number
-    shots?: number
-    answerImg?: string
-    questionImg?: string
-    questionVideo?: string
-    answerVideo?: string
-}
-
-export type updateCartType = {
-    _id: string
-    question?: string
-    answer?: string
-    grade?: number
-}
-export type UpdateGradeCardRequestType = {
-    grade: number
-    card_id: string
-}
-export type UpdatedGradeCardType = {
-    _id: string
-    cardsPack_id: string
-    card_id: string
-    user_id: string
-    grade: number
-    shots: number
-    created: string
-    more_id: string
-    updated: string
-    __v: number
-}
-export type UpdateGradeResponseType = {
+export type ProfileChangeResponseType = {
     data: {
-        updatedGrade: UpdatedGradeCardType
+        updatedUser: AuthDataType
+        error?: string
+    }
+}
+type MeResponseType = {
+    data: AuthDataType
+    error?: string
+}
+type MeLogoutResponse = {
+    data: {
+        info: string
+    }
+    error: string
+}
+
+export type RegisterRequestType = {
+    email: string
+    password: string
+}
+export type RegisterResponseType = {
+    data: {
+        addedUser: {
+            created: string
+            email: string
+            isAdmin: boolean
+            name: string
+            publicCardPacksCount: number
+            rememberMe: boolean
+            updated: string
+            verified: boolean
+            __v: number
+            _id: string
+        }
+        error?: string
+    }
+}
+
+export type ForgotPasswordRequestType = {
+    email: string
+    from: string
+    message: string
+}
+export type ForgotPasswordResponseType = {
+    data: {
+        answer: boolean
+        html: boolean
+        info: string
+        success: boolean
+    }
+}
+
+export type SetPasswordRequestType = {
+    password: string
+    resetPasswordToken: string
+}
+export type SetPasswordResponseType = {
+    data: {
+        info: string
+        error: string
     }
 }

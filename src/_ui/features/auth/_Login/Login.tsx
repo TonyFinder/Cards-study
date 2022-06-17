@@ -10,7 +10,7 @@ import {LoginInitialStateType, setError} from '../../../../_bll/features/auth/_l
 import {COLORS, ROUTE_PATHS} from '../../../../utils/_values';
 import {LoadingStatusType} from '../../../../utils/enums';
 import {Loader} from '../../../common/_superComponents/Loader/Loader';
-import {AuthDataType} from '../../../../_dal/api-anton';
+import {AuthDataType} from '../../../../_dal/api-auth';
 import {register} from '../../../../_bll/features/auth/_register/registerReducer';
 
 
