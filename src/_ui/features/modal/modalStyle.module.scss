@@ -2,31 +2,36 @@
 
 .bgColorModal {
   border-radius: 4px;
-  background: linear-gradient($backColorFirst, $backColorSecond);
-  justify-content: space-evenly;
+  background: #fce0bf;
+  //justify-content: space-evenly;
   min-width: 300px;
-  width: auto;
+  //width: auto;
 }
 
 .modal {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100% !important;
-  height: 100% !important;
-  justify-content: space-between;
+  width: 90% !important;
+  height: 95% !important;
+  font-family: 'Montserrat', sans-serif;
+  justify-content: space-evenly;
 
   span {
-    width: 80% !important;
+    //width: 80% !important;
   }
 
-  div {
-    margin: 10px 0;
-
+  /*div {
+    //margin: 10px 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
     input {
 
     }
-  }
+  }*/
 
 
   .button {
@@ -35,7 +40,7 @@
     button {
       display: flex;
       padding: 10px 15px !important;
-      margin-top: 10px !important;
+      margin: 15px !important;
     }
   }
 }

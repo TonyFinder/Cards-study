@@ -14,6 +14,7 @@ import {Loader} from '../../../common/_superComponents/Loader/Loader';
 import ModalCreatePackContainer from "../../modal/packModal/createPack/ModalCreatePackContainer";
 import {Button} from '../../../common/_superComponents/Button/Button';
 import useDebounce from './components/inputComponent/castomHookUseDebounce';
+import {setCardsTC, updateCardParams} from '../../../../_bll/features/cards/cardsReducer';
 
 const headerTable = {
     name: "Name",
@@ -88,7 +89,11 @@ export const Packs = () => {
         }))
         setSearchTerm('')
     }
-    const onClickToLearn = (packId: string) => navigate(`${ROUTE_PATHS.QUESTION}/${packId}`)
+    const onClickToLearn = (packId: string) => {
+        dispatch(updateCardParams({cardsPack_id: packId}))
+        dispatch(setCardsTC())
+        navigate(`${ROUTE_PATHS.QUESTION}/${packId}`)
+    }
 
     if (!isLogin) return <Navigate to={ROUTE_PATHS.LOGIN}/>
 

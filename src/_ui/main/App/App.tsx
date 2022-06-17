@@ -10,6 +10,7 @@ import {COLORS} from '../../../utils/_values';
 export const App = () => {
     const dispatch = useAppDispatch()
     const isInitialized = useCustomSelector<boolean>(state => state.app.isInitialized)
+    const isLoggedIn = useCustomSelector<boolean>(state => state.login.isLoggedIn)
 
     useEffect(()=> {
         dispatch(initializeAppTC())
@@ -17,10 +18,12 @@ export const App = () => {
 
     return <div className={styles.App}>
         {isInitialized
-            ? <>
-                <Header/>
-                <Router/>
-            </>
+            ? isLoggedIn
+                ? <>
+                    <Header/>
+                    <Router/>
+                </>
+                : <Router/>
             : <div className={styles.loader}>
                 <div>
                     <Loader color={COLORS.MAIN_DARK}/>

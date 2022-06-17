@@ -13,7 +13,7 @@ export const HeaderLink = ({to, children, ...props}: HeaderLinkPropsType) => {
 
     const style = {
         color: `${match ? COLORS.MAIN_LIGHT : COLORS.MAIN_DARK}`,
-        borderBottom: `4px solid ${match ? COLORS.HEADER_BOTTOM : 'transparent'}`,
+        borderBottom: `3px solid ${match ? COLORS.HEADER_BOTTOM : 'transparent'}`,
         borderRadius: '12% 12% 0 0',
         backgroundColor: `${match ? COLORS.MAIN_DARK : 'transparent'}`,
     }

@@ -46,23 +46,24 @@ const ModalCreatePackContainer: React.FC<ModalCreatePackContainerType> = ({disab
                 enableBackground={true}
                 backgroundOnClick={onClickCloseModalHandler}
                 width={395}
-                height={250}
+                height={300}
                 // modalOnClick={() => setShow(false)}
                 modalClassName={styles.bgColorModal}
                 show={show}
             >
                 <div className={styles.modal}>
                     <h3>Add new Pack</h3>
-                    <Input sign='Name pack' autoFocus value={namePack} onChange={(e) => setNamePack(e.currentTarget.value)}/>
+                    <Input sign='Name pack' color={COLORS.HEADER_BOTTOM} autoFocus value={namePack} onChange={(e) => setNamePack(e.currentTarget.value)}/>
                     <Checkbox
                         className={styles.checkbox}
                         checked={cardPrivate}
+                        color={COLORS.HEADER_BOTTOM}
                         onChange={(e) => setCardPrivate(e.currentTarget.checked)}>
                         Private
                     </Checkbox>
                     <div className={styles.button}>
-                        <Button onClick={onClickCreateHandler}>Save</Button>
-                        <Button color='red' onClick={() => setShow(false)}>Close</Button>
+                        <Button color={COLORS.HEADER_BOTTOM} onClick={onClickCreateHandler}>Save</Button>
+                        <Button color={COLORS.HEADER_BOTTOM} onClick={() => setShow(false)}>Close</Button>
                     </div>
                 </div>
             </Modal>

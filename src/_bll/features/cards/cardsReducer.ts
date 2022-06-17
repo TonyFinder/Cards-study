@@ -40,7 +40,7 @@ const initialState: initialStateCardsType = {
         cardsPack_id: "",
         min: 0,
         max: 0,
-        sortCards: "0grade",
+        sortCards: "0updated",
         page: 1,
         pageCount: 7
 
