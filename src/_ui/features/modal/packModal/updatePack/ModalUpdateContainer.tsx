@@ -6,6 +6,7 @@ import {updatePackTC, updateParams} from "../../../../../_bll/features/cards/pac
 import styles from "../../modalStyle.module.scss"
 import {Input} from '../../../../common/_superComponents/Input/Input';
 import {COLORS} from '../../../../../utils/_values';
+import {Checkbox} from "../../../../common/_superComponents/Checkbox/Checkbox";
 
 type ModalUpdateContainerType = {
     packId: string
@@ -17,11 +18,11 @@ type ModalUpdateContainerType = {
 const ModalUpdateContainer: React.FC<ModalUpdateContainerType> = ({packId, packName, disabled}) => {
     const [show, setShow] = useState(false);
     const [name, setName] = useState(packName);
-
+    const [cardPrivate, setCardPrivate] = useState(false);
     const dispatch = useAppDispatch()
 
     const onClickUpdateHandler = () => {
-        dispatch(updatePackTC({_id: packId, name: name, deckCover: ""}))
+        dispatch(updatePackTC({_id: packId, name: name, deckCover: "", cardPrivate: cardPrivate}))
         dispatch(updateParams({page: 1}))
         setShow(false)
     }
@@ -29,6 +30,7 @@ const ModalUpdateContainer: React.FC<ModalUpdateContainerType> = ({packId, packN
     const onClickCloseModalHandler = () => {
         setShow(false)
         setName(packName)
+        setCardPrivate(false)
     }
 
     return (
@@ -40,14 +42,21 @@ const ModalUpdateContainer: React.FC<ModalUpdateContainerType> = ({packId, packN
 
                 width={400}
                 height={300}
-                // modalOnClick={() => setShow(false)}
                 modalClassName={styles.bgColorModal}
                 show={show}
             >
                 <div className={styles.modal}>
                     <h2>Change pack "{packName}"</h2>
-                    <Input value={name} color={COLORS.HEADER_BOTTOM} autoFocus onChange={(e) => setName(e.currentTarget.value)}
+                    <Input value={name} color={COLORS.HEADER_BOTTOM} autoFocus
+                           onChange={(e) => setName(e.currentTarget.value)}
                            sign='New pack mame'/>
+                    <Checkbox
+                        className={styles.checkbox}
+                        checked={cardPrivate}
+                        color={COLORS.HEADER_BOTTOM}
+                        onChange={(e) => setCardPrivate(e.currentTarget.checked)}>
+                        Private
+                    </Checkbox>
                     <div className={styles.button}>
                         <Button color={COLORS.HEADER_BOTTOM} onClick={onClickUpdateHandler}>Save</Button>
                         <Button color={COLORS.HEADER_BOTTOM} onClick={() => setShow(false)}>Close</Button>

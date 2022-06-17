@@ -87,6 +87,7 @@ export type UpdatePackType = {
     deckCover?: string
     name?: string
     _id: string
+    cardPrivate?:boolean
 }
 
 export type CardsType = {
