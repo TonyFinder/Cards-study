@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Button} from '../../../../common/_superComponents/Button/Button';
 import Modal from "../../Modal";
 import {useAppDispatch} from "../../../../../_bll/main/store";
-import {deletePackTC, updateParams} from "../../../../../_bll/features/cards/packsReducer";
+import {deletePackTC} from "../../../../../_bll/features/cards/packsReducer";
 import styles from "../../modalStyle.module.scss"
 import {COLORS} from '../../../../../utils/_values';
 
@@ -20,7 +20,6 @@ const ModalDeleteContainer: React.FC<ModalDeleteContainerType> = ({packId, packN
 
     const onClickDeleteHandler = () => {
         dispatch(deletePackTC(packId))
-        dispatch(updateParams({page: 1}))
         setShow(false)
     }
 

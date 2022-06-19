@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {Button} from '../../../../common/_superComponents/Button/Button';
 import Modal from "../../Modal";
 import {useAppDispatch} from "../../../../../_bll/main/store";
-import {updateParams} from "../../../../../_bll/features/cards/packsReducer";
 import {Input} from "../../../../common/_superComponents/Input/Input";
 import {COLORS} from "../../../../../utils/_values";
 import styles from "../../modalStyle.module.scss"
@@ -22,7 +21,6 @@ const ModalCreateCardContainer: React.FC<ModalCreatePackContainerType> = ({disab
 
     const onClickCreateHandler = () => {
         dispatch(createCardTC({cardsPack_id: packUserId, answer, question}))
-        dispatch(updateParams({page: 1}))
         setQuestion('')
         setAnswer('')
         setShow(false)

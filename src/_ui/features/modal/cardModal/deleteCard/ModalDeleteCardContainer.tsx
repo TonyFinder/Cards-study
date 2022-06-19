@@ -3,7 +3,7 @@ import {Button} from '../../../../common/_superComponents/Button/Button';
 import Modal from "../../Modal";
 import {useAppDispatch} from "../../../../../_bll/main/store";
 import styles from "../../modalStyle.module.scss"
-import {deleteCardTC, updateCardParams} from "../../../../../_bll/features/cards/cardsReducer";
+import {deleteCardTC} from "../../../../../_bll/features/cards/cardsReducer";
 import {COLORS} from '../../../../../utils/_values';
 
 type ModalDeleteContainerType = {
@@ -20,7 +20,6 @@ const ModalDeleteCardContainer: React.FC<ModalDeleteContainerType> = ({cardID, p
 
     const onClickDeleteHandler = () => {
         dispatch(deleteCardTC(cardID))
-        dispatch(updateCardParams({page: 1}))
         setShow(false)
     }
 

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Button} from '../../../../common/_superComponents/Button/Button';
 import Modal from "../../Modal";
 import {useAppDispatch} from "../../../../../_bll/main/store";
-import {updatePackTC, updateParams} from "../../../../../_bll/features/cards/packsReducer";
+import {updatePackTC} from "../../../../../_bll/features/cards/packsReducer";
 import styles from "../../modalStyle.module.scss"
 import {Input} from '../../../../common/_superComponents/Input/Input';
 import {COLORS} from '../../../../../utils/_values';
@@ -23,7 +23,6 @@ const ModalUpdateContainer: React.FC<ModalUpdateContainerType> = ({packId, packN
 
     const onClickUpdateHandler = () => {
         dispatch(updatePackTC({_id: packId, name: name, deckCover: "", cardPrivate: cardPrivate}))
-        dispatch(updateParams({page: 1}))
         setShow(false)
     }
 

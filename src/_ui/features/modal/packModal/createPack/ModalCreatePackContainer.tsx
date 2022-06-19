@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Button} from '../../../../common/_superComponents/Button/Button';
 import Modal from "../../Modal";
 import {useAppDispatch} from "../../../../../_bll/main/store";
-import {createPackTC, updateParams} from "../../../../../_bll/features/cards/packsReducer";
+import {createPackTC} from "../../../../../_bll/features/cards/packsReducer";
 import {Input} from "../../../../common/_superComponents/Input/Input";
 import {Checkbox} from "../../../../common/_superComponents/Checkbox/Checkbox";
 import {COLORS} from "../../../../../utils/_values";
@@ -29,7 +29,6 @@ const ModalCreatePackContainer: React.FC<ModalCreatePackContainerType> = ({disab
                 cardPrivate: cardPrivate,
             }
         ))
-        dispatch(updateParams({page: 1}))
         setShow(false)
     }
 

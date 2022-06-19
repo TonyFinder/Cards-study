@@ -30,9 +30,9 @@ export const Pagination: React.FC<PaginationPropsType> = (props) => {
         pageSize
     });
 
-    if (currentPage === 0 || Array.isArray(paginationRange) && paginationRange.length < 2) {
+   /* if (currentPage === 0 || Array.isArray(paginationRange) && paginationRange.length < 2) {
         return null;
-    }
+    }*/
 
     const onNext = () => {
         onPageChange(+currentPage + 1);
