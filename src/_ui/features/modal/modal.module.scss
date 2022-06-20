@@ -1,0 +1,24 @@
+@import "../../../utils/variables";
+@import "../../../utils/mixins";
+
+
+.modalBackground {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw !important;
+  height: 100vh;
+  background: black;
+  opacity: 0.55;
+  z-index: 20;
+}
+
+.modal {
+  position: fixed;
+  @include flexCenter;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px !important;
+  border-radius: 4px;
+  background: #fce0bf;
+  z-index: 21;
+}

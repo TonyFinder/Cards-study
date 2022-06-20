@@ -1,12 +1,12 @@
 import React from 'react';
 import styles from './card.module.scss';
-import ModalDeleteCardContainer from "../../../modal/cardModal/deleteCard/ModalDeleteCardContainer";
-import ModalUpdateCardContainer from "../../../modal/cardModal/updateCard/ModalUpdateCardContainer";
 import {updateCardParams} from "../../../../../_bll/features/cards/cardsReducer";
 import {useAppDispatch} from "../../../../../_bll/main/store";
 import {SortButton} from "../../../../common/_superComponents/SortButton/SortButton";
 import {COLORS} from "../../../../../utils/_values";
 import {StarRating} from "../components/starRating/StarRating";
+import {ModalDeleteCardContainer} from '../../../modal/cardModal/deleteCard/ModalDeleteCardContainer';
+import {ModalUpdateCardContainer} from '../../../modal/cardModal/updateCard/ModalUpdateCardContainer';
 
 type CardPropsType = {
     _id: string

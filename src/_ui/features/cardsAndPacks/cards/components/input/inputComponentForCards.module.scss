@@ -1,0 +1,19 @@
+@import "src/utils/variables";
+@import "src/utils/mixins";
+
+.container {
+  display: flex;
+  justify-content: space-around;
+
+  .inputBlock {
+    width: 80%;
+    display: flex;
+    .input {
+      width: 100%;
+    }
+  }
+
+  .button {
+    @include flexCenter;
+  }
+}

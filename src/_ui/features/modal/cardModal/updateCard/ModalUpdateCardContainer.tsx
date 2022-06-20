@@ -1,12 +1,11 @@
 import React, {useState} from 'react';
 import {Button} from '../../../../common/_superComponents/Button/Button';
-import Modal from "../../Modal";
-import {useAppDispatch} from "../../../../../_bll/main/store";
-import styles from "../../modalStyle.module.scss"
-import {Input} from '../../../../common/_superComponents/Input/Input';
-import {updateCardTC} from "../../../../../_bll/features/cards/cardsReducer";
-import {COLORS} from "../../../../../utils/_values";
-import {TextArea} from "../../../cardsAndPacks/cards/components/textArea/TextArea";
+import {useAppDispatch} from '../../../../../_bll/main/store';
+import styles from '../../modalTemplate.module.scss'
+import {updateCardTC} from '../../../../../_bll/features/cards/cardsReducer';
+import {COLORS} from '../../../../../utils/_values';
+import {TextArea} from '../../../cardsAndPacks/cards/components/textArea/TextArea';
+import {Modal} from '../../Modal';
 
 type ModalUpdateContainerType = {
     cardId: string
@@ -16,7 +15,7 @@ type ModalUpdateContainerType = {
 }
 
 
-const ModalUpdateCardContainer: React.FC<ModalUpdateContainerType> = ({cardId, cardQuestion, cardAnswer, disabled}) => {
+export const ModalUpdateCardContainer: React.FC<ModalUpdateContainerType> = ({cardId, cardQuestion, cardAnswer, disabled}) => {
     const [show, setShow] = useState(false);
     const [question, setQuestion] = useState(cardQuestion);
     const [answer, setAnswer] = useState(cardAnswer);
@@ -36,29 +35,39 @@ const ModalUpdateCardContainer: React.FC<ModalUpdateContainerType> = ({cardId, c
 
     return (
         <>
-            <Button color={COLORS.MAIN_DARK} disabled={disabled} onClick={() => setShow(true)}>Edit</Button>
-            <Modal
-                enableBackground={true}
-                backgroundOnClick={onClickCloseModalHandler}
-
-                width={400}
-                height={600}
-                modalClassName={styles.bgColorModal}
-                show={show}
-            >
+            <Button color={COLORS.MAIN_DARK}
+                    disabled={disabled}
+                    onClick={() => setShow(true)}
+                    className={styles.button}>Edit</Button>
+            <Modal backgroundOnClick={onClickCloseModalHandler} show={show}>
                 <div className={styles.modal}>
-                    <h2>Change pack "{cardQuestion}"</h2>
-                    <Input value={question} color={COLORS.MAIN_DARK} autoFocus onChange={(e) => setQuestion(e.currentTarget.value)}
-                           sign='New question'/>
-                    <TextArea value={answer} color={COLORS.MAIN_DARK} onChangeText={(e) => setAnswer(e.currentTarget.value)} sign='New answer'/>
-                    <div className={styles.button}>
-                        <Button color={COLORS.HEADER_BOTTOM} onClick={onClickUpdateHandler}>Save</Button>
-                        <Button color={COLORS.HEADER_BOTTOM} onClick={() => setShow(false)}>Close</Button>
+                    <div className={styles.header}>
+                        <h3>Change pack: "{cardQuestion}"</h3>
+                    </div>
+
+                    <div className={styles.textArea}>
+                    <TextArea sign='New question'
+                              value={question}
+                              color={COLORS.MAIN_DARK}
+                              autoFocus
+                              onChangeText={(e) => setQuestion(e.currentTarget.value)}/>
+                    </div>
+
+                    <div className={styles.textArea}>
+                    <TextArea sign='New answer'
+                              value={answer}
+                              color={COLORS.MAIN_DARK}
+                              onChangeText={(e) => setAnswer(e.currentTarget.value)}/>
+                    </div>
+
+                    <div className={styles.buttons}>
+                        <Button color={COLORS.HEADER_BOTTOM}
+                                onClick={onClickUpdateHandler}>Save</Button>
+                        <Button color={COLORS.HEADER_BOTTOM}
+                                onClick={() => setShow(false)}>Close</Button>
                     </div>
                 </div>
             </Modal>
         </>
-    );
-};
-
-export default ModalUpdateCardContainer;
+    )
+}

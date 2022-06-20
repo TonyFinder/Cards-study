@@ -21,7 +21,7 @@ export const InputComponent = ({value, disabled, onChange}: InputComponentPropsT
             <Input value={value}
                    onChange={onChangeHandler}
                    color={COLORS.MAIN_DARK}
-                   placeholder='&#x1F50E;&#xFE0E; Search...'
+                   placeholder='&#x1F50E;&#xFE0E; Search for packs...'
                    disabled={disabled}/>
         </div>
     )

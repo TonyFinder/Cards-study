@@ -21,12 +21,10 @@
 
     .input {
       width: 95%;
-      margin-bottom: 10px;
 
       .name {
         @include flexCenter();
         justify-content: flex-start;
-        height: 65px;
         font-family: 'Montserrat', sans-serif;
 
         span {
@@ -46,21 +44,7 @@
         }
       }
 
-      div {
-        display: flex;
-        justify-content: space-around;
-
-        div {
-          margin: 10px;
-          width: 60%;
-
-          input {
-            width: 100%;
-          }
-        }
-      }
     }
-
 
     .table {
       position: relative;

@@ -1,85 +1,22 @@
-import React, {CSSProperties} from 'react';
+import React from 'react';
+import styles from './modal.module.scss'
 
-interface IModal {
-    enableBackground?: boolean;
-    backgroundStyle?: CSSProperties;
-    backgroundOnClick?: () => void;
-
-    width: number;
-    height: number;
-    modalStyle?: CSSProperties;
-    modalOnClick?: () => void;
-    modalClassName: string
-
+type ModalPropsType = {
+    backgroundOnClick: () => void
     show: boolean
     children: React.ReactNode
 }
 
-const Modal: React.FC<IModal> = (
-    {
-        enableBackground,
-        backgroundStyle,
-        backgroundOnClick = () => {
-        },
+export const Modal = ({backgroundOnClick, show, children}: ModalPropsType) => {
 
-        width,
-        height,
-        modalStyle,
-        modalOnClick = () => {
-        },
-        modalClassName,
-
-        show,
-        children,
-    }
-) => {
-    const top = `calc(50vh - ${height / 2}px)`;
-    const left = `calc(50vw - ${width / 2}px)`;
-
-    if (!show) return null;
+    if (!show) return null
 
     return (
         <>
-            {enableBackground && <div
-                style={{
-                    position: 'fixed',
-                    top: '0px',
-                    left: '0px',
-                    width: '100vw',
-                    height: '100vh',
-
-                    background: 'black',
-                    opacity: 0.55,
-                    zIndex: 20,
-
-                    ...backgroundStyle,
-                }}
-                onClick={backgroundOnClick}
-            />}
-            <div
-                style={{
-                    position: 'fixed',
-                    top,
-                    left,
-                    width,
-                    height,
-                    display: 'flex',
-                    flexFlow: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-
-                    background: '',
-                    zIndex: 21,
-
-                    ...modalStyle,
-                }}
-                className={modalClassName}
-                onClick={modalOnClick}
-            >
+            <div className={styles.modalBackground} onClick={backgroundOnClick}/>
+            <div className={styles.modal}>
                 {children}
             </div>
         </>
-    );
-};
-
-export default Modal;
+    )
+}

@@ -11,10 +11,10 @@ import {InputComponent} from './components/inputComponent/InputComponent';
 import {COLORS, ROUTE_PATHS} from '../../../../utils/_values';
 import {LoadingStatusType} from '../../../../utils/enums';
 import {Loader} from '../../../common/_superComponents/Loader/Loader';
-import ModalCreatePackContainer from "../../modal/packModal/createPack/ModalCreatePackContainer";
 import {Button} from '../../../common/_superComponents/Button/Button';
 import useDebounce from './components/inputComponent/castomHookUseDebounce';
 import {setCardsTC, updateCardParams} from '../../../../_bll/features/cards/cardsReducer';
+import {ModalCreatePackContainer} from '../../modal/packModal/createPack/ModalCreatePackContainer';
 
 const headerTable = {
     name: "Name",

@@ -7,8 +7,8 @@ import {SortButton} from '../../../../common/_superComponents/SortButton/SortBut
 import {useAppDispatch, useCustomSelector} from '../../../../../_bll/main/store';
 import {updateParams} from '../../../../../_bll/features/cards/packsReducer';
 import {LoadingStatusType} from '../../../../../utils/enums';
-import ModalDeleteContainer from '../../../modal/packModal/deletePack/ModalDeleteContainer';
-import ModalUpdateContainer from '../../../modal/packModal/updatePack/ModalUpdateContainer';
+import { ModalDeleteContainer } from '../../../modal/packModal/deletePack/ModalDeleteContainer';
+import { ModalUpdateContainer } from '../../../modal/packModal/updatePack/ModalUpdateContainer';
 
 export type PackPropsType = {
     _id: string
@@ -103,13 +103,14 @@ export const Pack: React.FC<PackPropsType> = (props) => {
                                   value="2"
                                   color="#fd974f"/>
                     : <div>
-                        {user_id === userId
-                            ? <ModalDeleteContainer disabled={disabled} packId={_id} packName={name}/>
-                            : null}
-                        {user_id === userId
-                            ? <ModalUpdateContainer disabled={disabled} packId={_id} packName={name}/>
-                            : null}
-                        <Button color={COLORS.MAIN_DARK} onClick={onClickLearnHandle} disabled={cardsCount === 0}>Learn</Button>
+                        {user_id === userId &&
+                            <ModalDeleteContainer disabled={disabled} packId={_id} packName={name}/>}
+                        {user_id === userId &&
+                            <ModalUpdateContainer disabled={disabled} packId={_id} packName={name}/>}
+                        <Button color={COLORS.MAIN_DARK}
+                                onClick={onClickLearnHandle}
+                                disabled={cardsCount === 0}
+                                className={styles.button}>Learn</Button>
                     </div>
                 }
             </div>
