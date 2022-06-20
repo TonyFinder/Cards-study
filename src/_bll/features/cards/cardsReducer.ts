@@ -73,7 +73,13 @@ export const setCardsTC = (): AppThunk => (dispatch, getState) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
     const {cardParams} = getState().cards
     cardsApi.getCards(cardParams)
-        .then(res => dispatch(setCards(res.data)))
+        .then(res => {
+            res.data.cards.length === 0
+                ? res.data.page === 1
+                    ? dispatch(setCards(res.data))
+                    : dispatch(updateCardParams({page: res.data.page - 1}))
+                : dispatch(setCards(res.data))
+        })
         .catch((err: AxiosError) => dispatch(setAppErrorValue(err.message)))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
