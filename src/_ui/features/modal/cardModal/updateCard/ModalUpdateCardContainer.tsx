@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button} from '../../../../common/_superComponents/Button/Button';
 import {useAppDispatch} from '../../../../../_bll/main/store';
 import styles from '../../modalTemplate.module.scss'
@@ -22,8 +22,14 @@ export const ModalUpdateCardContainer: React.FC<ModalUpdateContainerType> = ({ca
 
     const dispatch = useAppDispatch()
 
+    useEffect(() => {
+        setQuestion(cardQuestion)
+        setAnswer(cardAnswer)
+    }, [show])
+
+
     const onClickUpdateHandler = () => {
-        dispatch(updateCardTC({_id: cardId, question, answer}))
+        dispatch(updateCardTC({_id: cardId, question, answer},question))
         setShow(false)
     }
 
@@ -64,7 +70,7 @@ export const ModalUpdateCardContainer: React.FC<ModalUpdateContainerType> = ({ca
                         <Button color={COLORS.HEADER_BOTTOM}
                                 onClick={onClickUpdateHandler}>Save</Button>
                         <Button color={COLORS.HEADER_BOTTOM}
-                                onClick={() => setShow(false)}>Close</Button>
+                                onClick={onClickCloseModalHandler}>Close</Button>
                     </div>
                 </div>
             </Modal>

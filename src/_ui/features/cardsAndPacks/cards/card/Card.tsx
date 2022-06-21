@@ -99,7 +99,7 @@ export const Card: React.FC<CardPropsType> = (props) => {
                             : <>
                                 <ModalDeleteCardContainer
                                     cardID={_id}
-                                    packName={answer}
+                                    cardName={question}
                                     disabled={disabled}
                                 />
                                 <ModalUpdateCardContainer

@@ -1,7 +1,8 @@
-import {changeAppLoadingStatus} from '../../../main/appReducer';
+import {changeAppLoadingStatus, setPopupMessage} from '../../../main/appReducer';
 import {LoadingStatusType} from '../../../../utils/enums';
 import {AppThunk} from '../../../main/store';
 import { registerApi } from '../../../../_dal/api-auth';
+import {v1} from "uuid";
 
 let initialState = {
     error: "",
@@ -33,7 +34,14 @@ export const requestRegistrationTC = (email: string,  password: string): AppThun
                 ? dispatch(setError(res.data.error))
                 : dispatch(register(true))
         })
-        .catch(err => dispatch(setError(err.response.data.error)))
+        .catch(err => {
+            dispatch(setError(err.response.data.error))
+            dispatch(setPopupMessage({
+                type: "error",
+                message: `${err.response.data.error}`,
+                id: v1(),
+            }))
+        })
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 

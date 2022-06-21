@@ -4,22 +4,22 @@ import {useAppDispatch} from "../../../../../_bll/main/store";
 import styles from "../../modalTemplate.module.scss"
 import {deleteCardTC} from "../../../../../_bll/features/cards/cardsReducer";
 import {COLORS} from '../../../../../utils/_values';
-import { Modal } from '../../Modal';
+import {Modal} from '../../Modal';
 
 type ModalDeleteContainerType = {
     cardID: string
     disabled: boolean
-    packName: string
+    cardName: string
 }
 
 
-export const ModalDeleteCardContainer: React.FC<ModalDeleteContainerType> = ({cardID, packName, disabled}) => {
+export const ModalDeleteCardContainer: React.FC<ModalDeleteContainerType> = ({cardID, cardName, disabled}) => {
     const [show, setShow] = useState(false);
 
     const dispatch = useAppDispatch()
 
     const onClickDeleteHandler = () => {
-        dispatch(deleteCardTC(cardID))
+        dispatch(deleteCardTC(cardID, cardName))
         setShow(false)
     }
 
@@ -32,7 +32,7 @@ export const ModalDeleteCardContainer: React.FC<ModalDeleteContainerType> = ({ca
             <Modal backgroundOnClick={() => setShow(false)} show={show}>
                 <div className={styles.modal}>
                     <div className={styles.header}>
-                        <h3>Delete Card: "{packName}"</h3>
+                        <h3>Delete Card: "{cardName}"</h3>
                     </div>
 
                     <p className={styles.text}>

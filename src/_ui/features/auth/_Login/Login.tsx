@@ -94,8 +94,8 @@ export const Login = () => {
             <div className={styles.button}>
                 {loading === LoadingStatusType.disabled
                     ?<Button color={COLORS.MAIN_DARK}
-                             disabled={saveButtonDisable}
-                             onClick={onClickLoginHandler}>Login</Button>
+                              disabled={saveButtonDisable}
+                              onClick={onClickLoginHandler}>Login</Button>
                     :<Loader color={COLORS.MAIN_DARK}/>
                 }
             </div>

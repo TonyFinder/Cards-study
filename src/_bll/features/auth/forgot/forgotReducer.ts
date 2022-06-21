@@ -1,7 +1,8 @@
 import {AppThunk} from '../../../main/store';
-import {changeAppLoadingStatus} from '../../../main/appReducer';
+import {changeAppLoadingStatus, setPopupMessage} from '../../../main/appReducer';
 import {LoadingStatusType} from '../../../../utils/enums';
 import {registerApi} from '../../../../_dal/api-auth';
+import {v1} from "uuid";
 
 let initialState = {
     error: "",
@@ -28,7 +29,14 @@ export const requestPasswordTC = (email: string): AppThunk => (dispatch) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
     registerApi.forgot(email)
         .then(() => dispatch(redirectToCheckEmail()))
-        .catch(err => dispatch(setError(err.response.data.error)))
+        .catch(err => {
+            dispatch(setError(err.response.data.error))
+            dispatch(setPopupMessage({
+                type: "error",
+                message: `${err.response.data.error}`,
+                id: v1(),
+            }))
+        })
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 

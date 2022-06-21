@@ -19,7 +19,7 @@ export const ModalDeleteContainer: React.FC<ModalDeleteContainerType> = ({packId
     const dispatch = useAppDispatch()
 
     const onClickDeleteHandler = () => {
-        dispatch(deletePackTC(packId))
+        dispatch(deletePackTC(packId,packName))
         setShow(false)
     }
 

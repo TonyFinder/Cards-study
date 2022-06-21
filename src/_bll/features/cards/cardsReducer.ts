@@ -9,9 +9,11 @@ import {
     UpdateGradeCardRequestType
 } from '../../../_dal/api-PacksAndCards';
 import {AppThunk} from '../../main/store';
-import {changeAppLoadingStatus, setAppErrorValue} from '../../main/appReducer';
+import {changeAppLoadingStatus, setAppErrorValue, setPopupMessage} from '../../main/appReducer';
 import {LoadingStatusType} from '../../../utils/enums';
 import {AxiosError} from 'axios';
+import {v1} from 'uuid';
+
 
 const initialState: initialStateCardsType = {
     cards: [
@@ -54,10 +56,12 @@ export const cardsReducer = (state: initialStateCardsType = initialState, action
         case "CARD/UPDATE-CARD-PARAMS":
             return {...state, cardParams: {...state.cardParams, ...action.params}}
         case 'CARD/UPDATE-GRADE-CARD-PARAMS':
-            return {...state,
+            return {
+                ...state,
                 cards: state.cards.map(card => card._id === action.data.card_id
                     ? {...card, grade: action.data.grade, shots: action.data.shots}
-                    : card)}
+                    : card)
+            }
         default:
             return state
     }
@@ -86,22 +90,71 @@ export const setCardsTC = (): AppThunk => (dispatch, getState) => {
 export const createCardTC = (params: CreateCardType): AppThunk => (dispatch) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
     cardsApi.createCard(params)
-        .then(() => dispatch(setCardsTC()))
-        .catch((err: AxiosError) => dispatch(setAppErrorValue(err.message)))
+        .then(() => {
+            dispatch(setCardsTC())
+            dispatch(setPopupMessage({
+                type: "success",
+                message: `Card "${params.question === "" ? "no question" : params.question}" has been created`,
+                id: v1(),
+            }))
+        })
+        .catch((err: AxiosError) => {
+            dispatch(setAppErrorValue(err.message))
+            dispatch(setPopupMessage({
+                type: "error",
+                message: `Card "${params.question}" has not been created`,
+                id: v1(),
+            }))
+        })
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
-export const deleteCardTC = (cardId: string): AppThunk => (dispatch) => {
+export const deleteCardTC = (cardId: string, question: string): AppThunk => (dispatch) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
     cardsApi.deleteCard(cardId)
-        .then(() => dispatch(setCardsTC()))
-        .catch((err: AxiosError) => dispatch(setAppErrorValue(err.message)))
+        .then(() => {
+            dispatch(setCardsTC())
+            dispatch(setPopupMessage({
+                type: "success",
+                message: `Card "${question}" has been removed`,
+                id: v1(),
+            }))
+        })
+        .catch((err: AxiosError) => {
+            dispatch(setAppErrorValue(err.message))
+            dispatch(setPopupMessage({
+                type: "success",
+                message: `Card "${question}" has not been removed`,
+                id: v1(),
+            }))
+        })
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
-export const updateCardTC = (data: updateCartType): AppThunk => (dispatch) => {
+export const updateCardTC = (data: updateCartType, question: string): AppThunk => (dispatch) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
     cardsApi.updatedCard(data)
-        .then(() => dispatch(setCardsTC()))
-        .catch((err: AxiosError) => dispatch(setAppErrorValue(err.message)))
+        .then(() => {
+            dispatch(setCardsTC())
+            data.question === "" ?
+                dispatch(setPopupMessage({
+                    type: "error",
+                    message: `Card "${question}" has not been changed`,
+                    id: v1(),
+                }))
+                : dispatch(setPopupMessage({
+                    type: "success",
+                    message: `Card "${data.question}" has been changed`,
+                    id: v1(),
+                }))
+        })
+        .catch((err: AxiosError) => {
+            dispatch(setAppErrorValue(err.message))
+            dispatch(setPopupMessage({
+                type: "error",
+                message: `Card "${question}" has not been changed`,
+                id: v1(),
+
+            }))
+        })
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 export const updateGradeCardTC = (data: UpdateGradeCardRequestType): AppThunk => (dispatch) => {

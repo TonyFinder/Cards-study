@@ -1,8 +1,9 @@
 import {CreatePackType, PackParamsType, packsApi, PacksType, UpdatePackType} from '../../../_dal/api-PacksAndCards';
 import {AppThunk} from '../../main/store';
-import {changeAppLoadingStatus, setAppErrorValue} from '../../main/appReducer';
+import {changeAppLoadingStatus, setAppErrorValue, setPopupMessage} from '../../main/appReducer';
 import {LoadingStatusType} from '../../../utils/enums';
 import {AxiosError} from 'axios';
+import {v1} from "uuid";
 
 const initialState: initialStatePacksType = {
     cardPacks: [
@@ -65,23 +66,74 @@ export const setPacksTC = (): AppThunk => (dispatch, getState) => {
         .catch((err: AxiosError) => dispatch(setAppErrorValue(err.message)))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
-export const deletePackTC = (packId: string): AppThunk => (dispatch) => {
+export const deletePackTC = (packId: string, packName: string): AppThunk => (dispatch) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
     packsApi.deletePack(packId)
-        .then(() => dispatch(setPacksTC()))
-        .catch((err: AxiosError) => dispatch(setAppErrorValue(err.message)))
+        .then(() => {
+            dispatch(setPacksTC())
+            dispatch(setPopupMessage({
+                type: "success",
+                message: `Pack "${packName}" has been removed`,
+                id: v1(),
+            }))
+        })
+        .catch((err: AxiosError) => {
+            dispatch(setAppErrorValue(err.message))
+            dispatch(setPopupMessage({
+                type: "error",
+                message: `Pack "${packName}" has not been removed`,
+                id: v1(),
+            }))
+        })
+        .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 export const createPackTC = (data: CreatePackType): AppThunk => (dispatch) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
     packsApi.createPack(data)
-        .then(() => dispatch(setPacksTC()))
-        .catch((err: AxiosError) => dispatch(setAppErrorValue(err.message)))
+        .then(() => {
+            dispatch(setPacksTC())
+            dispatch(setPopupMessage({
+                type: "success",
+                message: `Pack "${data.name === "" ? "no Name" : data.name}" has been created`,
+                id: v1(),
+            }))
+        })
+        .catch((err: AxiosError) => {
+            dispatch(setAppErrorValue(err.message))
+            dispatch(setPopupMessage({
+                type: "error",
+                message: `Pack "${data.name}" has not been created`,
+                id: v1(),
+            }))
+        })
+        .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
-export const updatePackTC = (data: UpdatePackType): AppThunk => (dispatch) => {
+export const updatePackTC = (data: UpdatePackType, packName: string): AppThunk => (dispatch) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
     packsApi.updatePack(data)
-        .then(() => dispatch(setPacksTC()))
-        .catch((err: AxiosError) => dispatch(setAppErrorValue(err.message)))
+        .then(() => {
+            dispatch(setPacksTC())
+            data.name === "" ?
+                dispatch(setPopupMessage({
+                    type: "error",
+                    message: `Pack "${packName}" has not been changed`,
+                    id: v1(),
+                }))
+                : dispatch(setPopupMessage({
+                    type: "success",
+                    message: `Pack "${data.name}" has been changed`,
+                    id: v1(),
+                }))
+        })
+        .catch((err: AxiosError) => {
+            dispatch(setAppErrorValue(err.message))
+            dispatch(setPopupMessage({
+                type: "error",
+                message: `Pack "${packName}" has not been changed`,
+                id: v1(),
+            }))
+        })
+        .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 
 //types

@@ -1,0 +1,57 @@
+@import "src/utils/mixins";
+@import "src/utils/variables";
+
+.block {
+  bottom: 0;
+  height: 100%;
+  left: 50px;
+  position: absolute;
+
+  .modal {
+    position: fixed;
+    left: 50px;
+    bottom: 0;
+    transform: translate(0, 500px);
+    transition: 1s ease-in-out;
+    background-color: $tableFirstColor;
+    width: 20%;
+    height: auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 15px;
+    padding: 10px;
+
+  }
+
+  .modalActive {
+    bottom: 0;
+    left: 50px;
+    position: fixed;
+    transform: translate(0, -30px);
+    transition: 1s ease-in-out;
+    background-color: $tableFirstColor;
+    width: 20%;
+    height: auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 15px;
+    padding: 10px;
+  }
+
+  .text {
+    height: 100%;
+    width: 90%;
+    overflow-wrap: break-word;
+  }
+
+  .exit {
+    cursor: pointer;
+    color: brown;
+    font-size: x-large;
+    height: 100%;
+  }
+
+}
+

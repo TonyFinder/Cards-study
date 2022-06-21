@@ -6,7 +6,7 @@ import {Input} from "../../../../common/_superComponents/Input/Input";
 import {Checkbox} from "../../../../common/_superComponents/Checkbox/Checkbox";
 import {COLORS} from "../../../../../utils/_values";
 import styles from "../../modalTemplate.module.scss"
-import { Modal } from '../../Modal';
+import {Modal} from '../../Modal';
 
 type ModalCreatePackContainerType = {
     disabled: boolean
@@ -17,7 +17,6 @@ export const ModalCreatePackContainer: React.FC<ModalCreatePackContainerType> = 
 
     const [namePack, setNamePack] = useState("");
     const [cardPrivate, setCardPrivate] = useState(false);
-
 
     const dispatch = useAppDispatch()
 
@@ -30,6 +29,8 @@ export const ModalCreatePackContainer: React.FC<ModalCreatePackContainerType> = 
             }
         ))
         setShow(false)
+        setNamePack('')
+        setCardPrivate(false)
     }
 
     const onClickCloseModalHandler = () => {
@@ -70,7 +71,7 @@ export const ModalCreatePackContainer: React.FC<ModalCreatePackContainerType> = 
                         <Button color={COLORS.HEADER_BOTTOM}
                                 onClick={onClickCreateHandler}>Save</Button>
                         <Button color={COLORS.HEADER_BOTTOM}
-                                onClick={() => setShow(false)}>Close</Button>
+                                onClick={onClickCloseModalHandler}>Close</Button>
                     </div>
                 </div>
             </Modal>

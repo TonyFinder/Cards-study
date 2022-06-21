@@ -1,9 +1,10 @@
 import {AppThunk} from '../../main/store';
 import {authAPI, AuthDataType} from '../../../_dal/api-auth';
 import {AxiosError} from 'axios';
-import {AppActionTypes, changeAppLoadingStatus, setAppErrorValue} from '../../main/appReducer';
+import {AppActionTypes, changeAppLoadingStatus, setAppErrorValue, setPopupMessage} from '../../main/appReducer';
 import {setError, setIsLogin} from '../auth/_login/loginReducer';
 import {LoadingStatusType} from '../../../utils/enums';
+import {v1} from "uuid";
 
 let initialState: AuthDataType = {
     _id: '',
@@ -45,14 +46,28 @@ export const setDataUserTC = (email: string, password: string, rememberMe: boole
             dispatch(setProfileData(res.data))
             dispatch(setIsLogin(true))
         })
-        .catch(err => dispatch(setError(err.response.data.error)))
+        .catch(err => {
+            dispatch(setError(err.response.data.error))
+            dispatch(setPopupMessage({
+                type: "error",
+                message: `${err.response.data.error}`,
+                id: v1(),
+            }))
+        })
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 export const logoutTC = (): AppThunk => (dispatch) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
     authAPI.logout()
         .then(res => res.data.info && dispatch(setIsLogin(false)))
-        .catch((err: AxiosError) => dispatch(setAppErrorValue(err.message)))
+        .catch((err: AxiosError) => {
+            dispatch(setAppErrorValue(err.message))
+            dispatch(setPopupMessage({
+                type: "error",
+                message: `${err.message}`,
+                id: v1(),
+            }))
+        })
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 export const changeProfileDataTC = (name: string, avatar: string): AppThunk => dispatch => {

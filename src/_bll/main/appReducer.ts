@@ -5,10 +5,15 @@ import {setIsLogin} from '../features/auth/_login/loginReducer';
 import {AxiosError} from 'axios';
 import {setProfileData} from '../features/profile/profileReducer';
 
-let initialState = {
+let initialState: AppInitialStateType = {
     loadingStatus: LoadingStatusType.disabled,
-    errorServer: null as NullPossibleType<string>,
-    isInitialized: false
+    errorServer: null,
+    isInitialized: false,
+    popupModal: {
+        type: null,
+        message: '',
+        id:'',
+    }
 }
 
 export const appReducer = (state: AppInitialStateType = initialState, action: AppActionTypes): AppInitialStateType => {
@@ -19,15 +24,24 @@ export const appReducer = (state: AppInitialStateType = initialState, action: Ap
             return {...state, loadingStatus: action.loadingStatus}
         case 'APP/INITIALIZE-APP':
             return {...state, isInitialized: true}
+        case "APP/SET-POPUP-MESSAGE":
+            return {...state, popupModal: {...state.popupModal, ...action.message}}
         default:
             return state
     }
 }
 
 // actions
-export const setAppErrorValue = (errorServer: NullPossibleType<string>) => ({type: 'APP/SET-ERROR', errorServer} as const)
-export const changeAppLoadingStatus = (loadingStatus: LoadingStatusType) => ({type: 'APP/CHANGE-LOADING-STATUS', loadingStatus} as const)
+export const setAppErrorValue = (errorServer: NullPossibleType<string>) => ({
+    type: 'APP/SET-ERROR',
+    errorServer
+} as const)
+export const changeAppLoadingStatus = (loadingStatus: LoadingStatusType) => ({
+    type: 'APP/CHANGE-LOADING-STATUS',
+    loadingStatus
+} as const)
 export const initializeApp = () => ({type: 'APP/INITIALIZE-APP'} as const)
+export const setPopupMessage = (message: PopupMessageType) => ({type: 'APP/SET-POPUP-MESSAGE', message} as const)
 
 
 // thunks
@@ -46,10 +60,28 @@ export const initializeAppTC = (): AppThunk => dispatch => {
 }
 
 // types
-export type AppActionTypes = SetAppErrorValueType | ChangeAppLoadingStatusType | ReturnType<typeof initializeApp>
+export type AppActionTypes =
+    | SetAppErrorValueType
+    | ChangeAppLoadingStatusType
+    | ReturnType<typeof initializeApp>
+    | setPopupMessageTypeAC
+
 type SetAppErrorValueType = ReturnType<typeof setAppErrorValue>
 type ChangeAppLoadingStatusType = ReturnType<typeof changeAppLoadingStatus>
+type setPopupMessageTypeAC = ReturnType<typeof setPopupMessage>
 
-export type AppInitialStateType = typeof initialState
+export type AppInitialStateType = {
+    loadingStatus: LoadingStatusType,
+    errorServer: NullPossibleType<string>,
+    isInitialized: boolean,
+    popupModal: PopupMessageType
+}
+export type PopupMessageType = {
+    type: PopupType
+    message: string
+    id: string
+}
+
+type PopupType = "error" | "success" | null
 export type NullPossibleType<T> = null | T
 

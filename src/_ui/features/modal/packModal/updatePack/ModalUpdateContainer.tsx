@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button} from '../../../../common/_superComponents/Button/Button';
 import {useAppDispatch} from "../../../../../_bll/main/store";
 import {updatePackTC} from "../../../../../_bll/features/cards/packsReducer";
@@ -21,8 +21,12 @@ export const ModalUpdateContainer: React.FC<ModalUpdateContainerType> = ({packId
     const [cardPrivate, setCardPrivate] = useState(false);
     const dispatch = useAppDispatch()
 
+    useEffect(() => {
+        setName(packName)
+    }, [show])
+
     const onClickUpdateHandler = () => {
-        dispatch(updatePackTC({_id: packId, name: name, deckCover: "", cardPrivate: cardPrivate}))
+        dispatch(updatePackTC({_id: packId, name: name, deckCover: "", cardPrivate: cardPrivate}, packName))
         setShow(false)
     }
 
@@ -45,26 +49,26 @@ export const ModalUpdateContainer: React.FC<ModalUpdateContainerType> = ({packId
                     </div>
 
                     <div className={styles.input}>
-                    <Input value={name} color={COLORS.HEADER_BOTTOM} autoFocus
-                           onChange={(e) => setName(e.currentTarget.value)}
-                           sign='New pack mame'/>
+                        <Input value={name} color={COLORS.HEADER_BOTTOM} autoFocus
+                               onChange={(e) => setName(e.currentTarget.value)}
+                               sign='New pack mame'/>
                     </div>
 
                     <div className={styles.checkbox}>
-                    <Checkbox
-                        className={styles.checkbox}
-                        checked={cardPrivate}
-                        color={COLORS.HEADER_BOTTOM}
-                        onChange={(e) => setCardPrivate(e.currentTarget.checked)}>
-                        Private
-                    </Checkbox>
+                        <Checkbox
+                            className={styles.checkbox}
+                            checked={cardPrivate}
+                            color={COLORS.HEADER_BOTTOM}
+                            onChange={(e) => setCardPrivate(e.currentTarget.checked)}>
+                            Private
+                        </Checkbox>
                     </div>
 
                     <div className={styles.buttons}>
                         <Button color={COLORS.HEADER_BOTTOM}
                                 onClick={onClickUpdateHandler}>Save</Button>
                         <Button color={COLORS.HEADER_BOTTOM}
-                                onClick={() => setShow(false)}>Close</Button>
+                                onClick={onClickCloseModalHandler}>Close</Button>
                     </div>
                 </div>
             </Modal>

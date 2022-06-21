@@ -61,7 +61,7 @@ export const ModalCreateCardContainer: React.FC<ModalCreatePackContainerType> = 
                         <Button color={COLORS.HEADER_BOTTOM}
                                 onClick={onClickCreateHandler}>Save</Button>
                         <Button color={COLORS.HEADER_BOTTOM}
-                                onClick={() => setShow(false)}>Close</Button>
+                                onClick={onClickCloseModalHandler}>Close</Button>
                     </div>
                 </div>
             </Modal>
