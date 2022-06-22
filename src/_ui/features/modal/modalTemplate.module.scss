@@ -2,10 +2,10 @@
 @import "../../../utils/mixins";
 
 .button {
-  margin: 0 2px;
-  padding: 2px;
-  border-radius: 10%;
-  font-size: 12px;
+  margin: 0 2px !important;
+  padding: 2px !important;
+  border-radius: 10% !important;
+  font-size: 12px !important;
 }
 
 .modal {
