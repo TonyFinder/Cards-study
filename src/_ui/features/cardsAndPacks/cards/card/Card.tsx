@@ -114,5 +114,5 @@ export const Card: React.FC<CardPropsType> = (props) => {
                     : null
             }
         </div>
-    );
-};
+    )
+}

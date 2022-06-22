@@ -40,45 +40,7 @@
 
       }
 
-      .table {
-        position: relative;
-        height: $rowHeight * 9;
-        box-shadow: 0 4px 14px rgba(45, 46, 70, 0.15);
-        width: 700px;
-
-        .loader {
-          position: absolute;
-          top: 50%; left: 50%;
-          transform: translate(-50%, -50%);
-        }
-        .emptyPacksText {
-          position: absolute;
-          top: 50%; left: 50%;
-          transform: translate(-50%, -50%);
-          width: 100%;
-          text-align: center;
-          font-size: 30px;
-          font-weight: 600;
-          color: $backColorSecond;
-        }
-
-        > div:nth-child(even) {
-          background: $tableEvenColor;
-        }
-
-        > div:nth-child(odd) {
-          background: $tableOddColor;
-        }
-
-        > div:nth-child(1) {
-          background: $tableHeaderColor;
-        }
-      }
-
-      .page {
-        @include flexCenter;
-        height: $rowHeight;
-      }
+      @include tableMain(700px);
 
     }
   }

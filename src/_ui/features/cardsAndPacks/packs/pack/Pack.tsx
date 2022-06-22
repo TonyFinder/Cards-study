@@ -102,7 +102,7 @@ export const Pack: React.FC<PackPropsType> = (props) => {
                     ? <SortButton title={created}
                                   value="2"
                                   color="#fd974f"/>
-                    : <div>
+                    : <>
                         {user_id === userId &&
                             <ModalDeleteContainer disabled={disabled} packId={_id} packName={name}/>}
                         {user_id === userId &&
@@ -111,7 +111,7 @@ export const Pack: React.FC<PackPropsType> = (props) => {
                                 onClick={onClickLearnHandle}
                                 disabled={cardsCount === 0}
                                 className={styles.button}>Learn</Button>
-                    </div>
+                    </>
                 }
             </div>
 

@@ -5,18 +5,17 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  height: 50px;
+  height: $rowHeight;
 
   >div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include flexCenter;
     text-align: center;
   }
   .name {
     width: 25%;
     @include hideTextTable;
     @include hideTextLink;
+    padding: 0 5px;
     a {
       text-decoration: none;
       color: black;
@@ -30,28 +29,27 @@
   }
   .cards {
     width: 12%;
+    padding: 0 5px;
   }
   .updated {
     width: 15%;
+    padding: 0 5px;
   }
 
   .createdBy {
     width: 20%;
     @include hideTextTable;
+    padding: 0 5px;
   }
   .actions {
     width: 100%-25%-12%-15%-20%;
-    >div {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0;
-      .button {
-        margin: 0 2px;
-        padding: 2px;
-        border-radius: 10%;
-        font-size: 12px;
-      }
+    @include flexCenter;
+    padding: 0 5px;
+    >button {
+      margin: 0 2px;
+      padding: 2px;
+      border-radius: 10%;
+      font-size: 12px
     }
   }
 }
