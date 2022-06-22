@@ -107,7 +107,7 @@ export const Pack: React.FC<PackPropsType> = (props) => {
                             <ModalDeleteContainer disabled={disabled} packId={_id} packName={name}/>}
                         {user_id === userId &&
                             <ModalUpdateContainer disabled={disabled} packId={_id} packName={name}/>}
-                        <Button color={COLORS.MAIN_DARK}
+                        <Button color={COLORS.BUTTON_TABLE_MAIN}
                                 onClick={onClickLearnHandle}
                                 disabled={cardsCount === 0}
                                 className={styles.button}>Learn</Button>

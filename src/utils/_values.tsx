@@ -16,6 +16,7 @@ import {Question} from '../_ui/features/cardsAndPacks/learn/Question/Question';
 export const COLORS = {
     MAIN_DARK: '#fd974f',
     MAIN_LIGHT: '#fef2e4',
+    BUTTON_TABLE_MAIN: '#fa6c3b',
     HEADER_BOTTOM: '#fc6e0a',
     DEFAULT: '#53a6fb',
     TRANSPARENT: 'rgba(255,255,255,0.7)',

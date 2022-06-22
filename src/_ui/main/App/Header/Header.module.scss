@@ -4,4 +4,6 @@
 .container {
   @include flexCenter;
   background: $tableFirstColor;
+  position: fixed;
+  width: 100%;
 }

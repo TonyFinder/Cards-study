@@ -45,7 +45,7 @@ export const Packs = () => {
     const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
 
     const disabled = loading === LoadingStatusType.active
-    //for update slider if minDefault/maxDefault not change
+    //For update slider if minDefault/maxDefault not change
     const [isChangeSlider, setIsChangeSlider] = useState(false)
 
     // Detect sorting column
@@ -100,23 +100,25 @@ export const Packs = () => {
     return (
         <div className={styles.block}>
             <div className={styles.container}>
-                <div className={styles.settings}>
-                    <span>Show packs cards</span> <br/><br/>
-                    <DoubleButton active={[!!packParams.user_id, !packParams.user_id]}
-                                  activeColor={COLORS.MAIN_DARK} disableColor={COLORS.MAIN_LIGHT}
-                                  onClick={onClickMyAllChanger}
-                                  disabled={disabled}/>
-                    <br/><br/>
-                    <span>Number of cards</span>
-                    <Slider min={Number(packParams.min)}
-                            max={Number(packParams.max)}
-                            minDefault={minCardsCount}
-                            maxDefault={maxCardsCount}
-                            onMouseUp={onMouseUpSliderHandler}
-                            disabled={disabled}
-                            changeSlider={isChangeSlider}
-                    />
-                    <Button onClick={onClickResetFiltersHandler} color={'red'}>Reset filters</Button>
+                <div className={styles.settingsBlock}>
+                    <div className={styles.settings}>
+                        <span>Show packs cards</span> <br/><br/>
+                        <DoubleButton active={[!!packParams.user_id, !packParams.user_id]}
+                                      activeColor={COLORS.MAIN_DARK} disableColor={COLORS.MAIN_LIGHT}
+                                      onClick={onClickMyAllChanger}
+                                      disabled={disabled}/>
+                        <br/><br/>
+                        <span>Number of cards</span>
+                        <Slider min={Number(packParams.min)}
+                                max={Number(packParams.max)}
+                                minDefault={minCardsCount}
+                                maxDefault={maxCardsCount}
+                                onMouseUp={onMouseUpSliderHandler}
+                                disabled={disabled}
+                                changeSlider={isChangeSlider}
+                        />
+                        <Button onClick={onClickResetFiltersHandler} color={'red'}>Reset filters</Button>
+                    </div>
                 </div>
                 <div className={styles.packs}>
                     <div className={styles.header}>

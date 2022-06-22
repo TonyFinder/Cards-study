@@ -2,48 +2,39 @@
 @import "src/utils/variables";
 
 .block {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
+  @include flexCenter;
   min-height: 100vh;
-  background: linear-gradient($backColorFirst, $backColorSecond);
-  justify-content: center;
 
   .container {
     display: flex;
-    align-items: center;
-    width: 1008px;
-    height: 690px;
-    background-color: $blockColor;
+    margin-top: $paddingTopButton + $fontSize;
 
-    .settings {
-      @include flexCenter;
-      justify-content: flex-start;
-      flex-direction: column;
-      padding-top: 25px;
-      margin-left: 10px;
-      width: 243px;
-      height: 636px;
-      background-color: $tableFirstColor;
-      font-family: 'Montserrat', sans-serif;
+    .settingsBlock {
+      width: 250px;
+      margin-right: 10px;
 
-      > span {
-        font-weight: bold;
+      .settings {
+        @include flexCenter;
+        flex-direction: column;
+        height: 100%;
+        padding: 0 10px;
+        background-color: $backgroundColor;
+        font-family: 'Montserrat', sans-serif;
+
+        > span {
+          font-weight: bold;
+        }
       }
+
     }
 
     .packs {
       display: flex;
       flex-direction: column;
-      justify-content: space-around;
-      width: 673px;
-      word-break: break-word;
-      margin-left: 50px;
 
       .header {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: flex-end;
         font-family: 'Montserrat', sans-serif;
 
@@ -51,32 +42,32 @@
 
       .table {
         position: relative;
-        margin: 10px 0;
+        height: $rowHeight * 9;
         box-shadow: 0 4px 14px rgba(45, 46, 70, 0.15);
-        min-width: 673px;
-        min-height: 430px;
+        width: 700px;
 
         .loader {
           position: absolute;
-          top: 50%;
-          left: 50%;
+          top: 50%; left: 50%;
+          transform: translate(-50%, -50%);
         }
         .emptyPacksText {
-          display: flex;
-          justify-content: center;
+          position: absolute;
+          top: 50%; left: 50%;
+          transform: translate(-50%, -50%);
+          width: 100%;
           text-align: center;
-          margin-top: 100px;
           font-size: 30px;
           font-weight: 600;
           color: $backColorSecond;
         }
 
         > div:nth-child(even) {
-          background: $backColorFirst;
+          background: $tableEvenColor;
         }
 
         > div:nth-child(odd) {
-          background: $tableFirstColor;
+          background: $tableOddColor;
         }
 
         > div:nth-child(1) {
@@ -86,6 +77,7 @@
 
       .page {
         @include flexCenter;
+        height: $rowHeight;
       }
 
     }
