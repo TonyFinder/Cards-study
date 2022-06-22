@@ -22,17 +22,10 @@ export const ModalCreatePackContainer: React.FC<ModalCreatePackContainerType> = 
     const dispatch = useAppDispatch()
 
     const onClickCreateHandler = () => {
-        dispatch(createPackTC(
-            {
-                name: namePack,
-                deckCover: "",
-                cardPrivate: cardPrivate,
-            }
-        ))
-        setShow(false)
+        dispatch(createPackTC({name: namePack, deckCover: "", cardPrivate: cardPrivate}))
+        onClickCloseHandler()
     }
-
-    const onClickCloseModalHandler = () => {
+    const onClickCloseHandler = () => {
         setShow(false)
         setNamePack('')
         setCardPrivate(false)
@@ -43,7 +36,7 @@ export const ModalCreatePackContainer: React.FC<ModalCreatePackContainerType> = 
             <Button onClick={() => setShow(true)}
                     color={COLORS.MAIN_DARK}
                     disabled={disabled}>Add new pack</Button>
-            <Modal backgroundOnClick={onClickCloseModalHandler} show={show}>
+            <Modal backgroundOnClick={onClickCloseHandler} show={show}>
                 <div className={styles.modal}>
                     <div className={styles.header}>
                         <h3>Add new Pack</h3>
@@ -70,7 +63,7 @@ export const ModalCreatePackContainer: React.FC<ModalCreatePackContainerType> = 
                         <Button color={COLORS.HEADER_BOTTOM}
                                 onClick={onClickCreateHandler}>Save</Button>
                         <Button color={COLORS.HEADER_BOTTOM}
-                                onClick={() => setShow(false)}>Close</Button>
+                                onClick={onClickCloseHandler}>Close</Button>
                     </div>
                 </div>
             </Modal>
