@@ -13,14 +13,16 @@
   }
 
   .question {
-    width: 25%;
+    position: relative;
     @include hideTextTable;
+    width: 25%;
     padding: 0 5px;
   }
 
   .answer {
-    width: 25%;
+    position: relative;
     @include hideTextTable;
+    width: 25%;
     padding: 0 5px;
   }
 

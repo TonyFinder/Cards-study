@@ -64,7 +64,7 @@ export const Pack: React.FC<PackPropsType> = (props) => {
                                   value={sort[1] === 'name' ? sort[0] : '2'}
                                   color={COLORS.SORT}
                                   onClick={() => onClickSortHandler('name')}/>
-                    : <div className={styles.hiddenLink}>
+                    : <div className={styles.hidden}>
                         <Link to={`${ROUTE_PATHS.CARDS}/${props._id}/${name}`}>{name}</Link>
                 </div>
                 }

@@ -29,9 +29,14 @@
           }
         }
 
-        h2 {
+        .hHidden {
           margin: 20px 0 20px 10px;
           display: inline-block;
+          white-space: nowrap; /* Запрещаем перенос строк */
+          overflow: hidden; /* Обрезаем лишнее */
+          text-overflow: ellipsis;
+          word-break: break-all;
+          max-width: 600px;
         }
       }
 

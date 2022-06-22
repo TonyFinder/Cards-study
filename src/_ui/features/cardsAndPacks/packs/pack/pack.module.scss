@@ -12,9 +12,9 @@
     text-align: center;
   }
   .name {
-    width: 25%;
+    position: relative;
     @include hideTextTable;
-    @include hideTextLink;
+    width: 25%;
     padding: 0 5px;
     a {
       text-decoration: none;
@@ -37,8 +37,9 @@
   }
 
   .createdBy {
-    width: 20%;
+    position: relative;
     @include hideTextTable;
+    width: 20%;
     padding: 0 5px;
   }
   .actions {
