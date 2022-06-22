@@ -26,6 +26,7 @@
         @include flexCenter();
         justify-content: flex-start;
         font-family: 'Montserrat', sans-serif;
+        @include hideTextTable;
 
         span {
           font-size: xxx-large;

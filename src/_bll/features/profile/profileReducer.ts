@@ -1,7 +1,7 @@
 import {AppThunk} from '../../main/store';
 import {authAPI, AuthDataType} from '../../../_dal/api-auth';
 import {AxiosError} from 'axios';
-import {AppActionTypes, changeAppLoadingStatus, setAppErrorValue, setPopupMessage} from '../../main/appReducer';
+import {AppActionTypes, changeAppLoadingStatus, setAppErrorValue, addNotification} from '../../main/appReducer';
 import {setError, setIsLogin} from '../auth/_login/loginReducer';
 import {LoadingStatusType} from '../../../utils/enums';
 import {v1} from "uuid";
@@ -48,7 +48,7 @@ export const setDataUserTC = (email: string, password: string, rememberMe: boole
         })
         .catch(err => {
             dispatch(setError(err.response.data.error))
-            dispatch(setPopupMessage({
+            dispatch(addNotification({
                 type: "error",
                 message: `${err.response.data.error}`,
                 id: v1(),
@@ -62,7 +62,7 @@ export const logoutTC = (): AppThunk => (dispatch) => {
         .then(res => res.data.info && dispatch(setIsLogin(false)))
         .catch((err: AxiosError) => {
             dispatch(setAppErrorValue(err.message))
-            dispatch(setPopupMessage({
+            dispatch(addNotification({
                 type: "error",
                 message: `${err.message}`,
                 id: v1(),

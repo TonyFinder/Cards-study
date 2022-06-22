@@ -1,6 +1,6 @@
 import {CreatePackType, PackParamsType, packsApi, PacksType, UpdatePackType} from '../../../_dal/api-PacksAndCards';
 import {AppThunk} from '../../main/store';
-import {changeAppLoadingStatus, setAppErrorValue, setPopupMessage} from '../../main/appReducer';
+import {changeAppLoadingStatus, setAppErrorValue, addNotification} from '../../main/appReducer';
 import {LoadingStatusType} from '../../../utils/enums';
 import {AxiosError} from 'axios';
 import {v1} from "uuid";
@@ -71,7 +71,7 @@ export const deletePackTC = (packId: string, packName: string): AppThunk => (dis
     packsApi.deletePack(packId)
         .then(() => {
             dispatch(setPacksTC())
-            dispatch(setPopupMessage({
+            dispatch(addNotification({
                 type: "success",
                 message: `Pack "${packName}" has been removed`,
                 id: v1(),
@@ -79,7 +79,7 @@ export const deletePackTC = (packId: string, packName: string): AppThunk => (dis
         })
         .catch((err: AxiosError) => {
             dispatch(setAppErrorValue(err.message))
-            dispatch(setPopupMessage({
+            dispatch(addNotification({
                 type: "error",
                 message: `Pack "${packName}" has not been removed`,
                 id: v1(),
@@ -92,7 +92,7 @@ export const createPackTC = (data: CreatePackType): AppThunk => (dispatch) => {
     packsApi.createPack(data)
         .then(() => {
             dispatch(setPacksTC())
-            dispatch(setPopupMessage({
+            dispatch(addNotification({
                 type: "success",
                 message: `Pack "${data.name === "" ? "no Name" : data.name}" has been created`,
                 id: v1(),
@@ -100,7 +100,7 @@ export const createPackTC = (data: CreatePackType): AppThunk => (dispatch) => {
         })
         .catch((err: AxiosError) => {
             dispatch(setAppErrorValue(err.message))
-            dispatch(setPopupMessage({
+            dispatch(addNotification({
                 type: "error",
                 message: `Pack "${data.name}" has not been created`,
                 id: v1(),
@@ -114,12 +114,12 @@ export const updatePackTC = (data: UpdatePackType, packName: string): AppThunk =
         .then(() => {
             dispatch(setPacksTC())
             data.name === "" ?
-                dispatch(setPopupMessage({
+                dispatch(addNotification({
                     type: "error",
                     message: `Pack "${packName}" has not been changed`,
                     id: v1(),
                 }))
-                : dispatch(setPopupMessage({
+                : dispatch(addNotification({
                     type: "success",
                     message: `Pack "${data.name}" has been changed`,
                     id: v1(),
@@ -127,7 +127,7 @@ export const updatePackTC = (data: UpdatePackType, packName: string): AppThunk =
         })
         .catch((err: AxiosError) => {
             dispatch(setAppErrorValue(err.message))
-            dispatch(setPopupMessage({
+            dispatch(addNotification({
                 type: "error",
                 message: `Pack "${packName}" has not been changed`,
                 id: v1(),

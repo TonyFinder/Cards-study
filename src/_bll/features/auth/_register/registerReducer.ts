@@ -1,7 +1,7 @@
-import {changeAppLoadingStatus, setPopupMessage} from '../../../main/appReducer';
+import {changeAppLoadingStatus, addNotification} from '../../../main/appReducer';
 import {LoadingStatusType} from '../../../../utils/enums';
 import {AppThunk} from '../../../main/store';
-import { registerApi } from '../../../../_dal/api-auth';
+import {registerApi} from '../../../../_dal/api-auth';
 import {v1} from "uuid";
 
 let initialState = {
@@ -26,9 +26,9 @@ export const register = (isRegistered: boolean) => ({type: "REGISTER/REGISTER", 
 export const setError = (error: string) => ({type: "REGISTER/SET-ERROR", error} as const)
 
 // thunks
-export const requestRegistrationTC = (email: string,  password: string): AppThunk => (dispatch) => {
+export const requestRegistrationTC = (email: string, password: string): AppThunk => (dispatch) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
-    registerApi.register(email,  password)
+    registerApi.register(email, password)
         .then(res => {
             res.data.error
                 ? dispatch(setError(res.data.error))
@@ -36,7 +36,7 @@ export const requestRegistrationTC = (email: string,  password: string): AppThun
         })
         .catch(err => {
             dispatch(setError(err.response.data.error))
-            dispatch(setPopupMessage({
+            dispatch(addNotification({
                 type: "error",
                 message: `${err.response.data.error}`,
                 id: v1(),

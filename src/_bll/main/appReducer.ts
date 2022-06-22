@@ -4,16 +4,13 @@ import {authAPI} from '../../_dal/api-auth';
 import {setIsLogin} from '../features/auth/_login/loginReducer';
 import {AxiosError} from 'axios';
 import {setProfileData} from '../features/profile/profileReducer';
+import {NotificationType} from "../../_ui/features/modal/notification/Notification";
 
 let initialState: AppInitialStateType = {
     loadingStatus: LoadingStatusType.disabled,
     errorServer: null,
     isInitialized: false,
-    popupModal: {
-        type: null,
-        message: '',
-        id:'',
-    }
+    notifications: []
 }
 
 export const appReducer = (state: AppInitialStateType = initialState, action: AppActionTypes): AppInitialStateType => {
@@ -24,8 +21,10 @@ export const appReducer = (state: AppInitialStateType = initialState, action: Ap
             return {...state, loadingStatus: action.loadingStatus}
         case 'APP/INITIALIZE-APP':
             return {...state, isInitialized: true}
-        case "APP/SET-POPUP-MESSAGE":
-            return {...state, popupModal: {...state.popupModal, ...action.message}}
+        case "APP/ADD-NOTIFICATION":
+            return {...state, notifications: [{...action.payload}, ...state.notifications]}
+        case "APP/REMOVE-NOTIFICATION":
+            return {...state, notifications: state.notifications.filter(f => f.id !== action.id)}
         default:
             return state
     }
@@ -41,7 +40,8 @@ export const changeAppLoadingStatus = (loadingStatus: LoadingStatusType) => ({
     loadingStatus
 } as const)
 export const initializeApp = () => ({type: 'APP/INITIALIZE-APP'} as const)
-export const setPopupMessage = (message: PopupMessageType) => ({type: 'APP/SET-POPUP-MESSAGE', message} as const)
+export const addNotification = (payload: NotificationType) => ({type: 'APP/ADD-NOTIFICATION', payload} as const)
+export const removeNotification = (id: string) => ({type: 'APP/REMOVE-NOTIFICATION', id} as const)
 
 
 // thunks
@@ -64,24 +64,20 @@ export type AppActionTypes =
     | SetAppErrorValueType
     | ChangeAppLoadingStatusType
     | ReturnType<typeof initializeApp>
-    | setPopupMessageTypeAC
+    | addNotificationType
+    | removeNotificationType
 
 type SetAppErrorValueType = ReturnType<typeof setAppErrorValue>
 type ChangeAppLoadingStatusType = ReturnType<typeof changeAppLoadingStatus>
-type setPopupMessageTypeAC = ReturnType<typeof setPopupMessage>
+type addNotificationType = ReturnType<typeof addNotification>
+type removeNotificationType = ReturnType<typeof removeNotification>
 
 export type AppInitialStateType = {
     loadingStatus: LoadingStatusType,
     errorServer: NullPossibleType<string>,
     isInitialized: boolean,
-    popupModal: PopupMessageType
-}
-export type PopupMessageType = {
-    type: PopupType
-    message: string
-    id: string
+    notifications: NotificationType[] | []
 }
 
-type PopupType = "error" | "success" | null
 export type NullPossibleType<T> = null | T
 

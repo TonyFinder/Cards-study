@@ -9,7 +9,7 @@ import {
     UpdateGradeCardRequestType
 } from '../../../_dal/api-PacksAndCards';
 import {AppThunk} from '../../main/store';
-import {changeAppLoadingStatus, setAppErrorValue, setPopupMessage} from '../../main/appReducer';
+import {changeAppLoadingStatus, setAppErrorValue, addNotification} from '../../main/appReducer';
 import {LoadingStatusType} from '../../../utils/enums';
 import {AxiosError} from 'axios';
 import {v1} from 'uuid';
@@ -92,7 +92,7 @@ export const createCardTC = (params: CreateCardType): AppThunk => (dispatch) => 
     cardsApi.createCard(params)
         .then(() => {
             dispatch(setCardsTC())
-            dispatch(setPopupMessage({
+            dispatch(addNotification({
                 type: "success",
                 message: `Card "${params.question === "" ? "no question" : params.question}" has been created`,
                 id: v1(),
@@ -100,7 +100,7 @@ export const createCardTC = (params: CreateCardType): AppThunk => (dispatch) => 
         })
         .catch((err: AxiosError) => {
             dispatch(setAppErrorValue(err.message))
-            dispatch(setPopupMessage({
+            dispatch(addNotification({
                 type: "error",
                 message: `Card "${params.question}" has not been created`,
                 id: v1(),
@@ -113,7 +113,7 @@ export const deleteCardTC = (cardId: string, question: string): AppThunk => (dis
     cardsApi.deleteCard(cardId)
         .then(() => {
             dispatch(setCardsTC())
-            dispatch(setPopupMessage({
+            dispatch(addNotification({
                 type: "success",
                 message: `Card "${question}" has been removed`,
                 id: v1(),
@@ -121,7 +121,7 @@ export const deleteCardTC = (cardId: string, question: string): AppThunk => (dis
         })
         .catch((err: AxiosError) => {
             dispatch(setAppErrorValue(err.message))
-            dispatch(setPopupMessage({
+            dispatch(addNotification({
                 type: "success",
                 message: `Card "${question}" has not been removed`,
                 id: v1(),
@@ -135,12 +135,12 @@ export const updateCardTC = (data: updateCartType, question: string): AppThunk =
         .then(() => {
             dispatch(setCardsTC())
             data.question === "" ?
-                dispatch(setPopupMessage({
+                dispatch(addNotification({
                     type: "error",
                     message: `Card "${question}" has not been changed`,
                     id: v1(),
                 }))
-                : dispatch(setPopupMessage({
+                : dispatch(addNotification({
                     type: "success",
                     message: `Card "${data.question}" has been changed`,
                     id: v1(),
@@ -148,7 +148,7 @@ export const updateCardTC = (data: updateCartType, question: string): AppThunk =
         })
         .catch((err: AxiosError) => {
             dispatch(setAppErrorValue(err.message))
-            dispatch(setPopupMessage({
+            dispatch(addNotification({
                 type: "error",
                 message: `Card "${question}" has not been changed`,
                 id: v1(),

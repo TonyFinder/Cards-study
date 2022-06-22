@@ -1,5 +1,5 @@
 import {AppThunk} from '../../../main/store';
-import {changeAppLoadingStatus, setPopupMessage} from '../../../main/appReducer';
+import {changeAppLoadingStatus, addNotification} from '../../../main/appReducer';
 import {LoadingStatusType} from '../../../../utils/enums';
 import {registerApi} from '../../../../_dal/api-auth';
 import {v1} from "uuid";
@@ -31,7 +31,7 @@ export const requestPasswordTC = (email: string): AppThunk => (dispatch) => {
         .then(() => dispatch(redirectToCheckEmail()))
         .catch(err => {
             dispatch(setError(err.response.data.error))
-            dispatch(setPopupMessage({
+            dispatch(addNotification({
                 type: "error",
                 message: `${err.response.data.error}`,
                 id: v1(),
