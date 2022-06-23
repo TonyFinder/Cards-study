@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {initialStatePacksType, setPacksTC, updateParams} from '../../../../_bll/features/cards/packsReducer';
+import {initialStatePacksType, setPacksTC, updatePacksParams} from '../../../../_bll/features/cards/packsReducer';
 import {useAppDispatch, useCustomSelector} from '../../../../_bll/main/store';
 import {Navigate, useNavigate} from 'react-router-dom';
 import {Pack} from './pack/Pack';
@@ -15,6 +15,7 @@ import {Button} from '../../../common/_superComponents/Button/Button';
 import useDebounce from './components/inputComponent/castomHookUseDebounce';
 import {setCardsTC, updateCardParams} from '../../../../_bll/features/cards/cardsReducer';
 import {ModalCreatePackContainer} from '../../modal/packModal/createPack/ModalCreatePackContainer';
+import {Input} from '../../../common/_superComponents/Input/Input';
 
 const headerTable = {
     name: "Name",
@@ -26,7 +27,6 @@ const headerTable = {
     created: "Actions",
     header: true
 }
-
 
 export const Packs = () => {
     const dispatch = useAppDispatch()
@@ -43,8 +43,8 @@ export const Packs = () => {
     const isLogin = useCustomSelector<boolean>(state => state.login.isLoggedIn)
     const userId = useCustomSelector<string>(state => state.profile._id)
     const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
-
     const disabled = loading === LoadingStatusType.active
+
     //For update slider if minDefault/maxDefault not change
     const [isChangeSlider, setIsChangeSlider] = useState(false)
 
@@ -54,34 +54,43 @@ export const Packs = () => {
     const column = sortPacks.slice(1)
 
     // Debounce logic
+    const [paginationInput, setPaginationInput] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
+    const debouncedPaginationInput = useDebounce(paginationInput, 1000);
     const debouncedSearchTerm = useDebounce(searchTerm, 1000);
-
-    useEffect(() => {
-        dispatch(updateParams({packName: debouncedSearchTerm, page: 1}))
-    }, [debouncedSearchTerm, dispatch])
 
     useEffect(() => {
         if (isLogin) {
             dispatch(setPacksTC())
         }
-    }, [isLogin, dispatch, packParams.sortPacks, packParams.max, packParams.min, packParams.page, packParams.pageCount, packParams.packName, packParams.user_id]);
+    }, [isLogin, dispatch, packParams.sortPacks, packParams.max, packParams.min, packParams.page, packParams.pageCount, packParams.packName, packParams.user_id])
+
+    useEffect(() => {
+        if (debouncedPaginationInput === '') return
+        dispatch(updatePacksParams({page: +debouncedPaginationInput}))
+        setPaginationInput('')
+    }, [debouncedPaginationInput, dispatch])
+
+    useEffect(() => {
+        dispatch(updatePacksParams({packName: debouncedSearchTerm, page: 1}))
+    }, [debouncedSearchTerm, dispatch])
 
     const onPageChangeHandler = (page: number) => {
         if (loading === LoadingStatusType.active) return
-        dispatch(updateParams({page}))
+        dispatch(updatePacksParams({page}))
+        setPaginationInput('')
     }
     const onMouseUpSliderHandler = ({min, max}: maxMinValueType) => {
-        dispatch(updateParams({min, max, page: 1}))
+        dispatch(updatePacksParams({min, max, page: 1}))
     }
     const onClickMyAllChanger = (value: string) => {
         value === 'my'
-            ? dispatch(updateParams({user_id: `${userId}`, page: 1}))
-            : dispatch(updateParams({user_id: '', page: 1}))
+            ? dispatch(updatePacksParams({user_id: `${userId}`, page: 1}))
+            : dispatch(updatePacksParams({user_id: '', page: 1}))
     }
     const onClickResetFiltersHandler = () => {
         setIsChangeSlider(!isChangeSlider)
-        dispatch(updateParams({
+        dispatch(updatePacksParams({
             page: 1, min: minCardsCount, max: maxCardsCount,
             sortPacks: '0updated',
             user_id: '',
@@ -140,16 +149,22 @@ export const Packs = () => {
                     <div className={styles.page}>
                         <Pagination
                             siblingCount={1}
-                            className=""
                             currentPage={page}
                             totalCount={cardPacksTotalCount}
                             pageSize={pageCount}
                             onPageChange={onPageChangeHandler}
                         />
+                        <div className={`${styles.jumper} ${cardPacksTotalCount < 9 && styles.hide}`}>
+                            <span>Go to</span>
+                            <Input type={'number'}
+                                   value={paginationInput ? paginationInput : ''}
+                                   onChangeText={setPaginationInput}
+                                   min="1" max={cardPacksTotalCount%pageCount ? cardPacksTotalCount/pageCount + 1 : cardPacksTotalCount/pageCount}
+                                   disabled={disabled}/>
+                        </div>
                     </div>
                 </div>
             </div>
-
         </div>
     );
 };

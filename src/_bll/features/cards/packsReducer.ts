@@ -49,7 +49,7 @@ export const packsReducer = (state: initialStatePacksType = initialState, action
 
 // actions
 export const setPacks = (data: PacksType) => ({type: 'PACKS/SET-PACKS-DATA', data} as const)
-export const updateParams = (params: UpdateParamsActionType) => ({type: "PACKS/UPDATE-PARAMS", params} as const)
+export const updatePacksParams = (params: UpdateParamsActionType) => ({type: "PACKS/UPDATE-PARAMS", params} as const)
 
 // thunks
 export const setPacksTC = (): AppThunk => (dispatch, getState) => {
@@ -60,7 +60,7 @@ export const setPacksTC = (): AppThunk => (dispatch, getState) => {
             res.data.cardPacks.length === 0
                 ? res.data.page === 1
                     ? dispatch(setPacks(res.data))
-                    : dispatch(updateParams({page: res.data.page - 1}))
+                    : dispatch(updatePacksParams({page: res.data.page - 1}))
                 : dispatch(setPacks(res.data))
         })
         .catch((err: AxiosError) => dispatch(setAppErrorValue(err.message)))
@@ -139,7 +139,7 @@ export const updatePackTC = (data: UpdatePackType, packName: string): AppThunk =
 //types
 export  type ActionPacksType =
     | ReturnType<typeof setPacks>
-    | ReturnType<typeof updateParams>
+    | ReturnType<typeof updatePacksParams>
 
 export type initialStatePacksType = PacksType & {
     packParams: PackParamsType

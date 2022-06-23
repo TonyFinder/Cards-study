@@ -46,6 +46,7 @@
     .loader {
       position: absolute;
       top: 50%; left: 50%;
+      background: transparent !important;
       transform: translate(-50%, -50%);
     }
 
@@ -76,5 +77,34 @@
   .page {
     @include flexCenter;
     height: $rowHeight;
+
+    .jumper {
+      @include flexCenter;
+      height: $rowHeight;
+      > span {
+        padding-left: 10px;
+      }
+      > div {
+        > input {
+          padding: 5px;
+          width: 60px;
+          font-size: 13px;
+          text-align: center;
+          border-radius: unset;
+          background: $tableEvenColor;
+          border-bottom: none;
+        }
+        > input:focus {
+          border-bottom: none;
+        }
+        > input:disabled {
+          border-bottom: none;
+        }
+      }
+      &.hide {
+        display: none;
+      }
+    }
   }
+
 }

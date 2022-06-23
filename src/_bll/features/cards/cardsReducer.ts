@@ -44,7 +44,7 @@ const initialState: initialStateCardsType = {
         max: 0,
         sortCards: "0updated",
         page: 1,
-        pageCount: 7
+        pageCount: 8
 
     }
 }
