@@ -20,12 +20,10 @@ export const ModalCreateCardContainer: React.FC<ModalCreatePackContainerType> = 
 
     const onClickCreateHandler = () => {
         dispatch(createCardTC({cardsPack_id: packUserId, answer, question}))
-        setQuestion('')
-        setAnswer('')
-        setShow(false)
+        onClickCloseHandler()
     }
 
-    const onClickCloseModalHandler = () => {
+    const onClickCloseHandler = () => {
         setShow(false)
         setQuestion('')
         setAnswer('')
@@ -36,7 +34,7 @@ export const ModalCreateCardContainer: React.FC<ModalCreatePackContainerType> = 
             <Button onClick={() => setShow(true)}
                     color={COLORS.MAIN_DARK}
                     disabled={disabled}>Add new card</Button>
-            <Modal backgroundOnClick={onClickCloseModalHandler} show={show}>
+            <Modal backgroundOnClick={onClickCloseHandler} show={show}>
                 <div className={styles.modal}>
                     <div className={styles.header}>
                         <h3>Add new Card</h3>
@@ -61,7 +59,7 @@ export const ModalCreateCardContainer: React.FC<ModalCreatePackContainerType> = 
                         <Button color={COLORS.HEADER_BOTTOM}
                                 onClick={onClickCreateHandler}>Save</Button>
                         <Button color={COLORS.HEADER_BOTTOM}
-                                onClick={onClickCloseModalHandler}>Close</Button>
+                                onClick={onClickCloseHandler}>Close</Button>
                     </div>
                 </div>
             </Modal>

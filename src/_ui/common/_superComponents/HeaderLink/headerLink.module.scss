@@ -1,6 +1,9 @@
+@import "src/utils/mixins";
+@import "src/utils/variables";
+
 .link {
-  padding: 10px 25px;
-  font-size: 20px;
+  padding: $paddingTopButton 25px;
+  font-size: $fontSize;
   font-weight: 700;
   text-decoration: none;
   font-family: 'Montserrat', sans-serif;

@@ -64,7 +64,7 @@ export const Pack: React.FC<PackPropsType> = (props) => {
                                   value={sort[1] === 'name' ? sort[0] : '2'}
                                   color={COLORS.SORT}
                                   onClick={() => onClickSortHandler('name')}/>
-                    : <div className={styles.hiddenLink}>
+                    : <div className={styles.hidden}>
                         <Link to={`${ROUTE_PATHS.CARDS}/${props._id}/${name}`}>{name}</Link>
                 </div>
                 }
@@ -102,16 +102,16 @@ export const Pack: React.FC<PackPropsType> = (props) => {
                     ? <SortButton title={created}
                                   value="2"
                                   color="#fd974f"/>
-                    : <div>
+                    : <>
                         {user_id === userId &&
                             <ModalDeleteContainer disabled={disabled} packId={_id} packName={name}/>}
                         {user_id === userId &&
                             <ModalUpdateContainer disabled={disabled} packId={_id} packName={name}/>}
-                        <Button color={COLORS.MAIN_DARK}
+                        <Button color={COLORS.BUTTON_TABLE_MAIN}
                                 onClick={onClickLearnHandle}
                                 disabled={cardsCount === 0}
                                 className={styles.button}>Learn</Button>
-                    </div>
+                    </>
                 }
             </div>
 

@@ -38,7 +38,7 @@ export const ModalUpdateContainer: React.FC<ModalUpdateContainerType> = ({packId
 
     return (
         <>
-            <Button color='red'
+            <Button color={COLORS.BUTTON_TABLE_MAIN}
                     disabled={disabled}
                     onClick={() => setShow(true)}
                     className={styles.button}>Edit</Button>

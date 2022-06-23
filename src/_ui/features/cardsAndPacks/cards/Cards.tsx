@@ -62,7 +62,7 @@ export const Cards = () => {
                 <div className={styles.input}>
                     <div className={styles.name}>
                         <span onClick={() => navigate(-1)}>🠔</span>
-                        <h2 className={styles.hidden}>{packName}</h2>
+                        <h2 className={styles.hHidden}>Pack name: {packName}</h2>
                     </div>
                     <InputComponentForCards disabled={disabled}
                                             packId={cardParams.cardsPack_id ? cardParams.cardsPack_id : ''}

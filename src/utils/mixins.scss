@@ -16,26 +16,65 @@
     white-space: nowrap; /* Запрещаем перенос строк */
     overflow: hidden; /* Обрезаем лишнее */
     text-overflow: ellipsis; /* Добавляем многоточие */
-
   }
 
   .hidden:hover {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: unset;
     overflow: visible;
     text-overflow: unset;
-    white-space: unset;
+    word-break: break-all;
+    text-align: center;
+    min-width: 150px;
+    border-radius: 5%; border: 2px solid white;
+    background: $tableHeaderColor;
+    padding: 15px 5px;
+    z-index: 20;
+
   }
 }
-@mixin hideTextLink {
-  .hiddenLink {
-    text-align: left;
-    white-space: nowrap; /* Запрещаем перенос строк */
-    overflow: hidden; /* Обрезаем лишнее */
-    text-overflow: ellipsis; /* Добавляем многоточие */
+
+@mixin tableMain($width) {
+  .table {
+    position: relative;
+    height: $rowHeight * 9;
+    box-shadow: 0 4px 14px rgba(45, 46, 70, 0.15);
+    width: $width;
+
+    .loader {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .emptyPacksText {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      text-align: center;
+      font-size: 30px;
+      font-weight: 600;
+      color: $backColorSecond;
+    }
+
+    > div:nth-child(even) {
+      background: $tableEvenColor;
+    }
+
+    > div:nth-child(odd) {
+      background: $tableOddColor;
+    }
+
+    > div:nth-child(1) {
+      background: $tableHeaderColor;
+    }
   }
 
-  .hiddenLink:hover {
-    overflow: visible;
-    text-overflow: unset;
-    white-space: unset;
+  .page {
+    @include flexCenter;
+    height: $rowHeight;
   }
 }

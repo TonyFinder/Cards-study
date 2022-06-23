@@ -5,9 +5,19 @@ $backColorSecond: #fd974f;
 //Transparent white color
 $blockColor: rgba(255,255,255,0.7);
 
-//Table colors
-$tableHeaderColor: #fdb684;
-$tableFirstColor: #fce0cc;
-
 //Text description
 $textDescription: #878787;
+
+//Header Link
+$paddingTopButton: 10px;
+$fontSize: 20px;
+
+//Table
+//colors
+$tableHeaderColor: #fdb684;
+$tableFirstColor: #fce0cc;
+$backgroundColor: rgba(255,255,255,0.25);
+$tableOddColor: rgba(255,255,255,0.2);
+$tableEvenColor: rgba(255,255,255,0.4);
+//height
+$rowHeight: 50px;

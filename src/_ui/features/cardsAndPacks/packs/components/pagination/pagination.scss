@@ -1,6 +1,10 @@
+@import "src/utils/mixins";
+@import "src/utils/variables";
+
 .pagination-container {
   display: flex;
   list-style-type: none;
+  height: $rowHeight;
 
   .pagination-item {
     padding: 0 12px;
