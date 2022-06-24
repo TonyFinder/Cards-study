@@ -84,9 +84,7 @@ export const Packs = () => {
         dispatch(updatePacksParams({min, max, page: 1}))
     }
     const onClickMyAllChanger = (value: string) => {
-        value === 'my'
-            ? dispatch(updatePacksParams({user_id: `${userId}`, page: 1}))
-            : dispatch(updatePacksParams({user_id: '', page: 1}))
+        dispatch(updatePacksParams({user_id: `${value === 'my' ? userId : ''}`, page: 1}))
     }
     const onClickResetFiltersHandler = () => {
         setIsChangeSlider(!isChangeSlider)
