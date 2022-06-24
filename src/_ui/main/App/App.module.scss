@@ -4,6 +4,7 @@
 .App {
   min-height: 100vh;
   background: linear-gradient($backColorFirst, $backColorSecond);
+
   .loader {
     @include flexCenter;
     >div {

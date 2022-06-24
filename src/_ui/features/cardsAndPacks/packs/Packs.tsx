@@ -11,7 +11,6 @@ import {InputComponent} from './components/inputComponent/InputComponent';
 import {COLORS, ROUTE_PATHS} from '../../../../utils/_values';
 import {LoadingStatusType} from '../../../../utils/enums';
 import {Loader} from '../../../common/_superComponents/Loader/Loader';
-import {Button} from '../../../common/_superComponents/Button/Button';
 import useDebounce from './components/inputComponent/castomHookUseDebounce';
 import {setCardsTC, updateCardParams} from '../../../../_bll/features/cards/cardsReducer';
 import {ModalCreatePackContainer} from '../../modal/packModal/createPack/ModalCreatePackContainer';
@@ -58,6 +57,8 @@ export const Packs = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const debouncedPaginationInput = useDebounce(paginationInput, 1000);
     const debouncedSearchTerm = useDebounce(searchTerm, 1000);
+
+    const [showFilters, setShowFilters] = useState<boolean>(false)
 
     useEffect(() => {
         if (isLogin) {
@@ -107,33 +108,43 @@ export const Packs = () => {
     return (
         <div className={styles.block}>
             <div className={styles.container}>
-                <div className={styles.settingsBlock}>
-                    <div className={styles.settings}>
-                        <span>Show packs cards</span> <br/><br/>
-                        <DoubleButton active={[!!packParams.user_id, !packParams.user_id]}
-                                      activeColor={COLORS.MAIN_DARK} disableColor={COLORS.MAIN_LIGHT}
-                                      onClick={onClickMyAllChanger}
-                                      disabled={disabled}/>
-                        <br/><br/>
-                        <span>Number of cards</span>
-                        <Slider min={Number(packParams.min)}
-                                max={Number(packParams.max)}
-                                minDefault={minCardsCount}
-                                maxDefault={maxCardsCount}
-                                onMouseUp={onMouseUpSliderHandler}
-                                disabled={disabled}
-                                changeSlider={isChangeSlider}
-                        />
-                        <Button onClick={onClickResetFiltersHandler} color={'red'}>Reset filters</Button>
-                    </div>
-                </div>
+
                 <div className={styles.packs}>
                     <div className={styles.header}>
                         <InputComponent value={searchTerm}
                                         onChange={setSearchTerm}
+                                        onClickShowFilters={() => setShowFilters(!showFilters)}
+                                        onResetFilters={onClickResetFiltersHandler}
                                         disabled={disabled}/>
                         <ModalCreatePackContainer disabled={disabled}/>
                     </div>
+
+                    {showFilters &&
+                        <div className={styles.settingsBlock}>
+                            <div className={styles.settings}>
+                                <div className={styles.showPacks}>
+                                    <p>Show packs cards</p>
+                                    <DoubleButton active={[!!packParams.user_id, !packParams.user_id]}
+                                                  activeColor={COLORS.MAIN_DARK} disableColor={COLORS.MAIN_LIGHT}
+                                                  onClick={onClickMyAllChanger}
+                                                  disabled={disabled}/>
+                                </div>
+                                <div className={styles.showNumberPacks}>
+                                    <p>Number of cards</p>
+                                    <Slider min={Number(packParams.min)}
+                                            max={Number(packParams.max)}
+                                            minDefault={minCardsCount}
+                                            maxDefault={maxCardsCount}
+                                            onMouseUp={onMouseUpSliderHandler}
+                                            disabled={disabled}
+                                            changeSlider={isChangeSlider}
+                                    />
+                                </div>
+                            </div>
+                            <div className={styles.cross} onClick={() => setShowFilters(false)}>&#10006;</div>
+                        </div>
+                    }
+
                     <div className={styles.table}>
                         <Pack sort={[direction, column]} {...headerTable}/>
                         {loading === LoadingStatusType.active
@@ -144,6 +155,7 @@ export const Packs = () => {
                                 : <span className={styles.emptyPacksText}>There is no data according to your search parameters...</span>
                         }
                     </div>
+
                     <div className={styles.page}>
                         <Pagination
                             siblingCount={1}

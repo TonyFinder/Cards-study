@@ -4,6 +4,10 @@
 .container {
   @include flexCenter;
   margin: 30px 0 60px 0;
+
+  @media (max-width: 970px) {
+    margin: 30px 0 30px 0;
+  }
 }
 
 .slider {
@@ -38,7 +42,7 @@
 
 .slider__leftValue,
 .slider__rightValue {
-  color: $backColorSecond;
+  color: black;
   font-size: 12px;
   font-weight: bold;
   margin-top: 15px;
