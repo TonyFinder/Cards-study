@@ -60,7 +60,7 @@ export const Notification: React.FC<NotificationType> = ({id, type, message}) =>
         <div onMouseLeave={handleStartTimer}
              onMouseEnter={handlePauseTimer}
              className={`${styles.notificationItem} ${exit ? styles.exit : ''}`}>
-            <p>{message}</p>
+            <p className={`${styles.message}  ${type === "error" && styles.error}`}>{message}</p>
             <div style={{'width': `${width}%`}}
                  className={`${styles.bar} ${type === "success" ? styles.success : styles.error}`}/>
         </div>

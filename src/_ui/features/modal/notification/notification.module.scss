@@ -8,7 +8,7 @@
   animation: SlideRight 0.4s;
   animation-fill-mode: forwards;
   width: 300px;
-  /* background-color: $tableFirstColor;*/
+  background-color: $tableFirstColor;
 
   &.exit {
     animation: SlideLeft 0.4s;
@@ -33,12 +33,16 @@
     }
   }
 
-  p {
+  .message {
     text-align: left;
     overflow: hidden;
     text-overflow: ellipsis;
     margin: 0;
     padding: 10px;
+
+    &.error {
+      background-color: darkred;
+    }
   }
 
   .bar {
