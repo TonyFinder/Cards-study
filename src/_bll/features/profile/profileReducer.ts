@@ -41,7 +41,7 @@ export const changeProfileData = (data: AuthDataType) => ({type: 'PROFILE/CHANGE
 // thunks
 export const setDataUserTC = (email: string, password: string, rememberMe: boolean): AppThunk => (dispatch) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
-    authAPI.login(email, password, rememberMe)
+    authAPI.login({email, password, rememberMe})
         .then(res => {
             dispatch(setProfileData(res.data))
             dispatch(setIsLogin(true))
@@ -72,7 +72,7 @@ export const logoutTC = (): AppThunk => (dispatch) => {
 }
 export const changeProfileDataTC = (name: string, avatar: string): AppThunk => dispatch => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
-    authAPI.changeNameAvatar(name, avatar)
+    authAPI.changeNameAvatar({name, avatar})
         .then(res => dispatch(changeProfileData(res.data.updatedUser)))
         .catch((err: AxiosError) => dispatch(setAppErrorValue(err.message)))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))

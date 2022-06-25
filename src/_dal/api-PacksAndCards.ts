@@ -13,13 +13,13 @@ export const packsApi = {
             {params: params})
     },
     createPack(data: CreatePackType) {
-        return instance.post<any, any, { cardsPack: CreatePackType }>('cards/pack', {cardsPack: data})
+        return instance.post<any, PackAndCardResponseType<newPackResponseType>, { cardsPack: CreatePackType }>('cards/pack', {cardsPack: data})
     },
     deletePack(id: string) {
-        return instance.delete<any, any, string>('cards/pack', {params: {id}},)
+        return instance.delete<any, PackAndCardResponseType<deletedPackResponseType>, string>('cards/pack', {params: {id}},)
     },
     updatePack(data: UpdatePackType) {
-        return instance.put<any, any, { cardsPack: UpdatePackType }>('cards/pack', {cardsPack: data})
+        return instance.put<any, PackAndCardResponseType<updatedPackResponseType>, { cardsPack: UpdatePackType }>('cards/pack', {cardsPack: data})
     },
 }
 
@@ -30,16 +30,16 @@ export const cardsApi = {
             {params: params})
     },
     createCard(data: CreateCardType) {
-        return instance.post<any, any, { card: CreateCardType }>('cards/card', {card: data})
+        return instance.post<any, PackAndCardResponseType<CardResponseType>, { card: CreateCardType }>('cards/card', {card: data})
     },
     deleteCard(id: string) {
-        return instance.delete<any, any, string>('cards/card', {params: {id}})
+        return instance.delete<any, PackAndCardResponseType<CardResponseType>, string>('cards/card', {params: {id}})
     },
     updatedCard(data: updateCartType) {
-        return instance.put<any, any, { card: updateCartType }>('cards/card', {card: data})
+        return instance.put<any, PackAndCardResponseType<UpdateCardResponseType>, { card: updateCartType }>('cards/card', {card: data})
     },
     updateGradeCard(data: UpdateGradeCardRequestType) {
-        return instance.put<any, UpdateGradeResponseType, UpdateGradeCardRequestType>('/cards/grade', data)
+        return instance.put<any, UpdateGradeResponseType, UpdateGradeCardRequestType>('cards/grade', data)
     }
 }
 
@@ -83,11 +83,75 @@ export type CreatePackType = {
     cardPrivate?: boolean
 }
 
+export type PackAndCardResponseType<T> = {
+    data: T
+    token: string
+    tokenDeathTime: number
+}
+
+type newPackResponseType = {
+    _id: string
+    user_id: string
+    user_name: string
+    private: boolean
+    name: string
+    path: string
+    grade: number
+    shots: number
+    deckCover: string
+    cardsCount: number
+    type: string
+    rating: number
+    created: string
+    updated: string
+    more_id: string
+    __v: number
+}
+
+
+type deletedPackResponseType = {
+    _id: string
+    user_id: string
+    user_name: string
+    private: boolean
+    name: string
+    path: string
+    grade: number
+    shots: number
+    deckCover: string
+    cardsCount: number
+    type: string
+    rating: number
+    created: string
+    updated: string
+    more_id: string
+    __v: number
+}
+
 export type UpdatePackType = {
     deckCover?: string
     name?: string
     _id: string
-    cardPrivate?:boolean
+    cardPrivate?: boolean
+}
+
+export type updatedPackResponseType = {
+    _id: string
+    user_id: string
+    user_name: string
+    private: boolean
+    name: string
+    path: string
+    grade: number
+    shots: number
+    deckCover: string
+    cardsCount: number
+    type: string
+    rating: number
+    created: string
+    updated: string
+    more_id: string
+    __v: number
 }
 
 export type CardsType = {
@@ -173,4 +237,42 @@ export type UpdateGradeResponseType = {
     data: {
         updatedGrade: UpdatedGradeCardType
     }
+}
+
+export type CardResponseType = {
+    _id: string
+    cardsPack_id: string
+    user_id: string
+    answer: string
+    question: string
+    grade: number
+    shots: number
+    comments: string
+    type: string
+    rating: number
+    more_id: string
+    created: string
+    updated: string
+    __v: number
+}
+
+export type UpdateCardResponseType = {
+    _id: string
+    cardsPack_id: string
+    user_id: string
+    answer: string
+    question: string
+    grade: number
+    shots: number
+    comments: string
+    type: string
+    rating: number
+    more_id: string
+    created: string
+    updated: string
+    __v: number
+    answerImg: string
+    answerVideo: string
+    questionImg: string
+    questionVideo: string
 }

@@ -26,7 +26,7 @@ const setPasswordSuccess = (info: string) => ({type: "SET-PASSWORD/SET-PASSWORD-
 // thunks
 export const setNewPasswordTC = (password: string, resetPasswordToken: string): AppThunk => (dispatch) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
-    registerApi.setPassword(password, resetPasswordToken)
+    registerApi.setPassword({password, resetPasswordToken})
         .then(res => res.data.info && dispatch(setPasswordSuccess(res.data.info)))
         .catch(err => dispatch(setError(err.response.data.error)))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))

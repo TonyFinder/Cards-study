@@ -28,7 +28,7 @@ export const setError = (error: string) => ({type: "REGISTER/SET-ERROR", error} 
 // thunks
 export const requestRegistrationTC = (email: string, password: string): AppThunk => (dispatch) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
-    registerApi.register(email, password)
+    registerApi.register({email, password})
         .then(res => {
             res.data.error
                 ? dispatch(setError(res.data.error))

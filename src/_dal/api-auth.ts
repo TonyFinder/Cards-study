@@ -22,29 +22,29 @@ export const authAPI = {
     me() {
         return instance.post<any, MeResponseType, {}>('auth/me')
     },
-    login(email: string, password: string, rememberMe: boolean) {
-        return instance.post<any, { data: AuthDataType }, { email: string, password: string, rememberMe: boolean }>('auth/login',
-            {email, password, rememberMe})
+    login(data: LoginRequestType) {
+        return instance.post<any, { data: AuthDataType }, LoginRequestType>('auth/login',
+            data)
     },
     logout() {
         return instance.delete<any, MeLogoutResponse, {}>('auth/me')
     },
-    changeNameAvatar(name: string, avatar: string) {
-        return instance.put<any, ProfileChangeResponseType, {name: string, avatar: string}>('auth/me', {name, avatar})
+    changeNameAvatar(data: ProfileChangeRequestType) {
+        return instance.put<any, ProfileChangeResponseType, ProfileChangeRequestType>('auth/me', data)
     }
 }
 
 export const registerApi = {
-    register(email: string,  password: string) {
-        return instance.post<any, RegisterResponseType, RegisterRequestType>("auth/register", {email, password})
+    register(data: RegisterRequestType) {
+        return instance.post<any, RegisterResponseType, RegisterRequestType>("auth/register", data)
     },
     forgot(email: string) {
         return instanceNeko.post<any, ForgotPasswordResponseType, ForgotPasswordRequestType>('auth/forgot',
             {email, from: '', message})
     },
-    setPassword(password: string, resetPasswordToken: string) {
-        return instance.post<any, SetPasswordResponseType, SetPasswordRequestType>("/auth/set-new-password",
-            {password, resetPasswordToken})
+    setPassword(data: SetPasswordRequestType) {
+        return instance.post<any, SetPasswordResponseType, SetPasswordRequestType>("auth/set-new-password",
+            data)
     }
 }
 
@@ -72,6 +72,11 @@ export type ProfileChangeResponseType = {
         error?: string
     }
 }
+export type ProfileChangeRequestType = {
+    name: string
+    avatar: string
+}
+
 type MeResponseType = {
     data: AuthDataType
     error?: string
@@ -128,4 +133,10 @@ export type SetPasswordResponseType = {
         info: string
         error: string
     }
+}
+
+export type LoginRequestType = {
+    email: string
+    password: string
+    rememberMe: boolean
 }
