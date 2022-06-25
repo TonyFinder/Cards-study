@@ -1,0 +1,72 @@
+@import "src/utils/mixins";
+@import "src/utils/variables";
+
+.settingsBlock {
+  width: 250px; height: 100%;
+  margin-right: 10px;
+
+  @media (max-width: 970px) {
+    position: absolute;
+    top: 60px; left: 0;
+    width: 700px; height: unset;
+    z-index: 40;
+    background: $tableHeaderColor;
+    border: 2px solid $backColorSecond;
+  }
+
+  .settings {
+    @include flexCenter;
+    flex-direction: column;
+    height: 100%;
+    padding: 0 10px;
+    background-color: $backgroundColor;
+    font-family: 'Montserrat', sans-serif;
+
+    @media (max-width: 970px) {
+      @include flexCenter;
+      flex-direction: row;
+      justify-content: space-evenly;
+      height: 100%;
+      padding: 10px 0;
+      background-color: $backgroundColor;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .showPacks {
+      margin-bottom: 30px;
+
+      > p {
+        font-weight: bold;
+      }
+      @media (max-width: 970px) {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+    }
+
+    .showNumberPacks {
+
+      > p {
+        font-weight: bold;
+      }
+      @media (max-width: 970px) {
+        text-align: center;
+        margin-bottom: 18px;
+      }
+    }
+
+    .button {
+
+      @media (max-width: 970px) {
+        display: none;
+      }
+    }
+  }
+
+  .cross {
+    position: absolute;
+    cursor: pointer;
+    color: red;
+    top: 5px; right: 10px;
+  }
+}

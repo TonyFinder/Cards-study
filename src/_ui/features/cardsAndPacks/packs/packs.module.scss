@@ -6,10 +6,20 @@
   min-height: 100vh;
 
   .container {
-    position: relative;
     display: flex;
-    flex-direction: column;
     margin-top: $paddingTopButton + $fontSize;
+
+    @media (max-width: 970px) {
+      position: relative;
+      flex-direction: column;
+    }
+
+    .filters {
+
+      @media (max-width: 970px) {
+        display: none;
+      }
+    }
 
     .packs {
       display: flex;
@@ -22,50 +32,14 @@
         font-family: 'Montserrat', sans-serif;
 
       }
-      .settingsBlock {
-        position: absolute;
-        top: 80px; left: 0;
-        width: 700px;
-        z-index: 40;
-        background: $tableHeaderColor;
-        border: 2px solid $backColorSecond;
+
+      .filtersSmall {
+        display: none;
 
         @media (max-width: 970px) {
-          top: 60px; left: 0
-        }
-
-        .settings {
-          @include flexCenter;
-          justify-content: space-evenly;
-          height: 100%;
-          padding: 10px 0;
-          background-color: $backgroundColor;
-          font-family: 'Montserrat', sans-serif;
-
-          .showPacks {
-            text-align: center;
-            margin-bottom: 20px;
-            > p {
-              font-weight: bold;
-            }
-          }
-          .showNumberPacks {
-            text-align: center;
-            > p {
-              font-weight: bold;
-            }
-          }
-
-        }
-
-        .cross {
-          position: absolute;
-          cursor: pointer;
-          color: red;
-          top: 5px; right: 10px;
+          display: unset;
         }
       }
-
       @include tableMain(700px);
 
     }

@@ -4,8 +4,6 @@ import {useAppDispatch, useCustomSelector} from '../../../../_bll/main/store';
 import {Navigate, useNavigate} from 'react-router-dom';
 import {Pack} from './pack/Pack';
 import styles from './packs.module.scss';
-import {maxMinValueType, Slider} from '../../../common/_superComponents/Slider/Slider';
-import {DoubleButton} from '../../../common/_superComponents/DoubleButton/DoubleButton';
 import {Pagination} from './components/pagination/Pagination';
 import {InputComponent} from './components/inputComponent/InputComponent';
 import {COLORS, ROUTE_PATHS} from '../../../../utils/_values';
@@ -15,6 +13,7 @@ import useDebounce from './components/inputComponent/castomHookUseDebounce';
 import {setCardsTC, updateCardParams} from '../../../../_bll/features/cards/cardsReducer';
 import {ModalCreatePackContainer} from '../../modal/packModal/createPack/ModalCreatePackContainer';
 import {Input} from '../../../common/_superComponents/Input/Input';
+import {Filters} from './components/Filters/Filters';
 
 const headerTable = {
     name: "Name",
@@ -40,7 +39,6 @@ export const Packs = () => {
         minCardsCount,
     } = useCustomSelector<initialStatePacksType>(state => state.packs)
     const isLogin = useCustomSelector<boolean>(state => state.login.isLoggedIn)
-    const userId = useCustomSelector<string>(state => state.profile._id)
     const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
     const disabled = loading === LoadingStatusType.active
 
@@ -81,12 +79,6 @@ export const Packs = () => {
         dispatch(updatePacksParams({page}))
         setPaginationInput('')
     }
-    const onMouseUpSliderHandler = ({min, max}: maxMinValueType) => {
-        dispatch(updatePacksParams({min, max, page: 1}))
-    }
-    const onClickMyAllChanger = (value: string) => {
-        dispatch(updatePacksParams({user_id: `${value === 'my' ? userId : ''}`, page: 1}))
-    }
     const onClickResetFiltersHandler = () => {
         setIsChangeSlider(!isChangeSlider)
         dispatch(updatePacksParams({
@@ -109,6 +101,14 @@ export const Packs = () => {
         <div className={styles.block}>
             <div className={styles.container}>
 
+                <div className={styles.filters}>
+                    <Filters user_id={!!packParams.user_id} disabled={disabled}
+                             min={Number(packParams.min)} max={Number(packParams.max)}
+                             minCardsCount={minCardsCount} maxCardsCount={maxCardsCount}
+                             changeSlider={isChangeSlider}
+                             setShowFilters={setShowFilters} onResetFilters={onClickResetFiltersHandler}/>
+                </div>
+
                 <div className={styles.packs}>
                     <div className={styles.header}>
                         <InputComponent value={searchTerm}
@@ -119,31 +119,14 @@ export const Packs = () => {
                         <ModalCreatePackContainer disabled={disabled}/>
                     </div>
 
-                    {showFilters &&
-                        <div className={styles.settingsBlock}>
-                            <div className={styles.settings}>
-                                <div className={styles.showPacks}>
-                                    <p>Show packs cards</p>
-                                    <DoubleButton active={[!!packParams.user_id, !packParams.user_id]}
-                                                  activeColor={COLORS.MAIN_DARK} disableColor={COLORS.MAIN_LIGHT}
-                                                  onClick={onClickMyAllChanger}
-                                                  disabled={disabled}/>
-                                </div>
-                                <div className={styles.showNumberPacks}>
-                                    <p>Number of cards</p>
-                                    <Slider min={Number(packParams.min)}
-                                            max={Number(packParams.max)}
-                                            minDefault={minCardsCount}
-                                            maxDefault={maxCardsCount}
-                                            onMouseUp={onMouseUpSliderHandler}
-                                            disabled={disabled}
-                                            changeSlider={isChangeSlider}
-                                    />
-                                </div>
-                            </div>
-                            <div className={styles.cross} onClick={() => setShowFilters(false)}>&#10006;</div>
-                        </div>
-                    }
+                    <div className={styles.filtersSmall}>
+                        {showFilters && <Filters user_id={!!packParams.user_id} disabled={disabled}
+                                                 min={Number(packParams.min)} max={Number(packParams.max)}
+                                                 minCardsCount={minCardsCount} maxCardsCount={maxCardsCount}
+                                                 changeSlider={isChangeSlider}
+                                                 setShowFilters={(value) => setShowFilters(value)}/>
+                        }
+                    </div>
 
                     <div className={styles.table}>
                         <Pack sort={[direction, column]} {...headerTable}/>
