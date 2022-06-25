@@ -19,7 +19,8 @@
 
     .logout {
       position: absolute;
-      top: 5px; right: 10px;
+      top: 5px;
+      right: 10px;
       color: red;
       font-weight: 500;
       padding: 0;
@@ -33,10 +34,12 @@
     }
 
     .image {
-      @include flexCenter;
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
+      /*    @include flexCenter;
+          width: 150px;
+          height: 150px;
+          border-radius: 50%;*/
+      position: relative;
+
 
       img {
         width: 150px;
@@ -65,4 +68,13 @@
     }
 
   }
+}
+
+.changeAvatar {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  color: #000000;
+  font-size: x-large;
+  cursor: pointer;
 }
