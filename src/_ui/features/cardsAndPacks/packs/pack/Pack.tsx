@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 import {COLORS, ROUTE_PATHS} from '../../../../../utils/_values';
 import {SortButton} from '../../../../common/_superComponents/SortButton/SortButton';
 import {useAppDispatch, useCustomSelector} from '../../../../../_bll/main/store';
-import {updateParams} from '../../../../../_bll/features/cards/packsReducer';
+import {updatePacksParams} from '../../../../../_bll/features/cards/packsReducer';
 import {LoadingStatusType} from '../../../../../utils/enums';
 import { ModalDeleteContainer } from '../../../modal/packModal/deletePack/ModalDeleteContainer';
 import { ModalUpdateContainer } from '../../../modal/packModal/updatePack/ModalUpdateContainer';
@@ -48,9 +48,9 @@ export const Pack: React.FC<PackPropsType> = (props) => {
         sort[1] === e
             // определяем как отсортирована колонка
             ? sort[0] === '0'
-                ? dispatch(updateParams({sortPacks: `1${sort[1]}`, page: 1}))
-                : dispatch(updateParams({sortPacks: '0updated', page: 1}))
-            : dispatch(updateParams({sortPacks: `0${e}`, page: 1}))
+                ? dispatch(updatePacksParams({sortPacks: `1${sort[1]}`, page: 1}))
+                : dispatch(updatePacksParams({sortPacks: '0updated', page: 1}))
+            : dispatch(updatePacksParams({sortPacks: `0${e}`, page: 1}))
     }
     const onClickLearnHandle = () => {
         onClick && onClick(_id)

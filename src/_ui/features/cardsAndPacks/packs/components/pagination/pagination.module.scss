@@ -1,12 +1,14 @@
 @import "src/utils/mixins";
 @import "src/utils/variables";
 
-.pagination-container {
+
+.paginationContainer {
   display: flex;
   list-style-type: none;
   height: $rowHeight;
+  padding-left: 0;
 
-  .pagination-item {
+  .paginationItem {
     padding: 0 12px;
     height: 32px;
     text-align: center;

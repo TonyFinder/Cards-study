@@ -9,23 +9,16 @@
     display: flex;
     margin-top: $paddingTopButton + $fontSize;
 
-    .settingsBlock {
-      width: 250px;
-      margin-right: 10px;
+    @media (max-width: 970px) {
+      position: relative;
+      flex-direction: column;
+    }
 
-      .settings {
-        @include flexCenter;
-        flex-direction: column;
-        height: 100%;
-        padding: 0 10px;
-        background-color: $backgroundColor;
-        font-family: 'Montserrat', sans-serif;
+    .filters {
 
-        > span {
-          font-weight: bold;
-        }
+      @media (max-width: 970px) {
+        display: none;
       }
-
     }
 
     .packs {
@@ -40,6 +33,13 @@
 
       }
 
+      .filtersSmall {
+        display: none;
+
+        @media (max-width: 970px) {
+          display: unset;
+        }
+      }
       @include tableMain(700px);
 
     }

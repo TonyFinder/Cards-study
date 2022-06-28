@@ -6,4 +6,9 @@
   background: $tableFirstColor;
   position: fixed;
   width: 100%;
+  z-index: 30;
+
+  @media (max-width: 970px) {
+    position: unset;
+  }
 }

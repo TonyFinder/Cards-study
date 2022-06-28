@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import styles from './notification.module.scss'
 import {useAppDispatch} from "../../../../_bll/main/store";
-import {removeNotification} from "../../../../_bll/main/appReducer";
+import {removeNotification} from '../../../../_bll/main/appReducer';
 
 export type NotificationType = {
     id: string
@@ -36,21 +36,16 @@ export const Notification: React.FC<NotificationType> = ({id, type, message}) =>
         clearInterval(intervalId)
     }
 
-    const handleCloseNotification = () => {
-        handlePauseTimer()
-        setExit(true)
-        setTimeout(() => {
-            dispatch(removeNotification(id))
-        }, 400)
-    }
-
-
     useEffect(() => {
         if (width === 100) {
             //close Notification
-            handleCloseNotification()
+            clearInterval(intervalId)
+            setExit(true)
+            setTimeout(() => {
+                dispatch(removeNotification(id))
+            }, 400)
         }
-    }, [width]);
+    }, [width, dispatch, intervalId, id]);
 
     useEffect(() => {
         handleStartTimer()

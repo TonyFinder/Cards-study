@@ -1,13 +1,53 @@
-.input {
+@import "src/utils/mixins";
+@import "src/utils/variables";
+
+.inputBlock {
   width: 70%;
 
   >h2 {
     padding: 0 10px;
-  }
-  >div {
-    margin-bottom: 10px;
-    >input {
-      width: 100%;
+
+    @media (max-width: 970px) {
+      display: none;
     }
   }
+
+  .input {
+    position: relative;
+    .filters {
+      display: none;
+
+      @media (max-width: 970px) {
+        display: unset;
+        position: absolute;
+        top: -25px; left: 10px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+    }
+
+    .clearFilters {
+      display: none;
+
+      @media (max-width: 970px) {
+        display: unset;
+        position: absolute;
+        top: -25px; left: 100px;
+        font-weight: 600;
+        color: red;
+        cursor: pointer;
+      }
+    }
+
+    >div {
+      margin-bottom: 10px;
+      @media (max-width: 970px) {
+        margin-top: 0;
+      }
+      >input {
+        width: 100%;
+      }
+    }
+  }
+
 }

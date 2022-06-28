@@ -1,20 +1,19 @@
 import React, {useEffect, useState} from 'react';
-import {initialStatePacksType, setPacksTC, updateParams} from '../../../../_bll/features/cards/packsReducer';
+import {initialStatePacksType, setPacksTC, updatePacksParams} from '../../../../_bll/features/cards/packsReducer';
 import {useAppDispatch, useCustomSelector} from '../../../../_bll/main/store';
 import {Navigate, useNavigate} from 'react-router-dom';
 import {Pack} from './pack/Pack';
 import styles from './packs.module.scss';
-import {maxMinValueType, Slider} from '../../../common/_superComponents/Slider/Slider';
-import {DoubleButton} from '../../../common/_superComponents/DoubleButton/DoubleButton';
 import {Pagination} from './components/pagination/Pagination';
 import {InputComponent} from './components/inputComponent/InputComponent';
 import {COLORS, ROUTE_PATHS} from '../../../../utils/_values';
 import {LoadingStatusType} from '../../../../utils/enums';
 import {Loader} from '../../../common/_superComponents/Loader/Loader';
-import {Button} from '../../../common/_superComponents/Button/Button';
 import useDebounce from './components/inputComponent/castomHookUseDebounce';
 import {setCardsTC, updateCardParams} from '../../../../_bll/features/cards/cardsReducer';
 import {ModalCreatePackContainer} from '../../modal/packModal/createPack/ModalCreatePackContainer';
+import {Input} from '../../../common/_superComponents/Input/Input';
+import {Filters} from './components/Filters/Filters';
 
 const headerTable = {
     name: "Name",
@@ -26,7 +25,6 @@ const headerTable = {
     created: "Actions",
     header: true
 }
-
 
 export const Packs = () => {
     const dispatch = useAppDispatch()
@@ -41,10 +39,9 @@ export const Packs = () => {
         minCardsCount,
     } = useCustomSelector<initialStatePacksType>(state => state.packs)
     const isLogin = useCustomSelector<boolean>(state => state.login.isLoggedIn)
-    const userId = useCustomSelector<string>(state => state.profile._id)
     const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
-
     const disabled = loading === LoadingStatusType.active
+
     //For update slider if minDefault/maxDefault not change
     const [isChangeSlider, setIsChangeSlider] = useState(false)
 
@@ -54,34 +51,37 @@ export const Packs = () => {
     const column = sortPacks.slice(1)
 
     // Debounce logic
+    const [paginationInput, setPaginationInput] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
+    const debouncedPaginationInput = useDebounce(paginationInput, 1000);
     const debouncedSearchTerm = useDebounce(searchTerm, 1000);
 
-    useEffect(() => {
-        dispatch(updateParams({packName: debouncedSearchTerm, page: 1}))
-    }, [debouncedSearchTerm, dispatch])
+    const [showFilters, setShowFilters] = useState<boolean>(false)
 
     useEffect(() => {
         if (isLogin) {
             dispatch(setPacksTC())
         }
-    }, [isLogin, dispatch, packParams.sortPacks, packParams.max, packParams.min, packParams.page, packParams.pageCount, packParams.packName, packParams.user_id]);
+    }, [isLogin, dispatch, packParams.sortPacks, packParams.max, packParams.min, packParams.page, packParams.pageCount, packParams.packName, packParams.user_id])
+
+    useEffect(() => {
+        if (debouncedPaginationInput === '') return
+        dispatch(updatePacksParams({page: +debouncedPaginationInput}))
+        setPaginationInput('')
+    }, [debouncedPaginationInput, dispatch])
+
+    useEffect(() => {
+        dispatch(updatePacksParams({packName: debouncedSearchTerm, page: 1}))
+    }, [debouncedSearchTerm, dispatch])
 
     const onPageChangeHandler = (page: number) => {
         if (loading === LoadingStatusType.active) return
-        dispatch(updateParams({page}))
-    }
-    const onMouseUpSliderHandler = ({min, max}: maxMinValueType) => {
-        dispatch(updateParams({min, max, page: 1}))
-    }
-    const onClickMyAllChanger = (value: string) => {
-        value === 'my'
-            ? dispatch(updateParams({user_id: `${userId}`, page: 1}))
-            : dispatch(updateParams({user_id: '', page: 1}))
+        dispatch(updatePacksParams({page}))
+        setPaginationInput('')
     }
     const onClickResetFiltersHandler = () => {
         setIsChangeSlider(!isChangeSlider)
-        dispatch(updateParams({
+        dispatch(updatePacksParams({
             page: 1, min: minCardsCount, max: maxCardsCount,
             sortPacks: '0updated',
             user_id: '',
@@ -100,33 +100,34 @@ export const Packs = () => {
     return (
         <div className={styles.block}>
             <div className={styles.container}>
-                <div className={styles.settingsBlock}>
-                    <div className={styles.settings}>
-                        <span>Show packs cards</span> <br/><br/>
-                        <DoubleButton active={[!!packParams.user_id, !packParams.user_id]}
-                                      activeColor={COLORS.MAIN_DARK} disableColor={COLORS.MAIN_LIGHT}
-                                      onClick={onClickMyAllChanger}
-                                      disabled={disabled}/>
-                        <br/><br/>
-                        <span>Number of cards</span>
-                        <Slider min={Number(packParams.min)}
-                                max={Number(packParams.max)}
-                                minDefault={minCardsCount}
-                                maxDefault={maxCardsCount}
-                                onMouseUp={onMouseUpSliderHandler}
-                                disabled={disabled}
-                                changeSlider={isChangeSlider}
-                        />
-                        <Button onClick={onClickResetFiltersHandler} color={'red'}>Reset filters</Button>
-                    </div>
+
+                <div className={styles.filters}>
+                    <Filters user_id={!!packParams.user_id} disabled={disabled}
+                             min={Number(packParams.min)} max={Number(packParams.max)}
+                             minCardsCount={minCardsCount} maxCardsCount={maxCardsCount}
+                             changeSlider={isChangeSlider}
+                             setShowFilters={setShowFilters} onResetFilters={onClickResetFiltersHandler}/>
                 </div>
+
                 <div className={styles.packs}>
                     <div className={styles.header}>
                         <InputComponent value={searchTerm}
                                         onChange={setSearchTerm}
+                                        onClickShowFilters={() => setShowFilters(!showFilters)}
+                                        onResetFilters={onClickResetFiltersHandler}
                                         disabled={disabled}/>
                         <ModalCreatePackContainer disabled={disabled}/>
                     </div>
+
+                    <div className={styles.filtersSmall}>
+                        {showFilters && <Filters user_id={!!packParams.user_id} disabled={disabled}
+                                                 min={Number(packParams.min)} max={Number(packParams.max)}
+                                                 minCardsCount={minCardsCount} maxCardsCount={maxCardsCount}
+                                                 changeSlider={isChangeSlider}
+                                                 setShowFilters={(value) => setShowFilters(value)}/>
+                        }
+                    </div>
+
                     <div className={styles.table}>
                         <Pack sort={[direction, column]} {...headerTable}/>
                         {loading === LoadingStatusType.active
@@ -137,19 +138,26 @@ export const Packs = () => {
                                 : <span className={styles.emptyPacksText}>There is no data according to your search parameters...</span>
                         }
                     </div>
+
                     <div className={styles.page}>
                         <Pagination
                             siblingCount={1}
-                            className=""
                             currentPage={page}
                             totalCount={cardPacksTotalCount}
                             pageSize={pageCount}
                             onPageChange={onPageChangeHandler}
                         />
+                        <div className={`${styles.jumper} ${cardPacksTotalCount < 9 && styles.hide}`}>
+                            <span>Go to</span>
+                            <Input type={'number'}
+                                   value={paginationInput ? paginationInput : ''}
+                                   onChangeText={setPaginationInput}
+                                   min="1" max={cardPacksTotalCount%pageCount ? cardPacksTotalCount/pageCount + 1 : cardPacksTotalCount/pageCount}
+                                   disabled={disabled}/>
+                        </div>
                     </div>
                 </div>
             </div>
-
         </div>
     );
 };

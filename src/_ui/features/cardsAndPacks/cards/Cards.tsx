@@ -1,17 +1,16 @@
-import React, {useEffect} from 'react';
-import {useNavigate, useParams} from "react-router-dom";
-import {useAppDispatch, useCustomSelector} from "../../../../_bll/main/store";
-import {Card} from "./card/Card";
-import {
-    initialStateCardsType,
-    setCardsTC, updateCardParams,
-} from "../../../../_bll/features/cards/cardsReducer";
+import React, {useEffect, useState} from 'react';
+import {useNavigate, useParams} from 'react-router-dom';
+import {useAppDispatch, useCustomSelector} from '../../../../_bll/main/store';
+import {Card} from './card/Card';
+import {initialStateCardsType, setCardsTC, updateCardParams,} from '../../../../_bll/features/cards/cardsReducer';
 import styles from './cards.module.scss';
-import {InputComponentForCards} from "./components/input/InputComponentForCards";
-import {Pagination} from "../packs/components/pagination/Pagination";
-import {LoadingStatusType} from "../../../../utils/enums";
-import {Loader} from "../../../common/_superComponents/Loader/Loader";
-import {COLORS} from "../../../../utils/_values";
+import {InputComponentForCards} from './components/input/InputComponentForCards';
+import {Pagination} from '../packs/components/pagination/Pagination';
+import {LoadingStatusType} from '../../../../utils/enums';
+import {Loader} from '../../../common/_superComponents/Loader/Loader';
+import {COLORS} from '../../../../utils/_values';
+import {Input} from '../../../common/_superComponents/Input/Input';
+import useDebounce from '../packs/components/inputComponent/castomHookUseDebounce';
 
 const headerTable = {
     _id: '_id',
@@ -36,8 +35,11 @@ export const Cards = () => {
     } = useCustomSelector<initialStateCardsType>(state => state.cards);
     const userId = useCustomSelector<string>(state => state.profile._id)
     const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
-
     const disabled = loading === LoadingStatusType.active
+
+    // Debounce logic
+    const [paginationInput, setPaginationInput] = useState('');
+    const debouncedPaginationInput = useDebounce(paginationInput, 1000);
 
     // Detect sorting column
     const sortCards = useCustomSelector<string>(state => state.cards.cardParams.sortCards ? state.cards.cardParams.sortCards : '')
@@ -51,6 +53,12 @@ export const Cards = () => {
     useEffect(() => {
         dispatch(setCardsTC())
     }, [dispatch, cardParams.sortCards, cardParams.page, cardParams.cardAnswer, cardParams.cardQuestion]);
+
+    useEffect(() => {
+        if (debouncedPaginationInput === '') return
+        dispatch(updateCardParams({page: +debouncedPaginationInput}))
+        setPaginationInput('')
+    }, [debouncedPaginationInput, dispatch])
 
     const onPageChangeHandler = (page: number) => {
         dispatch(updateCardParams({page}))
@@ -87,11 +95,18 @@ export const Cards = () => {
                     <Pagination
                         siblingCount={1}
                         pageSize={pageCount}
-                        className=""
                         totalCount={cardsTotalCount}
                         currentPage={page}
                         onPageChange={onPageChangeHandler}
                     />
+                    <div className={`${styles.jumper} ${cardsTotalCount < 9 && styles.hide}`}>
+                        <span>Go to</span>
+                        <Input type={'number'}
+                               value={paginationInput ? paginationInput : ''}
+                               onChangeText={setPaginationInput}
+                               min="1" max={cardsTotalCount%pageCount ? cardsTotalCount/pageCount + 1 : cardsTotalCount/pageCount}
+                               disabled={disabled}/>
+                    </div>
                 </div>
             </div>
 

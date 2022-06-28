@@ -25,7 +25,7 @@ export const ModalUpdateCardContainer: React.FC<ModalUpdateContainerType> = ({ca
     useEffect(() => {
         setQuestion(cardQuestion)
         setAnswer(cardAnswer)
-    }, [show])
+    }, [show, cardQuestion, cardAnswer])
 
 
     const onClickUpdateHandler = () => {
