@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/cards-nya-front/static/css/main.2b94e666.css",
-    "main.js": "/cards-nya-front/static/js/main.c0f28423.js",
+    "main.css": "/cards-nya-front/static/css/main.f580fb04.css",
+    "main.js": "/cards-nya-front/static/js/main.a85d6d60.js",
     "static/js/787.bc4a98be.chunk.js": "/cards-nya-front/static/js/787.bc4a98be.chunk.js",
     "static/media/not_found_404.png": "/cards-nya-front/static/media/not_found_404.91b427fbaaa176a61156.png",
     "static/media/emailCheck.png": "/cards-nya-front/static/media/emailCheck.4aad74bffaa7528ccb7b.png",
     "index.html": "/cards-nya-front/index.html",
-    "main.2b94e666.css.map": "/cards-nya-front/static/css/main.2b94e666.css.map",
-    "main.c0f28423.js.map": "/cards-nya-front/static/js/main.c0f28423.js.map",
+    "main.f580fb04.css.map": "/cards-nya-front/static/css/main.f580fb04.css.map",
+    "main.a85d6d60.js.map": "/cards-nya-front/static/js/main.a85d6d60.js.map",
     "787.bc4a98be.chunk.js.map": "/cards-nya-front/static/js/787.bc4a98be.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2b94e666.css",
-    "static/js/main.c0f28423.js"
+    "static/css/main.f580fb04.css",
+    "static/js/main.a85d6d60.js"
   ]
 }
