@@ -53,7 +53,7 @@ export const Profile = () => {
         if (file && +file.size >= 2097152) {
             setError(true)
         }
-    }, [nickNameValue, file])
+    }, [nickNameValue, name, file])
 
     useEffect(() => {
         if (file !== undefined) {
@@ -68,7 +68,7 @@ export const Profile = () => {
                 }))
             }
         }
-    }, [file])
+    }, [file, dispatch])
 
     const changeProfileData = () => {
         dispatch(changeProfileDataTC(nickNameValue, file64))
