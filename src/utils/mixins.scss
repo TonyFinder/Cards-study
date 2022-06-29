@@ -78,13 +78,23 @@
     @include flexCenter;
     height: $rowHeight;
 
+    @media (max-width: 570px) {
+      flex-direction: column;
+      height: $rowHeight * 2.5;
+    }
+
     .jumper {
       @include flexCenter;
       height: $rowHeight;
       > span {
         padding-left: 10px;
+        @media (max-width: 570px) {
+          padding-left: unset;
+        }
+
       }
       > div {
+
         > input {
           padding: 5px;
           width: 60px;

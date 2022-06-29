@@ -1,11 +1,15 @@
 @import "../../../utils/variables";
 @import "../../../utils/mixins";
 
-.button {
-  margin: 0 2px !important;
-  padding: 2px !important;
-  border-radius: 10% !important;
-  font-size: 12px !important;
+.buttonAdd {
+  button {
+    @media (max-width: 570px) {
+      padding: 10px 5px;
+    }
+    @media (max-width: 350px) {
+      padding: 0;
+    }
+  }
 }
 
 .modal {

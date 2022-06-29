@@ -38,9 +38,12 @@ export const ModalCreatePackContainer: React.FC<ModalCreatePackContainerType> = 
 
     return (
         <>
-            <Button onClick={() => setShow(true)}
-                    color={COLORS.MAIN_DARK}
-                    disabled={disabled}>Add new pack</Button>
+            <div className={styles.buttonAdd}>
+                <Button onClick={() => setShow(true)}
+                        color={COLORS.MAIN_DARK}
+                        disabled={disabled}>Add new pack</Button>
+            </div>
+
             <Modal backgroundOnClick={onClickCloseHandler} show={show}>
                 <div className={styles.modal}>
                     <div className={styles.header}>

@@ -5,6 +5,10 @@
   @include flexCenter;
   min-height: 100vh;
 
+  @media (max-width: 720px) {
+    display: unset;
+  }
+
   .container {
     display: flex;
     margin-top: $paddingTopButton + $fontSize;
@@ -25,12 +29,20 @@
       display: flex;
       flex-direction: column;
 
+      @media (max-width: 720px) {
+        display: unset;
+      }
+
       .header {
         display: flex;
         justify-content: center;
         align-items: flex-end;
         font-family: 'Montserrat', sans-serif;
+      }
 
+      .tableWrap {
+        overflow-x: auto;
+        margin: 0 10px;
       }
 
       .filtersSmall {

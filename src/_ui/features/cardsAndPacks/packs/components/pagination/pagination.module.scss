@@ -8,6 +8,10 @@
   height: $rowHeight;
   padding-left: 0;
 
+  @media (max-width: 570px) {
+    height: unset;
+  }
+
   .paginationItem {
     padding: 0 12px;
     height: 32px;

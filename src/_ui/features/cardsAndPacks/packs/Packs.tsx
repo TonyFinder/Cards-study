@@ -128,15 +128,18 @@ export const Packs = () => {
                         }
                     </div>
 
-                    <div className={styles.table}>
-                        <Pack sort={[direction, column]} {...headerTable}/>
-                        {loading === LoadingStatusType.active
-                            ? <Loader color={COLORS.MAIN_DARK} className={styles.loader}/>
-                            : cardPacks.length > 0
-                                ? cardPacks.map(p => <Pack key={p._id}
-                                                           sort={[direction, column]} {...p} onClick={onClickToLearn}/>)
-                                : <span className={styles.emptyPacksText}>There is no data according to your search parameters...</span>
-                        }
+                    <div className={styles.tableWrap}>
+                        <div className={styles.table}>
+                            <Pack sort={[direction, column]} {...headerTable}/>
+                            {loading === LoadingStatusType.active
+                                ? <Loader color={COLORS.MAIN_DARK} className={styles.loader}/>
+                                : cardPacks.length > 0
+                                    ? cardPacks.map(p => <Pack key={p._id}
+                                                               sort={[direction, column]} {...p}
+                                                               onClick={onClickToLearn}/>)
+                                    : <span className={styles.emptyPacksText}>There is no data according to your search parameters...</span>
+                            }
+                        </div>
                     </div>
 
                     <div className={styles.page}>
