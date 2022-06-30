@@ -1,5 +1,4 @@
 import styles from '../Template.module.scss'
-import s from './Profile.module.scss'
 import {Input} from '../../common/_superComponents/Input/Input';
 import {Button} from '../../common/_superComponents/Button/Button';
 import {useAppDispatch, useCustomSelector} from '../../../_bll/main/store';
@@ -95,7 +94,7 @@ export const Profile = () => {
                     accept=".jpg, .jpeg, .png"
                 />
                 <span onClick={() => inRef && inRef.current && inRef.current.click()}
-                      className={s.changeAvatar}>&#128393;</span>
+                      className={styles.changeAvatar}>&#128393;</span>
                 <Button className={styles.logout} onClick={logoutHandler}
                         disabled={loading === LoadingStatusType.active}>Logout</Button>
             </div>
