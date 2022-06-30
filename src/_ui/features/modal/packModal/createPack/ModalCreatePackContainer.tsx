@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Button} from '../../../../common/_superComponents/Button/Button';
 import {useAppDispatch} from "../../../../../_bll/main/store";
-import {createPackTC} from "../../../../../_bll/features/cards/packsReducer";
+import {createPackTC, setShowFilters} from '../../../../../_bll/features/cards/packsReducer';
 import {Input} from "../../../../common/_superComponents/Input/Input";
 import {Checkbox} from "../../../../common/_superComponents/Checkbox/Checkbox";
 import {COLORS} from "../../../../../utils/_values";
@@ -35,11 +35,15 @@ export const ModalCreatePackContainer: React.FC<ModalCreatePackContainerType> = 
         setNamePack('')
         setCardPrivate(false)
     }
+    const onClickMainButton = () => {
+        dispatch(setShowFilters(false))
+        setShow(true)
+    }
 
     return (
         <>
             <div className={styles.buttonAdd}>
-                <Button onClick={() => setShow(true)}
+                <Button onClick={onClickMainButton}
                         color={COLORS.MAIN_DARK}
                         disabled={disabled}>Add new pack</Button>
             </div>

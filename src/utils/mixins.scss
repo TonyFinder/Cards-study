@@ -38,7 +38,6 @@
 
 @mixin tableMain($width) {
   .table {
-    position: relative;
     height: $rowHeight * 9;
     box-shadow: 0 4px 14px rgba(45, 46, 70, 0.15);
     width: $width;

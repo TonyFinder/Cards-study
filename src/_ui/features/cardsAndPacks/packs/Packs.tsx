@@ -37,6 +37,7 @@ export const Packs = () => {
         pageCount,
         maxCardsCount,
         minCardsCount,
+        showFilters,
     } = useCustomSelector<initialStatePacksType>(state => state.packs)
     const isLogin = useCustomSelector<boolean>(state => state.login.isLoggedIn)
     const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
@@ -55,8 +56,6 @@ export const Packs = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const debouncedPaginationInput = useDebounce(paginationInput, 1000);
     const debouncedSearchTerm = useDebounce(searchTerm, 1000);
-
-    const [showFilters, setShowFilters] = useState<boolean>(false)
 
     useEffect(() => {
         if (isLogin) {
@@ -106,14 +105,13 @@ export const Packs = () => {
                              min={Number(packParams.min)} max={Number(packParams.max)}
                              minCardsCount={minCardsCount} maxCardsCount={maxCardsCount}
                              changeSlider={isChangeSlider}
-                             setShowFilters={setShowFilters} onResetFilters={onClickResetFiltersHandler}/>
+                             onResetFilters={onClickResetFiltersHandler}/>
                 </div>
 
                 <div className={styles.packs}>
                     <div className={styles.header}>
                         <InputComponent value={searchTerm}
                                         onChange={setSearchTerm}
-                                        onClickShowFilters={() => setShowFilters(!showFilters)}
                                         onResetFilters={onClickResetFiltersHandler}
                                         disabled={disabled}/>
                         <ModalCreatePackContainer disabled={disabled}/>
@@ -123,8 +121,7 @@ export const Packs = () => {
                         {showFilters && <Filters user_id={!!packParams.user_id} disabled={disabled}
                                                  min={Number(packParams.min)} max={Number(packParams.max)}
                                                  minCardsCount={minCardsCount} maxCardsCount={maxCardsCount}
-                                                 changeSlider={isChangeSlider}
-                                                 setShowFilters={(value) => setShowFilters(value)}/>
+                                                 changeSlider={isChangeSlider}/>
                         }
                     </div>
 
@@ -144,7 +141,7 @@ export const Packs = () => {
 
                     <div className={styles.page}>
                         <Pagination
-                            siblingCount={1}
+                            siblingCount={0}
                             currentPage={page}
                             totalCount={cardPacksTotalCount}
                             pageSize={pageCount}

@@ -7,11 +7,21 @@
 
   @media (max-width: 970px) {
     position: absolute;
-    top: 60px; left: 0;
-    width: 700px; height: unset;
+    top: 130px; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 98%; height: unset;
     z-index: 40;
     background: $tableHeaderColor;
     border: 2px solid $backColorSecond;
+  }
+  @media (max-width: 570px) {
+    top: 185px;
+  }
+  @media (max-width: 520px) {
+    top: 203px;
+  }
+  @media (max-width: 350px) {
+    top: 183px;
   }
 
   .settings {
@@ -30,6 +40,9 @@
       padding: 10px 0;
       background-color: $backgroundColor;
       font-family: 'Montserrat', sans-serif;
+    }
+    @media (max-width: 570px) {
+      flex-direction: column;
     }
 
     .showPacks {
@@ -65,8 +78,13 @@
 
   .cross {
     position: absolute;
+    display: none;
     cursor: pointer;
     color: red;
     top: 5px; right: 10px;
+
+    @media (max-width: 970px) {
+      display: unset;
+    }
   }
 }

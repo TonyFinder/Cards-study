@@ -55,6 +55,7 @@ export type PacksType = {
     error?: string
 
     changeSlider: boolean
+    showFilters: boolean
 }
 
 export type PackType = {

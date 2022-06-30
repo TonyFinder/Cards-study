@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Button} from '../../../../common/_superComponents/Button/Button';
 import {useAppDispatch} from "../../../../../_bll/main/store";
-import {updatePackTC} from "../../../../../_bll/features/cards/packsReducer";
+import {setShowFilters, updatePackTC} from '../../../../../_bll/features/cards/packsReducer';
 import styles from "../../modalTemplate.module.scss"
 import {Input} from '../../../../common/_superComponents/Input/Input';
 import {COLORS} from '../../../../../utils/_values';
@@ -23,24 +23,27 @@ export const ModalUpdateContainer: React.FC<ModalUpdateContainerType> = ({packId
 
     useEffect(() => {
         setName(packName)
-    }, [show])
+    }, [show, packName])
 
     const onClickUpdateHandler = () => {
         dispatch(updatePackTC({_id: packId, name: name, deckCover: "", cardPrivate: cardPrivate}, packName))
         setShow(false)
     }
-
     const onClickCloseModalHandler = () => {
         setShow(false)
         setName(packName)
         setCardPrivate(false)
+    }
+    const onClickUpdateMainButtonHandler = () => {
+        setShow(true)
+        dispatch(setShowFilters(false))
     }
 
     return (
         <>
             <Button color={COLORS.BUTTON_TABLE_MAIN}
                     disabled={disabled}
-                    onClick={() => setShow(true)}
+                    onClick={onClickUpdateMainButtonHandler}
                     className={styles.button}>Edit</Button>
             <Modal backgroundOnClick={onClickCloseModalHandler} show={show}>
                 <div className={styles.modal}>

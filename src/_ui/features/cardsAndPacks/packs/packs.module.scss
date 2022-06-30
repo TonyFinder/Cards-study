@@ -41,7 +41,9 @@
       }
 
       .tableWrap {
+        position: relative;
         overflow-x: auto;
+        overflow-y: hidden;
         margin: 0 10px;
       }
 

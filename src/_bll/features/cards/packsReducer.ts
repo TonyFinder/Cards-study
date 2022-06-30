@@ -24,6 +24,7 @@ const initialState: initialStatePacksType = {
     pageCount: 1,
 
     changeSlider: false,
+    showFilters: false,
 
     packParams: {
         packName: "",
@@ -42,6 +43,8 @@ export const packsReducer = (state: initialStatePacksType = initialState, action
             return {...state, ...action.data}
         case 'PACKS/UPDATE-PARAMS':
             return {...state, packParams: {...state.packParams, ...action.params}}
+        case 'PACKS/SHOW-FILTERS':
+            return {...state, showFilters: action.filter}
         default:
             return state
     }
@@ -50,6 +53,7 @@ export const packsReducer = (state: initialStatePacksType = initialState, action
 // actions
 export const setPacks = (data: PacksType) => ({type: 'PACKS/SET-PACKS-DATA', data} as const)
 export const updatePacksParams = (params: UpdateParamsActionType) => ({type: "PACKS/UPDATE-PARAMS", params} as const)
+export const setShowFilters = (filter: boolean) => ({type: "PACKS/SHOW-FILTERS", filter} as const)
 
 // thunks
 export const setPacksTC = (): AppThunk => (dispatch, getState) => {
@@ -140,6 +144,7 @@ export const updatePackTC = (data: UpdatePackType, packName: string): AppThunk =
 export  type ActionPacksType =
     | ReturnType<typeof setPacks>
     | ReturnType<typeof updatePacksParams>
+    | ReturnType<typeof setShowFilters>
 
 export type initialStatePacksType = PacksType & {
     packParams: PackParamsType

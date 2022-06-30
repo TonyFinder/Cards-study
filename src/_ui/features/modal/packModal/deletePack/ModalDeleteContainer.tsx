@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Button} from '../../../../common/_superComponents/Button/Button';
 import {useAppDispatch} from "../../../../../_bll/main/store";
-import {deletePackTC} from "../../../../../_bll/features/cards/packsReducer";
+import {deletePackTC, setShowFilters} from '../../../../../_bll/features/cards/packsReducer';
 import styles from "../../modalTemplate.module.scss"
 import {COLORS} from '../../../../../utils/_values';
 import {Modal} from '../../Modal';
@@ -22,11 +22,15 @@ export const ModalDeleteContainer: React.FC<ModalDeleteContainerType> = ({packId
         dispatch(deletePackTC(packId,packName))
         setShow(false)
     }
+    const onClickDeleteMainButtonHandler = () => {
+        setShow(true)
+        dispatch(setShowFilters(false))
+    }
 
     return (
         <>
             <Button disabled={disabled}
-                    onClick={() => setShow(true)}
+                    onClick={onClickDeleteMainButtonHandler}
                     color={'red'}
                     className={styles.button}>Delete</Button>
             <Modal backgroundOnClick={() => setShow(false)} show={show}>
