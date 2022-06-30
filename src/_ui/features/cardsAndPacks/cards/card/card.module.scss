@@ -38,8 +38,7 @@
 
   .actions {
     width: 100%-25%-25%-15%-15%;
-    @include flexCenter;
-    padding: 0 5px;
+    @include smallButtonsForTable;
   }
 
 }

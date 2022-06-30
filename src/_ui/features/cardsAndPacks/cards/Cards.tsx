@@ -76,24 +76,28 @@ export const Cards = () => {
                                             packId={cardParams.cardsPack_id ? cardParams.cardsPack_id : ''}
                                             userId={userId} packUserId={packUserId}/>
                 </div>
-                <div className={styles.table}>
-                    <Card sort={[direction, column]}
-                          disabled={false}
-                          user_id={cards.map(p => p.user_id)[0]}
-                          userIdProfile={userId}
-                          {...headerTable}/>
-                    {loading === LoadingStatusType.active
-                        ? <Loader color={COLORS.MAIN_DARK} className={styles.loader}/>
-                        : cards.length > 0
-                            ? cards.map(p => <Card header={false} key={p._id} sort={[direction, column]}
-                                                   disabled={disabled}
-                                                   userIdProfile={userId} {...p}/>)
-                            : <span className={styles.emptyPacksText}>There is no data according to your search parameters...</span>
-                    }
+
+                <div className={styles.tableWrap}>
+                    <div className={styles.table}>
+                        <Card sort={[direction, column]}
+                              disabled={false}
+                              user_id={cards.map(p => p.user_id)[0]}
+                              userIdProfile={userId}
+                              {...headerTable}/>
+                        {loading === LoadingStatusType.active
+                            ? <Loader color={COLORS.MAIN_DARK} className={styles.loader}/>
+                            : cards.length > 0
+                                ? cards.map(p => <Card header={false} key={p._id} sort={[direction, column]}
+                                                       disabled={disabled}
+                                                       userIdProfile={userId} {...p}/>)
+                                : <span className={styles.emptyPacksText}>There is no data according to your search parameters...</span>
+                        }
+                    </div>
                 </div>
+
                 <div className={styles.page}>
                     <Pagination
-                        siblingCount={1}
+                        siblingCount={0}
                         pageSize={pageCount}
                         totalCount={cardsTotalCount}
                         currentPage={page}

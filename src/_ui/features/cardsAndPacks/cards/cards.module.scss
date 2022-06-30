@@ -5,13 +5,25 @@
   @include flexCenter;
   min-height: 100vh;
 
+  @media (max-width: 970px) {
+    display: unset;
+  }
+
   .container {
     display: flex;
     flex-direction: column;
     align-items: center;
 
+    @media (max-width: 970px) {
+      display: unset;
+    }
+
     .input {
       width: 95%;
+
+      @media (max-width: 970px) {
+        width: 100%;
+      }
 
       .name {
         @include flexCenter();
@@ -41,6 +53,12 @@
         }
       }
 
+    }
+
+    .tableWrap {
+      overflow-x: auto;
+      overflow-y: hidden;
+      margin: 0 10px;
     }
 
     @include tableMain(900px);

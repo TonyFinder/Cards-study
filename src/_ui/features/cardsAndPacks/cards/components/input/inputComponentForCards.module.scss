@@ -5,14 +5,27 @@
   display: flex;
   justify-content: space-around;
 
+  @media (max-width: 370px) {
+    flex-direction: column;
+  }
+
   .inputBlock {
     width: 75%;
     display: flex;
+
+    @media (max-width: 720px) {
+      width: 75%;
+      flex-direction: column;
+    }
+    @media (max-width: 370px) {
+      width: 100%;
+    }
 
     .input {
       width: 100%;
       >div {
         margin: 10px 10px;
+
       }
     }
   }
