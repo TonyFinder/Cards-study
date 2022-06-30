@@ -1,14 +1,19 @@
 @import "src/utils/mixins";
+@import "src/utils/variables";
 
 .notificationItem {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
+  border-radius: 0 10px 0 0;
   overflow: hidden;
-  margin-bottom: 20px;
   animation: SlideRight 0.4s;
+  margin-top: 10px;
   animation-fill-mode: forwards;
   width: 300px;
   background-color: $tableFirstColor;
+
+  @media (max-width: 390px) {
+    width: 250px;
+  }
 
   &.exit {
     animation: SlideLeft 0.4s;
@@ -17,31 +22,32 @@
 
   @keyframes SlideLeft {
     0% {
-      margin-left: 120%
+      margin-left: 100%;
     }
     100% {
-      margin-left: 0
+      margin-left: 0;
     }
   }
 
   @keyframes SlideRight {
     0% {
-      margin-left: 0
+      margin-left: 0;
     }
     100% {
-      margin-left: 120%
+      margin-left: 100%;
     }
   }
 
   .message {
-    text-align: left;
+    text-align: center;
     overflow: hidden;
     text-overflow: ellipsis;
     margin: 0;
     padding: 10px;
+    background: #a4cea4;
 
     &.error {
-      background-color: darkred;
+      background-color: #fb6d6d;
     }
   }
 
@@ -54,7 +60,7 @@
     }
 
     &.error {
-      background-color: #e05050;
+      background-color: #ff1d1d;
     }
   }
 }
