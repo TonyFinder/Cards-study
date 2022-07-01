@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Button} from '../../../../common/_superComponents/Button/Button';
 import {useAppDispatch} from '../../../../../_bll/main/store';
 import {COLORS} from '../../../../../utils/_values';
@@ -29,6 +29,19 @@ export const ModalCreateCardContainer: React.FC<ModalCreatePackContainerType> = 
         setAnswer('')
     }
 
+    // Logic for leaving modal window in case ESC button is pressed
+    const escFunction = useCallback( (event: KeyboardEvent) => {
+        event.code === 'Escape' && onClickCloseHandler()
+    }, [])
+
+    useEffect(() => {
+        document.addEventListener("keydown", escFunction)
+
+        return () => {
+            document.removeEventListener("keydown", escFunction)
+        }
+    }, [escFunction])
+
     return (
         <>
             <Button onClick={() => setShow(true)}
@@ -57,6 +70,7 @@ export const ModalCreateCardContainer: React.FC<ModalCreatePackContainerType> = 
 
                     <div className={styles.buttons}>
                         <Button color={COLORS.HEADER_BOTTOM}
+                                disabled={!question || !answer}
                                 onClick={onClickCreateHandler}>Save</Button>
                         <Button color={COLORS.HEADER_BOTTOM}
                                 onClick={onClickCloseHandler}>Close</Button>

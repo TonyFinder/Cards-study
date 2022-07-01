@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Button} from '../../../../common/_superComponents/Button/Button';
 import {useAppDispatch} from "../../../../../_bll/main/store";
 import {deletePackTC, setShowFilters} from '../../../../../_bll/features/cards/packsReducer';
@@ -26,6 +26,19 @@ export const ModalDeleteContainer: React.FC<ModalDeleteContainerType> = ({packId
         setShow(true)
         dispatch(setShowFilters(false))
     }
+
+    // Logic for leaving modal window in case ESC button is pressed
+    const escFunction = useCallback((event: KeyboardEvent) => {
+        event.code === 'Escape' && setShow(false)
+    }, [])
+
+    useEffect(() => {
+        document.addEventListener("keydown", escFunction)
+
+        return () => {
+            document.removeEventListener("keydown", escFunction)
+        }
+    }, [escFunction])
 
     return (
         <>

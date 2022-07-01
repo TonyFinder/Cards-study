@@ -29,6 +29,7 @@ export const Forgot = () => {
     const saveButtonDisable = !emailValue || errorEmail || errorEmailValid || !!error
 
     const onClickForgotHandler = () => {
+        if (saveButtonDisable) return
         /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(emailValue)
             ? dispatch(requestPasswordTC(emailValue))
             : setErrorEmailValid(true)
@@ -53,9 +54,11 @@ export const Forgot = () => {
                     value={emailValue}
                     sign='Email'
                     color={COLORS.MAIN_DARK}
-                    onChangeText={onChangeTextEmailHandler}
                     error={errorEmail}
                     emailError={errorEmailValid}
+                    disabled={loading === LoadingStatusType.active}
+                    onChangeText={onChangeTextEmailHandler}
+                    onEnter={onClickForgotHandler}
                     onChangeError={setErrorEmail}/>
             </div>
 

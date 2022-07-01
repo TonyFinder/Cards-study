@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Button} from '../../../../common/_superComponents/Button/Button';
 import {useAppDispatch} from "../../../../../_bll/main/store";
 import {setShowFilters, updatePackTC} from '../../../../../_bll/features/cards/packsReducer';
@@ -26,18 +26,32 @@ export const ModalUpdateContainer: React.FC<ModalUpdateContainerType> = ({packId
     }, [show, packName])
 
     const onClickUpdateHandler = () => {
+        if (packName === name) return
         dispatch(updatePackTC({_id: packId, name: name, deckCover: "", cardPrivate: cardPrivate}, packName))
         setShow(false)
     }
-    const onClickCloseModalHandler = () => {
+    const onClickCloseModalHandler = useCallback( () => {
         setShow(false)
         setName(packName)
         setCardPrivate(false)
-    }
+    }, [packName])
     const onClickUpdateMainButtonHandler = () => {
         setShow(true)
         dispatch(setShowFilters(false))
     }
+
+    // Logic for leaving modal window in case ESC button is pressed
+    const escFunction = useCallback((event: KeyboardEvent) => {
+        event.code === 'Escape' && onClickCloseModalHandler()
+    }, [onClickCloseModalHandler])
+
+    useEffect(() => {
+        document.addEventListener("keydown", escFunction)
+
+        return () => {
+            document.removeEventListener("keydown", escFunction)
+        }
+    }, [escFunction])
 
     return (
         <>
@@ -52,9 +66,12 @@ export const ModalUpdateContainer: React.FC<ModalUpdateContainerType> = ({packId
                     </div>
 
                     <div className={styles.input}>
-                        <Input value={name} color={COLORS.HEADER_BOTTOM} autoFocus
-                               onChange={(e) => setName(e.currentTarget.value)}
-                               sign='New pack mame'/>
+                        <Input value={name}
+                               sign='New pack mame'
+                               color={COLORS.HEADER_BOTTOM}
+                               autoFocus
+                               onEnter={onClickUpdateHandler}
+                               onChange={(e) => setName(e.currentTarget.value)}/>
                     </div>
 
                     <div className={styles.checkbox}>
@@ -69,6 +86,7 @@ export const ModalUpdateContainer: React.FC<ModalUpdateContainerType> = ({packId
 
                     <div className={styles.buttons}>
                         <Button color={COLORS.HEADER_BOTTOM}
+                                disabled={packName === name}
                                 onClick={onClickUpdateHandler}>Save</Button>
                         <Button color={COLORS.HEADER_BOTTOM}
                                 onClick={onClickCloseModalHandler}>Close</Button>

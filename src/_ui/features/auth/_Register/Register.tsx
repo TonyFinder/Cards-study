@@ -39,6 +39,7 @@ export const Register = () => {
         : m))
   }
   const onClickRegisterHandler = () => {
+    if (saveButtonDisable) return
     /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(emailValue) && passwordValue.length > 7 && repeatPasswordValue.length > 7 && passwordValue === repeatPasswordValue && dispatch(requestRegistrationTC(emailValue, passwordValue))
     !(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(emailValue)) && setErrorEmailValid(true)
     passwordValue.length < 8 && setErrorPasswordValid(true)
@@ -76,9 +77,11 @@ export const Register = () => {
             value={emailValue}
             color={COLORS.MAIN_DARK}
             sign='Email'
-            onChangeText={onChangeTextEmailHandler}
             error={errorEmail}
             emailError={errorEmailValid}
+            disabled={loading === LoadingStatusType.active}
+            onChangeText={onChangeTextEmailHandler}
+            onEnter={onClickRegisterHandler}
             onChangeError={setErrorEmail}/>
         <div className={styles.inputPass}>
           <Input
@@ -86,10 +89,12 @@ export const Register = () => {
               color={COLORS.MAIN_DARK}
               type={typeInput[0]}
               sign="Password"
-              onChangeText={onChangeTextPasswordHandler}
               error={errorPassword}
               passwordError={errorPasswordValid}
               comparePassword={errorComparePasswords}
+              disabled={loading === LoadingStatusType.active}
+              onChangeText={onChangeTextPasswordHandler}
+              onEnter={onClickRegisterHandler}
               onChangeError={setErrorPassword}/>
           <span className={styles.hidePass} onClick={()=>onClickShowPasswordHandler(0)}>👀</span>
         </div>
@@ -99,10 +104,12 @@ export const Register = () => {
               color={COLORS.MAIN_DARK}
               type={typeInput[1]}
               sign="Confirm password"
-              onChangeText={onChangeTextRepeatPasswordHandler}
               error={errorRepeatPassword}
               passwordError={errorRepeatPasswordValid}
               comparePassword={errorComparePasswords}
+              disabled={loading === LoadingStatusType.active}
+              onChangeText={onChangeTextRepeatPasswordHandler}
+              onEnter={onClickRegisterHandler}
               onChangeError={setErrorRepeatPassword}/>
           <span className={styles.hidePass} onClick={()=>onClickShowPasswordHandler(1)}>👀</span>
         </div>

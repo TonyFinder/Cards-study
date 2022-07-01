@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Button} from '../../../../common/_superComponents/Button/Button';
-import {useAppDispatch} from "../../../../../_bll/main/store";
+import {useAppDispatch} from '../../../../../_bll/main/store';
 import {createPackTC, setShowFilters} from '../../../../../_bll/features/cards/packsReducer';
-import {Input} from "../../../../common/_superComponents/Input/Input";
-import {Checkbox} from "../../../../common/_superComponents/Checkbox/Checkbox";
-import {COLORS} from "../../../../../utils/_values";
-import styles from "../../modalTemplate.module.scss"
+import {Input} from '../../../../common/_superComponents/Input/Input';
+import {Checkbox} from '../../../../common/_superComponents/Checkbox/Checkbox';
+import {COLORS} from '../../../../../utils/_values';
+import styles from '../../modalTemplate.module.scss'
 import {Modal} from '../../Modal';
 
 type ModalCreatePackContainerType = {
@@ -21,6 +21,7 @@ export const ModalCreatePackContainer: React.FC<ModalCreatePackContainerType> = 
     const dispatch = useAppDispatch()
 
     const onClickCreateHandler = () => {
+        if (!namePack) return
         dispatch(createPackTC(
             {
                 name: namePack,
@@ -39,6 +40,19 @@ export const ModalCreatePackContainer: React.FC<ModalCreatePackContainerType> = 
         dispatch(setShowFilters(false))
         setShow(true)
     }
+
+    // Logic for leaving modal window in case ESC button is pressed
+    const escFunction = useCallback( (event: KeyboardEvent) => {
+        event.code === 'Escape' && onClickCloseHandler()
+    }, [])
+
+    useEffect(() => {
+        document.addEventListener("keydown", escFunction)
+
+        return () => {
+            document.removeEventListener("keydown", escFunction)
+        }
+    }, [escFunction])
 
     return (
         <>
@@ -59,6 +73,7 @@ export const ModalCreatePackContainer: React.FC<ModalCreatePackContainerType> = 
                                color={COLORS.HEADER_BOTTOM}
                                autoFocus
                                value={namePack}
+                               onEnter={onClickCreateHandler}
                                onChange={(e) => setNamePack(e.currentTarget.value)}/>
                     </div>
 
@@ -73,6 +88,7 @@ export const ModalCreatePackContainer: React.FC<ModalCreatePackContainerType> = 
 
                     <div className={styles.buttons}>
                         <Button color={COLORS.HEADER_BOTTOM}
+                                disabled={!namePack}
                                 onClick={onClickCreateHandler}>Save</Button>
                         <Button color={COLORS.HEADER_BOTTOM}
                                 onClick={onClickCloseHandler}>Close</Button>

@@ -29,6 +29,7 @@ export const SetPass = () => {
   const saveButtonDisable = !passwordValue || errorPassword || errorPasswordValid || !!error
 
   const onClickCreateHandler = () => {
+    if (saveButtonDisable) return
     passwordValue.length > 7
         ? dispatch(setNewPasswordTC(passwordValue, token ? token : ''))
         : setErrorPasswordValid(true)
@@ -56,9 +57,11 @@ export const SetPass = () => {
               type={typeInput}
               color={COLORS.MAIN_DARK}
               sign="Password"
-              onChangeText={onChangeTextPasswordHandler}
               error={errorPassword}
               passwordError={errorPasswordValid}
+              disabled={loading === LoadingStatusType.active}
+              onChangeText={onChangeTextPasswordHandler}
+              onEnter={onClickCreateHandler}
               onChangeError={setErrorPassword}/>
           <span className={styles.hidePass} onClick={onClickShowPasswordHandler}>👀</span>
         </div>

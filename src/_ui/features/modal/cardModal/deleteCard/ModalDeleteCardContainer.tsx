@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Button} from '../../../../common/_superComponents/Button/Button';
 import {useAppDispatch} from "../../../../../_bll/main/store";
 import styles from "../../modalTemplate.module.scss"
@@ -22,6 +22,19 @@ export const ModalDeleteCardContainer: React.FC<ModalDeleteContainerType> = ({ca
         dispatch(deleteCardTC(cardID, cardName))
         setShow(false)
     }
+
+    // Logic for leaving modal window in case ESC button is pressed
+    const escFunction = useCallback( (event: KeyboardEvent) => {
+        event.code === 'Escape' && setShow(false)
+    }, [])
+
+    useEffect(() => {
+        document.addEventListener("keydown", escFunction)
+
+        return () => {
+            document.removeEventListener("keydown", escFunction)
+        }
+    }, [escFunction])
 
     return (
         <>

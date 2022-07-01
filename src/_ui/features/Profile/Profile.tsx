@@ -70,6 +70,7 @@ export const Profile = () => {
     }, [file, dispatch])
 
     const changeProfileData = () => {
+        if (saveButtonDisable) return
         dispatch(changeProfileDataTC(nickNameValue, file64))
     }
     const logoutHandler = () => {
@@ -103,8 +104,10 @@ export const Profile = () => {
                 <Input
                     value={nickNameValue}
                     sign='Nickname'
-                    onChangeText={setNickNameValue}
                     error={errorNickName}
+                    disabled={loading === LoadingStatusType.active}
+                    onChangeText={setNickNameValue}
+                    onEnter={changeProfileData}
                     onChangeError={setErrorNickName}/>
                 <Input
                     value={email}

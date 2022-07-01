@@ -37,6 +37,7 @@ export const Login = () => {
 
     const onClickShowPasswordHandler = () => setTypeInput(typeInput === "password" ? "text" : "password")
     const onClickLoginHandler = () => {
+        if (saveButtonDisable) return
         /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(emailValue) && passwordValue.length > 7 && dispatch(setDataUserTC(emailValue, passwordValue, rememberMe))
         !(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(emailValue)) && setErrorEmailValid(true)
         passwordValue.length < 8 && setErrorPasswordValid(true)
@@ -68,18 +69,22 @@ export const Login = () => {
                 <Input
                     value={emailValue}
                     sign='Email'
-                    onChangeText={onChangeTextEmailHandler}
                     error={errorEmail}
                     emailError={errorEmailValid}
+                    disabled={loading === LoadingStatusType.active}
+                    onChangeText={onChangeTextEmailHandler}
+                    onEnter={onClickLoginHandler}
                     onChangeError={setErrorEmail}/>
                 <div className={styles.inputPass}>
                     <Input
                         value={passwordValue}
                         type={typeInput}
                         sign="Password"
-                        onChangeText={onChangeTextPasswordHandler}
                         error={errorPassword}
                         passwordError={errorPasswordValid}
+                        disabled={loading === LoadingStatusType.active}
+                        onChangeText={onChangeTextPasswordHandler}
+                        onEnter={onClickLoginHandler}
                         onChangeError={setErrorPassword}/>
                     <span className={styles.hidePass} onClick={onClickShowPasswordHandler}>👀</span>
                     <Link to={ROUTE_PATHS.FORGOT}>Forgot Password</Link>

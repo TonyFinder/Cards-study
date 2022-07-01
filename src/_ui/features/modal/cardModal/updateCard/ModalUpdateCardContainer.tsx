@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Button} from '../../../../common/_superComponents/Button/Button';
 import {useAppDispatch} from '../../../../../_bll/main/store';
 import styles from '../../modalTemplate.module.scss'
@@ -33,11 +33,24 @@ export const ModalUpdateCardContainer: React.FC<ModalUpdateContainerType> = ({ca
         setShow(false)
     }
 
-    const onClickCloseModalHandler = () => {
+    const onClickCloseModalHandler = useCallback( () => {
         setShow(false)
         setQuestion(cardQuestion)
         setAnswer(cardAnswer)
-    }
+    }, [cardAnswer, cardQuestion])
+
+    // Logic for leaving modal window in case ESC button is pressed
+    const escFunction = useCallback( (event: KeyboardEvent) => {
+        event.code === 'Escape' && onClickCloseModalHandler()
+    }, [onClickCloseModalHandler])
+
+    useEffect(() => {
+        document.addEventListener("keydown", escFunction)
+
+        return () => {
+            document.removeEventListener("keydown", escFunction)
+        }
+    }, [escFunction])
 
     return (
         <>
@@ -68,6 +81,7 @@ export const ModalUpdateCardContainer: React.FC<ModalUpdateContainerType> = ({ca
 
                     <div className={styles.buttons}>
                         <Button color={COLORS.HEADER_BOTTOM}
+                                disabled={question === cardQuestion && answer === cardAnswer}
                                 onClick={onClickUpdateHandler}>Save</Button>
                         <Button color={COLORS.HEADER_BOTTOM}
                                 onClick={onClickCloseModalHandler}>Close</Button>
