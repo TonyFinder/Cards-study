@@ -61,7 +61,7 @@ export const ModalUpdateCardContainer: React.FC<ModalUpdateContainerType> = ({ca
             <Modal backgroundOnClick={onClickCloseModalHandler} show={show}>
                 <div className={styles.modal}>
                     <div className={styles.header}>
-                        <h3>Change pack: "{cardQuestion}"</h3>
+                        <h3>Change card: "{cardQuestion.length > 100 ? `${cardQuestion.slice(0, 100)}...` : cardQuestion}"</h3>
                     </div>
 
                     <div className={styles.textArea}>

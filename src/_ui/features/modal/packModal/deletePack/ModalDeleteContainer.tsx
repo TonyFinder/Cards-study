@@ -49,7 +49,7 @@ export const ModalDeleteContainer: React.FC<ModalDeleteContainerType> = ({packId
             <Modal backgroundOnClick={() => setShow(false)} show={show}>
                 <div className={styles.modal}>
                     <div className={styles.header}>
-                        <h3>Delete Pack: "{packName}"</h3>
+                        <h3>Delete Pack: "{packName.length > 100 ? `${packName.slice(0, 100)}...` : packName}"</h3>
                     </div>
 
                     <p className={styles.text}>

@@ -62,12 +62,12 @@ export const ModalUpdateContainer: React.FC<ModalUpdateContainerType> = ({packId
             <Modal backgroundOnClick={onClickCloseModalHandler} show={show}>
                 <div className={styles.modal}>
                     <div className={styles.header}>
-                        <h3>Change pack: "{packName}"</h3>
+                        <h3>Change pack: "{packName.length > 100 ? `${packName.slice(0, 100)}...` : packName}"</h3>
                     </div>
 
                     <div className={styles.input}>
                         <Input value={name}
-                               sign='New pack mame'
+                               sign='New pack name'
                                color={COLORS.HEADER_BOTTOM}
                                autoFocus
                                onEnter={onClickUpdateHandler}

@@ -45,7 +45,7 @@ export const ModalDeleteCardContainer: React.FC<ModalDeleteContainerType> = ({ca
             <Modal backgroundOnClick={() => setShow(false)} show={show}>
                 <div className={styles.modal}>
                     <div className={styles.header}>
-                        <h3>Delete Card: "{cardName}"</h3>
+                        <h3>Delete Card: "{cardName.length > 100 ? `${cardName.slice(0, 100)}...` : cardName}"</h3>
                     </div>
 
                     <p className={styles.text}>
