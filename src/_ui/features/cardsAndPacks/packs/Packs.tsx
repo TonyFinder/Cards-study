@@ -78,14 +78,14 @@ export const Packs = () => {
         dispatch(updatePacksParams({page}))
         setPaginationInput('')
     }
-    const onClickResetFiltersHandler = () => {
+    const onClickResetFiltersHandler = (value: string) => {
         setIsChangeSlider(!isChangeSlider)
         dispatch(updatePacksParams({
-            page: 1, min: minCardsCount, max: maxCardsCount,
-            sortPacks: '0updated',
-            user_id: '',
-            packName: ''
-        }))
+            user_id: value,
+            page: 1, packName: "",
+            min: 0,
+            max: 0,
+            sortPacks: "0updated"}))
         setSearchTerm('')
     }
     const onClickToLearn = (packId: string) => {
@@ -101,27 +101,28 @@ export const Packs = () => {
             <div className={styles.container}>
 
                 <div className={styles.filters}>
-                    <Filters user_id={!!packParams.user_id} disabled={disabled}
-                             min={Number(packParams.min)} max={Number(packParams.max)}
+                    <Filters min={Number(packParams.min)} max={Number(packParams.max)}
                              minCardsCount={minCardsCount} maxCardsCount={maxCardsCount}
                              changeSlider={isChangeSlider}
-                             onResetFilters={onClickResetFiltersHandler}/>
+                             onResetFilters={onClickResetFiltersHandler}
+                             disabled={disabled}/>
                 </div>
 
                 <div className={styles.packs}>
                     <div className={styles.header}>
                         <InputComponent value={searchTerm}
                                         onChange={setSearchTerm}
-                                        onResetFilters={onClickResetFiltersHandler}
+                                        onResetFilters={() => onClickResetFiltersHandler(packParams.user_id ? packParams.user_id : '')}
                                         disabled={disabled}/>
                         <ModalCreatePackContainer disabled={disabled}/>
                     </div>
 
                     <div className={styles.filtersSmall}>
-                        {showFilters && <Filters user_id={!!packParams.user_id} disabled={disabled}
-                                                 min={Number(packParams.min)} max={Number(packParams.max)}
+                        {showFilters && <Filters min={Number(packParams.min)} max={Number(packParams.max)}
                                                  minCardsCount={minCardsCount} maxCardsCount={maxCardsCount}
-                                                 changeSlider={isChangeSlider}/>
+                                                 changeSlider={isChangeSlider}
+                                                 onResetFilters={onClickResetFiltersHandler}
+                                                 disabled={disabled}/>
                         }
                     </div>
 

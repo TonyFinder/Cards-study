@@ -9,11 +9,12 @@ type InputComponentPropsType = {
     value: string
     onChange: (value: string) => void
     disabled?: boolean
-    onResetFilters: () => void
+    onResetFilters: (value: string) => void
 }
 
 export const InputComponent = ({value, disabled, onChange, onResetFilters}: InputComponentPropsType) => {
     const showFilters = useCustomSelector<boolean>(state => state.packs.showFilters)
+    const user_id = useCustomSelector<string|undefined>(state => state.packs.packParams.user_id)
     const dispatch = useAppDispatch()
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -28,7 +29,7 @@ export const InputComponent = ({value, disabled, onChange, onResetFilters}: Inpu
                 <div className={styles.filters} onClick={onClickShowFiltersHandler}>
                     <span>&#8693;</span> filters
                 </div>
-                <div className={styles.clearFilters} onClick={onResetFilters}>
+                <div className={styles.clearFilters} onClick={() => onResetFilters(user_id ? user_id : '')}>
                     clear filters
                 </div>
                 <Input value={value}

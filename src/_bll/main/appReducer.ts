@@ -31,14 +31,8 @@ export const appReducer = (state: AppInitialStateType = initialState, action: Ap
 }
 
 // actions
-export const setAppErrorValue = (errorServer: NullPossibleType<string>) => ({
-    type: 'APP/SET-ERROR',
-    errorServer
-} as const)
-export const changeAppLoadingStatus = (loadingStatus: LoadingStatusType) => ({
-    type: 'APP/CHANGE-LOADING-STATUS',
-    loadingStatus
-} as const)
+export const setAppErrorValue = (errorServer: NullPossibleType<string>) => ({type: 'APP/SET-ERROR', errorServer} as const)
+export const changeAppLoadingStatus = (loadingStatus: LoadingStatusType) => ({type: 'APP/CHANGE-LOADING-STATUS', loadingStatus} as const)
 export const initializeApp = () => ({type: 'APP/INITIALIZE-APP'} as const)
 export const addNotification = (payload: NotificationType) => ({type: 'APP/ADD-NOTIFICATION', payload} as const)
 export const removeNotification = (id: string) => ({type: 'APP/REMOVE-NOTIFICATION', id} as const)

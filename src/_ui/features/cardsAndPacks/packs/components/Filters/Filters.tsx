@@ -8,19 +8,18 @@ import {useAppDispatch, useCustomSelector} from '../../../../../../_bll/main/sto
 import { Button } from '../../../../../common/_superComponents/Button/Button';
 
 type FiltersPropsType = {
-    user_id: boolean
     disabled: boolean
     min: number
     max: number
     minCardsCount: number
     maxCardsCount: number
     changeSlider: boolean
-    onResetFilters?: () => void
+    onResetFilters: (value: string) => void
 }
 
 export const Filters = (
     {
-        user_id, disabled,
+        disabled,
         min, max, minCardsCount, maxCardsCount,
         changeSlider,
         onResetFilters
@@ -28,12 +27,15 @@ export const Filters = (
 
     const dispatch = useAppDispatch()
     const userId = useCustomSelector<string>(state => state.profile._id)
+    const user_id = useCustomSelector<string|undefined>(state => state.packs.packParams.user_id)
 
     const onMouseUpSliderHandler = ({min, max}: maxMinValueType) => {
         dispatch(updatePacksParams({min, max, page: 1}))
     }
-    const onClickMyAllChanger = (value: string) => {
-        dispatch(updatePacksParams({user_id: `${value === 'my' ? userId : ''}`, page: 1}))
+    const onClickMyAllOrResetChanger = (value: string) => {
+        value === 'my'
+            ? onResetFilters(userId)
+            : onResetFilters('')
     }
     const onClickCrossHandler = () => {
       dispatch(setShowFilters(false))
@@ -43,9 +45,9 @@ export const Filters = (
         <div className={styles.settings}>
             <div className={styles.showPacks}>
                 <p>Show packs cards</p>
-                <DoubleButton active={[user_id, !user_id]}
+                <DoubleButton active={[!!user_id, !user_id]}
                               activeColor={COLORS.MAIN_DARK} disableColor={COLORS.MAIN_LIGHT}
-                              onClick={onClickMyAllChanger}
+                              onClick={onClickMyAllOrResetChanger}
                               disabled={disabled}/>
             </div>
             <div className={styles.showNumberPacks}>
@@ -60,7 +62,8 @@ export const Filters = (
                 />
             </div>
             <div className={styles.button}>
-                <Button onClick={onResetFilters} color={'red'}>Reset filters</Button>
+                <Button onClick={() => onClickMyAllOrResetChanger(user_id ? 'my' : '')}
+                        color={'red'}>Reset filters</Button>
             </div>
         </div>
         <div className={styles.cross} onClick={onClickCrossHandler}>&#10006;</div>

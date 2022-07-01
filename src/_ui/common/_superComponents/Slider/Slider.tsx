@@ -15,10 +15,10 @@ export type maxMinValueType = {
     max: number
 }
 
-export const Slider = ({minDefault, maxDefault, disabled, onMouseUp, changeSlider}: SliderPropsType) => {
+export const Slider = ({min, max, minDefault, maxDefault, disabled, onMouseUp, changeSlider}: SliderPropsType) => {
 
-    const [minVal, setMinVal] = useState(0);
-    const [maxVal, setMaxVal] = useState(0);
+    const [minVal, setMinVal] = useState(min);
+    const [maxVal, setMaxVal] = useState(max);
     const range = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
