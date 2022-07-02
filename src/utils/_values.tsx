@@ -1,6 +1,4 @@
 import {Navigate} from 'react-router-dom';
-import {Login} from '../_ui/features/auth/_Login/Login';
-import {Register} from '../_ui/features/auth/_Register/Register';
 import {Forgot} from '../_ui/features/auth/Forgot/Forgot';
 import {SetPass} from '../_ui/features/auth/SetPass/SetPass';
 import {Profile} from '../_ui/features/Profile/Profile';
@@ -12,6 +10,8 @@ import { Template } from '../_ui/features/Template';
 import {CheckEmail} from '../_ui/features/auth/CheckEmail/CheckEmail';
 import {Answer} from '../_ui/features/cardsAndPacks/learn/Answer/Answer';
 import {Question} from '../_ui/features/cardsAndPacks/learn/Question/Question';
+import {Login} from '../_ui/features/auth/Login/Login';
+import {Register} from '../_ui/features/auth/Register/Register';
 
 export const COLORS = {
     MAIN_DARK: '#fd974f',

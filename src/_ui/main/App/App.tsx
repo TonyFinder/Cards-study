@@ -10,7 +10,7 @@ import {COLORS} from '../../../utils/_values';
 export const App = () => {
     const dispatch = useAppDispatch()
     const isInitialized = useCustomSelector<boolean>(state => state.app.isInitialized)
-    const isLoggedIn = useCustomSelector<boolean>(state => state.login.isLoggedIn)
+    const isLoggedIn = useCustomSelector<boolean>(state => state.auth.isLoggedIn)
 
     useEffect(()=> {
         dispatch(initializeAppTC())

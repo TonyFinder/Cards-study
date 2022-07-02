@@ -9,12 +9,12 @@ import {COLORS, ROUTE_PATHS} from '../../../utils/_values';
 import {Navigate} from 'react-router-dom';
 import {Loader} from '../../common/_superComponents/Loader/Loader';
 import {LoadingStatusType} from '../../../utils/enums';
-import {addNotification} from "../../../_bll/main/appReducer";
-import {v1} from "uuid";
+import {addNotification} from '../../../_bll/main/appReducer';
+import {v1} from 'uuid';
 
 export const Profile = () => {
     const {name, email, avatar} = useCustomSelector<AuthDataType>(state => state.profile)
-    const isLoggedIn = useCustomSelector<boolean>(state => state.login.isLoggedIn)
+    const isLoggedIn = useCustomSelector<boolean>(state => state.auth.isLoggedIn)
     const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
     let dispatch = useAppDispatch()
 

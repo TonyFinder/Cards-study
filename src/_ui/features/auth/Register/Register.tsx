@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {RegisterInitialStateType, requestRegistrationTC} from '../../../../_bll/features/auth/_register/registerReducer';
 import {useAppDispatch, useCustomSelector,} from '../../../../_bll/main/store';
 import {Button} from '../../../common/_superComponents/Button/Button';
 import {Input} from '../../../common/_superComponents/Input/Input';
@@ -8,11 +7,12 @@ import {COLORS, ROUTE_PATHS} from '../../../../utils/_values';
 import {Link, Navigate} from 'react-router-dom';
 import {LoadingStatusType} from '../../../../utils/enums';
 import {Loader} from '../../../common/_superComponents/Loader/Loader';
+import {AuthInitialStateType, requestRegistrationTC} from '../../../../_bll/features/auth/authReducer';
 
 export const Register = () => {
 
   const dispatch = useAppDispatch()
-  const {isRegistered} = useCustomSelector<RegisterInitialStateType>(state => state.register)
+  const {isRegistered} = useCustomSelector<AuthInitialStateType>(state => state.auth)
   const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
 
   const [emailValue, setEmailValue] = useState<string>('')

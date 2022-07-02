@@ -6,20 +6,18 @@ import React, {useState} from 'react';
 import {Link, Navigate} from 'react-router-dom';
 import {useAppDispatch, useCustomSelector} from '../../../../_bll/main/store';
 import {setDataUserTC} from '../../../../_bll/features/profile/profileReducer';
-import {LoginInitialStateType} from '../../../../_bll/features/auth/_login/loginReducer';
+import {AuthInitialStateType, register} from '../../../../_bll/features/auth/authReducer';
 import {COLORS, ROUTE_PATHS} from '../../../../utils/_values';
 import {LoadingStatusType} from '../../../../utils/enums';
 import {Loader} from '../../../common/_superComponents/Loader/Loader';
 import {AuthDataType} from '../../../../_dal/api-auth';
-import {register} from '../../../../_bll/features/auth/_register/registerReducer';
 
 
 export const Login = () => {
 
     let dispatch = useAppDispatch()
     const {email, password} = useCustomSelector<AuthDataType>(state => state.profile)
-    const {isLoggedIn} = useCustomSelector<LoginInitialStateType>(state => state.login)
-    const isRegistered = useCustomSelector<boolean>(state => state.register.isRegistered)
+    const {isLoggedIn, isRegistered} = useCustomSelector<AuthInitialStateType>(state => state.auth)
     const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
 
     const [emailValue, setEmailValue] = useState<string>(email)

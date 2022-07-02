@@ -39,7 +39,7 @@ export const Packs = () => {
         minCardsCount,
         showFilters,
     } = useCustomSelector<initialStatePacksType>(state => state.packs)
-    const isLogin = useCustomSelector<boolean>(state => state.login.isLoggedIn)
+    const isLogin = useCustomSelector<boolean>(state => state.auth.isLoggedIn)
     const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
     const disabled = loading === LoadingStatusType.active
 

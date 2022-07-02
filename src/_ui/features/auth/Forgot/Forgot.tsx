@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
-import {ForgotInitialStateType, requestPasswordTC,} from '../../../../_bll/features/auth/forgot/forgotReducer';
 import {useAppDispatch, useCustomSelector} from '../../../../_bll/main/store';
 import {Button} from '../../../common/_superComponents/Button/Button';
 import {Input} from '../../../common/_superComponents/Input/Input';
 import styles from '../../Template.module.scss'
-import {LoginInitialStateType} from '../../../../_bll/features/auth/_login/loginReducer';
+import {AuthInitialStateType, requestPasswordTC} from '../../../../_bll/features/auth/authReducer';
 import {LoadingStatusType} from '../../../../utils/enums';
 import {Link, Navigate} from 'react-router-dom';
 import {COLORS, ROUTE_PATHS} from '../../../../utils/_values';
@@ -12,8 +11,7 @@ import {Loader} from '../../../common/_superComponents/Loader/Loader';
 
 export const Forgot = () => {
     const dispatch = useAppDispatch()
-    const {isLoggedIn} = useCustomSelector<LoginInitialStateType>(state => state.login)
-    const {isRedirect} = useCustomSelector<ForgotInitialStateType>(state => state.forgot)
+    const {isLoggedIn, isRedirect} = useCustomSelector<AuthInitialStateType>(state => state.auth)
     const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
 
     const [emailValue, setEmailValue] = useState<string>('')
