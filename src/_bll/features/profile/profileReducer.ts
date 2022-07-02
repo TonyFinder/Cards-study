@@ -2,7 +2,7 @@ import {AppThunk} from '../../main/store';
 import {authAPI, AuthDataType} from '../../../_dal/api-auth';
 import {AxiosError} from 'axios';
 import {AppActionTypes, changeAppLoadingStatus, setAppErrorValue, addNotification} from '../../main/appReducer';
-import {setError, setIsLogin} from '../auth/_login/loginReducer';
+import {setIsLogin} from '../auth/_login/loginReducer';
 import {LoadingStatusType} from '../../../utils/enums';
 import {v1} from "uuid";
 
@@ -47,7 +47,6 @@ export const setDataUserTC = (email: string, password: string, rememberMe: boole
             dispatch(setIsLogin(true))
         })
         .catch(err => {
-            dispatch(setError(err.response.data.error))
             dispatch(addNotification({
                 type: "error",
                 message: `${err.response.data.error}`,

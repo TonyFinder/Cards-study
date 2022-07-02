@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {RegisterInitialStateType, requestRegistrationTC, setError} from '../../../../_bll/features/auth/_register/registerReducer';
+import {RegisterInitialStateType, requestRegistrationTC} from '../../../../_bll/features/auth/_register/registerReducer';
 import {useAppDispatch, useCustomSelector,} from '../../../../_bll/main/store';
 import {Button} from '../../../common/_superComponents/Button/Button';
 import {Input} from '../../../common/_superComponents/Input/Input';
@@ -12,13 +12,14 @@ import {Loader} from '../../../common/_superComponents/Loader/Loader';
 export const Register = () => {
 
   const dispatch = useAppDispatch()
-  const {error, isRegistered} = useCustomSelector<RegisterInitialStateType>(state => state.register)
+  const {isRegistered} = useCustomSelector<RegisterInitialStateType>(state => state.register)
   const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
 
   const [emailValue, setEmailValue] = useState<string>('')
   const [passwordValue, setPasswordValue] = useState<string>('')
   const [repeatPasswordValue, setRepeatPasswordValue] = useState<string>("")
   const [typeInput, setTypeInput] = useState<string[]>(["password", "password"])
+  const [serverRequest, setServerRequest] = useState<boolean>(false)
 
   // Validation check
   const [errorEmail, setErrorEmail] = useState<boolean>(false)
@@ -29,7 +30,7 @@ export const Register = () => {
   const [errorRepeatPasswordValid, setErrorRepeatPasswordValid] = useState<boolean>(false)
   const [errorComparePasswords, setErrorComparePasswords] = useState<boolean>(false)
 
-  const saveButtonDisable = !emailValue || !passwordValue || !repeatPasswordValue || errorEmail || errorPassword || errorRepeatPassword || !!error
+  const saveButtonDisable = !emailValue || !passwordValue || !repeatPasswordValue || errorEmail || errorPassword || errorRepeatPassword || serverRequest
 
   const onClickShowPasswordHandler = (value: number) => {
     setTypeInput(typeInput.map((m, i) => i === value
@@ -40,6 +41,7 @@ export const Register = () => {
   }
   const onClickRegisterHandler = () => {
     if (saveButtonDisable) return
+    setServerRequest(true);
     /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(emailValue) && passwordValue.length > 7 && repeatPasswordValue.length > 7 && passwordValue === repeatPasswordValue && dispatch(requestRegistrationTC(emailValue, passwordValue))
     !(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(emailValue)) && setErrorEmailValid(true)
     passwordValue.length < 8 && setErrorPasswordValid(true)
@@ -49,26 +51,25 @@ export const Register = () => {
   const onChangeTextEmailHandler = (value: string) => {
     setEmailValue(value)
     setErrorEmailValid(false)
-    error && dispatch(setError(''))
+    setServerRequest(false)
   }
   const onChangeTextPasswordHandler = (value: string) => {
     setPasswordValue(value)
     setErrorPasswordValid(false)
     setErrorComparePasswords(false)
-    error && dispatch(setError(''))
+    setServerRequest(false)
   }
   const onChangeTextRepeatPasswordHandler = (value: string) => {
     setRepeatPasswordValue(value)
     setErrorRepeatPasswordValid(false)
     setErrorComparePasswords(false)
-    error && dispatch(setError(''))
+    setServerRequest(false)
   }
 
   if (isRegistered && repeatPasswordValue === passwordValue) return <Navigate to={ROUTE_PATHS.LOGIN}/>
 
   return <div className={styles.container}>
     <div className={styles.block}>
-      <div className={styles.error}>{error}</div>
       <h1 className={styles.headerMain}>Smart Cards</h1>
       <h2 className={styles.headerSecond}>Sign Up</h2>
 

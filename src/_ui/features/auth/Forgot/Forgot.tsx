@@ -1,9 +1,5 @@
 import React, {useState} from 'react';
-import {
-    ForgotInitialStateType,
-    requestPasswordTC,
-    setError,
-} from '../../../../_bll/features/auth/forgot/forgotReducer';
+import {ForgotInitialStateType, requestPasswordTC,} from '../../../../_bll/features/auth/forgot/forgotReducer';
 import {useAppDispatch, useCustomSelector} from '../../../../_bll/main/store';
 import {Button} from '../../../common/_superComponents/Button/Button';
 import {Input} from '../../../common/_superComponents/Input/Input';
@@ -17,19 +13,21 @@ import {Loader} from '../../../common/_superComponents/Loader/Loader';
 export const Forgot = () => {
     const dispatch = useAppDispatch()
     const {isLoggedIn} = useCustomSelector<LoginInitialStateType>(state => state.login)
-    const {error, isRedirect} = useCustomSelector<ForgotInitialStateType>(state => state.forgot)
+    const {isRedirect} = useCustomSelector<ForgotInitialStateType>(state => state.forgot)
     const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
 
     const [emailValue, setEmailValue] = useState<string>('')
+    const [serverRequest, setServerRequest] = useState<boolean>(false)
 
     // Validation check
     const [errorEmail, setErrorEmail] = useState<boolean>(false)
     const [errorEmailValid, setErrorEmailValid] = useState<boolean>(false)
 
-    const saveButtonDisable = !emailValue || errorEmail || errorEmailValid || !!error
+    const saveButtonDisable = !emailValue || errorEmail || errorEmailValid || serverRequest
 
     const onClickForgotHandler = () => {
         if (saveButtonDisable) return
+        setServerRequest(true);
         /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(emailValue)
             ? dispatch(requestPasswordTC(emailValue))
             : setErrorEmailValid(true)
@@ -37,7 +35,7 @@ export const Forgot = () => {
     const onChangeTextEmailHandler = (value: string) => {
         setEmailValue(value)
         setErrorEmailValid(false)
-        error && dispatch(setError(''))
+        setServerRequest(false)
     }
 
     if (isLoggedIn) return <Navigate to={ROUTE_PATHS.PROFILE}/>
@@ -45,7 +43,6 @@ export const Forgot = () => {
 
     return <div className={styles.container}>
         <div className={styles.block}>
-            <div className={styles.error}>{error}</div>
             <h1 className={styles.headerMain}>Smart Cards</h1>
             <h2 className={styles.headerSecond}>Forgot your password?</h2>
 

@@ -6,7 +6,7 @@ import React, {useState} from 'react';
 import {Link, Navigate} from 'react-router-dom';
 import {useAppDispatch, useCustomSelector} from '../../../../_bll/main/store';
 import {setDataUserTC} from '../../../../_bll/features/profile/profileReducer';
-import {LoginInitialStateType, setError} from '../../../../_bll/features/auth/_login/loginReducer';
+import {LoginInitialStateType} from '../../../../_bll/features/auth/_login/loginReducer';
 import {COLORS, ROUTE_PATHS} from '../../../../utils/_values';
 import {LoadingStatusType} from '../../../../utils/enums';
 import {Loader} from '../../../common/_superComponents/Loader/Loader';
@@ -18,14 +18,15 @@ export const Login = () => {
 
     let dispatch = useAppDispatch()
     const {email, password} = useCustomSelector<AuthDataType>(state => state.profile)
-    const {isLoggedIn, error} = useCustomSelector<LoginInitialStateType>(state => state.login)
+    const {isLoggedIn} = useCustomSelector<LoginInitialStateType>(state => state.login)
     const isRegistered = useCustomSelector<boolean>(state => state.register.isRegistered)
     const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
 
     const [emailValue, setEmailValue] = useState<string>(email)
     const [passwordValue, setPasswordValue] = useState<string>(password ? password : '')
     const [rememberMe, setRememberMe] = useState<boolean>(false)
-    const [typeInput, setTypeInput] = useState("password")
+    const [typeInput, setTypeInput] = useState<string>("password")
+    const [serverRequest, setServerRequest] = useState<boolean>(false)
 
     // Validation check
     const [errorEmail, setErrorEmail] = useState<boolean>(false)
@@ -33,11 +34,12 @@ export const Login = () => {
     const [errorPassword, setErrorPassword] = useState<boolean>(false)
     const [errorPasswordValid, setErrorPasswordValid] = useState<boolean>(false)
 
-    const saveButtonDisable = !emailValue || !passwordValue || errorEmail || errorPassword || errorEmailValid || errorPasswordValid || !!error
+    const saveButtonDisable = !emailValue || !passwordValue || errorEmail || errorPassword || errorEmailValid || errorPasswordValid || serverRequest
 
     const onClickShowPasswordHandler = () => setTypeInput(typeInput === "password" ? "text" : "password")
     const onClickLoginHandler = () => {
         if (saveButtonDisable) return
+        setServerRequest(true);
         /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(emailValue) && passwordValue.length > 7 && dispatch(setDataUserTC(emailValue, passwordValue, rememberMe))
         !(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(emailValue)) && setErrorEmailValid(true)
         passwordValue.length < 8 && setErrorPasswordValid(true)
@@ -45,12 +47,12 @@ export const Login = () => {
     const onChangeTextEmailHandler = (value: string) => {
         setEmailValue(value)
         setErrorEmailValid(false)
-        error && dispatch(setError(''))
+        setServerRequest(false)
     }
     const onChangeTextPasswordHandler = (value: string) => {
         setPasswordValue(value)
         setErrorPasswordValid(false)
-        error && dispatch(setError(''))
+        setServerRequest(false)
     }
     const onClickRememberHandler = () => setRememberMe(!rememberMe)
     const onClickRegisterLinkHandler = () => {
@@ -61,7 +63,6 @@ export const Login = () => {
 
     return <div className={styles.container}>
         <div className={styles.block}>
-            <div className={styles.error}>{error}</div>
             <h1 className={styles.headerMain}>Smart Cards</h1>
             <h2 className={styles.headerSecond}>Sign In</h2>
 
