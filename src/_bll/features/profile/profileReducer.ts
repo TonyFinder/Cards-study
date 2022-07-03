@@ -1,10 +1,9 @@
 import {AppThunk} from '../../main/store';
 import {authAPI, AuthDataType} from '../../../_dal/api-auth';
-import {AxiosError} from 'axios';
-import {AppActionTypes, changeAppLoadingStatus, setAppErrorValue, addNotification} from '../../main/appReducer';
+import {AppActionTypes, changeAppLoadingStatus} from '../../main/appReducer';
 import {setIsLogin} from '../auth/authReducer';
 import {LoadingStatusType} from '../../../utils/enums';
-import {v1} from "uuid";
+import {showError} from '../../../utils/functions';
 
 let initialState: AuthDataType = {
     _id: '',
@@ -46,34 +45,21 @@ export const setDataUserTC = (email: string, password: string, rememberMe: boole
             dispatch(setProfileData(res.data))
             dispatch(setIsLogin(true))
         })
-        .catch(err => {
-            dispatch(addNotification({
-                type: "error",
-                message: `${err.response.data.error}`,
-                id: v1(),
-            }))
-        })
+        .catch(err => showError(err.response.data ? err.response.data.error : err.message, dispatch))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 export const logoutTC = (): AppThunk => (dispatch) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
     authAPI.logout()
         .then(res => res.data.info && dispatch(setIsLogin(false)))
-        .catch((err: AxiosError) => {
-            dispatch(setAppErrorValue(err.message))
-            dispatch(addNotification({
-                type: "error",
-                message: `${err.message}`,
-                id: v1(),
-            }))
-        })
+        .catch(err => showError(err.response.data ? err.response.data.error : err.message, dispatch))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 export const changeProfileDataTC = (name: string, avatar: string): AppThunk => dispatch => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
     authAPI.changeNameAvatar({name, avatar})
         .then(res => dispatch(changeProfileData(res.data.updatedUser)))
-        .catch((err: AxiosError) => dispatch(setAppErrorValue(err.message)))
+        .catch(err => showError(err.response.data ? err.response.data.error : err.message, dispatch))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 

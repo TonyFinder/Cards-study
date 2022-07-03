@@ -1,8 +1,8 @@
 import {AppThunk} from '../../main/store';
-import {addNotification, changeAppLoadingStatus} from '../../main/appReducer';
+import {changeAppLoadingStatus} from '../../main/appReducer';
 import {LoadingStatusType} from '../../../utils/enums';
 import {registerApi} from '../../../_dal/api-auth';
-import {v1} from 'uuid';
+import {showError} from '../../../utils/functions';
 
 let initialAuthState = {
     isLoggedIn: false,
@@ -37,39 +37,21 @@ export const requestRegistrationTC = (email: string, password: string): AppThunk
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
     registerApi.register({email, password})
         .then(() => dispatch(register(true)))
-        .catch(err => {
-            dispatch(addNotification({
-                type: "error",
-                message: `${err.response.data.error}`,
-                id: v1(),
-            }))
-        })
+        .catch(err => showError(err.response.data ? err.response.data.error : err.message, dispatch))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 export const requestPasswordTC = (email: string): AppThunk => (dispatch) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
     registerApi.forgot(email)
         .then(() => dispatch(redirectToCheckEmail()))
-        .catch(err => {
-            dispatch(addNotification({
-                type: "error",
-                message: `${err.response.data.error}`,
-                id: v1(),
-            }))
-        })
+        .catch(err => showError(err.response.data ? err.response.data.error : err.message, dispatch))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 export const setNewPasswordTC = (password: string, resetPasswordToken: string): AppThunk => (dispatch) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
     registerApi.setPassword({password, resetPasswordToken})
         .then(res => res.data.info && dispatch(setPasswordSuccess(res.data.info)))
-        .catch(err => {
-            dispatch(addNotification({
-                type: "error",
-                message: `${err.response.data.error}`,
-                id: v1(),
-            }))
-        })
+        .catch(err => showError(err.response.data ? err.response.data.error : err.message, dispatch))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 

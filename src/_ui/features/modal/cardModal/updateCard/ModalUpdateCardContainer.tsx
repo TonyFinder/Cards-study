@@ -29,7 +29,7 @@ export const ModalUpdateCardContainer: React.FC<ModalUpdateContainerType> = ({ca
 
 
     const onClickUpdateHandler = () => {
-        dispatch(updateCardTC({_id: cardId, question, answer},question))
+        dispatch(updateCardTC({_id: cardId, question, answer}, cardQuestion))
         setShow(false)
     }
 

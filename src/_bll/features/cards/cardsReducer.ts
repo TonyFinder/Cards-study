@@ -9,10 +9,9 @@ import {
     UpdateGradeCardRequestType
 } from '../../../_dal/api-PacksAndCards';
 import {AppThunk} from '../../main/store';
-import {changeAppLoadingStatus, setAppErrorValue, addNotification} from '../../main/appReducer';
+import {changeAppLoadingStatus} from '../../main/appReducer';
 import {LoadingStatusType} from '../../../utils/enums';
-import {AxiosError} from 'axios';
-import {v1} from 'uuid';
+import {showError, showSuccess} from '../../../utils/functions';
 
 
 const initialState: initialStateCardsType = {
@@ -84,7 +83,7 @@ export const setCardsTC = (): AppThunk => (dispatch, getState) => {
                     : dispatch(updateCardParams({page: res.data.page - 1}))
                 : dispatch(setCards(res.data))
         })
-        .catch((err: AxiosError) => dispatch(setAppErrorValue(err.message)))
+        .catch(err => showError(err.response.data ? err.response.data.error : err.message, dispatch))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 export const createCardTC = (params: CreateCardType): AppThunk => (dispatch) => {
@@ -92,20 +91,9 @@ export const createCardTC = (params: CreateCardType): AppThunk => (dispatch) => 
     cardsApi.createCard(params)
         .then(() => {
             dispatch(setCardsTC())
-            dispatch(addNotification({
-                type: "success",
-                message: `Card "${params.question === "" ? "no question" : params.question}" has been created`,
-                id: v1(),
-            }))
+            showSuccess(`Card "${params.question === "" ? "no question" : params.question}" has been created`, dispatch)
         })
-        .catch((err: AxiosError) => {
-            dispatch(setAppErrorValue(err.message))
-            dispatch(addNotification({
-                type: "error",
-                message: `Card "${params.question}" has not been created`,
-                id: v1(),
-            }))
-        })
+        .catch(err => showError(`${err.message}. Card "${params.question}" has not been created`, dispatch))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 export const deleteCardTC = (cardId: string, question: string): AppThunk => (dispatch) => {
@@ -113,20 +101,9 @@ export const deleteCardTC = (cardId: string, question: string): AppThunk => (dis
     cardsApi.deleteCard(cardId)
         .then(() => {
             dispatch(setCardsTC())
-            dispatch(addNotification({
-                type: "success",
-                message: `Card "${question}" has been removed`,
-                id: v1(),
-            }))
+            showSuccess(`Card "${question}" has been removed`, dispatch)
         })
-        .catch((err: AxiosError) => {
-            dispatch(setAppErrorValue(err.message))
-            dispatch(addNotification({
-                type: "success",
-                message: `Card "${question}" has not been removed`,
-                id: v1(),
-            }))
-        })
+        .catch(err => showError(`${err.message}. Card "${question}" has not been removed`, dispatch))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 export const updateCardTC = (data: updateCartType, question: string): AppThunk => (dispatch) => {
@@ -134,27 +111,11 @@ export const updateCardTC = (data: updateCartType, question: string): AppThunk =
     cardsApi.updatedCard(data)
         .then(() => {
             dispatch(setCardsTC())
-            data.question === "" ?
-                dispatch(addNotification({
-                    type: "error",
-                    message: `Card "${question}" has not been changed`,
-                    id: v1(),
-                }))
-                : dispatch(addNotification({
-                    type: "success",
-                    message: `Card "${data.question}" has been changed`,
-                    id: v1(),
-                }))
+            data.question === "" || data.answer === ""
+                ? showError(`Card "${question}" has not been changed`, dispatch)
+                : showSuccess(`Card "${data.question}" has been changed`, dispatch)
         })
-        .catch((err: AxiosError) => {
-            dispatch(setAppErrorValue(err.message))
-            dispatch(addNotification({
-                type: "error",
-                message: `Card "${question}" has not been changed`,
-                id: v1(),
-
-            }))
-        })
+        .catch(err => showError(`${err.message}. Card "${question}" has not been changed`, dispatch))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 export const updateGradeCardTC = (data: UpdateGradeCardRequestType): AppThunk => (dispatch) => {
@@ -163,7 +124,7 @@ export const updateGradeCardTC = (data: UpdateGradeCardRequestType): AppThunk =>
         .then((res) => {
             dispatch(updateGradeCard(res.data.updatedGrade))
         })
-        .catch((err: AxiosError) => dispatch(setAppErrorValue(err.message)))
+        .catch(err => showError(err.response.data ? err.response.data.error : err.message, dispatch))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 
