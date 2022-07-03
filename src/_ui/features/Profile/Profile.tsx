@@ -22,12 +22,30 @@ export const Profile = () => {
     const [fileURL, setFileURL] = useState<any>();
     const [file64, setFile64] = useState<any>();
     const [file, setFile] = useState<any>();
-    const [error, setError] = useState<any>(true);
+    const [error, setError] = useState<boolean>(true);
 
     const [nickNameValue, setNickNameValue] = useState<string>(name)
     const [errorNickName, setErrorNickName] = useState<boolean>(false)
 
     const saveButtonDisable = !nickNameValue || errorNickName || error
+
+    const checkTypeFile = () => {
+        switch (file.type) {
+            case 'image/png':
+            case 'image/jpg':
+            case 'image/jpeg':
+                setError(false)
+                return false
+            default:
+                dispatch(addNotification({
+                    type: "error",
+                    message: `The file type must be png, jpg or jpeg`,
+                    id: v1(),
+                }))
+                setError(true)
+                return true
+        }
+    }
 
     const upload = (e: ChangeEvent<HTMLInputElement>) => {
         const reader = new FileReader();
@@ -52,6 +70,7 @@ export const Profile = () => {
         if (file && +file.size >= 2097152) {
             setError(true)
         }
+
     }, [nickNameValue, name, file])
 
     useEffect(() => {
@@ -66,17 +85,18 @@ export const Profile = () => {
                     id: v1(),
                 }))
             }
+            checkTypeFile()
         }
     }, [file, dispatch])
 
     const changeProfileData = () => {
-        if (saveButtonDisable) return
+        if (saveButtonDisable || checkTypeFile()) return
         dispatch(changeProfileDataTC(nickNameValue, file64))
+        setError(true)
     }
     const logoutHandler = () => {
         dispatch(logoutTC())
     }
-
 
     if (!isLoggedIn) return <Navigate to={ROUTE_PATHS.LOGIN}/>
 
