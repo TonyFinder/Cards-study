@@ -81,7 +81,7 @@ export const ModalUpdateCardContainer: React.FC<ModalUpdateContainerType> = ({ca
 
                     <div className={styles.buttons}>
                         <Button color={COLORS.HEADER_BOTTOM}
-                                disabled={question === cardQuestion && answer === cardAnswer}
+                                disabled={(question === cardQuestion && answer === cardAnswer) || !question || !answer}
                                 onClick={onClickUpdateHandler}>Save</Button>
                         <Button color={COLORS.HEADER_BOTTOM}
                                 onClick={onClickCloseModalHandler}>Close</Button>

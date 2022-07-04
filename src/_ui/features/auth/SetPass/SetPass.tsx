@@ -12,7 +12,7 @@ import {AuthInitialStateType, setNewPasswordTC} from '../../../../_bll/features/
 export const SetPass = () => {
   const dispatch = useAppDispatch()
   const {token} = useParams();
-  const {info} = useCustomSelector<AuthInitialStateType>(state => state.auth)
+  const {isNewPasswordSet} = useCustomSelector<AuthInitialStateType>(state => state.auth)
   const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
 
   const [passwordValue, setPasswordValue] = useState<string>('')
@@ -40,7 +40,7 @@ export const SetPass = () => {
   }
   const onClickShowPasswordHandler = () => setTypeInput(typeInput === "password" ? "text" : "password")
 
-  if (info) return <Navigate to={ROUTE_PATHS.LOGIN}/>
+  if (isNewPasswordSet) return <Navigate to={ROUTE_PATHS.LOGIN}/>
 
   return <div className={styles.container}>
     <div className={styles.block}>

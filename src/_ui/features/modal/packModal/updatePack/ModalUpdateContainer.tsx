@@ -86,7 +86,7 @@ export const ModalUpdateContainer: React.FC<ModalUpdateContainerType> = ({packId
 
                     <div className={styles.buttons}>
                         <Button color={COLORS.HEADER_BOTTOM}
-                                disabled={packName === name}
+                                disabled={packName === name || !name}
                                 onClick={onClickUpdateHandler}>Save</Button>
                         <Button color={COLORS.HEADER_BOTTOM}
                                 onClick={onClickCloseModalHandler}>Close</Button>

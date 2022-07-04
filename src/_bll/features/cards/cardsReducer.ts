@@ -113,7 +113,7 @@ export const updateCardTC = (data: updateCartType, question: string): AppThunk =
             dispatch(setCardsTC())
             data.question === "" || data.answer === ""
                 ? showError(`Card "${question}" has not been changed`, dispatch)
-                : showSuccess(`Card "${data.question}" has been changed`, dispatch)
+                : showSuccess(`Card "${question}" has been changed`, dispatch)
         })
         .catch(err => showError(`${err.message}. Card "${question}" has not been changed`, dispatch))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))

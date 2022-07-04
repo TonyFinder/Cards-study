@@ -96,7 +96,7 @@ export const updatePackTC = (data: UpdatePackType, packName: string): AppThunk =
             dispatch(setPacksTC())
             data.name === ""
                 ? showError(`Pack "${packName}" has not been changed`, dispatch)
-                : showSuccess(`Pack "${data.name}" has been changed`, dispatch)
+                : showSuccess(`Pack "${packName}" has been changed`, dispatch)
         })
         .catch(err => showError(`${err.message}. Pack "${packName}" has not been changed`, dispatch))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))

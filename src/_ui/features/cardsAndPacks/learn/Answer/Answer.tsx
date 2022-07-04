@@ -44,7 +44,7 @@ export const Answer = () => {
 
     return <div className={styles.container}>
         <div className={styles.block}>
-            <h2 className={styles.headerSecond}>Learning pack: "{pack.name.toUpperCase()}"</h2>
+            <h2 className={styles.headerSecond}>Learning pack:<br/><br/> "{pack.name}"</h2>
 
             <div className={styles.question_answer}>
                 <p><b>Question: </b>"{card.question}"</p>

@@ -37,6 +37,13 @@
 }
 
 @mixin tableMain($width) {
+  .tableWrap {
+    position: relative;
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin: 0 10px;
+  }
+
   .table {
     height: $rowHeight * 9;
     box-shadow: 0 4px 14px rgba(45, 46, 70, 0.15);

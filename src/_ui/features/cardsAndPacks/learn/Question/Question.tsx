@@ -30,7 +30,7 @@ export const Question = () => {
         {loading === LoadingStatusType.active
             ? <Loader color={COLORS.MAIN_DARK}/>
             : <div className={styles.block}>
-                <h2 className={styles.headerSecond}>Learning pack: "{pack.name.toUpperCase()}"</h2>
+                <h2 className={styles.headerSecond}>Learning pack: <br/><br/> "{pack.name}"</h2>
 
                 <div className={styles.question_answer}>
                     <p><b>Question: </b>"{chosenCard.question}"</p>
