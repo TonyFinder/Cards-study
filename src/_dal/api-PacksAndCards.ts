@@ -176,6 +176,10 @@ export type CardType = {
     user_id: string
     created: string
     updated: string
+    answerImg: string
+    questionImg: string
+    questionVideo: string
+    answerVideo: string
 }
 
 export type CardParamsType = {
@@ -217,6 +221,10 @@ export type updateCartType = {
     question?: string
     answer?: string
     grade?: number
+    answerImg?: string
+    questionImg?: string
+    questionVideo?: string
+    answerVideo?: string
 }
 export type UpdateGradeCardRequestType = {
     grade: number

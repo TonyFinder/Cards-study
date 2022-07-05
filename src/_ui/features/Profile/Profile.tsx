@@ -2,15 +2,14 @@ import styles from '../Template.module.scss'
 import {Input} from '../../common/_superComponents/Input/Input';
 import {Button} from '../../common/_superComponents/Button/Button';
 import {useAppDispatch, useCustomSelector} from '../../../_bll/main/store';
-import React, {ChangeEvent, useEffect, useRef, useState} from 'react';
+import React, {useState} from 'react';
 import {changeProfileDataTC, logoutTC} from '../../../_bll/features/profile/profileReducer';
 import {AuthDataType} from '../../../_dal/api-auth';
 import {COLORS, ROUTE_PATHS} from '../../../utils/_values';
 import {Navigate} from 'react-router-dom';
 import {Loader} from '../../common/_superComponents/Loader/Loader';
 import {LoadingStatusType} from '../../../utils/enums';
-import {addNotification} from '../../../_bll/main/appReducer';
-import {v1} from 'uuid';
+import {InputImg} from "./components/InputImg";
 
 export const Profile = () => {
     const {name, email, avatar} = useCustomSelector<AuthDataType>(state => state.profile)
@@ -18,81 +17,24 @@ export const Profile = () => {
     const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
     let dispatch = useAppDispatch()
 
-    const inRef = useRef<HTMLInputElement>(null);
     const [fileURL, setFileURL] = useState<any>();
     const [file64, setFile64] = useState<any>();
-    const [file, setFile] = useState<any>();
     const [error, setError] = useState<boolean>(true);
+    const [errorTypeFile, setErrorTypeFile] = useState<boolean>(false);
 
     const [nickNameValue, setNickNameValue] = useState<string>(name)
     const [errorNickName, setErrorNickName] = useState<boolean>(false)
 
+
+    const checkChangeName = name !== nickNameValue
     const saveButtonDisable = !nickNameValue || errorNickName || error
 
-    const checkTypeFile = () => {
-        switch (file.type) {
-            case 'image/png':
-            case 'image/jpg':
-            case 'image/jpeg':
-                setError(false)
-                return false
-            default:
-                dispatch(addNotification({
-                    type: "error",
-                    message: `The file type must be png, jpg or jpeg`,
-                    id: v1(),
-                }))
-                setError(true)
-                return true
-        }
-    }
-
-    const upload = (e: ChangeEvent<HTMLInputElement>) => {
-        const reader = new FileReader();
-        const newFile = e.target.files && e.target.files[0];
-
-        if (newFile) {
-            setFile(newFile);
-            setFileURL(window.URL.createObjectURL(newFile));
-            reader.onloadend = () => {
-                setFile64(reader.result);
-            };
-            reader.readAsDataURL(newFile);
-        }
-    };
-
-    useEffect(() => {
-        if (name !== nickNameValue || file !== undefined) {
-            setError(false)
-        } else {
-            setError(true)
-        }
-        if (file && +file.size >= 2097152) {
-            setError(true)
-        }
-
-    }, [nickNameValue, name, file])
-
-    useEffect(() => {
-        if (file !== undefined) {
-            if (+file.size <= 2097152) {
-                setError(false)
-            } else {
-                setError(true)
-                dispatch(addNotification({
-                    type: "error",
-                    message: `Image size should not exceed 2 megabytes`,
-                    id: v1(),
-                }))
-            }
-            checkTypeFile()
-        }
-    }, [file, dispatch])
 
     const changeProfileData = () => {
-        if (saveButtonDisable || checkTypeFile()) return
+        if (saveButtonDisable || errorTypeFile) return
         dispatch(changeProfileDataTC(nickNameValue, file64))
         setError(true)
+        setErrorTypeFile(true)
     }
     const logoutHandler = () => {
         dispatch(logoutTC())
@@ -107,15 +49,14 @@ export const Profile = () => {
 
             <div className={styles.image}>
                 <img src={fileURL ? fileURL : avatar} alt={'avatar'}/>
-                <input
-                    ref={inRef}
-                    type={'file'}
-                    style={{display: 'none'}}
-                    onChange={upload}
-                    accept=".jpg, .jpeg, .png"
-                />
-                <span onClick={() => inRef && inRef.current && inRef.current.click()}
-                      className={styles.changeAvatar}>&#128393;</span>
+                <InputImg
+                    title="&#128393;"
+                    nickNameValue={nickNameValue}
+                    checkChangeName={checkChangeName}
+                    setError={setError}
+                    setErrorTypeFile={setErrorTypeFile}
+                    setFileURL={setFileURL}
+                    setFile64={setFile64}/>
                 <Button className={styles.logout} onClick={logoutHandler}
                         disabled={loading === LoadingStatusType.active}>Logout</Button>
             </div>
