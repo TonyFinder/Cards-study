@@ -22,6 +22,7 @@ type CardPropsType = {
     disabled: boolean
     userIdProfile: string
     sort: string[]
+    showHiddenText?: (value: string) => void
 }
 
 export const Card: React.FC<CardPropsType> = (props) => {
@@ -36,6 +37,7 @@ export const Card: React.FC<CardPropsType> = (props) => {
         _id,
         disabled,
         sort,
+        showHiddenText
     } = props
 
     const dispatch = useAppDispatch()
@@ -52,6 +54,14 @@ export const Card: React.FC<CardPropsType> = (props) => {
                 : dispatch(updateCardParams({sortCards: '0updated', page: 1}))
             : dispatch(updateCardParams({sortCards: `0${e}`, page: 1}))
     }
+    const onMouseEnterHandler = (value: string) => {
+        if (value.length < 10) return
+        showHiddenText && showHiddenText(value)
+    }
+    const onMouseLeaveHandler = (value: string) => {
+        if (value.length > 350) return
+        showHiddenText && showHiddenText('')
+    }
 
     return (
         <div className={styles.row}>
@@ -61,7 +71,9 @@ export const Card: React.FC<CardPropsType> = (props) => {
                                   value={sort[1] === 'question' ? sort[0] : '2'}
                                   color={COLORS.SORT}
                                   onClick={() => onClickHandler('question')}/>
-                    : <div className={styles.hidden}>{question}</div>
+                    : <div className={styles.hidden}
+                           onMouseEnter={() => onMouseEnterHandler(question)}
+                           onMouseLeave={() => onMouseLeaveHandler(question)}>{question}</div>
             }
             </div>
             <div className={styles.answer}>{
@@ -70,7 +82,9 @@ export const Card: React.FC<CardPropsType> = (props) => {
                                   value={sort[1] === 'answer' ? sort[0] : '2'}
                                   color={COLORS.SORT}
                                   onClick={() => onClickHandler('answer')}/>
-                    : <div className={styles.hidden}>{answer}</div>
+                    : <div className={styles.hidden}
+                           onMouseEnter={() => onMouseEnterHandler(answer)}
+                           onMouseLeave={() => onMouseLeaveHandler(answer)}>{answer}</div>
             }
             </div>
             <div className={styles.updated}>{

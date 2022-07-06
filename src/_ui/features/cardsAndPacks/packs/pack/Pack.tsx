@@ -21,6 +21,7 @@ export type PackPropsType = {
     header?: boolean
     sort: string[]
     onClick?: (packId: string) => void
+    showHiddenText?: (value: string) => void
 }
 
 export const Pack: React.FC<PackPropsType> = (props) => {
@@ -35,6 +36,7 @@ export const Pack: React.FC<PackPropsType> = (props) => {
         sort,
         user_id,
         onClick,
+        showHiddenText,
     } = props;
     const dispatch = useAppDispatch()
     const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
@@ -55,6 +57,14 @@ export const Pack: React.FC<PackPropsType> = (props) => {
     const onClickLearnHandle = () => {
         onClick && onClick(_id)
     }
+    const onMouseEnterHandler = (value: string) => {
+        if (value.length < 10) return
+        showHiddenText && showHiddenText(value)
+    }
+    const onMouseLeaveHandler = (value: string) => {
+        if (value.length > 350) return
+        showHiddenText && showHiddenText('')
+    }
 
     return (
         <div key={_id} className={styles.row}>
@@ -64,7 +74,9 @@ export const Pack: React.FC<PackPropsType> = (props) => {
                                   value={sort[1] === 'name' ? sort[0] : '2'}
                                   color={COLORS.SORT}
                                   onClick={() => onClickSortHandler('name')}/>
-                    : <div className={styles.hidden}>
+                    : <div className={styles.hidden}
+                           onMouseEnter={() => onMouseEnterHandler(name)}
+                           onMouseLeave={() => onMouseLeaveHandler(name)}>
                         <Link to={`${ROUTE_PATHS.CARDS}/${props._id}/${name}`}>{name}</Link>
                 </div>
                 }
@@ -93,7 +105,10 @@ export const Pack: React.FC<PackPropsType> = (props) => {
                                   value={sort[1] === 'user_name' ? sort[0] : '2'}
                                   color={COLORS.SORT}
                                   onClick={() => onClickSortHandler('user_name')}/>
-                    : <div className={styles.hidden}>{user_name}</div>
+                    : <div className={styles.hidden}
+                           onMouseEnter={() => onMouseEnterHandler(user_name)}
+                           onMouseLeave={() => onMouseLeaveHandler(user_name)}>
+                        {user_name}</div>
                 }
             </div>
             <div className={styles.actions}>

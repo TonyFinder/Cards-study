@@ -37,6 +37,8 @@ export const Cards = () => {
     const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
     const disabled = loading === LoadingStatusType.active
 
+    const [hiddenText, showHiddenText] = useState<string>('')
+
     // Debounce logic
     const [paginationInput, setPaginationInput] = useState('');
     const debouncedPaginationInput = useDebounce(paginationInput, 1000);
@@ -67,6 +69,11 @@ export const Cards = () => {
     return (
         <div className={styles.block}>
             <div className={styles.container}>
+                {hiddenText && <>
+                    <div className={styles.showHiddenText}>{hiddenText}</div>
+                    <div className={styles.cross} onClick={()=>showHiddenText('')}>&#10006;</div>
+                </>}
+
                 <div className={styles.input}>
                     <div className={styles.name}>
                         <span onClick={() => navigate(-1)}>&#129104;</span>
@@ -89,7 +96,8 @@ export const Cards = () => {
                             : cards.length > 0
                                 ? cards.map(p => <Card header={false} key={p._id} sort={[direction, column]}
                                                        disabled={disabled}
-                                                       userIdProfile={userId} {...p}/>)
+                                                       userIdProfile={userId} {...p}
+                                                       showHiddenText={showHiddenText}/>)
                                 : <span className={styles.emptyPacksText}>There is no data according to your search parameters...</span>
                         }
                     </div>

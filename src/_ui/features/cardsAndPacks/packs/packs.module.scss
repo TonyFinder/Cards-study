@@ -11,12 +11,15 @@
 
   .container {
     display: flex;
+    position: relative;
     margin-top: $paddingTopButton + $fontSize;
 
     @media (max-width: 970px) {
       position: relative;
       flex-direction: column;
     }
+
+    @include showHiddenTextForTable;
 
     .filters {
 
@@ -26,6 +29,7 @@
     }
 
     .packs {
+      //position: relative;
       display: flex;
       flex-direction: column;
 
@@ -41,6 +45,8 @@
       }
 
       @include tableMain(700px);
+
+
 
       .filtersSmall {
         display: none;
