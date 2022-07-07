@@ -30,13 +30,9 @@ export const StarRating: React.FC<StarRatingType> = ({grade}) => {
                         <input type="radio" className={styles.ratingItem} value='3' name='rating'/>
                         <input type="radio" className={styles.ratingItem} value='4' name='rating'/>
                         <input type="radio" className={styles.ratingItem} value='5' name='rating'/>
-
                     </div>
                 </div>
             </div>
-            {/*<div className={styles.ratingValue}>
-                {grade}
-            </div>*/}
         </div>
     );
 };

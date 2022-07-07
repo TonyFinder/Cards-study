@@ -77,7 +77,6 @@ export const Profile = () => {
         dispatch(logoutTC())
     }
 
-
     if (!isLoggedIn) return <Navigate to={ROUTE_PATHS.LOGIN}/>
 
     return <div className={styles.container}>

@@ -45,10 +45,10 @@ export const Card: React.FC<CardPropsType> = (props) => {
     const owner = userIdProfile === user_id
 
     const onClickHandler = (e: string) => {
-        // определяем, на какой колонке находится фильтр
+        // determining on which column the filter is located
         if (disabled) return
         sort[1] === e
-            // определяем как отсортирована колонка
+            // determining how the column is sorted
             ? sort[0] === '0'
                 ? dispatch(updateCardParams({sortCards: `1${sort[1]}`, page: 1}))
                 : dispatch(updateCardParams({sortCards: '0updated', page: 1}))

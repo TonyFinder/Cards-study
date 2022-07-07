@@ -8,7 +8,6 @@ export const NotificationProvider: React.FC = () => {
 
     const notifications = useCustomSelector(state => state.app.notifications)
 
-
     return (
         <div className={styles.notificationWrapper}>
             {notifications.map(m => {

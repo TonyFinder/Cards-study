@@ -29,7 +29,6 @@
     }
 
     .packs {
-      //position: relative;
       display: flex;
       flex-direction: column;
 
@@ -45,8 +44,6 @@
       }
 
       @include tableMain(700px);
-
-
 
       .filtersSmall {
         display: none;

@@ -148,7 +148,6 @@ export const Packs = () => {
                         </div>
                     </div>
 
-
                     <div className={styles.page}>
                         <Pagination
                             siblingCount={0}
