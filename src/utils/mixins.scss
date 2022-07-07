@@ -137,7 +137,7 @@
   }
   .cross {
     position: absolute;
-    top: -5px; right: -5px;
+    top: -20px; right: 10px;
     border-radius: 5px;
     cursor: pointer;
     @include flexCenter;

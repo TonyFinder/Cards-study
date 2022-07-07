@@ -11,7 +11,13 @@ import {
 import {AppThunk} from '../../main/store';
 import {changeAppLoadingStatus} from '../../main/appReducer';
 import {LoadingStatusType} from '../../../utils/enums';
-import {showError, showSuccess} from '../../../utils/functions';
+import {
+    checkErrorInCatch,
+    ErrorType,
+    chooseError,
+    showError,
+    showSuccess
+} from '../../../utils/functions';
 
 
 const initialState: initialStateCardsType = {
@@ -83,7 +89,7 @@ export const setCardsTC = (): AppThunk => (dispatch, getState) => {
                     : dispatch(updateCardParams({page: res.data.page - 1}))
                 : dispatch(setCards(res.data))
         })
-        .catch(err => showError(err.response.data ? err.response.data.error : err.message, dispatch))
+        .catch((err: ErrorType) => checkErrorInCatch(err.response.status, chooseError(err), dispatch))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 export const createCardTC = (params: CreateCardType): AppThunk => (dispatch) => {
@@ -93,7 +99,7 @@ export const createCardTC = (params: CreateCardType): AppThunk => (dispatch) => 
             dispatch(setCardsTC())
             showSuccess(`Card "${params.question === "" ? "no question" : params.question}" has been created`, dispatch)
         })
-        .catch(err => showError(`${err.message}. Card "${params.question}" has not been created`, dispatch))
+        .catch((err: ErrorType) => checkErrorInCatch(err.response.status, `${chooseError(err)}. Card "${params.question}" has not been created`, dispatch))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 export const deleteCardTC = (cardId: string, question: string): AppThunk => (dispatch) => {
@@ -103,7 +109,7 @@ export const deleteCardTC = (cardId: string, question: string): AppThunk => (dis
             dispatch(setCardsTC())
             showSuccess(`Card "${question}" has been removed`, dispatch)
         })
-        .catch(err => showError(`${err.message}. Card "${question}" has not been removed`, dispatch))
+        .catch((err: ErrorType) => checkErrorInCatch(err.response.status, `${chooseError(err)}. Card "${question}" has not been removed`, dispatch))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 export const updateCardTC = (data: updateCartType, question: string): AppThunk => (dispatch) => {
@@ -115,16 +121,14 @@ export const updateCardTC = (data: updateCartType, question: string): AppThunk =
                 ? showError(`Card "${question}" has not been changed`, dispatch)
                 : showSuccess(`Card "${question}" has been changed`, dispatch)
         })
-        .catch(err => showError(`${err.message}. Card "${question}" has not been changed`, dispatch))
+        .catch((err: ErrorType) => checkErrorInCatch(err.response.status, `${chooseError(err)}. Card "${question}" has not been changed`, dispatch))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 export const updateGradeCardTC = (data: UpdateGradeCardRequestType): AppThunk => (dispatch) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
     cardsApi.updateGradeCard(data)
-        .then((res) => {
-            dispatch(updateGradeCard(res.data.updatedGrade))
-        })
-        .catch(err => showError(err.response.data ? err.response.data.error : err.message, dispatch))
+        .then(res => dispatch(updateGradeCard(res.data.updatedGrade)))
+        .catch((err: ErrorType) => checkErrorInCatch(err.response.status, chooseError(err), dispatch))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 

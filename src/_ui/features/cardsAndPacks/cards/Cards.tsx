@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
+import {Navigate, useNavigate, useParams} from 'react-router-dom';
 import {useAppDispatch, useCustomSelector} from '../../../../_bll/main/store';
 import {Card} from './card/Card';
 import {initialStateCardsType, setCardsTC, updateCardParams,} from '../../../../_bll/features/cards/cardsReducer';
@@ -8,7 +8,7 @@ import {InputComponentForCards} from './components/input/InputComponentForCards'
 import {Pagination} from '../packs/components/pagination/Pagination';
 import {LoadingStatusType} from '../../../../utils/enums';
 import {Loader} from '../../../common/_superComponents/Loader/Loader';
-import {COLORS} from '../../../../utils/_values';
+import {COLORS, ROUTE_PATHS} from '../../../../utils/_values';
 import {Input} from '../../../common/_superComponents/Input/Input';
 import useDebounce from '../packs/components/inputComponent/castomHookUseDebounce';
 
@@ -35,6 +35,7 @@ export const Cards = () => {
     } = useCustomSelector<initialStateCardsType>(state => state.cards);
     const userId = useCustomSelector<string>(state => state.profile._id)
     const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
+    const isLogin = useCustomSelector<boolean>(state => state.auth.isLoggedIn)
     const disabled = loading === LoadingStatusType.active
 
     const [hiddenText, showHiddenText] = useState<string>('')
@@ -65,6 +66,8 @@ export const Cards = () => {
     const onPageChangeHandler = (page: number) => {
         dispatch(updateCardParams({page}))
     }
+
+    if (!isLogin) return <Navigate to={ROUTE_PATHS.LOGIN}/>
 
     return (
         <div className={styles.block}>

@@ -2,7 +2,7 @@ import {AppThunk} from '../../main/store';
 import {changeAppLoadingStatus} from '../../main/appReducer';
 import {LoadingStatusType} from '../../../utils/enums';
 import {registerApi} from '../../../_dal/api-auth';
-import {showError} from '../../../utils/functions';
+import {ErrorType, chooseError, showError} from '../../../utils/functions';
 
 let initialAuthState = {
     isLoggedIn: false,
@@ -37,21 +37,21 @@ export const requestRegistrationTC = (email: string, password: string): AppThunk
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
     registerApi.register({email, password})
         .then(() => dispatch(register(true)))
-        .catch(err => showError(err.response.data ? err.response.data.error : err.message, dispatch))
+        .catch((err: ErrorType) => showError(chooseError(err), dispatch))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 export const requestPasswordTC = (email: string): AppThunk => (dispatch) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
     registerApi.forgot(email)
         .then(() => dispatch(redirectToCheckEmail()))
-        .catch(err => showError(err.response.data ? err.response.data.error : err.message, dispatch))
+        .catch((err: ErrorType) => showError(chooseError(err), dispatch))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 export const setNewPasswordTC = (password: string, resetPasswordToken: string): AppThunk => (dispatch) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
     registerApi.setPassword({password, resetPasswordToken})
         .then(res => res.data.info && dispatch(setPasswordSuccess(true)))
-        .catch(err => showError(err.response.data ? err.response.data.error : err.message, dispatch))
+        .catch((err: ErrorType) => showError(chooseError(err), dispatch))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 
