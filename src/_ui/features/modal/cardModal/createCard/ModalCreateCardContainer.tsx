@@ -2,9 +2,9 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {Button} from '../../../../common/_superComponents/Button/Button';
 import {useAppDispatch} from '../../../../../_bll/main/store';
 import {COLORS} from '../../../../../utils/_values';
-import styles from '../../modalTemplate.module.scss'
+import styles from '../../ModalTemplate.module.scss'
 import {createCardTC} from '../../../../../_bll/features/cards/cardsReducer';
-import {TextArea} from '../../../cardsAndPacks/cards/components/textArea/TextArea';
+import {TextArea} from '../../../../common/_superComponents/TextArea/TextArea';
 import {Modal} from '../../Modal';
 
 type ModalCreatePackContainerType = {

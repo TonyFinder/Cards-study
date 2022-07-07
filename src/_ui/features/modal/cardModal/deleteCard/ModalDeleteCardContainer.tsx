@@ -1,10 +1,11 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {Button} from '../../../../common/_superComponents/Button/Button';
 import {useAppDispatch} from "../../../../../_bll/main/store";
-import styles from "../../modalTemplate.module.scss"
+import styles from "../../ModalTemplate.module.scss"
 import {deleteCardTC} from "../../../../../_bll/features/cards/cardsReducer";
 import {COLORS} from '../../../../../utils/_values';
 import {Modal} from '../../Modal';
+import {toShortMessage} from '../../../../../utils/functions';
 
 type ModalDeleteContainerType = {
     cardID: string
@@ -45,7 +46,7 @@ export const ModalDeleteCardContainer: React.FC<ModalDeleteContainerType> = ({ca
             <Modal backgroundOnClick={() => setShow(false)} show={show}>
                 <div className={styles.modal}>
                     <div className={styles.header}>
-                        <h3>Delete Card: "{cardName.length > 100 ? `${cardName.slice(0, 100)}...` : cardName}"</h3>
+                        <h3>Delete Card: "{toShortMessage(cardName, 100)}"</h3>
                     </div>
 
                     <p className={styles.text}>

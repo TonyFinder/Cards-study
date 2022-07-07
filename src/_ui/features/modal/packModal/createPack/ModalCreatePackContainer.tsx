@@ -5,7 +5,7 @@ import {createPackTC, setShowFilters} from '../../../../../_bll/features/cards/p
 import {Input} from '../../../../common/_superComponents/Input/Input';
 import {Checkbox} from '../../../../common/_superComponents/Checkbox/Checkbox';
 import {COLORS} from '../../../../../utils/_values';
-import styles from '../../modalTemplate.module.scss'
+import styles from '../../ModalTemplate.module.scss'
 import {Modal} from '../../Modal';
 
 type ModalCreatePackContainerType = {

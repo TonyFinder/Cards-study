@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from 'react';
-import styles from './starRating.module.scss'
+import styles from './StarRating.module.scss'
 
 
 type StarRatingType = {

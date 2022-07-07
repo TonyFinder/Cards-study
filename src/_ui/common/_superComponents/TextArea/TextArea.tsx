@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import React, {ChangeEvent, DetailedHTMLProps, TextareaHTMLAttributes} from 'react';
-import {COLORS} from '../../../../../../utils/_values';
+import {COLORS} from '../../../../utils/_values';
 
 type DefaultTextAreaPropsType = DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>
 

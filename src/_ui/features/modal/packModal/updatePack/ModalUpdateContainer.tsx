@@ -2,11 +2,12 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {Button} from '../../../../common/_superComponents/Button/Button';
 import {useAppDispatch} from "../../../../../_bll/main/store";
 import {setShowFilters, updatePackTC} from '../../../../../_bll/features/cards/packsReducer';
-import styles from "../../modalTemplate.module.scss"
+import styles from "../../ModalTemplate.module.scss"
 import {Input} from '../../../../common/_superComponents/Input/Input';
 import {COLORS} from '../../../../../utils/_values';
 import {Checkbox} from "../../../../common/_superComponents/Checkbox/Checkbox";
 import {Modal} from '../../Modal';
+import {toShortMessage} from '../../../../../utils/functions';
 
 type ModalUpdateContainerType = {
     packId: string
@@ -62,7 +63,7 @@ export const ModalUpdateContainer: React.FC<ModalUpdateContainerType> = ({packId
             <Modal backgroundOnClick={onClickCloseModalHandler} show={show}>
                 <div className={styles.modal}>
                     <div className={styles.header}>
-                        <h3>Change pack: "{packName.length > 100 ? `${packName.slice(0, 100)}...` : packName}"</h3>
+                        <h3>Change pack: "{toShortMessage(packName, 100)}"</h3>
                     </div>
 
                     <div className={styles.input}>

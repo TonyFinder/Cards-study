@@ -1,6 +1,6 @@
 import React, {ChangeEvent} from 'react';
 import {Input} from '../../../../../common/_superComponents/Input/Input';
-import styles from './inputComponent.module.scss'
+import styles from './InputComponent.module.scss'
 import {COLORS} from '../../../../../../utils/_values';
 import {useAppDispatch, useCustomSelector} from '../../../../../../_bll/main/store';
 import {setShowFilters} from '../../../../../../_bll/features/cards/packsReducer';

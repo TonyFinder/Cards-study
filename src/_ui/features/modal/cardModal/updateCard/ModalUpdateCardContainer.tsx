@@ -1,11 +1,12 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {Button} from '../../../../common/_superComponents/Button/Button';
 import {useAppDispatch} from '../../../../../_bll/main/store';
-import styles from '../../modalTemplate.module.scss'
+import styles from '../../ModalTemplate.module.scss'
 import {updateCardTC} from '../../../../../_bll/features/cards/cardsReducer';
 import {COLORS} from '../../../../../utils/_values';
-import {TextArea} from '../../../cardsAndPacks/cards/components/textArea/TextArea';
+import {TextArea} from '../../../../common/_superComponents/TextArea/TextArea';
 import {Modal} from '../../Modal';
+import {toShortMessage} from '../../../../../utils/functions';
 
 type ModalUpdateContainerType = {
     cardId: string
@@ -61,7 +62,7 @@ export const ModalUpdateCardContainer: React.FC<ModalUpdateContainerType> = ({ca
             <Modal backgroundOnClick={onClickCloseModalHandler} show={show}>
                 <div className={styles.modal}>
                     <div className={styles.header}>
-                        <h3>Change card: "{cardQuestion.length > 100 ? `${cardQuestion.slice(0, 100)}...` : cardQuestion}"</h3>
+                        <h3>Change card: "{toShortMessage(cardQuestion, 100)}"</h3>
                     </div>
 
                     <div className={styles.textArea}>

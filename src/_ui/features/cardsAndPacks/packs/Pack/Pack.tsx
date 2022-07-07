@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button} from '../../../../common/_superComponents/Button/Button';
-import styles from './pack.module.scss';
+import styles from './Pack.module.scss';
 import {Link} from 'react-router-dom';
 import {COLORS, ROUTE_PATHS} from '../../../../../utils/_values';
 import {SortButton} from '../../../../common/_superComponents/SortButton/SortButton';

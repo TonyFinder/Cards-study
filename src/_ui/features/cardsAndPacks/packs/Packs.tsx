@@ -2,18 +2,18 @@ import React, {useEffect, useState} from 'react';
 import {initialStatePacksType, setPacksTC, updatePacksParams} from '../../../../_bll/features/cards/packsReducer';
 import {useAppDispatch, useCustomSelector} from '../../../../_bll/main/store';
 import {Navigate, useNavigate} from 'react-router-dom';
-import {Pack} from './pack/Pack';
-import styles from './packs.module.scss';
-import {Pagination} from './components/pagination/Pagination';
-import {InputComponent} from './components/inputComponent/InputComponent';
+import styles from './Packs.module.scss';
 import {COLORS, ROUTE_PATHS} from '../../../../utils/_values';
 import {LoadingStatusType} from '../../../../utils/enums';
 import {Loader} from '../../../common/_superComponents/Loader/Loader';
-import useDebounce from './components/inputComponent/castomHookUseDebounce';
 import {setCardsTC, updateCardParams} from '../../../../_bll/features/cards/cardsReducer';
 import {ModalCreatePackContainer} from '../../modal/packModal/createPack/ModalCreatePackContainer';
 import {Input} from '../../../common/_superComponents/Input/Input';
 import {Filters} from './components/Filters/Filters';
+import useDebounce from './components/InputComponent/castomHookUseDebounce';
+import {InputComponent} from './components/InputComponent/InputComponent';
+import {Pack} from './Pack/Pack';
+import {Pagination} from './components/Pagination/Pagination';
 
 const headerTable = {
     name: "Name",

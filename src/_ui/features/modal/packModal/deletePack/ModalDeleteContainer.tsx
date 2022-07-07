@@ -2,9 +2,10 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {Button} from '../../../../common/_superComponents/Button/Button';
 import {useAppDispatch} from "../../../../../_bll/main/store";
 import {deletePackTC, setShowFilters} from '../../../../../_bll/features/cards/packsReducer';
-import styles from "../../modalTemplate.module.scss"
+import styles from "../../ModalTemplate.module.scss"
 import {COLORS} from '../../../../../utils/_values';
 import {Modal} from '../../Modal';
+import {toShortMessage} from '../../../../../utils/functions';
 
 type ModalDeleteContainerType = {
     packId: string
@@ -49,7 +50,7 @@ export const ModalDeleteContainer: React.FC<ModalDeleteContainerType> = ({packId
             <Modal backgroundOnClick={() => setShow(false)} show={show}>
                 <div className={styles.modal}>
                     <div className={styles.header}>
-                        <h3>Delete Pack: "{packName.length > 100 ? `${packName.slice(0, 100)}...` : packName}"</h3>
+                        <h3>Delete Pack: "{toShortMessage(packName, 100)}"</h3>
                     </div>
 
                     <p className={styles.text}>

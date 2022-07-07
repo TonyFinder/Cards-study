@@ -7,7 +7,7 @@ import {
     ErrorType,
     chooseError,
     showError,
-    showSuccess
+    showSuccess, toShortMessage
 } from '../../../utils/functions';
 
 const initialState: initialStatePacksType = {
@@ -80,9 +80,9 @@ export const deletePackTC = (packId: string, packName: string): AppThunk => (dis
     packsApi.deletePack(packId)
         .then(() => {
             dispatch(setPacksTC())
-            showSuccess(`Pack "${packName}" has been removed`, dispatch)
+            showSuccess(`Pack "${toShortMessage(packName, 30)}" has been removed`, dispatch)
         })
-        .catch((err: ErrorType) => checkErrorInCatch(err.response.status, `${chooseError(err)}. Pack "${packName}" has not been removed`, dispatch))
+        .catch((err: ErrorType) => checkErrorInCatch(err.response.status, `${chooseError(err)}. Pack "${toShortMessage(packName, 30)}" has not been removed`, dispatch))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 export const createPackTC = (data: CreatePackType): AppThunk => (dispatch) => {
@@ -90,9 +90,9 @@ export const createPackTC = (data: CreatePackType): AppThunk => (dispatch) => {
     packsApi.createPack(data)
         .then(() => {
             dispatch(setPacksTC())
-            showSuccess(`Pack "${data.name === "" ? "no Name" : data.name}" has been created`, dispatch)
+            showSuccess(`Pack "${toShortMessage(data.name, 30)}" has been created`, dispatch)
         })
-        .catch((err: ErrorType) => checkErrorInCatch(err.response.status,`${chooseError(err)}. Pack "${data.name}" has not been created`, dispatch))
+        .catch((err: ErrorType) => checkErrorInCatch(err.response.status,`${chooseError(err)}. Pack "${toShortMessage(data.name, 30)}" has not been created`, dispatch))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 export const updatePackTC = (data: UpdatePackType, packName: string): AppThunk => (dispatch) => {
@@ -101,10 +101,10 @@ export const updatePackTC = (data: UpdatePackType, packName: string): AppThunk =
         .then(() => {
             dispatch(setPacksTC())
             data.name === ""
-                ? showError(`Pack "${packName}" has not been changed`, dispatch)
-                : showSuccess(`Pack "${packName}" has been changed`, dispatch)
+                ? showError(`Pack "${toShortMessage(packName, 30)}" has not been changed`, dispatch)
+                : showSuccess(`Pack "${toShortMessage(packName, 30)}" has been changed`, dispatch)
         })
-        .catch((err: ErrorType) => checkErrorInCatch(err.response.status,`${chooseError(err)}. Pack "${packName}" has not been changed`, dispatch))
+        .catch((err: ErrorType) => checkErrorInCatch(err.response.status,`${chooseError(err)}. Pack "${toShortMessage(packName, 30)}" has not been changed`, dispatch))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 

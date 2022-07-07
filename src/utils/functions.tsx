@@ -40,9 +40,8 @@ export const checkErrorInCatch = (status: number, error: string, dispatch: Dispa
     showError(error, dispatch)
     status === 401 && dispatch(setIsLogin(false))
 }
-export const chooseError = (err: ErrorType) => {
-    return err.response.data ? err.response.data.error : err.message
-}
+export const chooseError = (err: ErrorType) => err.response.data ? err.response.data.error : err.message
+export const toShortMessage = (message: string, count: number) => message.length > count ? `${message.slice(0, count)}...` : message
 
 // types
 export type ErrorType = {

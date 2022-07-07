@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './notificationProvider.module.scss'
+import styles from './NotificationProvider.module.scss'
 import {Notification} from "./Notification";
 import {useCustomSelector} from "../../../../_bll/main/store";
 

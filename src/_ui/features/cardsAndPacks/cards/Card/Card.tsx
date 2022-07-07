@@ -1,10 +1,10 @@
 import React from 'react';
-import styles from './card.module.scss';
+import styles from './Card.module.scss';
 import {updateCardParams} from "../../../../../_bll/features/cards/cardsReducer";
 import {useAppDispatch} from "../../../../../_bll/main/store";
 import {SortButton} from "../../../../common/_superComponents/SortButton/SortButton";
 import {COLORS} from "../../../../../utils/_values";
-import {StarRating} from "../components/starRating/StarRating";
+import {StarRating} from "../../../../common/_superComponents/StarRating/StarRating";
 import {ModalDeleteCardContainer} from '../../../modal/cardModal/deleteCard/ModalDeleteCardContainer';
 import {ModalUpdateCardContainer} from '../../../modal/cardModal/updateCard/ModalUpdateCardContainer';
 

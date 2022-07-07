@@ -133,7 +133,7 @@
     word-break: break-all;
     background: #a4cea4;
     box-shadow: 0 0 5px 3px $backColorSecond;
-    z-index: 200;
+    z-index: 10;
   }
   .cross {
     position: absolute;
@@ -144,6 +144,6 @@
     font-weight: 900;
     width: 20px; height: 20px;
     color: red;
-    z-index: 200;
+    z-index: 10;
   }
 }

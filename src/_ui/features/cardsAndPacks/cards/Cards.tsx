@@ -1,16 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import {Navigate, useNavigate, useParams} from 'react-router-dom';
 import {useAppDispatch, useCustomSelector} from '../../../../_bll/main/store';
-import {Card} from './card/Card';
 import {initialStateCardsType, setCardsTC, updateCardParams,} from '../../../../_bll/features/cards/cardsReducer';
-import styles from './cards.module.scss';
-import {InputComponentForCards} from './components/input/InputComponentForCards';
-import {Pagination} from '../packs/components/pagination/Pagination';
+import styles from './Cards.module.scss';
 import {LoadingStatusType} from '../../../../utils/enums';
 import {Loader} from '../../../common/_superComponents/Loader/Loader';
 import {COLORS, ROUTE_PATHS} from '../../../../utils/_values';
 import {Input} from '../../../common/_superComponents/Input/Input';
-import useDebounce from '../packs/components/inputComponent/castomHookUseDebounce';
+import useDebounce from '../packs/components/InputComponent/castomHookUseDebounce';
+import {InputComponentForCards} from './components/InputComponentForCards/InputComponentForCards';
+import {Card} from './Card/Card';
+import {Pagination} from '../packs/components/Pagination/Pagination';
+import {toShortMessage} from '../../../../utils/functions';
 
 const headerTable = {
     _id: '_id',
@@ -80,7 +81,7 @@ export const Cards = () => {
                 <div className={styles.input}>
                     <div className={styles.name}>
                         <span onClick={() => navigate(-1)}>&#129104;</span>
-                        <h2>Pack name: "{packName && packName.length > 25 ? `${packName.slice(0, 25)}...` : packName}"</h2>
+                        <h2>Pack name: "{packName && toShortMessage(packName, 25)}"</h2>
                     </div>
                     <InputComponentForCards disabled={disabled}
                                             packId={cardParams.cardsPack_id ? cardParams.cardsPack_id : ''}
