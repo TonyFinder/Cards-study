@@ -124,9 +124,9 @@ export const dataTestPage = {
         comments: ['The bottom border can be customized to any color in the props. Blue by default.',
             'The color is applied in case there is no value.'],
         rowFirst: [
-            {id: 0, color: '', placeholder: 'Placeholder text', sign: '', disable: false},
+            {id: 0, color: '', placeholder: 'Placeholder text', sign: 'Title', disable: false},
             {id: 1, color: '', placeholder: 'Text here', sign: 'Title', disable: false},
-            {id: 2, color: '', placeholder: 'Key "Enter" without text', sign: '', disable: false},
+            {id: 2, color: '', placeholder: 'Key "Enter" without text', sign: 'Title', disable: false},
         ],
     },
     slider: {
@@ -145,7 +145,7 @@ export const dataTestPage = {
     },
     sortButton: {
         header: 'Sort Button',
-        comments: ['The color and sort value can be customized in props.', 'Sort value for props: "0" - disable, "1" - up, "2" - down'],
+        comments: ['The color and sort value can be customized in props.', 'Sort value for props: "2" - disable, "1" - up, "0" - down'],
         rowFirst: [
             {id: 0, title: 'Sort up', value: '1', color: '#fd974f'},
             {id: 1, title: 'Sort down', value: '0', color: '#fd974f'},

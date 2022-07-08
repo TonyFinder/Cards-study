@@ -24,8 +24,7 @@ export const StarRating: React.FC<StarRatingType> = ({grade}) => {
             <div className={styles.ratingBody}>
                 <div ref={ref} className={styles.ratingActive}>
                     <div className={styles.ratingItems}>
-                        <input type="radio" className={styles.ratingItem} value='1'
-                               name='rating'/>
+                        <input type="radio" className={styles.ratingItem} value='1' name='rating'/>
                         <input type="radio" className={styles.ratingItem} value='2' name='rating'/>
                         <input type="radio" className={styles.ratingItem} value='3' name='rating'/>
                         <input type="radio" className={styles.ratingItem} value='4' name='rating'/>
@@ -34,5 +33,5 @@ export const StarRating: React.FC<StarRatingType> = ({grade}) => {
                 </div>
             </div>
         </div>
-    );
-};
+    )
+}

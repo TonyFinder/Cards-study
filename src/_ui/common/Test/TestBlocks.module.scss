@@ -8,17 +8,24 @@
   margin: 20px 0;
 
   .description {
-    margin-bottom: 15px;
+    margin-bottom: 25px;
     display: flex;
     flex-direction: column;
 
     > h3 {
-      margin: auto;
+      margin: 0;
+    }
+    > span {
     }
   }
 
   > div {
     @include flexCenter;
     flex-wrap: wrap;
+  }
+  .component {
+    > div {
+      margin: 0 25px;
+    }
   }
 }
