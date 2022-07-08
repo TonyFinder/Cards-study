@@ -19,10 +19,10 @@ export const Button = styled.button`
   
   &:before {
     content: "";
+    position: absolute;
     background: linear-gradient(90deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .5));
     height: 50px;
     width: 50px;
-    position: absolute;
     top: -8px;
     left: -75px;
     transform: skewX(-135deg);
@@ -32,7 +32,6 @@ export const Button = styled.button`
     background: ${props => props.disabled ? "none" : props.color ? props.color : COLORS.DEFAULT};
     color: ${props => props.disabled ? "none" : "#fff"};
   }
-  
   &:hover:before {
     left: ${props => props.disabled ? "none" : "350px"};
     transition: ${props => props.disabled ? "none" : "0.5s ease-in-out"};

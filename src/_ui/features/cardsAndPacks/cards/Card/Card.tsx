@@ -1,10 +1,10 @@
 import React from 'react';
-import styles from './card.module.scss';
+import styles from './Card.module.scss';
 import {updateCardParams} from "../../../../../_bll/features/cards/cardsReducer";
 import {useAppDispatch} from "../../../../../_bll/main/store";
 import {SortButton} from "../../../../common/_superComponents/SortButton/SortButton";
 import {COLORS} from "../../../../../utils/_values";
-import {StarRating} from "../components/starRating/StarRating";
+import {StarRating} from "../../../../common/_superComponents/StarRating/StarRating";
 import {ModalDeleteCardContainer} from '../../../modal/cardModal/deleteCard/ModalDeleteCardContainer';
 import {ModalUpdateCardContainer} from '../../../modal/cardModal/updateCard/ModalUpdateCardContainer';
 
@@ -22,6 +22,7 @@ type CardPropsType = {
     disabled: boolean
     userIdProfile: string
     sort: string[]
+    showHiddenText?: (value: string) => void
 }
 
 export const Card: React.FC<CardPropsType> = (props) => {
@@ -36,6 +37,7 @@ export const Card: React.FC<CardPropsType> = (props) => {
         _id,
         disabled,
         sort,
+        showHiddenText
     } = props
 
     const dispatch = useAppDispatch()
@@ -43,14 +45,22 @@ export const Card: React.FC<CardPropsType> = (props) => {
     const owner = userIdProfile === user_id
 
     const onClickHandler = (e: string) => {
-        // определяем, на какой колонке находится фильтр
+        // determining on which column the filter is located
         if (disabled) return
         sort[1] === e
-            // определяем как отсортирована колонка
+            // determining how the column is sorted
             ? sort[0] === '0'
                 ? dispatch(updateCardParams({sortCards: `1${sort[1]}`, page: 1}))
                 : dispatch(updateCardParams({sortCards: '0updated', page: 1}))
             : dispatch(updateCardParams({sortCards: `0${e}`, page: 1}))
+    }
+    const onMouseEnterHandler = (value: string) => {
+        if (value.length < 10) return
+        showHiddenText && showHiddenText(value)
+    }
+    const onMouseLeaveHandler = (value: string) => {
+        if (value.length > 350) return
+        showHiddenText && showHiddenText('')
     }
 
     return (
@@ -61,7 +71,9 @@ export const Card: React.FC<CardPropsType> = (props) => {
                                   value={sort[1] === 'question' ? sort[0] : '2'}
                                   color={COLORS.SORT}
                                   onClick={() => onClickHandler('question')}/>
-                    : <div className={styles.hidden}>{question}</div>
+                    : <div className={styles.hidden}
+                           onMouseEnter={() => onMouseEnterHandler(question)}
+                           onMouseLeave={() => onMouseLeaveHandler(question)}>{question}</div>
             }
             </div>
             <div className={styles.answer}>{
@@ -70,7 +82,9 @@ export const Card: React.FC<CardPropsType> = (props) => {
                                   value={sort[1] === 'answer' ? sort[0] : '2'}
                                   color={COLORS.SORT}
                                   onClick={() => onClickHandler('answer')}/>
-                    : <div className={styles.hidden}>{answer}</div>
+                    : <div className={styles.hidden}
+                           onMouseEnter={() => onMouseEnterHandler(answer)}
+                           onMouseLeave={() => onMouseLeaveHandler(answer)}>{answer}</div>
             }
             </div>
             <div className={styles.updated}>{

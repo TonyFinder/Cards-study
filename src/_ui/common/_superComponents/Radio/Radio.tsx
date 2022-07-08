@@ -30,7 +30,7 @@ export const Radio: React.FC<RadioPropsType> = (
 }
 
 const StyledRadio = styled.div`
-  margin: 15px 0;
+  margin: 15px;
   > input {
     opacity: 0;
     display: none;

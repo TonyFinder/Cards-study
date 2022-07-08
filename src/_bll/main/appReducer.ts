@@ -2,9 +2,8 @@ import {LoadingStatusType} from '../../utils/enums';
 import {AppThunk} from './store';
 import {authAPI} from '../../_dal/api-auth';
 import {setIsLogin} from '../features/auth/authReducer';
-import {setProfileData} from '../features/profile/profileReducer';
 import {NotificationType} from '../../_ui/features/modal/notification/Notification';
-import {showError} from '../../utils/functions';
+import {ErrorType, setProfileDataFunc} from '../../utils/functions';
 
 let initialState: AppInitialStateType = {
     loadingStatus: LoadingStatusType.disabled,
@@ -36,15 +35,8 @@ export const removeNotification = (id: string) => ({type: 'APP/REMOVE-NOTIFICATI
 // thunks
 export const initializeAppTC = (): AppThunk => dispatch => {
     authAPI.me()
-        .then(res => {
-            if (res.error) {
-                dispatch(setIsLogin(false))
-            } else {
-                dispatch(setIsLogin(true))
-                dispatch(setProfileData(res.data))
-            }
-        })
-        .catch(err => showError(err.response.data ? err.response.data.error : err.message, dispatch))
+        .then(res => setProfileDataFunc(res.data, dispatch))
+        .catch((err: ErrorType) => err.response.status === 401 && dispatch(setIsLogin(false)))
         .finally(() => dispatch(initializeApp()))
 }
 

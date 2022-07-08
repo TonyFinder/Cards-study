@@ -1,11 +1,10 @@
 import {Route, Routes} from 'react-router-dom';
 import {dataRoutes} from '../../../../utils/_values';
-import style from './Router.module.scss';
 import React from "react";
 import {NotificationProvider} from "../../../features/modal/notification/NotificationProvider";
 
 export const Router = () => {
-    return <div className={style.routContainer}>
+    return <div>
         <NotificationProvider/>
         <Routes>
             {dataRoutes.routes.map(item =>

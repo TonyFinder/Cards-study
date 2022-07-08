@@ -2,18 +2,18 @@ import React, {useEffect, useState} from 'react';
 import {initialStatePacksType, setPacksTC, updatePacksParams} from '../../../../_bll/features/cards/packsReducer';
 import {useAppDispatch, useCustomSelector} from '../../../../_bll/main/store';
 import {Navigate, useNavigate} from 'react-router-dom';
-import {Pack} from './pack/Pack';
-import styles from './packs.module.scss';
-import {Pagination} from './components/pagination/Pagination';
-import {InputComponent} from './components/inputComponent/InputComponent';
+import styles from './Packs.module.scss';
 import {COLORS, ROUTE_PATHS} from '../../../../utils/_values';
 import {LoadingStatusType} from '../../../../utils/enums';
 import {Loader} from '../../../common/_superComponents/Loader/Loader';
-import useDebounce from './components/inputComponent/castomHookUseDebounce';
 import {setCardsTC, updateCardParams} from '../../../../_bll/features/cards/cardsReducer';
 import {ModalCreatePackContainer} from '../../modal/packModal/createPack/ModalCreatePackContainer';
 import {Input} from '../../../common/_superComponents/Input/Input';
 import {Filters} from './components/Filters/Filters';
+import useDebounce from './components/InputComponent/castomHookUseDebounce';
+import {InputComponent} from './components/InputComponent/InputComponent';
+import {Pack} from './Pack/Pack';
+import {Pagination} from './components/Pagination/Pagination';
 
 const headerTable = {
     name: "Name",
@@ -42,6 +42,8 @@ export const Packs = () => {
     const isLogin = useCustomSelector<boolean>(state => state.auth.isLoggedIn)
     const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
     const disabled = loading === LoadingStatusType.active
+
+    const [hiddenText, showHiddenText] = useState<string>('')
 
     //For update slider if minDefault/maxDefault not change
     const [isChangeSlider, setIsChangeSlider] = useState(false)
@@ -100,6 +102,11 @@ export const Packs = () => {
         <div className={styles.block}>
             <div className={styles.container}>
 
+                {hiddenText && <>
+                    <div className={styles.showHiddenText}>{hiddenText}</div>
+                    <div className={styles.cross} onClick={()=>showHiddenText('')}>&#10006;</div>
+                </>}
+
                 <div className={styles.filters}>
                     <Filters min={Number(packParams.min)} max={Number(packParams.max)}
                              minCardsCount={minCardsCount} maxCardsCount={maxCardsCount}
@@ -134,7 +141,8 @@ export const Packs = () => {
                                 : cardPacks.length > 0
                                     ? cardPacks.map(p => <Pack key={p._id}
                                                                sort={[direction, column]} {...p}
-                                                               onClick={onClickToLearn}/>)
+                                                               onClick={onClickToLearn}
+                                                               showHiddenText={showHiddenText}/>)
                                     : <span className={styles.emptyPacksText}>There is no data according to your search parameters...</span>
                             }
                         </div>

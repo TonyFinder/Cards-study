@@ -79,7 +79,7 @@ export type PackParamsType = {
 }
 
 export type CreatePackType = {
-    name?: string
+    name: string
     deckCover?: string
     cardPrivate?: boolean
 }
@@ -206,8 +206,8 @@ export type UpdateCardParamsType = {
 
 export type CreateCardType = {
     cardsPack_id: string
-    question?: string
-    answer?: string
+    question: string
+    answer: string
     grade?: number
     shots?: number
     answerImg?: string

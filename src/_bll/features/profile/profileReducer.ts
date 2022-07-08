@@ -3,7 +3,13 @@ import {authAPI, AuthDataType} from '../../../_dal/api-auth';
 import {AppActionTypes, changeAppLoadingStatus} from '../../main/appReducer';
 import {setIsLogin} from '../auth/authReducer';
 import {LoadingStatusType} from '../../../utils/enums';
-import {showError} from '../../../utils/functions';
+import {
+    checkErrorInCatch,
+    ErrorType,
+    chooseError,
+    setProfileDataFunc,
+    showError
+} from '../../../utils/functions';
 
 let initialState: AuthDataType = {
     _id: '',
@@ -41,25 +47,22 @@ export const changeProfileData = (data: AuthDataType) => ({type: 'PROFILE/CHANGE
 export const setDataUserTC = (email: string, password: string, rememberMe: boolean): AppThunk => (dispatch) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
     authAPI.login({email, password, rememberMe})
-        .then(res => {
-            dispatch(setProfileData(res.data))
-            dispatch(setIsLogin(true))
-        })
-        .catch(err => showError(err.response.data ? err.response.data.error : err.message, dispatch))
+        .then(res => setProfileDataFunc(res.data, dispatch))
+        .catch((err: ErrorType) => showError(chooseError(err), dispatch))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 export const logoutTC = (): AppThunk => (dispatch) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
     authAPI.logout()
         .then(res => res.data.info && dispatch(setIsLogin(false)))
-        .catch(err => showError(err.response.data ? err.response.data.error : err.message, dispatch))
+        .catch((err: ErrorType) => checkErrorInCatch(err.response.status, chooseError(err), dispatch))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 export const changeProfileDataTC = (name: string, avatar: string): AppThunk => dispatch => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
     authAPI.changeNameAvatar({name, avatar})
         .then(res => dispatch(changeProfileData(res.data.updatedUser)))
-        .catch(err => showError(err.response.data ? err.response.data.error : err.message, dispatch))
+        .catch((err: ErrorType) => checkErrorInCatch(err.response.status, chooseError(err), dispatch))
         .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
 }
 

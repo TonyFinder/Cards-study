@@ -13,26 +13,24 @@ import {Radio} from '../common/_superComponents/Radio/Radio';
 
 export const Template = () => {
 
-    // Вытягивание данных изначальных значений для Input, ссылка на Avatar
     const {name, email, avatar} = useCustomSelector<AuthDataType>(state => state.profile)
-    // Проверка на статус запроса для крутилки
     const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
     const error = 'Error is here'
 
-    // Изменение value для Input
+    // changing value for Input
     const [nickNameValue, setNickNameValue] = useState<string>(name)
     const [emailValue, setEmailValue] = useState<string>(email)
-    // Проверка на валидацию для Input
+    // checking the validation of the Input
     const [errorNickName, setErrorNickName] = useState<boolean>(false)
     const [errorEmail, setErrorEmail] = useState<boolean>(false)
-    // Для Input с паролем
+    // For Input with password
     const [passwordValue, setPasswordValue] = useState<string>('pass')
     const [errorPassword, setErrorPassword] = useState<boolean>(false)
     const [typeInput, setTypeInput] = useState("password")
     const onClickShowPasswordHandler = () => {
         setTypeInput(typeInput === "password" ? "text" : "password")
     }
-    // Данные дла Radio
+    // Data for Radio
     const [radioSelect, setRadioSelect] = useState<{id: number, title: string, selected: boolean}[]>([
         {id: 0, title: 'Yes', selected: false},
         {id: 1, title: 'No', selected: false},
@@ -47,34 +45,33 @@ export const Template = () => {
                 : {...item, selected: false}))
     }
 
-    // Задизейбливание кнопок. Зависит: пустое значение, ошибка в Input, изходное имя такое же, как изменённое и тд.
-    // Настраивается индивидуально для каждой кнопки
+    // Disabling the buttons. Depends on: empty value, error in Input, the original name is the same as the changed one, and so on.
+    // Have to be configured individually for each button.
     const saveButtonDisable = !nickNameValue || errorNickName || name === nickNameValue
 
-    // Редирект на Login page если не залогинен
+    // Redirect to Login page if not logged in
     /*if (!isLoggedIn) return <Navigate to={ROUTE_PATHS.LOGIN}/>*/
-
 
     return <div className={styles.container}>
         <div className={styles.block}>
             {/*Error*/}
             <div className={styles.error}>{error}</div>
 
-            {/*Заголовок первого уровня, названия игры*/}
+            {/*The title of the first level, the name of the game*/}
             <h1 className={styles.headerMain}>Smart Cards</h1>
 
-            {/*Заголовок второго уровня, после названия игры*/}
+            {/*The title of the second level, after the name of the game*/}
             <h2 className={styles.headerSecond}>Personal Information</h2>
 
-            {/*Картинка для Profile и для Check Email*/}
+            {/*Picture for Profile and Check Email*/}
             <div className={styles.image}>
                 <img src={avatar} alt={'avatar'}/>
-                {/*Кнопка logout для Profile*/}
+                {/*Logout button for Profile*/}
                 <Button className={styles.logout} onClick={()=>''}
                         disabled={loading === LoadingStatusType.active}>Logout</Button>
             </div>
 
-            {/*Блок для Input, Textarea, Radio*/}
+            {/*Input, Textarea and Radio blocks*/}
             <div className={styles.inputContainer}>
                 <Input
                     value={nickNameValue}
@@ -94,7 +91,7 @@ export const Template = () => {
                     value={email}
                     sign='Email'
                     disabled/>
-                {/*Блок Password с глазами*/}
+                {/*Block for the Password with glasses*/}
                 <div className={styles.inputPass}>
                     <Input
                         value={passwordValue}
@@ -112,18 +109,18 @@ export const Template = () => {
                 </div>
             </div>
 
-            {/*Блок для описания действия. Forgot и Create password*/}
+            {/*Block for describing of the action. Forgot and Create password*/}
             <div className={styles.description}>
                 <span>Enter your email address and we will send you further instructions</span>
             </div>
 
-            {/*Блок вопрос/ответ*/}
+            {/*Question and Answer block*/}
             <div className={styles.question_answer}>
                 <p><b>Question: </b>I am question here</p>
                 <p><b>Answer: </b>I am answer here</p>
             </div>
 
-            {/*Блок с оценкой себя*/}
+            {/*Rate yourself block*/}
             <div className={styles.rateYourself}>
                 <p><b>Rate yourself:</b></p>
                 <div>
@@ -137,7 +134,7 @@ export const Template = () => {
             </div>
 
 
-            {/*Блок для одной Button. Дизейбл для примера только на изменение Nickname*/}
+            {/*Block for one Button*/}
             <div className={styles.buttonBig}>
                 {loading === LoadingStatusType.disabled
                     ?<Button color={COLORS.MAIN_DARK} disabled={saveButtonDisable} onClick={()=>''}>Save</Button>
@@ -145,7 +142,7 @@ export const Template = () => {
                 }
             </div>
 
-            {/*Блок для одной большой Button.*/}
+            {/*Block for one big Button.*/}
             <div className={styles.button}>
                 {loading === LoadingStatusType.disabled
                     ?<Button color={COLORS.MAIN_DARK} disabled={saveButtonDisable} onClick={()=>''}>Save</Button>
@@ -153,7 +150,7 @@ export const Template = () => {
                 }
             </div>
 
-            {/*Блок для двух Button*/}
+            {/*Block for two Buttons*/}
             <div className={styles.button}>
                 {loading === LoadingStatusType.disabled
                     ? <>
@@ -166,7 +163,7 @@ export const Template = () => {
                 }
             </div>
 
-            {/*Текс после кнопок*/}
+            {/*Text after the buttons*/}
             <div className={styles.bottomText}>
                 <span>Don’t have an account?</span>
                 <Link to={ROUTE_PATHS.REGISTER}>Sign Up</Link>

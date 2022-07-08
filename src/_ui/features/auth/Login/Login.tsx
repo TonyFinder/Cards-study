@@ -2,11 +2,11 @@ import styles from '../../Template.module.scss'
 import {Input} from '../../../common/_superComponents/Input/Input';
 import {Button} from '../../../common/_superComponents/Button/Button';
 import {Checkbox} from '../../../common/_superComponents/Checkbox/Checkbox';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link, Navigate} from 'react-router-dom';
 import {useAppDispatch, useCustomSelector} from '../../../../_bll/main/store';
 import {setDataUserTC} from '../../../../_bll/features/profile/profileReducer';
-import {AuthInitialStateType, register} from '../../../../_bll/features/auth/authReducer';
+import {AuthInitialStateType, register, setPasswordSuccess} from '../../../../_bll/features/auth/authReducer';
 import {COLORS, ROUTE_PATHS} from '../../../../utils/_values';
 import {LoadingStatusType} from '../../../../utils/enums';
 import {Loader} from '../../../common/_superComponents/Loader/Loader';
@@ -33,6 +33,10 @@ export const Login = () => {
     const [errorPasswordValid, setErrorPasswordValid] = useState<boolean>(false)
 
     const saveButtonDisable = !emailValue || !passwordValue || errorEmail || errorPassword || errorEmailValid || errorPasswordValid || serverRequest
+
+    useEffect(() => {
+        dispatch(setPasswordSuccess(false))
+    }, [dispatch])
 
     const onClickShowPasswordHandler = () => setTypeInput(typeInput === "password" ? "text" : "password")
     const onClickLoginHandler = () => {

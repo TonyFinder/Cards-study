@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import styles from './notification.module.scss'
+import styles from './Notification.module.scss'
 import {useAppDispatch} from "../../../../_bll/main/store";
 import {removeNotification} from '../../../../_bll/main/appReducer';
 

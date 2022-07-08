@@ -9,7 +9,7 @@ export const EditableSpanIntro = () => {
         <div className={styles.innerBlock}>
             <div className={styles.innerBlock}>
                 <div className={styles.description}>
-                    <h3>EditableSpan</h3>
+                    <h3>Editable Span</h3>
                 </div>
                 <div>
                     <EditableSpan
