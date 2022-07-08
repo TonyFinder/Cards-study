@@ -1,7 +1,6 @@
 import {
     CardParamsType,
-    cardsApi,
-    CardsType,
+    cardsApi, CardsType,
     CreateCardType,
     UpdateCardParamsType,
     updateCartType,

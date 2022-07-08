@@ -22,7 +22,7 @@ export const Test = () => {
         <RadioIntro/>
         <SelectIntro/>
         <InputIntro/>
-        <EditableSpanIntro/>
         <StarRatingIntro/>
+        <EditableSpanIntro/>
     </div>
 }

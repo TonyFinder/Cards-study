@@ -7,11 +7,11 @@ import {LoadingStatusType} from '../../../../utils/enums';
 import {Loader} from '../../../common/_superComponents/Loader/Loader';
 import {COLORS, ROUTE_PATHS} from '../../../../utils/_values';
 import {Input} from '../../../common/_superComponents/Input/Input';
-import useDebounce from '../packs/components/InputComponent/castomHookUseDebounce';
 import {InputComponentForCards} from './components/InputComponentForCards/InputComponentForCards';
-import {Card} from './Card/Card';
-import {Pagination} from '../packs/components/Pagination/Pagination';
 import {toShortMessage} from '../../../../utils/functions';
+import useDebounce from '../packs/components/InputComponent/castomHookUseDebounce';
+import {Card} from './Card/Card';
+import {Pagination} from '../packs/components/pagination/Pagination';
 
 const headerTable = {
     _id: '_id',

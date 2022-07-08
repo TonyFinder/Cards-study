@@ -1,4 +1,4 @@
-import React, {ChangeEvent, Dispatch, useEffect, useRef, useState} from 'react';
+import React, {ChangeEvent, Dispatch, useCallback, useEffect, useRef, useState} from 'react';
 import {addNotification} from "../../../../_bll/main/appReducer";
 import {v1} from "uuid";
 import styles from "../../Template.module.scss";
@@ -30,7 +30,7 @@ export const InputImg: React.FC<InputImgType> = (props) => {
     const inRef = useRef<HTMLInputElement>(null);
     const [file, setFile] = useState<any>();
 
-    const checkTypeFile = () => {
+    const checkTypeFile = useCallback( () => {
         switch (file.type) {
             case 'image/png':
             case 'image/jpg':
@@ -46,7 +46,7 @@ export const InputImg: React.FC<InputImgType> = (props) => {
                 setError(true)
                 return true
         }
-    }
+    }, [dispatch, setError, file])
 
     const upload = (e: ChangeEvent<HTMLInputElement>) => {
         const reader = new FileReader();
@@ -73,7 +73,7 @@ export const InputImg: React.FC<InputImgType> = (props) => {
             setError(true)
         }
 
-    }, [checkChangeName, file])
+    }, [checkChangeName, file, setError])
 
 
     useEffect(() => {
@@ -90,7 +90,7 @@ export const InputImg: React.FC<InputImgType> = (props) => {
             }
             setErrorTypeFile(checkTypeFile())
         }
-    }, [file, nickNameValue, dispatch])
+    }, [file, nickNameValue, dispatch, setErrorTypeFile, checkTypeFile, setError])
 
 
     return (

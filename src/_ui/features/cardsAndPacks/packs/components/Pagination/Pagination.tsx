@@ -2,7 +2,6 @@ import React from 'react';
 import styles from './Pagination.module.scss'
 import {DOTS, usePagination} from './usePagination';
 
-
 type PaginationPropsType = {
     onPageChange: (page: number ) => void
     totalCount: number

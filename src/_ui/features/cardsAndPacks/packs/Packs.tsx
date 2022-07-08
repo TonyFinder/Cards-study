@@ -10,10 +10,10 @@ import {setCardsTC, updateCardParams} from '../../../../_bll/features/cards/card
 import {ModalCreatePackContainer} from '../../modal/packModal/createPack/ModalCreatePackContainer';
 import {Input} from '../../../common/_superComponents/Input/Input';
 import {Filters} from './components/Filters/Filters';
-import useDebounce from './components/InputComponent/castomHookUseDebounce';
 import {InputComponent} from './components/InputComponent/InputComponent';
-import {Pack} from './Pack/Pack';
-import {Pagination} from './components/Pagination/Pagination';
+import { Pack } from './Pack/Pack';
+import useDebounce from './components/InputComponent/castomHookUseDebounce';
+import {Pagination} from './components/pagination/Pagination';
 
 const headerTable = {
     name: "Name",
