@@ -117,7 +117,7 @@ export  type ActionPacksType =
 export type initialStatePacksType = PacksType & {
     packParams: PackParamsType
 }
-type UpdateParamsActionType = {
+export type UpdateParamsActionType = {
     packName?: string,
     min?: number,
     max?: number,
