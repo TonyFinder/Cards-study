@@ -27,7 +27,7 @@ export const InputComponent = React.memo( ({value, disabled, onChange, onResetFi
             <h2>Packs list</h2>
             <div className={styles.input}>
                 <div className={styles.filters} onClick={onClickShowFiltersHandler}>
-                    <span>&#8693;</span> filters
+                    &#8693; filters
                 </div>
                 <div className={styles.clearFilters} onClick={() => onResetFilters(user_id ? user_id : '')}>
                     clear filters

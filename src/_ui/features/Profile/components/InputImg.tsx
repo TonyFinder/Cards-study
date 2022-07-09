@@ -5,7 +5,6 @@ import styles from "../../Template.module.scss";
 import {useAppDispatch} from "../../../../_bll/main/store";
 
 type InputImgType = {
-    title: string
     nickNameValue?: string
     checkChangeName?: boolean
     setFileURL: Dispatch<any>
@@ -20,7 +19,6 @@ export const InputImg: React.FC<InputImgType> = React.memo( (props) => {
         setFile64,
         setError,
         setErrorTypeFile,
-        title,
         checkChangeName,
         nickNameValue,
     } = props
@@ -100,7 +98,7 @@ export const InputImg: React.FC<InputImgType> = React.memo( (props) => {
                 accept=".jpg, .jpeg, .png"
             />
             <span onClick={() => inRef && inRef.current && inRef.current.click()}
-                  className={styles.changeAvatar}>{title}</span>
+                  className={styles.changeAvatar}>&#9998;</span>
         </>
     )
 })

@@ -70,10 +70,11 @@
       .changeAvatar {
         position: absolute;
         bottom: 0;
-        right: 0;
-        color: #000000;
+        right: -5px;
+        color: red;
         font-size: x-large;
         cursor: pointer;
+        transform: rotate(90deg);
       }
     }
 

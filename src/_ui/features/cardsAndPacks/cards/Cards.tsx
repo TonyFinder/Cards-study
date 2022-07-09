@@ -80,7 +80,7 @@ export const Cards = React.memo( () => {
 
                 <div className={styles.input}>
                     <div className={styles.name}>
-                        <span onClick={() => navigate(-1)}>&#129104;</span>
+                        <div><span onClick={() => navigate(-1)}>&#10140;</span></div>
                         <h2>Pack name: "{packName && toShortMessage(packName, 25)}"</h2>
                     </div>
                     <InputComponentForCards disabled={disabled}

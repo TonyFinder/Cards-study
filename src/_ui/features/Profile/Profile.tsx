@@ -48,7 +48,6 @@ export const Profile = React.memo( () => {
             <div className={styles.image}>
                 <img src={fileURL ? fileURL : avatar} alt={'avatar'}/>
                 <InputImg
-                    title="&#128393;"
                     nickNameValue={nickNameValue}
                     checkChangeName={checkChangeName}
                     setError={setError}

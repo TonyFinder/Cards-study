@@ -33,14 +33,16 @@
         font-family: 'Montserrat', sans-serif;
         @include hideTextTable;
 
-        span {
-          font-size: xxx-large;
-          margin: 0 15px;
-          text-decoration: none;
-          cursor: pointer;
-
-          &:hover {
-            color: $backColorSecond;
+        > div {
+          transform: rotate(180deg);
+          @include flexCenter;
+          span {
+            font-size: 35px;
+            margin: 0 15px;
+            cursor: pointer;
+            &:hover {
+              color: $backColorSecond;
+            }
           }
         }
 
