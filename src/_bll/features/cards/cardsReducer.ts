@@ -102,8 +102,10 @@ export const createCardTC = (params: CreateCardType): AppThunk => (dispatch) => 
             dispatch(setCardsTC())
             showSuccess(`Card "${toShortMessage(params.question, 30)}" has been created`, dispatch)
         })
-        .catch((err: ErrorType) => checkErrorInCatch(err.response.status, `${chooseError(err)}. Card "${toShortMessage(params.question, 30)}" has not been created`, dispatch))
-        .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
+        .catch((err: ErrorType) => {
+            checkErrorInCatch(err.response.status, `${chooseError(err)}. Card "${toShortMessage(params.question, 30)}" has not been created`, dispatch)
+            dispatch(changeAppLoadingStatus(LoadingStatusType.disabled))
+        })
 }
 export const deleteCardTC = (cardId: string, question: string): AppThunk => (dispatch) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
@@ -112,8 +114,10 @@ export const deleteCardTC = (cardId: string, question: string): AppThunk => (dis
             dispatch(setCardsTC())
             showSuccess(`Card "${toShortMessage(question, 30)}" has been removed`, dispatch)
         })
-        .catch((err: ErrorType) => checkErrorInCatch(err.response.status, `${chooseError(err)}. Card "${toShortMessage(question, 30)}" has not been removed`, dispatch))
-        .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
+        .catch((err: ErrorType) => {
+            checkErrorInCatch(err.response.status, `${chooseError(err)}. Card "${toShortMessage(question, 30)}" has not been removed`, dispatch)
+            dispatch(changeAppLoadingStatus(LoadingStatusType.disabled))
+        })
 }
 export const updateCardTC = (data: updateCartType, question: string): AppThunk => (dispatch) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
@@ -124,8 +128,10 @@ export const updateCardTC = (data: updateCartType, question: string): AppThunk =
                 ? showError(`Card "${toShortMessage(question, 30)}" has not been changed`, dispatch)
                 : showSuccess(`Card "${toShortMessage(question, 30)}" has been changed`, dispatch)
         })
-        .catch((err: ErrorType) => checkErrorInCatch(err.response.status, `${chooseError(err)}. Card "${toShortMessage(question, 30)}" has not been changed`, dispatch))
-        .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
+        .catch((err: ErrorType) => {
+            checkErrorInCatch(err.response.status, `${chooseError(err)}. Card "${toShortMessage(question, 30)}" has not been changed`, dispatch)
+            dispatch(changeAppLoadingStatus(LoadingStatusType.disabled))
+        })
 }
 export const updateGradeCardTC = (data: UpdateGradeCardRequestType): AppThunk => (dispatch) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))

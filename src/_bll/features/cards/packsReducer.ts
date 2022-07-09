@@ -82,8 +82,10 @@ export const deletePackTC = (packId: string, packName: string): AppThunk => (dis
             dispatch(setPacksTC())
             showSuccess(`Pack "${toShortMessage(packName, 30)}" has been removed`, dispatch)
         })
-        .catch((err: ErrorType) => checkErrorInCatch(err.response.status, `${chooseError(err)}. Pack "${toShortMessage(packName, 30)}" has not been removed`, dispatch))
-        .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
+        .catch((err: ErrorType) => {
+            checkErrorInCatch(err.response.status, `${chooseError(err)}. Pack "${toShortMessage(packName, 30)}" has not been removed`, dispatch)
+            dispatch(changeAppLoadingStatus(LoadingStatusType.disabled))
+        })
 }
 export const createPackTC = (data: CreatePackType): AppThunk => (dispatch) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
@@ -92,8 +94,10 @@ export const createPackTC = (data: CreatePackType): AppThunk => (dispatch) => {
             dispatch(setPacksTC())
             showSuccess(`Pack "${toShortMessage(data.name, 30)}" has been created`, dispatch)
         })
-        .catch((err: ErrorType) => checkErrorInCatch(err.response.status,`${chooseError(err)}. Pack "${toShortMessage(data.name, 30)}" has not been created`, dispatch))
-        .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
+        .catch((err: ErrorType) => {
+            checkErrorInCatch(err.response.status, `${chooseError(err)}. Pack "${toShortMessage(data.name, 30)}" has not been created`, dispatch)
+            dispatch(changeAppLoadingStatus(LoadingStatusType.disabled))
+        })
 }
 export const updatePackTC = (data: UpdatePackType, packName: string): AppThunk => (dispatch) => {
     dispatch(changeAppLoadingStatus(LoadingStatusType.active))
@@ -104,8 +108,10 @@ export const updatePackTC = (data: UpdatePackType, packName: string): AppThunk =
                 ? showError(`Pack "${toShortMessage(packName, 30)}" has not been changed`, dispatch)
                 : showSuccess(`Pack "${toShortMessage(packName, 30)}" has been changed`, dispatch)
         })
-        .catch((err: ErrorType) => checkErrorInCatch(err.response.status,`${chooseError(err)}. Pack "${toShortMessage(packName, 30)}" has not been changed`, dispatch))
-        .finally(() => dispatch(changeAppLoadingStatus(LoadingStatusType.disabled)))
+        .catch((err: ErrorType) => {
+            checkErrorInCatch(err.response.status, `${chooseError(err)}. Pack "${toShortMessage(packName, 30)}" has not been changed`, dispatch)
+            dispatch(changeAppLoadingStatus(LoadingStatusType.disabled))
+        })
 }
 
 //types

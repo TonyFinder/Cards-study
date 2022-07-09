@@ -80,6 +80,7 @@ export const Packs = React.memo( () => {
         dispatch(updatePacksParams({page}))
         setPaginationInput('')
     }, [dispatch, loading])
+
     const onClickResetFiltersHandler = useCallback( (value: string) => {
         setIsChangeSlider(!isChangeSlider)
         dispatch(updatePacksParams({
@@ -90,6 +91,7 @@ export const Packs = React.memo( () => {
             sortPacks: "0updated"}))
         setSearchTerm('')
     }, [dispatch, isChangeSlider])
+
     const onClickToLearn = useCallback( (packId: string) => {
         dispatch(updateCardParams({cardsPack_id: packId}))
         dispatch(setCardsTC())
