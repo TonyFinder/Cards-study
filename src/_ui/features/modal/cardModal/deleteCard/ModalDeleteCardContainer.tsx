@@ -14,15 +14,15 @@ type ModalDeleteContainerType = {
 }
 
 
-export const ModalDeleteCardContainer: React.FC<ModalDeleteContainerType> = ({cardID, cardName, disabled}) => {
+export const ModalDeleteCardContainer: React.FC<ModalDeleteContainerType> = React.memo( ({cardID, cardName, disabled}) => {
     const [show, setShow] = useState(false);
 
     const dispatch = useAppDispatch()
 
-    const onClickDeleteHandler = () => {
+    const onClickDeleteHandler = useCallback( () => {
         dispatch(deleteCardTC(cardID, cardName))
         setShow(false)
-    }
+    }, [dispatch, cardID, cardName])
 
     // Logic for leaving modal window in case ESC button is pressed
     const escFunction = useCallback( (event: KeyboardEvent) => {
@@ -62,4 +62,4 @@ export const ModalDeleteCardContainer: React.FC<ModalDeleteContainerType> = ({ca
             </Modal>
         </>
     )
-}
+})

@@ -2,7 +2,7 @@ import styles from '../Template.module.scss'
 import {Input} from '../../common/_superComponents/Input/Input';
 import {Button} from '../../common/_superComponents/Button/Button';
 import {useAppDispatch, useCustomSelector} from '../../../_bll/main/store';
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {changeProfileDataTC, logoutTC} from '../../../_bll/features/profile/profileReducer';
 import {AuthDataType} from '../../../_dal/api-auth';
 import {COLORS, ROUTE_PATHS} from '../../../utils/_values';
@@ -11,7 +11,7 @@ import {Loader} from '../../common/_superComponents/Loader/Loader';
 import {LoadingStatusType} from '../../../utils/enums';
 import {InputImg} from "./components/InputImg";
 
-export const Profile = () => {
+export const Profile = React.memo( () => {
     const {name, email, avatar} = useCustomSelector<AuthDataType>(state => state.profile)
     const isLoggedIn = useCustomSelector<boolean>(state => state.auth.isLoggedIn)
     const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
@@ -25,20 +25,18 @@ export const Profile = () => {
     const [nickNameValue, setNickNameValue] = useState<string>(name)
     const [errorNickName, setErrorNickName] = useState<boolean>(false)
 
-
     const checkChangeName = name !== nickNameValue
     const saveButtonDisable = !nickNameValue || errorNickName || error
 
-
-    const changeProfileData = () => {
+    const changeProfileData = useCallback( () => {
         if (saveButtonDisable || errorTypeFile) return
         dispatch(changeProfileDataTC(nickNameValue, file64))
         setError(true)
         setErrorTypeFile(true)
-    }
-    const logoutHandler = () => {
+    }, [dispatch, errorTypeFile, file64, nickNameValue, saveButtonDisable])
+    const logoutHandler = useCallback( () => {
         dispatch(logoutTC())
-    }
+    }, [dispatch])
 
     if (!isLoggedIn) return <Navigate to={ROUTE_PATHS.LOGIN}/>
 
@@ -85,5 +83,4 @@ export const Profile = () => {
             </div>
         </div>
     </div>
-}
-
+})

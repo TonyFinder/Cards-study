@@ -16,7 +16,7 @@ type ModalUpdateContainerType = {
 }
 
 
-export const ModalUpdateContainer: React.FC<ModalUpdateContainerType> = ({packId, packName, disabled}) => {
+export const ModalUpdateContainer: React.FC<ModalUpdateContainerType> = React.memo( ({packId, packName, disabled}) => {
     const [show, setShow] = useState(false);
     const [name, setName] = useState(packName);
     const [cardPrivate, setCardPrivate] = useState(false);
@@ -26,20 +26,20 @@ export const ModalUpdateContainer: React.FC<ModalUpdateContainerType> = ({packId
         setName(packName)
     }, [show, packName])
 
-    const onClickUpdateHandler = () => {
+    const onClickUpdateHandler = useCallback( () => {
         if (packName === name) return
         dispatch(updatePackTC({_id: packId, name: name, deckCover: "", cardPrivate: cardPrivate}, packName))
         setShow(false)
-    }
+    }, [dispatch, cardPrivate, name, packId, packName])
     const onClickCloseModalHandler = useCallback( () => {
         setShow(false)
         setName(packName)
         setCardPrivate(false)
     }, [packName])
-    const onClickUpdateMainButtonHandler = () => {
+    const onClickUpdateMainButtonHandler = useCallback( () => {
         setShow(true)
         dispatch(setShowFilters(false))
-    }
+    }, [dispatch])
 
     // Logic for leaving modal window in case ESC button is pressed
     const escFunction = useCallback((event: KeyboardEvent) => {
@@ -96,4 +96,4 @@ export const ModalUpdateContainer: React.FC<ModalUpdateContainerType> = ({packId
             </Modal>
         </>
     )
-}
+})

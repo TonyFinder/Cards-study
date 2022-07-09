@@ -14,8 +14,7 @@ type InputImgType = {
     setErrorTypeFile: Dispatch<boolean>
 }
 
-export const InputImg: React.FC<InputImgType> = (props) => {
-
+export const InputImg: React.FC<InputImgType> = React.memo( (props) => {
     const {
         setFileURL,
         setFile64,
@@ -48,7 +47,7 @@ export const InputImg: React.FC<InputImgType> = (props) => {
         }
     }, [dispatch, setError, file])
 
-    const upload = (e: ChangeEvent<HTMLInputElement>) => {
+    const upload = useCallback( (e: ChangeEvent<HTMLInputElement>) => {
         const reader = new FileReader();
         const newFile = e.target.files && e.target.files[0];
 
@@ -60,8 +59,7 @@ export const InputImg: React.FC<InputImgType> = (props) => {
             };
             reader.readAsDataURL(newFile);
         }
-    };
-
+    }, [setFile64, setFileURL])
 
     useEffect(() => {
         if (checkChangeName || file !== undefined) {
@@ -92,7 +90,6 @@ export const InputImg: React.FC<InputImgType> = (props) => {
         }
     }, [file, nickNameValue, dispatch, setErrorTypeFile, checkTypeFile, setError])
 
-
     return (
         <>
             <input
@@ -105,5 +102,5 @@ export const InputImg: React.FC<InputImgType> = (props) => {
             <span onClick={() => inRef && inRef.current && inRef.current.click()}
                   className={styles.changeAvatar}>{title}</span>
         </>
-    );
-};
+    )
+})

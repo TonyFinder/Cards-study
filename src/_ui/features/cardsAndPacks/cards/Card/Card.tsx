@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import styles from './Card.module.scss';
 import {updateCardParams} from "../../../../../_bll/features/cards/cardsReducer";
 import {useAppDispatch} from "../../../../../_bll/main/store";
@@ -25,7 +25,7 @@ type CardPropsType = {
     showHiddenText?: (value: string) => void
 }
 
-export const Card: React.FC<CardPropsType> = (props) => {
+export const Card: React.FC<CardPropsType> = React.memo( (props) => {
     const {
         answer,
         question,
@@ -44,7 +44,7 @@ export const Card: React.FC<CardPropsType> = (props) => {
 
     const owner = userIdProfile === user_id
 
-    const onClickHandler = (e: string) => {
+    const onClickHandler = useCallback( (e: string) => {
         // determining on which column the filter is located
         if (disabled) return
         sort[1] === e
@@ -53,15 +53,15 @@ export const Card: React.FC<CardPropsType> = (props) => {
                 ? dispatch(updateCardParams({sortCards: `1${sort[1]}`, page: 1}))
                 : dispatch(updateCardParams({sortCards: '0updated', page: 1}))
             : dispatch(updateCardParams({sortCards: `0${e}`, page: 1}))
-    }
-    const onMouseEnterHandler = (value: string) => {
+    }, [dispatch, disabled, sort])
+    const onMouseEnterHandler = useCallback( (value: string) => {
         if (value.length < 10) return
         showHiddenText && showHiddenText(value)
-    }
-    const onMouseLeaveHandler = (value: string) => {
+    }, [showHiddenText])
+    const onMouseLeaveHandler = useCallback( (value: string) => {
         if (value.length > 350) return
         showHiddenText && showHiddenText('')
-    }
+    }, [showHiddenText])
 
     return (
         <div className={styles.row}>
@@ -129,4 +129,4 @@ export const Card: React.FC<CardPropsType> = (props) => {
             }
         </div>
     )
-}
+})

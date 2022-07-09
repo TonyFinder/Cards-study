@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React, {ChangeEvent, DetailedHTMLProps, TextareaHTMLAttributes} from 'react';
+import React, {ChangeEvent, DetailedHTMLProps, TextareaHTMLAttributes, useCallback} from 'react';
 import {COLORS} from '../../../../utils/_values';
 
 type DefaultTextAreaPropsType = DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>
@@ -16,17 +16,16 @@ type TextAreaPropsType = DefaultTextAreaPropsType & {
     sign?: string
 }
 
-export const TextArea: React.FC<TextAreaPropsType> = (
+export const TextArea: React.FC<TextAreaPropsType> = React.memo( (
     {
         error, emailError, passwordError, comparePassword, onChange, onChangeText, onChangeError,
         onEnter, onKeyDown, color, value, sign,
         ...restProps
     }
 ) => {
-
-    const onBlurHandler = () => {
+    const onBlurHandler = useCallback( () => {
         if (!value) onChangeError && onChangeError(true)
-    }
+    }, [value, onChangeError])
 
     return (
         <StyledTextArea color={color} error={error} sign={sign}
@@ -41,7 +40,7 @@ export const TextArea: React.FC<TextAreaPropsType> = (
             > </textarea>
         </StyledTextArea>
     )
-}
+})
 
 const StyledTextArea = styled.div<TextAreaPropsType>`
   position: relative;

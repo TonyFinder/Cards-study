@@ -9,7 +9,7 @@ type RadioPropsType = DefaultInputPropsType & {
     color?: string
 }
 
-export const Radio: React.FC<RadioPropsType> = (
+export const Radio: React.FC<RadioPropsType> = React.memo( (
     {
         onClick, disabled, color, children,
         ...restProps
@@ -27,7 +27,7 @@ export const Radio: React.FC<RadioPropsType> = (
             <label>{children}</label>
         </StyledRadio>
     );
-}
+})
 
 const StyledRadio = styled.div`
   margin: 15px;

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React, {ChangeEvent, KeyboardEvent, DetailedHTMLProps, InputHTMLAttributes} from 'react';
+import React, {ChangeEvent, KeyboardEvent, DetailedHTMLProps, InputHTMLAttributes, useCallback} from 'react';
 import {COLORS} from '../../../../utils/_values';
 
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
@@ -16,29 +16,29 @@ type InputPropsType = DefaultInputPropsType & {
     sign?: string
 }
 
-export const Input: React.FC<InputPropsType> = (
+export const Input: React.FC<InputPropsType> = React.memo( (
     {
         error, emailError, passwordError, comparePassword, onChange, onChangeText, onChangeError,
         onEnter, onKeyDown, color, value, sign,
         ...restProps
     }
 ) => {
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const onChangeHandler = useCallback( (e: ChangeEvent<HTMLInputElement>) => {
         onChangeText && onChangeText(e.currentTarget.value)
         onChange && onChange(e)
         onChangeError && onChangeError(false)
-    }
-    const onKeyDownCheck = (e: KeyboardEvent<HTMLInputElement>) => {
+    }, [onChange, onChangeError, onChangeText])
+    const onKeyDownCheck = useCallback( (e: KeyboardEvent<HTMLInputElement>) => {
         onKeyDown && onKeyDown(e)
         if (e.code === 'Enter' || e.code === 'NumpadEnter') {
             (value)
                 ? onEnter && onEnter()
                 : onChangeError && onChangeError(true)
         }
-    }
-    const onBlurHandler = () => {
+    }, [onKeyDown, onEnter, onChangeError, value])
+    const onBlurHandler = useCallback( () => {
         if (!value) onChangeError && onChangeError(true)
-    }
+    }, [onChangeError, value])
 
     return (
         <StyledInput color={color} error={error}
@@ -55,7 +55,7 @@ export const Input: React.FC<InputPropsType> = (
             />
         </StyledInput>
     )
-}
+})
 
 const StyledInput = styled.div<InputPropsType>`
   position: relative;

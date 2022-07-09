@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useCallback} from 'react';
 import {Input} from '../../../../../common/_superComponents/Input/Input';
 import styles from './InputComponent.module.scss'
 import {COLORS} from '../../../../../../utils/_values';
@@ -12,15 +12,15 @@ type InputComponentPropsType = {
     onResetFilters: (value: string) => void
 }
 
-export const InputComponent = ({value, disabled, onChange, onResetFilters}: InputComponentPropsType) => {
+export const InputComponent = React.memo( ({value, disabled, onChange, onResetFilters}: InputComponentPropsType) => {
     const showFilters = useCustomSelector<boolean>(state => state.packs.showFilters)
     const user_id = useCustomSelector<string|undefined>(state => state.packs.packParams.user_id)
     const dispatch = useAppDispatch()
 
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const onChangeHandler = useCallback( (e: ChangeEvent<HTMLInputElement>) => {
         onChange(e.currentTarget.value)
-    }
-    const onClickShowFiltersHandler = () => dispatch(setShowFilters(!showFilters))
+    }, [onChange])
+    const onClickShowFiltersHandler = useCallback( () => dispatch(setShowFilters(!showFilters)), [dispatch, showFilters])
 
     return (
         <div className={styles.inputBlock}>
@@ -40,5 +40,4 @@ export const InputComponent = ({value, disabled, onChange, onResetFilters}: Inpu
             </div>
         </div>
     )
-}
-
+})

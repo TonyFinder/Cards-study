@@ -4,8 +4,7 @@ import {Notification} from "./Notification";
 import {useCustomSelector} from "../../../../_bll/main/store";
 
 
-export const NotificationProvider: React.FC = () => {
-
+export const NotificationProvider: React.FC = React.memo( () => {
     const notifications = useCustomSelector(state => state.app.notifications)
 
     return (
@@ -14,5 +13,5 @@ export const NotificationProvider: React.FC = () => {
                 return <Notification key={m.id} {...m} />
             })}
         </div>
-    );
-};
+    )
+})

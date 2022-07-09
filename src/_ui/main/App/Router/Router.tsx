@@ -3,7 +3,7 @@ import {dataRoutes} from '../../../../utils/_values';
 import React from "react";
 import {NotificationProvider} from "../../../features/modal/notification/NotificationProvider";
 
-export const Router = () => {
+export const Router = React.memo( () => {
     return <div>
         <NotificationProvider/>
         <Routes>
@@ -11,4 +11,4 @@ export const Router = () => {
                 <Route key={item.id} path={item.path} element={item.element}/>)}
         </Routes>
     </div>
-}
+})

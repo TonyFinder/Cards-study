@@ -2,7 +2,7 @@ import styles from '../../Template.module.scss'
 import {Input} from '../../../common/_superComponents/Input/Input';
 import {Button} from '../../../common/_superComponents/Button/Button';
 import {Checkbox} from '../../../common/_superComponents/Checkbox/Checkbox';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Link, Navigate} from 'react-router-dom';
 import {useAppDispatch, useCustomSelector} from '../../../../_bll/main/store';
 import {setDataUserTC} from '../../../../_bll/features/profile/profileReducer';
@@ -13,8 +13,7 @@ import {Loader} from '../../../common/_superComponents/Loader/Loader';
 import {AuthDataType} from '../../../../_dal/api-auth';
 
 
-export const Login = () => {
-
+export const Login = React.memo(() => {
     let dispatch = useAppDispatch()
     const {email, password} = useCustomSelector<AuthDataType>(state => state.profile)
     const {isLoggedIn, isRegistered} = useCustomSelector<AuthInitialStateType>(state => state.auth)
@@ -38,28 +37,28 @@ export const Login = () => {
         dispatch(setPasswordSuccess(false))
     }, [dispatch])
 
-    const onClickShowPasswordHandler = () => setTypeInput(typeInput === "password" ? "text" : "password")
-    const onClickLoginHandler = () => {
+    const onClickShowPasswordHandler = useCallback( () => setTypeInput(typeInput === "password" ? "text" : "password"), [typeInput])
+    const onClickLoginHandler = useCallback( () => {
         if (saveButtonDisable) return
         setServerRequest(true);
         /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(emailValue) && passwordValue.length > 7 && dispatch(setDataUserTC(emailValue, passwordValue, rememberMe))
         !(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(emailValue)) && setErrorEmailValid(true)
         passwordValue.length < 8 && setErrorPasswordValid(true)
-    }
-    const onChangeTextEmailHandler = (value: string) => {
+    }, [dispatch, emailValue, passwordValue, rememberMe, saveButtonDisable])
+    const onChangeTextEmailHandler = useCallback( (value: string) => {
         setEmailValue(value)
         setErrorEmailValid(false)
         setServerRequest(false)
-    }
-    const onChangeTextPasswordHandler = (value: string) => {
+    }, [])
+    const onChangeTextPasswordHandler = useCallback( (value: string) => {
         setPasswordValue(value)
         setErrorPasswordValid(false)
         setServerRequest(false)
-    }
-    const onClickRememberHandler = () => setRememberMe(!rememberMe)
-    const onClickRegisterLinkHandler = () => {
+    }, [])
+    const onClickRememberHandler = useCallback( () => setRememberMe(!rememberMe), [rememberMe])
+    const onClickRegisterLinkHandler = useCallback( () => {
         isRegistered && dispatch(register(false))
-    }
+    }, [dispatch, isRegistered])
 
     if (isLoggedIn) return <Navigate to={ROUTE_PATHS.PROFILE}/>
 
@@ -114,4 +113,4 @@ export const Login = () => {
             </div>
         </div>
     </div>
-}
+})

@@ -13,20 +13,19 @@ type ModalDeleteContainerType = {
     disabled: boolean
 }
 
-
-export const ModalDeleteContainer: React.FC<ModalDeleteContainerType> = ({packId, packName, disabled}) => {
+export const ModalDeleteContainer: React.FC<ModalDeleteContainerType> = React.memo( ({packId, packName, disabled}) => {
     const [show, setShow] = useState(false);
 
     const dispatch = useAppDispatch()
 
-    const onClickDeleteHandler = () => {
-        dispatch(deletePackTC(packId,packName))
+    const onClickDeleteHandler = useCallback( () => {
+        dispatch(deletePackTC(packId, packName))
         setShow(false)
-    }
-    const onClickDeleteMainButtonHandler = () => {
+    }, [dispatch, packId, packName])
+    const onClickDeleteMainButtonHandler = useCallback( () => {
         setShow(true)
         dispatch(setShowFilters(false))
-    }
+    }, [dispatch])
 
     // Logic for leaving modal window in case ESC button is pressed
     const escFunction = useCallback((event: KeyboardEvent) => {
@@ -68,4 +67,4 @@ export const ModalDeleteContainer: React.FC<ModalDeleteContainerType> = ({packId
             </Modal>
         </>
     )
-}
+})

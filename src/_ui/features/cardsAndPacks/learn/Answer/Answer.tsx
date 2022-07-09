@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import styles from '../../../Template.module.scss'
 import {Button} from '../../../../common/_superComponents/Button/Button';
 import {LoadingStatusType} from '../../../../../utils/enums';
@@ -10,7 +10,7 @@ import {Navigate, useNavigate, useParams} from 'react-router-dom';
 import {CardType, PackType} from '../../../../../_dal/api-PacksAndCards';
 import {updateGradeCardTC} from '../../../../../_bll/features/cards/cardsReducer';
 
-export const Answer = () => {
+export const Answer = React.memo( () => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
     let {packId, cardId} = useParams()
@@ -26,19 +26,19 @@ export const Answer = () => {
         {id: 4, title: 'Excellent', selected: false},
     ])
     let gradeToUpdate = radioSelect.filter(item => item.selected).length > 0 ? radioSelect.filter(item => item.selected)[0].id + 1 : 0
-    const onClickRadio = (position: number) => {
+    const onClickRadio = useCallback( (position: number) => {
         setRadioSelect(radioSelect.map(item =>
             item.id === position
                 ? {...item, selected: true}
                 : {...item, selected: false}))
-    }
-    const onClickLeaveHandler = () => navigate(ROUTE_PATHS.PACKS)
-    const onClickAnswerHandler = () => {
+    }, [radioSelect])
+    const onClickLeaveHandler = useCallback( () => navigate(ROUTE_PATHS.PACKS), [navigate])
+    const onClickAnswerHandler = useCallback( () => {
         if (gradeToUpdate > 0) {
             dispatch(updateGradeCardTC({grade: gradeToUpdate, card_id: cardId ? cardId : ''}))
             navigate(`${ROUTE_PATHS.QUESTION}/${packId}`)
         } else navigate(`${ROUTE_PATHS.QUESTION}/${packId}`)
-    }
+    }, [dispatch, navigate, gradeToUpdate, packId, cardId])
 
     if (!pack) return <Navigate to={ROUTE_PATHS.PACKS}/>
 
@@ -74,4 +74,4 @@ export const Answer = () => {
             </div>
         </div>
     </div>
-}
+})

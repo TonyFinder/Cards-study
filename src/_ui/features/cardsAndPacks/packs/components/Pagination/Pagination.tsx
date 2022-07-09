@@ -11,24 +11,24 @@ type PaginationPropsType = {
 }
 
 
-export const Pagination: React.FC<PaginationPropsType> = (props) => {
+export const Pagination: React.FC<PaginationPropsType> = React.memo( (props) => {
     const {
         onPageChange,
         totalCount,
         siblingCount = 1,
         currentPage,
         pageSize,
-    } = props;
+    } = props
 
     const paginationRange = usePagination({
         currentPage,
         totalCount,
         siblingCount,
         pageSize
-    });
+    })
 
     if (paginationRange && paginationRange.length < 2) return null
-    let lastPage = Array.isArray(paginationRange) && paginationRange[paginationRange.length - 1];
+    let lastPage = Array.isArray(paginationRange) && paginationRange[paginationRange.length - 1]
 
     const onNext = () => onPageChange(+currentPage + 1)
     const onPrevious = () => onPageChange(+currentPage - 1)
@@ -58,6 +58,6 @@ export const Pagination: React.FC<PaginationPropsType> = (props) => {
                 </li>
             </ul>
         </>
-    );
-};
+    )
+})
 

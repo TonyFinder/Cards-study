@@ -16,7 +16,7 @@ type ModalUpdateContainerType = {
 }
 
 
-export const ModalUpdateCardContainer: React.FC<ModalUpdateContainerType> = ({cardId, cardQuestion, cardAnswer, disabled}) => {
+export const ModalUpdateCardContainer: React.FC<ModalUpdateContainerType> = React.memo( ({cardId, cardQuestion, cardAnswer, disabled}) => {
     const [show, setShow] = useState(false);
     const [question, setQuestion] = useState(cardQuestion);
     const [answer, setAnswer] = useState(cardAnswer);
@@ -29,10 +29,10 @@ export const ModalUpdateCardContainer: React.FC<ModalUpdateContainerType> = ({ca
     }, [show, cardQuestion, cardAnswer])
 
 
-    const onClickUpdateHandler = () => {
+    const onClickUpdateHandler = useCallback( () => {
         dispatch(updateCardTC({_id: cardId, question, answer}, cardQuestion))
         setShow(false)
-    }
+    }, [dispatch, cardId, question, answer, cardQuestion])
 
     const onClickCloseModalHandler = useCallback( () => {
         setShow(false)
@@ -91,4 +91,4 @@ export const ModalUpdateCardContainer: React.FC<ModalUpdateContainerType> = ({ca
             </Modal>
         </>
     )
-}
+})

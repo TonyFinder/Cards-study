@@ -1,4 +1,4 @@
-import React, {ChangeEvent, DetailedHTMLProps, SelectHTMLAttributes} from 'react';
+import React, {ChangeEvent, DetailedHTMLProps, SelectHTMLAttributes, useCallback} from 'react';
 import styled from 'styled-components';
 
 type DefaultSelectPropsType = DetailedHTMLProps<SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>
@@ -11,7 +11,7 @@ type SelectPropsType = DefaultSelectPropsType & {
     disabled?: boolean
 }
 
-export const Select: React.FC<SelectPropsType> = (
+export const Select: React.FC<SelectPropsType> = React.memo((
     {
         options, onChangeOption, value, color,
         disabled
@@ -21,17 +21,17 @@ export const Select: React.FC<SelectPropsType> = (
         <option key={i}>{opt}</option>
     )) : []
 
-    const onChangeCallback = (e: ChangeEvent<HTMLSelectElement>) => {
+    const onChangeCallback = useCallback( (e: ChangeEvent<HTMLSelectElement>) => {
         onChangeOption && onChangeOption(e.currentTarget.value === 'None' ? '' : e.currentTarget.value)
-    }
+    }, [onChangeOption])
 
     return (
         <StyledSelect onChange={onChangeCallback} value={value} color={color} disabled={disabled}>
             <option hidden disabled></option>
             {mappedOptions}
         </StyledSelect>
-    );
-}
+    )
+})
 
 const StyledSelect = styled.select`
   padding: 10px;

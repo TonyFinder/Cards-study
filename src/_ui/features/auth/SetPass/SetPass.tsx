@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {Navigate, useParams} from 'react-router-dom';
 import {useAppDispatch, useCustomSelector} from '../../../../_bll/main/store';
 import {Button} from '../../../common/_superComponents/Button/Button';
@@ -9,7 +9,7 @@ import {COLORS, ROUTE_PATHS} from '../../../../utils/_values';
 import {Loader} from '../../../common/_superComponents/Loader/Loader';
 import {AuthInitialStateType, setNewPasswordTC} from '../../../../_bll/features/auth/authReducer';
 
-export const SetPass = () => {
+export const SetPass = React.memo( () => {
   const dispatch = useAppDispatch()
   const {token} = useParams();
   const {isNewPasswordSet} = useCustomSelector<AuthInitialStateType>(state => state.auth)
@@ -25,20 +25,22 @@ export const SetPass = () => {
 
   const saveButtonDisable = !passwordValue || errorPassword || errorPasswordValid || serverRequest
 
-  const onClickCreateHandler = () => {
+  const onClickCreateHandler = useCallback( () => {
     if (saveButtonDisable) return
     setServerRequest(true)
     passwordValue.length > 7
         ? dispatch(setNewPasswordTC(passwordValue, token ? token : ''))
         : setErrorPasswordValid(true)
-  }
-  const onChangeTextPasswordHandler = (value: string) => {
+  }, [dispatch, passwordValue, saveButtonDisable, token])
+  const onChangeTextPasswordHandler = useCallback( (value: string) => {
     setPasswordValue(value)
     setErrorPassword(false)
     setErrorPasswordValid(false)
     setServerRequest(false)
-  }
-  const onClickShowPasswordHandler = () => setTypeInput(typeInput === "password" ? "text" : "password")
+  }, [])
+  const onClickShowPasswordHandler = useCallback( () => {
+    setTypeInput(typeInput === 'password' ? 'text' : 'password')
+  }, [typeInput])
 
   if (isNewPasswordSet) return <Navigate to={ROUTE_PATHS.LOGIN}/>
 
@@ -78,4 +80,4 @@ export const SetPass = () => {
       </div>
     </div>
   </div>
-}
+})

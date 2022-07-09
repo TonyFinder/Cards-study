@@ -12,7 +12,7 @@ type ModalCreatePackContainerType = {
     disabled: boolean
 }
 
-export const ModalCreatePackContainer: React.FC<ModalCreatePackContainerType> = ({disabled}) => {
+export const ModalCreatePackContainer: React.FC<ModalCreatePackContainerType> = React.memo( ({disabled}) => {
     const [show, setShow] = useState(false);
 
     const [namePack, setNamePack] = useState("");
@@ -20,7 +20,12 @@ export const ModalCreatePackContainer: React.FC<ModalCreatePackContainerType> = 
 
     const dispatch = useAppDispatch()
 
-    const onClickCreateHandler = () => {
+    const onClickCloseHandler = useCallback( () => {
+        setShow(false)
+        setNamePack('')
+        setCardPrivate(false)
+    }, [])
+    const onClickCreateHandler = useCallback( () => {
         if (!namePack) return
         dispatch(createPackTC(
             {
@@ -30,21 +35,16 @@ export const ModalCreatePackContainer: React.FC<ModalCreatePackContainerType> = 
             }
         ))
         onClickCloseHandler()
-    }
-    const onClickCloseHandler = () => {
-        setShow(false)
-        setNamePack('')
-        setCardPrivate(false)
-    }
-    const onClickMainButton = () => {
+    }, [dispatch, cardPrivate, namePack, onClickCloseHandler])
+    const onClickMainButton = useCallback( () => {
         dispatch(setShowFilters(false))
         setShow(true)
-    }
+    }, [dispatch])
 
     // Logic for leaving modal window in case ESC button is pressed
     const escFunction = useCallback( (event: KeyboardEvent) => {
         event.code === 'Escape' && onClickCloseHandler()
-    }, [])
+    }, [onClickCloseHandler])
 
     useEffect(() => {
         document.addEventListener("keydown", escFunction)
@@ -97,4 +97,4 @@ export const ModalCreatePackContainer: React.FC<ModalCreatePackContainerType> = 
             </Modal>
         </>
     )
-}
+})

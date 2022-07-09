@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import styles from './Filters.module.scss';
 import {DoubleButton} from '../../../../../common/_superComponents/DoubleButton/DoubleButton';
 import {COLORS} from '../../../../../../utils/_values';
@@ -17,7 +17,7 @@ type FiltersPropsType = {
     onResetFilters: (value: string) => void
 }
 
-export const Filters = (
+export const Filters = React.memo( (
     {
         disabled,
         min, max, minCardsCount, maxCardsCount,
@@ -29,17 +29,17 @@ export const Filters = (
     const userId = useCustomSelector<string>(state => state.profile._id)
     const user_id = useCustomSelector<string|undefined>(state => state.packs.packParams.user_id)
 
-    const onMouseUpSliderHandler = ({min, max}: maxMinValueType) => {
+    const onMouseUpSliderHandler = useCallback( ({min, max}: maxMinValueType) => {
         dispatch(updatePacksParams({min, max, page: 1}))
-    }
-    const onClickMyAllOrResetChanger = (value: string) => {
+    }, [dispatch])
+    const onClickMyAllOrResetChanger = useCallback( (value: string) => {
         value === 'my'
             ? onResetFilters(userId)
             : onResetFilters('')
-    }
-    const onClickCrossHandler = () => {
+    }, [onResetFilters, userId])
+    const onClickCrossHandler = useCallback( () => {
       dispatch(setShowFilters(false))
-    }
+    }, [dispatch])
 
     return <div className={styles.settingsBlock}>
         <div className={styles.settings}>
@@ -68,4 +68,4 @@ export const Filters = (
         </div>
         <div className={styles.cross} onClick={onClickCrossHandler}>&#10006;</div>
     </div>
-}
+})

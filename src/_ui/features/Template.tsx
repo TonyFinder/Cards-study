@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import styles from './Template.module.scss';
 import {Button} from '../common/_superComponents/Button/Button';
 import {LoadingStatusType} from '../../utils/enums';
@@ -11,8 +11,7 @@ import {Checkbox} from '../common/_superComponents/Checkbox/Checkbox';
 import {Link} from 'react-router-dom';
 import {Radio} from '../common/_superComponents/Radio/Radio';
 
-export const Template = () => {
-
+export const Template = React.memo( () => {
     const {name, email, avatar} = useCustomSelector<AuthDataType>(state => state.profile)
     const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
     const error = 'Error is here'
@@ -27,9 +26,9 @@ export const Template = () => {
     const [passwordValue, setPasswordValue] = useState<string>('pass')
     const [errorPassword, setErrorPassword] = useState<boolean>(false)
     const [typeInput, setTypeInput] = useState("password")
-    const onClickShowPasswordHandler = () => {
+    const onClickShowPasswordHandler = useCallback( () => {
         setTypeInput(typeInput === "password" ? "text" : "password")
-    }
+    }, [typeInput])
     // Data for Radio
     const [radioSelect, setRadioSelect] = useState<{id: number, title: string, selected: boolean}[]>([
         {id: 0, title: 'Yes', selected: false},
@@ -38,12 +37,12 @@ export const Template = () => {
         {id: 3, title: 'Confused', selected: false},
         {id: 4, title: 'Knew the answer', selected: false},
     ])
-    const onClickRadio = (position: number) => {
+    const onClickRadio = useCallback( (position: number) => {
         setRadioSelect(radioSelect.map(item =>
             item.id === position
                 ? {...item, selected: true}
                 : {...item, selected: false}))
-    }
+    }, [radioSelect])
 
     // Disabling the buttons. Depends on: empty value, error in Input, the original name is the same as the changed one, and so on.
     // Have to be configured individually for each button.
@@ -170,4 +169,4 @@ export const Template = () => {
             </div>
         </div>
     </div>
-}
+})

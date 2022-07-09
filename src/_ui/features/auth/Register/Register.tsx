@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {useAppDispatch, useCustomSelector,} from '../../../../_bll/main/store';
 import {Button} from '../../../common/_superComponents/Button/Button';
 import {Input} from '../../../common/_superComponents/Input/Input';
@@ -9,8 +9,7 @@ import {LoadingStatusType} from '../../../../utils/enums';
 import {Loader} from '../../../common/_superComponents/Loader/Loader';
 import {AuthInitialStateType, requestRegistrationTC} from '../../../../_bll/features/auth/authReducer';
 
-export const Register = () => {
-
+export const Register = React.memo( () => {
   const dispatch = useAppDispatch()
   const {isRegistered} = useCustomSelector<AuthInitialStateType>(state => state.auth)
   const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
@@ -32,14 +31,14 @@ export const Register = () => {
 
   const saveButtonDisable = !emailValue || !passwordValue || !repeatPasswordValue || errorEmail || errorPassword || errorRepeatPassword || serverRequest
 
-  const onClickShowPasswordHandler = (value: number) => {
+  const onClickShowPasswordHandler = useCallback( (value: number) => {
     setTypeInput(typeInput.map((m, i) => i === value
         ? m === 'password'
             ? 'text'
             : 'password'
         : m))
-  }
-  const onClickRegisterHandler = () => {
+  }, [typeInput])
+  const onClickRegisterHandler = useCallback( () => {
     if (saveButtonDisable) return
     setServerRequest(true);
     /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(emailValue) && passwordValue.length > 7 && repeatPasswordValue.length > 7 && passwordValue === repeatPasswordValue && dispatch(requestRegistrationTC(emailValue, passwordValue))
@@ -47,24 +46,24 @@ export const Register = () => {
     passwordValue.length < 8 && setErrorPasswordValid(true)
     repeatPasswordValue.length < 8 && setErrorRepeatPasswordValid(true)
     passwordValue !== repeatPasswordValue && setErrorComparePasswords(true)
-  }
-  const onChangeTextEmailHandler = (value: string) => {
+  }, [dispatch, emailValue, passwordValue, repeatPasswordValue, saveButtonDisable])
+  const onChangeTextEmailHandler = useCallback( (value: string) => {
     setEmailValue(value)
     setErrorEmailValid(false)
     setServerRequest(false)
-  }
-  const onChangeTextPasswordHandler = (value: string) => {
+  }, [])
+  const onChangeTextPasswordHandler = useCallback( (value: string) => {
     setPasswordValue(value)
     setErrorPasswordValid(false)
     setErrorComparePasswords(false)
     setServerRequest(false)
-  }
-  const onChangeTextRepeatPasswordHandler = (value: string) => {
+  }, [])
+  const onChangeTextRepeatPasswordHandler = useCallback( (value: string) => {
     setRepeatPasswordValue(value)
     setErrorRepeatPasswordValid(false)
     setErrorComparePasswords(false)
     setServerRequest(false)
-  }
+  }, [])
 
   if (isRegistered && repeatPasswordValue === passwordValue) return <Navigate to={ROUTE_PATHS.LOGIN}/>
 
@@ -131,4 +130,4 @@ export const Register = () => {
       </div>
     </div>
   </div>
-};
+})

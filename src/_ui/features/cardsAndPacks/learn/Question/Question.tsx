@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import styles from '../../../Template.module.scss';
 import {Button} from '../../../../common/_superComponents/Button/Button';
 import {LoadingStatusType} from '../../../../../utils/enums';
@@ -10,19 +10,19 @@ import {PackType} from '../../../../../_dal/api-PacksAndCards';
 import {initialStateCardsType} from '../../../../../_bll/features/cards/cardsReducer';
 import {getCard} from '../../../../../utils/functions';
 
-export const Question = () => {
-    const {cards} = useCustomSelector<initialStateCardsType>(state => state.cards);
+export const Question = React.memo( () => {
     const navigate = useNavigate()
     let {packId} = useParams()
+    const {cards} = useCustomSelector<initialStateCardsType>(state => state.cards);
     const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
     const pack = useCustomSelector<PackType>(state => state.packs.cardPacks.filter(i => i._id === packId)[0])
 
     let chosenCard = getCard(cards)
 
-    const onClickLeaveHandler = () => navigate(ROUTE_PATHS.PACKS)
-    const onCLickAnswerHandle = () => {
+    const onClickLeaveHandler = useCallback( () => navigate(ROUTE_PATHS.PACKS), [navigate])
+    const onCLickAnswerHandle = useCallback( () => {
         navigate(`${ROUTE_PATHS.ANSWER}/${chosenCard.cardsPack_id}/${chosenCard._id}`)
-    }
+    }, [navigate, chosenCard.cardsPack_id, chosenCard._id])
 
     if (!pack) return <Navigate to={ROUTE_PATHS.PACKS}/>
 
@@ -43,4 +43,4 @@ export const Question = () => {
             </div>
         }
     </div>
-}
+})

@@ -7,7 +7,7 @@ import {initializeAppTC} from '../../../_bll/main/appReducer';
 import { Loader } from '../../common/_superComponents/Loader/Loader';
 import {COLORS} from '../../../utils/_values';
 
-export const App = () => {
+export const App = React.memo( () => {
     const dispatch = useAppDispatch()
     const isInitialized = useCustomSelector<boolean>(state => state.app.isInitialized)
     const isLoggedIn = useCustomSelector<boolean>(state => state.auth.isLoggedIn)
@@ -31,4 +31,4 @@ export const App = () => {
             </div>
         }
     </div>
-}
+})

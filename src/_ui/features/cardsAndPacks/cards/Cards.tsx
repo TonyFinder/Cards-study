@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Navigate, useNavigate, useParams} from 'react-router-dom';
 import {useAppDispatch, useCustomSelector} from '../../../../_bll/main/store';
 import {initialStateCardsType, setCardsTC, updateCardParams,} from '../../../../_bll/features/cards/cardsReducer';
@@ -22,7 +22,7 @@ const headerTable = {
     header: true
 }
 
-export const Cards = () => {
+export const Cards = React.memo( () => {
     let {packId, packName} = useParams()
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
@@ -64,9 +64,9 @@ export const Cards = () => {
         setPaginationInput('')
     }, [debouncedPaginationInput, dispatch])
 
-    const onPageChangeHandler = (page: number) => {
+    const onPageChangeHandler = useCallback( (page: number) => {
         dispatch(updateCardParams({page}))
-    }
+    }, [dispatch])
 
     if (!isLogin) return <Navigate to={ROUTE_PATHS.LOGIN}/>
 
@@ -127,5 +127,5 @@ export const Cards = () => {
             </div>
 
         </div>
-    );
-};
+    )
+})

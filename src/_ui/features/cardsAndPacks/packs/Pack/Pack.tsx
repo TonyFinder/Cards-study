@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {Button} from '../../../../common/_superComponents/Button/Button';
 import styles from './Pack.module.scss';
 import {Link} from 'react-router-dom';
@@ -24,7 +24,7 @@ export type PackPropsType = {
     showHiddenText?: (value: string) => void
 }
 
-export const Pack: React.FC<PackPropsType> = (props) => {
+export const Pack: React.FC<PackPropsType> = React.memo( (props) => {
     const {
         _id,
         name,
@@ -37,14 +37,15 @@ export const Pack: React.FC<PackPropsType> = (props) => {
         user_id,
         onClick,
         showHiddenText,
-    } = props;
+    } = props
+
     const dispatch = useAppDispatch()
     const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
     const userId = useCustomSelector<string>(state => state.profile._id)
 
     const disabled = loading === LoadingStatusType.active
 
-    const onClickSortHandler = (e: string) => {
+    const onClickSortHandler = useCallback( (e: string) => {
         // determining on which column the filter is located
         if (loading === LoadingStatusType.active) return
         sort[1] === e
@@ -53,18 +54,18 @@ export const Pack: React.FC<PackPropsType> = (props) => {
                 ? dispatch(updatePacksParams({sortPacks: `1${sort[1]}`, page: 1}))
                 : dispatch(updatePacksParams({sortPacks: '0updated', page: 1}))
             : dispatch(updatePacksParams({sortPacks: `0${e}`, page: 1}))
-    }
-    const onClickLearnHandle = () => {
+    }, [dispatch, sort, loading])
+    const onClickLearnHandle = useCallback( () => {
         onClick && onClick(_id)
-    }
-    const onMouseEnterHandler = (value: string) => {
+    }, [onClick, _id])
+    const onMouseEnterHandler = useCallback( (value: string) => {
         if (value.length < 10) return
         showHiddenText && showHiddenText(value)
-    }
-    const onMouseLeaveHandler = (value: string) => {
+    }, [showHiddenText])
+    const onMouseLeaveHandler = useCallback( (value: string) => {
         if (value.length > 350) return
         showHiddenText && showHiddenText('')
-    }
+    }, [showHiddenText])
 
     return (
         <div key={_id} className={styles.row}>
@@ -131,7 +132,7 @@ export const Pack: React.FC<PackPropsType> = (props) => {
             </div>
 
         </div>
-    );
-};
+    )
+})
 
 

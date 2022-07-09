@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import styles from './Notification.module.scss'
 import {useAppDispatch} from "../../../../_bll/main/store";
 import {removeNotification} from '../../../../_bll/main/appReducer';
@@ -12,14 +12,14 @@ export type NotificationType = {
 export type Type = "success" | "error"
 type setIntervalType = ReturnType<typeof setInterval>
 
-export const Notification: React.FC<NotificationType> = ({id, type, message}) => {
+export const Notification: React.FC<NotificationType> = React.memo( ({id, type, message}) => {
     const [exit, setExit] = useState<boolean>(false);
     const [width, setWidth] = useState<number>(0);
     const [intervalId, setIntervalId] = useState<setIntervalType>();
 
     const dispatch = useAppDispatch()
 
-    const handleStartTimer = () => {
+    const handleStartTimer = useCallback( () => {
         const idInterval = setInterval(() => {
             setWidth((prev) => {
                 if (prev < 100) {
@@ -30,11 +30,11 @@ export const Notification: React.FC<NotificationType> = ({id, type, message}) =>
             })
         }, 20)
         setIntervalId(idInterval)
-    }
+    }, [])
 
-    const handlePauseTimer = () => {
+    const handlePauseTimer = useCallback(() => {
         clearInterval(intervalId)
-    }
+    }, [intervalId])
 
     useEffect(() => {
         if (width === 100) {
@@ -49,7 +49,7 @@ export const Notification: React.FC<NotificationType> = ({id, type, message}) =>
 
     useEffect(() => {
         handleStartTimer()
-    }, []);
+    }, [handleStartTimer]);
 
     return (
         <div className={`${styles.notificationItem} ${exit ? styles.exit : ''}`}
@@ -58,5 +58,5 @@ export const Notification: React.FC<NotificationType> = ({id, type, message}) =>
             <div style={{'width': `${width}%`}}
                  className={`${styles.bar} ${type === "success" ? styles.success : styles.error}`}/>
         </div>
-    );
-};
+    )
+})

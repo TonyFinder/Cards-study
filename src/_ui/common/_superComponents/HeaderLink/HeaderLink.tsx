@@ -8,7 +8,7 @@ type HeaderLinkPropsType = {
     children: React.ReactNode
 }
 
-export const HeaderLink = ({to, children, ...props}: HeaderLinkPropsType) => {
+export const HeaderLink = React.memo( ({to, children, ...props}: HeaderLinkPropsType) => {
     const match = useMatch(to)
 
     const style = {
@@ -24,4 +24,4 @@ export const HeaderLink = ({to, children, ...props}: HeaderLinkPropsType) => {
                  {...props}>
         {children}
     </Link>
-}
+})

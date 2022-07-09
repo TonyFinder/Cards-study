@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {initialStatePacksType, setPacksTC, updatePacksParams} from '../../../../_bll/features/cards/packsReducer';
 import {useAppDispatch, useCustomSelector} from '../../../../_bll/main/store';
 import {Navigate, useNavigate} from 'react-router-dom';
@@ -26,7 +26,7 @@ const headerTable = {
     header: true
 }
 
-export const Packs = () => {
+export const Packs = React.memo( () => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
     const {
@@ -75,12 +75,12 @@ export const Packs = () => {
         dispatch(updatePacksParams({packName: debouncedSearchTerm, page: 1}))
     }, [debouncedSearchTerm, dispatch])
 
-    const onPageChangeHandler = (page: number) => {
+    const onPageChangeHandler = useCallback( (page: number) => {
         if (loading === LoadingStatusType.active) return
         dispatch(updatePacksParams({page}))
         setPaginationInput('')
-    }
-    const onClickResetFiltersHandler = (value: string) => {
+    }, [dispatch, loading])
+    const onClickResetFiltersHandler = useCallback( (value: string) => {
         setIsChangeSlider(!isChangeSlider)
         dispatch(updatePacksParams({
             user_id: value,
@@ -89,12 +89,12 @@ export const Packs = () => {
             max: 0,
             sortPacks: "0updated"}))
         setSearchTerm('')
-    }
-    const onClickToLearn = (packId: string) => {
+    }, [dispatch, isChangeSlider])
+    const onClickToLearn = useCallback( (packId: string) => {
         dispatch(updateCardParams({cardsPack_id: packId}))
         dispatch(setCardsTC())
         navigate(`${ROUTE_PATHS.QUESTION}/${packId}`)
-    }
+    }, [dispatch, navigate])
 
     if (!isLogin) return <Navigate to={ROUTE_PATHS.LOGIN}/>
 
@@ -168,5 +168,5 @@ export const Packs = () => {
                 </div>
             </div>
         </div>
-    );
-};
+    )
+})

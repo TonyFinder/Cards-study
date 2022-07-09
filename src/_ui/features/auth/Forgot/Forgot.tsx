@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {useAppDispatch, useCustomSelector} from '../../../../_bll/main/store';
 import {Button} from '../../../common/_superComponents/Button/Button';
 import {Input} from '../../../common/_superComponents/Input/Input';
@@ -9,7 +9,7 @@ import {Link, Navigate} from 'react-router-dom';
 import {COLORS, ROUTE_PATHS} from '../../../../utils/_values';
 import {Loader} from '../../../common/_superComponents/Loader/Loader';
 
-export const Forgot = () => {
+export const Forgot = React.memo( () => {
     const dispatch = useAppDispatch()
     const {isLoggedIn, isRedirect} = useCustomSelector<AuthInitialStateType>(state => state.auth)
     const loading = useCustomSelector<LoadingStatusType>(state => state.app.loadingStatus)
@@ -23,18 +23,18 @@ export const Forgot = () => {
 
     const saveButtonDisable = !emailValue || errorEmail || errorEmailValid || serverRequest
 
-    const onClickForgotHandler = () => {
+    const onClickForgotHandler = useCallback( () => {
         if (saveButtonDisable) return
         setServerRequest(true);
         /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(emailValue)
             ? dispatch(requestPasswordTC(emailValue))
             : setErrorEmailValid(true)
-    }
-    const onChangeTextEmailHandler = (value: string) => {
+    }, [dispatch, emailValue, saveButtonDisable])
+    const onChangeTextEmailHandler = useCallback( (value: string) => {
         setEmailValue(value)
         setErrorEmailValid(false)
         setServerRequest(false)
-    }
+    }, [])
 
     if (isLoggedIn) return <Navigate to={ROUTE_PATHS.PROFILE}/>
     if (isRedirect) return <Navigate to={`${ROUTE_PATHS.CHECK_EMAIL}/${emailValue}`}/>
@@ -78,4 +78,4 @@ export const Forgot = () => {
             </div>
         </div>
     </div>
-}
+})

@@ -14,8 +14,7 @@ type InputComponentForCardsType = {
     disabled: boolean
 }
 
-export const InputComponentForCards: React.FC<InputComponentForCardsType> = (props) => {
-
+export const InputComponentForCards: React.FC<InputComponentForCardsType> = React.memo( (props) => {
     const {
         packUserId,
         userId,
@@ -62,5 +61,4 @@ export const InputComponentForCards: React.FC<InputComponentForCardsType> = (pro
             }
         </div>
     )
-}
-
+})

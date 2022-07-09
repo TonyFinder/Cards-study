@@ -1,4 +1,11 @@
-import React, {DetailedHTMLProps, KeyboardEvent, InputHTMLAttributes, HTMLAttributes, useState} from 'react'
+import React, {
+    DetailedHTMLProps,
+    KeyboardEvent,
+    InputHTMLAttributes,
+    HTMLAttributes,
+    useState,
+    useCallback
+} from 'react'
 import {Input} from '../Input/Input'
 import styles from './EditableSpan.module.scss'
 
@@ -14,7 +21,7 @@ type EditableSpanType = DefaultInputPropsType & {
     spanProps?: DefaultSpanPropsType
 }
 
-export const EditableSpan: React.FC<EditableSpanType> = (
+export const EditableSpan: React.FC<EditableSpanType> = React.memo( (
     {
         onChangeText,
         spanProps,
@@ -24,11 +31,11 @@ export const EditableSpan: React.FC<EditableSpanType> = (
     const [editMode, setEditMode] = useState<boolean>(false)
     const {children, onDoubleClick, className, ...restSpanProps} = spanProps || {}
 
-    const onEnterCallback = (e: KeyboardEvent<HTMLInputElement>) => {
+    const onEnterCallback = useCallback( (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.code === 'Enter' || e.code === 'NumpadEnter') setEditMode(false)
-    }
-    const onBlurCallback = () => setEditMode(false)
-    const onDoubleClickCallBack = () => setEditMode(true)
+    }, [])
+    const onBlurCallback = useCallback( () => setEditMode(false), [])
+    const onDoubleClickCallBack = useCallback( () => setEditMode(true), [])
 
     return (
         <>
@@ -52,4 +59,4 @@ export const EditableSpan: React.FC<EditableSpanType> = (
             }
         </>
     )
-}
+})

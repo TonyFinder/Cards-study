@@ -3,9 +3,7 @@ import React from 'react';
 import emailCheck from '../../../../rest/images/emailCheck.png'
 import {useParams} from "react-router-dom";
 
-export const CheckEmail = () => {
-
-
+export const CheckEmail = React.memo( () => {
     let {email} = useParams<string>()
 
     return <div className={styles.container}>
@@ -22,4 +20,4 @@ export const CheckEmail = () => {
             </div>
         </div>
     </div>
-}
+})

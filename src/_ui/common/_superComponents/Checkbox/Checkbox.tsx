@@ -10,7 +10,7 @@ type CheckboxPropsType = DefaultInputPropsType & {
     color?: string
 }
 
-export const Checkbox: React.FC<CheckboxPropsType> = ({
+export const Checkbox: React.FC<CheckboxPropsType> = React.memo( ({
     onClick, disabled, color, children,
     ...restProps}
 ) => {
@@ -25,8 +25,8 @@ export const Checkbox: React.FC<CheckboxPropsType> = ({
             />
             <label>{children}</label>
         </StyledCheckbox>
-    );
-}
+    )
+})
 
 const StyledCheckbox = styled.div`
   position: relative;

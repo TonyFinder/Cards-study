@@ -7,8 +7,7 @@ type ModalPropsType = {
     children: React.ReactNode
 }
 
-export const Modal = ({backgroundOnClick, show, children}: ModalPropsType) => {
-
+export const Modal = React.memo( ({backgroundOnClick, show, children}: ModalPropsType) => {
     if (!show) return null
 
     return (
@@ -19,4 +18,4 @@ export const Modal = ({backgroundOnClick, show, children}: ModalPropsType) => {
             </div>
         </>
     )
-}
+})

@@ -15,8 +15,7 @@ export type maxMinValueType = {
     max: number
 }
 
-export const Slider = ({min, max, minDefault, maxDefault, disabled, onMouseUp, changeSlider}: SliderPropsType) => {
-
+export const Slider = React.memo( ({min, max, minDefault, maxDefault, disabled, onMouseUp, changeSlider}: SliderPropsType) => {
     const [minVal, setMinVal] = useState(min);
     const [maxVal, setMaxVal] = useState(max);
     const range = useRef<HTMLDivElement>(null);
@@ -62,5 +61,5 @@ export const Slider = ({min, max, minDefault, maxDefault, disabled, onMouseUp, c
                 <div className={styles.slider__rightValue}>{maxVal}</div>
             </div>
         </div>
-    );
-}
+    )
+})

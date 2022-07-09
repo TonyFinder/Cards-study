@@ -6,7 +6,7 @@ type StarRatingType = {
     grade: number
 }
 
-export const StarRating: React.FC<StarRatingType> = ({grade}) => {
+export const StarRating: React.FC<StarRatingType> = React.memo( ({grade}) => {
     const ref = useRef<HTMLDivElement>(null);
 
     const setRatingWidth = (grade: number) => {
@@ -34,4 +34,4 @@ export const StarRating: React.FC<StarRatingType> = ({grade}) => {
             </div>
         </div>
     )
-}
+})

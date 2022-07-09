@@ -8,14 +8,13 @@ type SortButtonType = {
     onClick?: () => void
 }
 
-export const SortButton = ({title, color, value, onClick}: SortButtonType) => {
-
+export const SortButton = React.memo( ({title, color, value, onClick}: SortButtonType) => {
     return (
         <div style={{display: 'flex'}} onClick={onClick}>
             <StyledSort id={value} color={color}>{title}</StyledSort>
         </div>
     )
-}
+})
 
 const StyledSort = styled.div`
   position: relative;

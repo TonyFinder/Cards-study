@@ -9,7 +9,7 @@ type DoubleButtonType = {
     disabled?: boolean
 }
 
-export const DoubleButton = ({active, activeColor, disableColor, onClick, disabled}: DoubleButtonType) => {
+export const DoubleButton = React.memo( ({active, activeColor, disableColor, onClick, disabled}: DoubleButtonType) => {
     const style = (order: number) => ({
         borderRadius: order === 0 ? '8px 0 0 8px' : '0 8px 8px 0',
         backgroundColor: active[order] ? activeColor : disableColor,
@@ -20,4 +20,4 @@ export const DoubleButton = ({active, activeColor, disableColor, onClick, disabl
         <button style={style(0)} className={styles.button} onClick={() => onClick('my')} disabled={disabled}>My</button>
         <button style={style(1)} className={styles.button} onClick={() => onClick('all')} disabled={disabled}>All</button>
     </div>
-}
+})
