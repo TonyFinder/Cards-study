@@ -23,6 +23,7 @@ We tried to avoid using additional libraries. This is made to understand all the
 - **Priority of custom components.**
 **[Here](https://tonyfinder.github.io/cards-nya-front/#/test/?target=_blank)** you can check our custom components.
 - **Custom form validation**.
+- **Adapted for all popular screens**.
 
 ## What you can do in this application
 - Sign up, sign in and log out
