@@ -21,7 +21,7 @@ Here you will find an application for studying. You can create sets with cards t
 
 We tried to avoid using additional libraries. This is made to understand all the details of the project.
 - **Priority of custom components.**
-**[Here](https://tonyfinder.github.io/cards-study/#/test)** you can check our custom components.
+**[Here](https://tonyfinder.github.io/Cards-study/#/test)** you can check our custom components.
 - **Custom form validation**.
 - **Adapted for all popular screens**.
 
