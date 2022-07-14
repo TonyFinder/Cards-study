@@ -1,6 +1,6 @@
 # Cards study
 
-## Game description
+## Project description
 Here you will find an application for studying. You can create sets with cards that have questions and answers. Then a person can go through training according to these cards, checking his level of knowledge on a topic of interest to him.
 
 ## Stack
