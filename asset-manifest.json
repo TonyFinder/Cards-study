@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/cards-nya-front/static/css/main.65afc807.css",
-    "main.js": "/cards-nya-front/static/js/main.bcc136e1.js",
-    "static/js/787.bc4a98be.chunk.js": "/cards-nya-front/static/js/787.bc4a98be.chunk.js",
-    "static/media/not_found_404.png": "/cards-nya-front/static/media/not_found_404.91b427fbaaa176a61156.png",
-    "static/media/emailCheck.png": "/cards-nya-front/static/media/emailCheck.4aad74bffaa7528ccb7b.png",
-    "index.html": "/cards-nya-front/index.html",
-    "main.65afc807.css.map": "/cards-nya-front/static/css/main.65afc807.css.map",
-    "main.bcc136e1.js.map": "/cards-nya-front/static/js/main.bcc136e1.js.map",
-    "787.bc4a98be.chunk.js.map": "/cards-nya-front/static/js/787.bc4a98be.chunk.js.map"
+    "main.css": "/Cards-study/static/css/main.65afc807.css",
+    "main.js": "/Cards-study/static/js/main.f8551576.js",
+    "static/js/787.dd4ebd8e.chunk.js": "/Cards-study/static/js/787.dd4ebd8e.chunk.js",
+    "static/media/not_found_404.png": "/Cards-study/static/media/not_found_404.91b427fbaaa176a61156.png",
+    "static/media/emailCheck.png": "/Cards-study/static/media/emailCheck.4aad74bffaa7528ccb7b.png",
+    "index.html": "/Cards-study/index.html",
+    "main.65afc807.css.map": "/Cards-study/static/css/main.65afc807.css.map",
+    "main.f8551576.js.map": "/Cards-study/static/js/main.f8551576.js.map",
+    "787.dd4ebd8e.chunk.js.map": "/Cards-study/static/js/787.dd4ebd8e.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.65afc807.css",
-    "static/js/main.bcc136e1.js"
+    "static/js/main.f8551576.js"
   ]
 }
