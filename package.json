@@ -1,6 +1,6 @@
 {
-  "homepage": "https://TonyFinder.github.io/Cards-study-game",
-  "name": "cards-nya-front",
+  "homepage": "https://TonyFinder.github.io/Cards-study",
+  "name": "cards-study",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

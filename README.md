@@ -1,4 +1,4 @@
-# Card Game
+# Cards study
 
 ## Game description
 Here you will find an application for studying. You can create sets with cards that have questions and answers. Then a person can go through training according to these cards, checking his level of knowledge on a topic of interest to him.
@@ -21,7 +21,7 @@ Here you will find an application for studying. You can create sets with cards t
 
 We tried to avoid using additional libraries. This is made to understand all the details of the project.
 - **Priority of custom components.**
-**[Here](https://tonyfinder.github.io/cards-nya-front/#/test/?target=_blank)** you can check our custom components.
+**[Here](https://tonyfinder.github.io/cards-study/#/test)** you can check our custom components.
 - **Custom form validation**.
 - **Adapted for all popular screens**.
 
@@ -38,10 +38,10 @@ We tried to avoid using additional libraries. This is made to understand all the
 
 This project was made in collaboration with:
 
-- [Anton](https://github.com/TonyFinder/?target=_blank)
-- [Oleg](https://github.com/Oleg655/?target=_blank)
-- [Vadim](https://github.com/Red13REd/?target=_blank)
+- [Anton](https://github.com/TonyFinder)
+- [Vadim](https://github.com/Red13REd)
+- [Oleg](https://github.com/Oleg655)
 
 ## Deployment
-The project has been deployed **[here](https://TonyFinder.github.io/cards-nya-front/?target=_blank)**.
+The project has been deployed **[here](https://TonyFinder.github.io/Cards-study)**.
 
