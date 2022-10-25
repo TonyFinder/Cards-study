@@ -3,6 +3,10 @@
 ## Project description
 Here you will find an application for studying. You can create sets with cards that have questions and answers. Then a person can go through training according to these cards, checking his level of knowledge on a topic of interest to him.
 
+
+## Video demonstration
+[![Video](https://img.youtube.com/vi/W8BqCHso7Nw/0.jpg)](https://www.youtube.com/watch?v=W8BqCHso7Nw)
+
 ## Stack
 
 ![React](https://img.shields.io/badge/react-1.svg?style=for-the-badge&logo=react&labelColor=20232a&color=514f4f)
